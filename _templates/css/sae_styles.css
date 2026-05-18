@@ -1,0 +1,60 @@
+/* ===== PALETTE SAE ===== */
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+    --sae-code-bg: #2d2d2d;
+}
+
+/* ===== BASE ===== */
+.reveal {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: var(--sae-black);
+}
+
+/* ===== TITRES ===== */
+.reveal h1 {
+    color: var(--sae-white);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.reveal h2 {
+    color: var(--sae-white);
+    font-weight: 400;
+    border-bottom: 3px solid var(--sae-red);
+    padding-bottom: 0.2em;
+}
+
+.reveal h3 {
+    color: var(--sae-red);
+}
+
+.reveal .slide-title {
+    font-size: 2.5em;
+}
+
+.reveal .slides section {
+    padding: 50px 80px;
+    max-height: 60%;
+    box-sizing: border-box;
+    font-size: 0.6em; /* also scale down text if content is dense */
+}
+
+.reveal pre code {
+    max-height: 200px; /* prevent code blocks from overflowing */
+    font-size: 0.85em;
+}
+/* === ELEMENTS  === */
+.reveal blockquote {
+    font-size: 0.6em;
+    padding: 8px 16px;
+    margin: 10px 0;
+}
+.reveal table {
+    font-size: 0.65em;
+    margin: 30px;
+    padding: 0;
+}
