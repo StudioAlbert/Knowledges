@@ -12,7 +12,7 @@ transition: slide
 
 <small>6 modules · 10 examples · 2 exercises · C++20 / C++23</small>
 
-<small>Repo: [REPO_URL](REPO_URL)</small>
+<small>Repo: [github.com/SAE-Geneve/CPlusPlus_Course_Ranges](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges)</small>
 
 Note:
 Welcome. Each slide links to a runnable folder in the companion repo —
@@ -115,7 +115,7 @@ auto it = std::ranges::find(people, 25, &Person::age);
 // Mixing containers no longer type-checks — the runtime bug is gone.
 ```
 
-<small>📁 [`examples/01_the_iterator_problem`](REPO_URL/tree/main/examples/01_the_iterator_problem)</small>
+<small>📁 [`examples/01_the_iterator_problem`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/01_the_iterator_problem)</small>
 
 Note:
 Everything on the last two slides — the verbosity *and* the silent bugs —
@@ -154,7 +154,7 @@ show(v); show(a); show(s); show(c); show(m);   // all ranges
 <small>If it exposes `begin()`/`end()`, every ranges algorithm and view
 accepts it directly — no iterator pairs.</small>
 
-<small>📁 [`examples/02_range_concept_basics`](REPO_URL/tree/main/examples/02_range_concept_basics)</small>
+<small>📁 [`examples/02_range_concept_basics`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/02_range_concept_basics)</small>
 
 Note:
 "Range = iterator-able" is the whole mental model here. The deeper
@@ -180,7 +180,7 @@ auto n        = std::ranges::count_if(v, [](int x){ return x > 5; });
 Bonus: result types are structs (`in`, `out`) — no more lost information
 about where the algorithm stopped.
 
-<small>📁 [`examples/03_range_algorithms_basics`](REPO_URL/tree/main/examples/03_range_algorithms_basics)</small>
+<small>📁 [`examples/03_range_algorithms_basics`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/03_range_algorithms_basics)</small>
 
 Note:
 The return types of e.g. `ranges::copy` return both the input end and
@@ -205,7 +205,7 @@ auto top =
 
 The intent is in the type signature — not buried in a hand-written loop.
 
-<small>📁 [`examples/04_composing_pipelines`](REPO_URL/tree/main/examples/04_composing_pipelines)</small>
+<small>📁 [`examples/04_composing_pipelines`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/04_composing_pipelines)</small>
 
 Note:
 Pipelines are the headline feature. They also compose well with
@@ -293,7 +293,7 @@ std::ranges::sort(ptrs, {}, [](auto& up){ return up->id; });
 
 Compare to the equivalent classic-STL boilerplate.
 
-<small>📁 [`examples/05_projections_and_constraints`](REPO_URL/tree/main/examples/05_projections_and_constraints)</small>
+<small>📁 [`examples/05_projections_and_constraints`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/05_projections_and_constraints)</small>
 
 Note:
 Without projections you'd hand-write a comparator lambda for every
@@ -340,7 +340,7 @@ for (int x : std::views::iota(0) | std::views::take(5))  // never blocks
 
 <small>Key views: `iota`, `filter`, `transform`, `take`, `drop`, `reverse`.</small>
 
-<small>📁 [`examples/06_views_lazy_evaluation`](REPO_URL/tree/main/examples/06_views_lazy_evaluation)</small>
+<small>📁 [`examples/06_views_lazy_evaluation`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/06_views_lazy_evaluation)</small>
 
 Note:
 The benefit is concrete: same result, but the eager version did ~1M
@@ -415,7 +415,7 @@ auto good() {
 Rule of thumb: pipe an **lvalue** → the view *refers* to it (you own
 the lifetime); pipe an **rvalue** → an `owning_view` *adopts* it (safe).
 
-<small>📁 [`examples/07_owning_views`](REPO_URL/tree/main/examples/07_owning_views)</small>
+<small>📁 [`examples/07_owning_views`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/07_owning_views)</small>
 
 Note:
 Both functions use the *same* `make_data()` — the only difference is
@@ -452,7 +452,7 @@ auto it = std::ranges::find(std::vector{1,2,3}, 2);
 <small>An lvalue container is borrowed (it outlives the call); a temporary
 is not. Opt your own type in via `std::ranges::enable_borrowed_range`.</small>
 
-<small>📁 [`examples/08_borrowing_views`](REPO_URL/tree/main/examples/08_borrowing_views)</small>
+<small>📁 [`examples/08_borrowing_views`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/08_borrowing_views)</small>
 
 Note:
 "Borrowed" = iterator validity is not tied to the range object's
@@ -474,7 +474,7 @@ auto squares = std::views::iota(1, 11)
 
 Works with **any** container — `vector`, `set`, `map`, your own.
 
-<small>📁 [`examples/09_ranges_to`](REPO_URL/tree/main/examples/09_ranges_to)</small>
+<small>📁 [`examples/09_ranges_to`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/09_ranges_to)</small>
 
 ---
 
@@ -665,7 +665,7 @@ for (auto [x, y] : std::views::cartesian_product(xs, ys)) { /* ... */ }
 
 <small>Requires MSVC 19.34+ / GCC 14+ / Clang 17+.</small>
 
-<small>📁 [`examples/10_cpp23_enumerate_zip_chunk`](REPO_URL/tree/main/examples/10_cpp23_enumerate_zip_chunk)</small>
+<small>📁 [`examples/10_cpp23_enumerate_zip_chunk`](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges/tree/main/examples/10_cpp23_enumerate_zip_chunk)</small>
 
 Note:
 `enumerate` finally kills the manual `i++` counter pattern.
@@ -840,10 +840,10 @@ output; `enumerate` supplies the rank. Pre-C++23: drop `enumerate` and
 - 📘 [Eric Niebler — range-v3](https://github.com/ericniebler/range-v3) (the prototype)
 - 📺 Tristan Brindle — "An Overview of Standard Ranges" (CppCon)
 - 📺 Hannes Hauswedell — "From Iterators to Ranges"
-- 💻 This repo: [REPO_URL](REPO_URL)
+- 💻 This repo: [github.com/SAE-Geneve/CPlusPlus_Course_Ranges](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges)
 
 ---
 
 # Questions?
 
-<small>Code: [REPO_URL](REPO_URL)</small>
+<small>Code: [github.com/SAE-Geneve/CPlusPlus_Course_Ranges](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges)</small>
