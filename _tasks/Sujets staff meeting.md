@@ -1,0 +1,6 @@
+- [ ] materiel
+	- [ ] chargeur
+	- [ ] dongle
+	- [ ] clavier
+	- [ ] pc
+- [ ] reste des dates c++ advanced

@@ -1,0 +1,161 @@
+# Task Board Logs
+
+## System Information
+
+- **Obsidian version**: 1.12.7
+- **Installer version**: 1.7.7
+- **Operating system**: Windows 11 Home 10.0.26200
+- **Use [[Wikilinks]]**: true
+- **Base color scheme**: dark
+- **Community theme**: none
+- **Snippets enabled**: 0
+- **Plugins installed**: 3
+- **Plugins enabled**: 
+  - Advanced Slides v1.20.0
+  - Code Files v1.1.9
+  - Task Board v1.10.8
+
+## Recent Bug Reports
+
+Timestamp : 2026-05-22T14:20:01
+ID : 145
+Message : 
+Context : RealTimeScanner.ts/initializeTasksCache
+Version : 1.10.8
+
+#### Bug Content
+```log
+No need to worry if this is appearing on the fresh install.
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\tasks.json'
+```
+
+-------------
+
+Timestamp : 2026-05-22T14:20:17
+ID : 131
+Message : 
+Context : TaskBoardViewContent.tsx/loading boards and tasks useEffect
+Version : 1.10.8
+
+#### Bug Content
+```log
+No need to worry about this bug, if its appearing on the fresh install.
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\tasks.json'
+```
+
+-------------
+
+Timestamp : 2026-05-22T15:27:47
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-22T15:28:47
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-22T22:04:59
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-23T15:22:41
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-24T22:41:53
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-25T21:55:22
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-27T06:48:52
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-27T07:58:42
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```
+
+-------------
+
+Timestamp : 2026-05-27T23:31:22
+ID : 104
+Message : 
+Context : lang/helper.ts/loadTranslationsOnStartup
+Version : 1.10.8
+
+#### Bug Content
+```log
+Error: ENOENT: no such file or directory, open 'D:\_dev\repos\_Knowledges\.obsidian\plugins\task-board\locales\fr.json'
+```

@@ -13,6 +13,17 @@
     color: var(--sae-black);
 }
 
+/* ===== SLIDE BACKGROUNDS ===== */
+/* Default background for every regular (###) slide. Title and section
+   slides override this inline via a per-slide data-background comment.
+   url() is resolved relative to THIS file (_templates/css/). */
+.reveal .slide-background {
+    background-image: url('../../_images/01_slide_GP_GA_22_08_22.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 /* ===== TITRES ===== */
 .reveal h1 {
     color: var(--sae-white);

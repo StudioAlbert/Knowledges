@@ -1,0 +1,280 @@
+{
+    "VaultName": "_Knowledges",
+    "Modified_at": "2026-05-27T23:38:05",
+    "Pending": {
+        "_tasks/Sujets staff meeting.md": [
+            {
+                "id": "3722475000",
+                "legacyId": "",
+                "status": " ",
+                "title": "- [ ] materiel",
+                "body": [
+                    "\t- [ ] chargeur",
+                    "\t- [ ] dongle",
+                    "\t- [ ] clavier",
+                    "\t- [ ] pc"
+                ],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "_tasks/Sujets staff meeting.md",
+                "taskLocation": {
+                    "startLine": 1,
+                    "startCharIndex": 0,
+                    "endLine": 5,
+                    "endCharIndex": 9
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "3994731166",
+                "legacyId": "",
+                "status": " ",
+                "title": "- [ ] reste des dates c++ advanced",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "_tasks/Sujets staff meeting.md",
+                "taskLocation": {
+                    "startLine": 6,
+                    "startCharIndex": 0,
+                    "endLine": 6,
+                    "endCharIndex": 34
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            }
+        ],
+        "Meta/Task_Board/New_Tasks.md": [
+            {
+                "id": "1702909107",
+                "legacyId": "",
+                "status": " ",
+                "title": "- [ ] Create new website #JobResearch 📅 2026-05-22",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [
+                    "#JobResearch"
+                ],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 3,
+                    "startCharIndex": 0,
+                    "endLine": 3,
+                    "endCharIndex": 51
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "1478385552",
+                "legacyId": "",
+                "status": " ",
+                "title": "- [ ] Demo itch.io #JobResearch 📅 2026-05-22 ⛔ 2, 3, 4, 5",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [
+                    "#JobResearch"
+                ],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 5,
+                    "startCharIndex": 0,
+                    "endLine": 5,
+                    "endCharIndex": 58
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "2",
+                "legacyId": "2",
+                "status": " ",
+                "title": "- [ ] Demo pirates https://github.com/SAE-Geneve/925-SummativeUnity-Pirates 📅 2026-05-22 🆔 2",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 8,
+                    "startCharIndex": 0,
+                    "endLine": 8,
+                    "endCharIndex": 95
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "5",
+                "legacyId": "5",
+                "status": " ",
+                "title": "- [ ] Demo pti train https://github.com/SAE-Geneve/925-4FSC0PF002-ExamResub-Trains 📅 2026-05-22 🆔 5",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 10,
+                    "startCharIndex": 0,
+                    "endLine": 10,
+                    "endCharIndex": 102
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "3",
+                "legacyId": "3",
+                "status": " ",
+                "title": "- [ ] Demo magasin https://github.com/SAE-Geneve/924-UnitySummative-Resub-GroceryStore 📅 2026-05-22 🆔 3",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 12,
+                    "startCharIndex": 0,
+                    "endLine": 12,
+                    "endCharIndex": 105
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "4",
+                "legacyId": "4",
+                "status": " ",
+                "title": "- [ ] Demo Thief game https://github.com/StudioAlbert/MallLifeStealthGame 📅 2026-05-22 🆔 4",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 14,
+                    "startCharIndex": 0,
+                    "endLine": 14,
+                    "endCharIndex": 92
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            },
+            {
+                "id": "1501523475",
+                "legacyId": "",
+                "status": " ",
+                "title": "- [ ] Demo C++ 📅 2026-05-22",
+                "body": [],
+                "time": "",
+                "createdDate": "",
+                "startDate": "",
+                "scheduledDate": "",
+                "due": "2026-05-22",
+                "tags": [],
+                "frontmatterTags": [],
+                "priority": 0,
+                "dependsOn": [],
+                "filePath": "Meta/Task_Board/New_Tasks.md",
+                "taskLocation": {
+                    "startLine": 17,
+                    "startCharIndex": 0,
+                    "endLine": 17,
+                    "endCharIndex": 28
+                },
+                "completion": "",
+                "cancelledDate": "",
+                "reminder": ""
+            }
+        ],
+        "Unity Summative.md": [],
+        "README.md": [],
+        "C++ Advanced/drafts/cpp_serialization_lecture_draft.md": [],
+        "C++ Advanced/drafts/cpp_flyweight_pattern_lecture.md": [],
+        "C++ Advanced/drafts/cpp_expected_error_handling_lecture.md": [],
+        "C++ Advanced/drafts/cpp_event_bus_signals_lecture.md": [],
+        "C++ Advanced/drafts/cpp_command_pattern_lecture.md": [],
+        "C++ Advanced/cpp_templates_concepts_lecture.md": [],
+        "C++ Advanced/cpp_ranges_lecture_fr.md": [],
+        "Game programming - Généralités/ai_decision_making_lecture.md": []
+    },
+    "Completed": {
+        "Unity Summative.md": [],
+        "README.md": [],
+        "C++ Advanced/drafts/cpp_serialization_lecture_draft.md": [],
+        "C++ Advanced/drafts/cpp_flyweight_pattern_lecture.md": [],
+        "C++ Advanced/drafts/cpp_expected_error_handling_lecture.md": [],
+        "C++ Advanced/drafts/cpp_event_bus_signals_lecture.md": [],
+        "C++ Advanced/drafts/cpp_command_pattern_lecture.md": [],
+        "C++ Advanced/cpp_templates_concepts_lecture.md": [],
+        "C++ Advanced/cpp_ranges_lecture_fr.md": [],
+        "Game programming - Généralités/ai_decision_making_lecture.md": []
+    }
+}

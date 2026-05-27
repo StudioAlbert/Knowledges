@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+.reveal,
+.reveal .slides,
+.reveal .slides section {
+	background-color: #f6f0e5;
+	color: #25201b;
+	font-family: "Inter", system-ui, sans-serif;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+	color: #25201b;
+	font-family: "Inter", system-ui, sans-serif;
+	text-transform: none;
+}
+
+.reveal a {
+	color: #8a4423;
+}
+
+.reveal blockquote {
+	background: transparent;
+	box-shadow: none;
+	border-left: 3px solid #8a4423;
+	color: #25201b;
+	display: block;
+	width: 95% ;
+	max-width: none ;
+	font-size: 0.35em;
+	line-height: 1.5;
+	padding: 0.4em 0.8em;
+	margin: 0.3em 0 ;
+}
+
+.reveal blockquote p {
+	margin: 0 ;
+	padding: 0 ;
+}
