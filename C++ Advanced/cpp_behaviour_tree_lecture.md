@@ -232,105 +232,256 @@ class Sequence : public Node {
 
 ---
 
-## Bloc 3 — TP 1 : Squelette
+## Bloc 3 — TP 1 : premier NPC errant
 <!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small style="color:#fff;">45' · TP</small>
+<small style="color:#fff;">45' · TP · dans le projet CityBuilder</small>
 
-<small style="color:#fff;">Scénario console : un robot aspirateur.</small>
+<small style="color:#fff;">But : une unité qui **erre** sur la carte, pilotée par un BT.</small>
 
 ---
 
-### Scénario
+### Point de départ — tag `925-tp-bt-starter`
+
+```bash
+git checkout 925-tp-bt-starter
+```
+
+Vous héritez d'un jeu **propre** : boucle SFML (fenêtre, `dt`, events),
+caméra (drag/zoom), tilemap + terrain. **Aucune IA.**
+
+On ajoute un NPC piloté par un BT que **vous** écrivez dans `core/ai/`.
+
+---
+
+### Architecture en 3 couches
+
+- **`core/`** — la lib BT, **zéro dépendance SFML**. Namespace `core::ai::behaviour_tree`.
+- **`api/`** — le NPC (sprite + déplacement), fait le pont BT ↔ SFML.
+- **`game/`** — la boucle : instancie, `Update`, `Draw` le NPC.
+
+→ règle d'or : `core` ne connaît pas SFML.
+
+---
+
+### Étape CMake — `core` doit compiler des `.cc`
+
+Aujourd'hui `core` est *header-only* :
+
+```cmake
+add_library(core INTERFACE)                  # ne compile AUCUN .cc
+target_include_directories(core INTERFACE include/)
+```
+
+Notre lib BT aura des `.cc` → on passe à une lib **compilée** :
+
+```cmake
+file(GLOB_RECURSE SRC_FILES src/*.cc)
+file(GLOB_RECURSE HEADER_FILES include/*.h)
+add_library(core ${SRC_FILES} ${HEADER_FILES})
+target_include_directories(core PUBLIC include/)
+```
+
+<small>Header-only = juste des en-têtes exposés · lib compilée = du code objet à lier.</small>
+
+---
+
+### Le `Motor` — fourni (1/2) : l'API
+
+Le déplacement vous est **donné** (`api/include/motion/motor.h`). Pas de pathfinding.
 
 ```cpp
-struct World {
-  float battery = 100.f;
-  bool  dirt    = false;
-  bool  on_dock = false;
-  int   ticks   = 0;
+class Motor {
+ public:
+  void Update(float dt);                 // à chaque frame
+  float RemainingDistance() const;       // distance restant à parcourir
+  void SetSpeed(float speed);
+  void SetPosition(sf::Vector2f p);
+  void SetDestination(sf::Vector2f d);
+  const sf::Vector2f& GetPosition() const;
 };
 ```
 
-Vous tickez à la main dans une boucle `for`. Pas de SFML, pas de moteur.
+---
+
+### Le `Motor` — fourni (2/2) : comment ça marche
+
+```cpp
+void Motor::Update(float dt) {
+  sf::Vector2f d = destination_ - position_;
+  remainingDistance_ = d.length();
+  if (remainingDistance_ < speed_ * dt) {     // assez près → on colle
+    position_ = destination_;
+    return;
+  }
+  position_ += d.normalized() * speed_ * dt;  // sinon, un pas vers la cible
+}
+```
+
+→ interpolation linéaire vers la cible. **`MoveToDestination()` se résume à tester
+`RemainingDistance()`** — le `Motor` est une boîte noire.
 
 ---
 
 ### À livrer
 
-- `enum class Status`
-- `class Node` abstraite (`Tick`, `Reset`)
-- `class Action : public Node` recevant `std::function<Status()>`
-- `class Sequence : public Node` avec **raw pointers** (volontaire)
-- `main` : `Sequence(CheckBattery, GoToDock, Charge)` tické 30 fois
-
-<small>**Note** : votre programme va *fuir*. C'est normal — on corrigera au TP 2.</small>
+1. `core/ai/` : `Node`/`Status`, `Action` (`std::function`), `Composite`, `Sequence` —
+   **en `unique_ptr`** (la version raw-pointer du Bloc 2 reste conceptuelle).
+2. `core/CMakeLists.txt` : INTERFACE → lib compilée.
+3. `api/ai/npc.{h,cc}` : sprite + `Motor` + un `bt_root_`,
+   arbre `Sequence(PickRandomDestination, MoveToDestination)`.
+4. `game/src/game.cc` : instancier `npc_`, l'`Update` et le `Draw`.
 
 ---
 
-### Corrigé — éléments clés *(1/2)*
+### Corrigé — `core/ai` : Node & Action
 
 ```cpp
+// core/include/ai/bt_node.h
 enum class Status { kFailure, kRunning, kSuccess };
 
 class Node {
  public:
+  Node() = default;
   virtual ~Node() = default;
-  virtual Status Tick()  = 0;
+  Node(const Node&) = delete;
+  Node& operator=(const Node&) = delete;
+  Node(Node&&) noexcept = default;
+  Node& operator=(Node&&) noexcept = default;
   virtual void   Reset() = 0;
+  virtual Status Tick()  = 0;
+ protected:
+  Status status_ = Status::kFailure;
 };
 
+// core/include/ai/bt_action.h
 class Action : public Node {
-  std::function<Status()> fn_;
+  std::function<Status()> action_;
  public:
-  explicit Action(std::function<Status()> f) : fn_(std::move(f)) {}
-  Status Tick() override { return fn_(); }
+  explicit Action(std::function<Status()> a) : action_(std::move(a)) {}
   void Reset() override {}
+  Status Tick() override { return action_(); }
 };
 ```
 
 ---
 
-### Corrigé — première Sequence + main *(2/2)*
+### Corrigé — `core/ai` : Composite & Sequence
 
 ```cpp
-class Sequence : public Node {
-  std::vector<Node*> children_;   // leaks assumés
-  int idx_ = 0;
+// core/include/ai/bt_composite.h
+class Composite : public Node {
+ protected:
+  std::vector<std::unique_ptr<Node>> children_;
+  int childIdx_ = 0;
  public:
-  void AddChild(Node* c) { children_.push_back(c); }
-  Status Tick() override {
-    while (idx_ < (int)children_.size()) {
-      auto s = children_[idx_]->Tick();
-      if (s == Status::kFailure) { idx_ = 0; return s; }
-      if (s == Status::kRunning) return s;
-      ++idx_;
-    }
-    idx_ = 0; return Status::kSuccess;
-  }
-  void Reset() override { idx_ = 0; }
+  void Reset() override { childIdx_ = 0; }
+  void AddChild(std::unique_ptr<Node> c) { children_.push_back(std::move(c)); }
 };
 
-int main() {
-  World w;
-  auto* seq = new Sequence();
-  seq->AddChild(new Action([&]{ return w.battery < 20 ? Status::kSuccess : Status::kFailure; }));
-  seq->AddChild(new Action([&]{ /* GoToDock */ return Status::kSuccess; }));
-  seq->AddChild(new Action([&]{ w.battery += 5;
-      return w.battery >= 100 ? Status::kSuccess : Status::kRunning; }));
-  for (int i = 0; i < 30; ++i) { seq->Tick(); w.battery -= 1; }
-  // delete seq; mais pas ses enfants → leak
+// core/src/ai/bt_sequence.cc
+Status Sequence::Tick() {
+  while (childIdx_ < (int)children_.size()) {
+    const Status s = children_[childIdx_]->Tick();
+    if (s == Status::kFailure) { Reset(); return Status::kFailure; }
+    if (s == Status::kRunning) return Status::kRunning;
+    childIdx_++;
+  }
+  Reset();
+  return Status::kSuccess;
 }
+```
+
+---
+
+### Corrigé — `api/ai/npc.h`
+
+```cpp
+class Npc {
+ public:
+  void Setup(std::string_view sprite_path, sf::Vector2f world_size,
+             sf::Vector2f start_position);
+  void Update(float dt);
+  void Draw(sf::RenderWindow& window);
+ private:
+  core::ai::behaviour_tree::Status PickRandomDestination();
+  core::ai::behaviour_tree::Status MoveToDestination() const;
+
+  static constexpr float kSpeed = 200.f;
+  std::unique_ptr<sf::Texture> texture_ = std::make_unique<sf::Texture>();
+  std::optional<sf::Sprite> sprite_;
+  motion::Motor motor_;
+  std::unique_ptr<core::ai::behaviour_tree::Node> bt_root_;
+  sf::Vector2f world_size_{};
+  std::mt19937 rng_{std::random_device{}()};
+};
+```
+
+---
+
+### Corrigé — `api/ai/npc.cc`
+
+```cpp
+void Npc::Setup(std::string_view path, sf::Vector2f world, sf::Vector2f start) {
+  world_size_ = world;
+  if (texture_->loadFromFile(std::string(path))) sprite_ = sf::Sprite(*texture_);
+  motor_.SetPosition(start);
+  motor_.SetDestination(start);            // immobile jusqu'au 1er tirage
+  motor_.SetSpeed(kSpeed);
+
+  auto wander = std::make_unique<Sequence>();
+  wander->AddChild(std::make_unique<Action>([this]{ return PickRandomDestination(); }));
+  wander->AddChild(std::make_unique<Action>([this]{ return MoveToDestination(); }));
+  bt_root_ = std::move(wander);
+}
+
+void Npc::Update(float dt) { motor_.Update(dt); if (bt_root_) bt_root_->Tick(); }
+
+Status Npc::PickRandomDestination() {
+  std::uniform_real_distribution<float> x(0.f, world_size_.x), y(0.f, world_size_.y);
+  motor_.SetDestination({x(rng_), y(rng_)});
+  return Status::kSuccess;
+}
+Status Npc::MoveToDestination() const {
+  return motor_.RemainingDistance() <= 0.001f ? Status::kSuccess : Status::kRunning;
+}
+```
+
+---
+
+### Corrigé — câblage `game/src/game.cc`
+
+```cpp
+namespace {                                 // namespace anonyme (état du module)
+  // ... window_, camera_, map_ ...
+  api::ai::Npc npc_;                         // ← nouvel état
+
+  void Setup() {
+    // ...
+    npc_.Setup("_assets/kenney_medieval-rts/PNG/Default size/Unit/medievalUnit_01.png",
+               world_size, {world_size.x * 0.5f, world_size.y * 0.5f});
+  }
+}
+
+// dans Loop(), chaque frame :
+camera_.Update(dt);  camera_.Apply(window_);
+npc_.Update(dt);                            // ← logique
+
+window_.clear();
+map_.Draw(window_);
+npc_.Draw(window_);                         // ← rendu
+window_.display();
 ```
 
 ---
 
 ### Checkpoint attendu
 
-- Compile sans warning.
-- Affiche le statut renvoyé par la racine à chaque tick.
-- Le robot va au dock et charge quand la batterie est basse.
-- Valgrind / ASan : **leak** sur les `new`. On en parlera.
+- Le projet compile (cible `city_builder_game`).
+- Une unité apparaît au centre et **erre** d'un point aléatoire à l'autre.
+- Caméra (drag/zoom) toujours fonctionnelle.
+- Boucle de la `Sequence` : pioche une destination (success) → se déplace
+  (running) → arrive → reset → nouvelle destination.
 
 ---
 
@@ -451,7 +602,7 @@ Verbeux ? Oui. On y reviendra (Bloc 6).
 
 ---
 
-## Bloc 5 — TP 2 : Refactor propre
+## Bloc 5 — TP 2 : étoffer le comportement
 <!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">45' · TP</small>
@@ -460,98 +611,100 @@ Verbeux ? Oui. On y reviendra (Bloc 6).
 
 ### Objectifs
 
-1. Remplacer `vector<Node*>` par `vector<unique_ptr<Node>>`.
-2. Extraire `class Composite` factorisant `children_`, `childIdx_`, `AddChild`, `Reset`.
-3. Implémenter `Selector` (miroir de `Sequence`).
-4. Appliquer la **rule of five** sur `Node` et `Composite` (movable-only).
-5. Construire l'arbre complet du robot et le ticker 30 fois.
+1. Ajouter `Selector` dans `core/ai` (miroir de `Sequence`).
+2. Confirmer la **rule of five** sur `Node` / `Composite` (movable-only).
+3. Donner au NPC un 2ᵉ comportement : **se reposer quand il est fatigué**, sinon errer.
+4. Racine = `Selector(repos, errance)`.
 
 ---
 
-### Arbre cible du robot
+### Arbre cible du NPC
 
 ```text
 Selector (root)
-├── Sequence "recharge"
-│    ├── CheckBatteryLow      // batterie < 20 ?
-│    ├── GoToDock             // déplace
-│    └── Charge               // running tant que < 100
-├── Sequence "nettoie"
-│    ├── DetectDirt
-│    ├── GoToDirt
-│    └── Vacuum
-└── Patrol
+├── Sequence "repos"
+│    ├── IsTired                  // énergie <= seuil ?
+│    └── Rest                     // running jusqu'à énergie pleine
+└── Sequence "errance"
+     ├── PickRandomDestination
+     └── MoveToDestination
+```
+
+<small>Le Selector tente le repos d'abord ; `IsTired` échoue tant que l'énergie est
+haute → on retombe sur l'errance.</small>
+
+---
+
+### Corrigé — `Selector`
+
+```cpp
+// core/src/ai/bt_selector.cc
+Status Selector::Tick() {
+  while (childIdx_ < (int)children_.size()) {
+    const Status s = children_[childIdx_]->Tick();
+    if (s == Status::kSuccess) { Reset(); return Status::kSuccess; }
+    if (s == Status::kRunning) return Status::kRunning;
+    childIdx_++;
+  }
+  return Status::kFailure;
+}
+```
+
+Succès court-circuite, échec continue — exactement l'inverse de `Sequence`.
+
+---
+
+### Corrigé — énergie (`npc`)
+
+```cpp
+// npc.h : nouveaux membres
+float energy_ = kMaxEnergy;
+float tick_dt_ = 0.f;
+static constexpr float kTiredThreshold = 20.f;
+static constexpr float kEnergyDrain = 6.f;   // /s en mouvement
+static constexpr float kEnergyRegen = 25.f;  // /s au repos
+
+// npc.cc — Update() mémorise dt : tick_dt_ = dt;
+Status Npc::IsTired() const {
+  return energy_ <= kTiredThreshold ? Status::kSuccess : Status::kFailure;
+}
+Status Npc::Rest() {
+  energy_ = std::min(kMaxEnergy, energy_ + kEnergyRegen * tick_dt_);
+  return energy_ >= kMaxEnergy ? Status::kSuccess : Status::kRunning;
+}
+Status Npc::MoveToDestination() {            // draine l'énergie en chemin
+  if (motor_.RemainingDistance() <= 0.001f) return Status::kSuccess;
+  energy_ = std::max(0.f, energy_ - kEnergyDrain * tick_dt_);
+  return Status::kRunning;
+}
 ```
 
 ---
 
-### Corrigé — `Composite` & `Selector`
+### Corrigé — racine `Selector(repos, errance)`
 
 ```cpp
-class Composite : public Node {
- protected:
-  std::vector<std::unique_ptr<Node>> children_;
-  int idx_ = 0;
- public:
-  void AddChild(std::unique_ptr<Node> c) { children_.push_back(std::move(c)); }
-  void Reset() override { idx_ = 0; }
-};
+auto rest = std::make_unique<Sequence>();
+rest->AddChild(std::make_unique<Action>([this]{ return IsTired(); }));
+rest->AddChild(std::make_unique<Action>([this]{ return Rest(); }));
 
-class Sequence : public Composite {
- public:
-  Status Tick() override {
-    while (idx_ < (int)children_.size()) {
-      auto s = children_[idx_]->Tick();
-      if (s == Status::kFailure) { Reset(); return s; }
-      if (s == Status::kRunning) return s;
-      ++idx_;
-    }
-    Reset(); return Status::kSuccess;
-  }
-};
+auto wander = std::make_unique<Sequence>();
+wander->AddChild(std::make_unique<Action>([this]{ return PickRandomDestination(); }));
+wander->AddChild(std::make_unique<Action>([this]{ return MoveToDestination(); }));
 
-class Selector : public Composite {
- public:
-  Status Tick() override {
-    while (idx_ < (int)children_.size()) {
-      auto s = children_[idx_]->Tick();
-      if (s == Status::kSuccess) { Reset(); return s; }
-      if (s == Status::kRunning) return s;
-      ++idx_;
-    }
-    return Status::kFailure;
-  }
-};
+auto root = std::make_unique<Selector>();
+root->AddChild(std::move(rest));
+root->AddChild(std::move(wander));
+bt_root_ = std::move(root);
 ```
-
----
-
-### Corrigé — Rule of five sur `Node`
-
-```cpp
-class Node {
- public:
-  Node() = default;
-  virtual ~Node() = default;
-  Node(const Node&) = delete;
-  Node& operator=(const Node&) = delete;
-  Node(Node&&) noexcept = default;
-  Node& operator=(Node&&) noexcept = default;
-  virtual Status Tick()  = 0;
-  virtual void   Reset() = 0;
-};
-```
-
-Tentative de copie d'un `Sequence` ? **Erreur de compilation**. C'est l'effet recherché.
 
 ---
 
 ### Checkpoint
 
-- Aucun `new` / `delete` dans votre code.
-- ASan : **0 leak**.
-- Recharge prioritaire si batterie basse, même si saleté présente.
-- Tentative de `Sequence s = autre;` → **erreur de compilation**. ✓
+- 0 leak (aucun `new` / `delete`).
+- Le NPC erre, puis **s'arrête pour récupérer** quand l'énergie passe sous le seuil, puis repart.
+- Tentative de `Sequence s = autre;` → **erreur de compilation** (movable-only). ✓
 
 ---
 
@@ -714,13 +867,16 @@ class TreeBuilder {
  public:
   TreeBuilder& Sequence();
   TreeBuilder& Selector();
-  TreeBuilder& Action(std::function<Status()> f);
   TreeBuilder& End();
   std::unique_ptr<Node> Build();
+
+  // Feuille : stocke le callable via TypedAction (pas de std::function)
+  template <typename Fn>
+  TreeBuilder& Action(Fn fn);
 };
 ```
 
-- Réécrire le `main` du TP 2 avec ce builder.
+- Reconstruire l'arbre du NPC (TP 2) avec ce builder.
 - Comparer la lisibilité.
 
 ---
@@ -728,68 +884,49 @@ class TreeBuilder {
 ### Piste C — Implémentation : pile de Composite courants
 
 ```cpp
-class TreeBuilder {
-  std::unique_ptr<Node> root_;
-  std::stack<Composite*> stack_;
+// bt_builder.h : Action est un template inline (utilise TypedAction)
+template <typename Fn>
+TreeBuilder& TreeBuilder::Action(Fn fn) {
+  Attach(MakeAction(std::move(fn)));   // pas de std::function
+  return *this;
+}
 
-  void Attach(std::unique_ptr<Node> node) {
-    if (stack_.empty()) {
-      root_ = std::move(node);
-    } else {
-      stack_.top()->AddChild(std::move(node));
-    }
-  }
+// bt_builder.cc
+void TreeBuilder::Attach(std::unique_ptr<Node> node) {
+  if (stack_.empty()) root_ = std::move(node);
+  else                stack_.top()->AddChild(std::move(node));
+}
 
- public:
-  TreeBuilder& Sequence() {
-    auto s = std::make_unique<::Sequence>();
-    auto* raw = s.get();             // emprunt non-owning
-    Attach(std::move(s));            // l'arbre prend l'ownership
-    stack_.push(raw);                // on retient le contexte courant
-    return *this;
-  }
+TreeBuilder& TreeBuilder::Sequence() {
+  auto node = std::make_unique<class Sequence>();  // "class" = le type, pas la méthode
+  auto* raw = node.get();              // emprunt non-owning
+  Attach(std::move(node));             // l'arbre prend l'ownership
+  stack_.push(raw);                    // on retient le contexte courant
+  return *this;
+}
+// Selector() : identique avec class Selector
 
-  TreeBuilder& Selector() {
-    auto s = std::make_unique<::Selector>();
-    auto* raw = s.get();
-    Attach(std::move(s));
-    stack_.push(raw);
-    return *this;
-  }
-
-  TreeBuilder& Action(std::function<Status()> f) {
-    Attach(std::make_unique<::Action>(std::move(f)));
-    return *this;                    // les feuilles n'empilent rien
-  }
-
-  TreeBuilder& End() { stack_.pop(); return *this; }
-
-  std::unique_ptr<Node> Build() { return std::move(root_); }
-};
+TreeBuilder& TreeBuilder::End()   { stack_.pop(); return *this; }
+std::unique_ptr<Node> TreeBuilder::Build() { return std::move(root_); }
 ```
 
 ---
 
-### Piste C — Réécriture du `main` TP 2
+### Piste C — Réécriture de l'arbre du NPC
 
 ```cpp
-auto tree = TreeBuilder()
-  .Selector()                                            // root
-    .Sequence()                                          // recharge
-      .Action([&]{ return CheckBatteryLow(w); })
-      .Action([&]{ return GoToDock(w);        })
-      .Action([&]{ return Charge(w);          })
+bt_root_ = TreeBuilder()
+  .Selector()
+    .Sequence()                                          // repos
+      .Action([this]{ return IsTired(); })
+      .Action([this]{ return Rest();    })
     .End()
-    .Sequence()                                          // nettoie
-      .Action([&]{ return DetectDirt(w);      })
-      .Action([&]{ return GoToDirt(w);        })
-      .Action([&]{ return Vacuum(w);          })
+    .Sequence()                                          // errance
+      .Action([this]{ return PickRandomDestination(); })
+      .Action([this]{ return MoveToDestination();     })
     .End()
-    .Action([&]{ return Patrol(w); })
   .End()
   .Build();
-
-for (int i = 0; i < 30; ++i) tree->Tick();
 ```
 
 → la forme du code reflète enfin la forme de l'arbre.
@@ -857,4 +994,6 @@ auto dt = std::chrono::steady_clock::now() - t0;
 ## Questions ?
 <!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small style="color:#fff;">Code de référence : `core/src/ai/` · `api/src/ai/npc_behaviour_tree.cc`</small>
+<small style="color:#fff;">Départ : tag `925-tp-bt-starter` · Corrigé : branche `925-tp-bt-corrected` (1 commit par TP)</small>
+
+<small style="color:#fff;">Code : `core/src/ai/bt_*.cc` · `api/src/ai/npc.cc` · `game/src/game.cc`</small>
