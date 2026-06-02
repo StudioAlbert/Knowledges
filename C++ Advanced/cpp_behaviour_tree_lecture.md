@@ -7,18 +7,21 @@ transition: slide
 ---
 
 # Behaviour Trees en C++ moderne
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>Workshop · 4h · cours + TP incrémental</small>
+<small style="color:#fff;">Workshop · 4h · cours + TP incrémental</small>
 
-<small>Codebase de référence : `core::ai::behaviour_tree`</small>
+<small style="color:#fff;">Codebase de référence : `core::ai::behaviour_tree`</small>
 
 Note:
 Vous connaissez le pattern BT via Unity. Aujourd'hui on le réécrit en C++
 en partant d'une approche naïve, puis en l'amenant vers une lib idiomatique.
 
 ---
-
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 ## Déroulé
+
+<div style="color:#fff;">
 
 - **20'** · Bloc 1 — Rappel BT & vocabulaire *(cours)*
 - **30'** · Bloc 2 — Première approche : héritage *(cours)*
@@ -29,11 +32,14 @@ en partant d'une approche naïve, puis en l'amenant vers une lib idiomatique.
 - **40'** · Bloc 7 — TP 3 : refactor (typed Action, builder) *(TP)*
 - **20'** · Bloc 8 — Bilan & QA
 
+</div>
+
 ---
 
 ## Bloc 1 — Rappel BT
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>20' · cours</small>
+<small style="color:#fff;">20' · cours</small>
 
 ---
 
@@ -106,10 +112,11 @@ Selector (priorité)
 ---
 
 ## Bloc 2 — Première approche
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>30' · cours</small>
+<small style="color:#fff;">30' · cours</small>
 
-On écrit la version "évidente". On verra ce qui coince.
+<small style="color:#fff;">On écrit la version "évidente". On verra ce qui coince.</small>
 
 ---
 
@@ -226,10 +233,11 @@ class Sequence : public Node {
 ---
 
 ## Bloc 3 — TP 1 : Squelette
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>45' · TP</small>
+<small style="color:#fff;">45' · TP</small>
 
-Scénario console : un robot aspirateur.
+<small style="color:#fff;">Scénario console : un robot aspirateur.</small>
 
 ---
 
@@ -327,8 +335,9 @@ int main() {
 ---
 
 ## Bloc 4 — Polymorphisme & ownership
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>30' · cours</small>
+<small style="color:#fff;">30' · cours</small>
 
 ---
 
@@ -443,8 +452,9 @@ Verbeux ? Oui. On y reviendra (Bloc 6).
 ---
 
 ## Bloc 5 — TP 2 : Refactor propre
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>45' · TP</small>
+<small style="color:#fff;">45' · TP</small>
 
 ---
 
@@ -546,10 +556,11 @@ Tentative de copie d'un `Sequence` ? **Erreur de compilation**. C'est l'effet re
 ---
 
 ## Bloc 6 — Limites & optimisations
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>30' · cours</small>
+<small style="color:#fff;">30' · cours</small>
 
-Deux axes critiques sur l'implémentation actuelle.
+<small style="color:#fff;">Deux axes critiques sur l'implémentation actuelle.</small>
 
 ---
 
@@ -676,12 +687,13 @@ auto tree = BT::Selector()
 ---
 
 ## Bloc 7 — TP 3 : Refactor & critique
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>40' · TP</small>
+<small style="color:#fff;">40' · TP</small>
 
-Par binôme : choisir **une** piste, mesurer, présenter.
+<small style="color:#fff;">Par binôme : choisir **une** piste, mesurer, présenter.</small>
 
-<small>**Selon le temps restant** : les pistes peuvent être terminées en autonomie après le workshop ; les corrigés sont fournis dans ce deck.</small>
+<small style="color:#fff;">**Selon le temps restant** : les pistes peuvent être terminées en autonomie après le workshop ; les corrigés sont fournis dans ce deck.</small>
 
 ---
 
@@ -817,6 +829,7 @@ auto dt = std::chrono::steady_clock::now() - t0;
 ---
 
 ## Bloc 8 — Bilan
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 
@@ -842,5 +855,6 @@ auto dt = std::chrono::steady_clock::now() - t0;
 ---
 
 ## Questions ?
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>Code de référence : `core/src/ai/` · `api/src/ai/npc_behaviour_tree.cc`</small>
+<small style="color:#fff;">Code de référence : `core/src/ai/` · `api/src/ai/npc_behaviour_tree.cc`</small>
