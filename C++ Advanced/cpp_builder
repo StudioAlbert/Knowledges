@@ -1,0 +1,23 @@
+ 
+# the telescopic constructor problem
+
+readability, extensively, error prompt, how far will you go
+
+# the builder solution 
+
+# tools
+building dedicated class
++ mutators for each situation (setters or access methods)
+=› non chained example
+
+## build() return the product 
+
+
+## chaining technique 
+each chain element method 
+
+
+
+
+
+# Exercise: Sandwich shop
