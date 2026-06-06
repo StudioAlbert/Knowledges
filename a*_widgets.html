@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A* — Pathfinding interactif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Familjen+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e1320; --bg2:#0a0e18; --panel:#151d2f; --panel2:#1b243a;
+    --line:#2a3650; --line-soft:#202a40;
+    --text:#e8edf8; --muted:#8b97b3; --muted2:#6b7794;
+    --start:#34d399; --goal:#fb7185; --wall:#0a0e18;
+    --open:#22d3ee; --closed:#7c83ff; --current:#fbbf24; --path:#fcd34d;
+    --shadow:0 10px 40px -12px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:
+     radial-gradient(1200px 600px at 80% -10%, #1a2440 0%, transparent 60%),
+     radial-gradient(900px 500px at -10% 110%, #161d33 0%, transparent 55%),
+     var(--bg);
+     color:var(--text); font-family:"Familjen Grotesk",system-ui,sans-serif;
+     min-height:100vh;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 60px;}
+
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px;}
+  h1{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;line-height:.95;}
+  h1 .star{color:var(--current);}
+  .sub{color:var(--muted);font-size:14px;margin-top:8px;max-width:560px;line-height:1.45;}
+  .formula{font-family:"JetBrains Mono",monospace;background:var(--panel);border:1px solid var(--line);
+     border-radius:12px;padding:12px 16px;font-size:14px;white-space:nowrap;box-shadow:var(--shadow);}
+  .formula b{color:var(--current);}
+  .formula .g{color:var(--open);} .formula .h{color:var(--goal);}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--panel);
+     border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:18px;box-shadow:var(--shadow);}
+  .group{display:flex;gap:6px;align-items:center;padding:0 10px;border-right:1px solid var(--line-soft);}
+  .group:last-child{border-right:none;}
+  .group-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted2);margin-right:4px;}
+  button{font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:13px;color:var(--text);
+     background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 13px;cursor:pointer;
+     transition:.15s;display:flex;align-items:center;gap:6px;}
+  button:hover{border-color:#3c4a6b;transform:translateY(-1px);}
+  button:active{transform:translateY(0);}
+  button.on{background:var(--current);color:#1a1300;border-color:var(--current);}
+  button.primary{background:var(--open);color:#04222a;border-color:var(--open);}
+  button.primary:hover{filter:brightness(1.08);}
+  button.ghost{background:transparent;}
+  button:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+  .dot{width:9px;height:9px;border-radius:3px;}
+  .speed{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+  input[type=range]{accent-color:var(--current);width:90px;}
+  .toggle{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none;}
+  .toggle input{accent-color:var(--open);width:16px;height:16px;}
+
+  .stage{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;}
+  @media(max-width:880px){.stage{grid-template-columns:1fr;}}
+
+  .board-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;
+     box-shadow:var(--shadow);overflow:auto;}
+  #grid{display:grid;gap:2px;margin:0 auto;width:max-content;}
+  .cell{position:relative;background:var(--panel2);border-radius:5px;cursor:pointer;
+     display:flex;align-items:center;justify-content:center;transition:background .18s, box-shadow .18s;
+     user-select:none;}
+  .cell .g,.cell .h{position:absolute;top:2px;font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:500;line-height:1;opacity:.92;}
+  .cell .g{left:3px;color:var(--open);}
+  .cell .h{right:3px;color:var(--goal);}
+  .cell .f{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--text);margin-top:4px;}
+  .cell .arrow{position:absolute;font-size:10px;color:var(--muted2);opacity:.55;
+     bottom:1px;left:50%;transform:translateX(-50%);line-height:1;}
+  .cell.wall{background:var(--wall);box-shadow:inset 0 0 0 1px #161d2e;cursor:pointer;}
+  .cell.wall .g,.cell.wall .h,.cell.wall .f,.cell.wall .arrow{display:none;}
+  .cell.open{background:color-mix(in srgb,var(--open) 22%, var(--panel2));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--open) 55%, transparent);}
+  .cell.closed{background:color-mix(in srgb,var(--closed) 24%, var(--panel2));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--closed) 40%, transparent);}
+  .cell.current{background:color-mix(in srgb,var(--current) 40%, var(--panel2));box-shadow:0 0 0 2px var(--current), 0 0 18px -2px var(--current);z-index:2;}
+  .cell.current .f{color:#1a1300;}
+  .cell.path{background:color-mix(in srgb,var(--path) 50%, var(--panel2));box-shadow:inset 0 0 0 1px var(--path);}
+  .cell.path .arrow{color:#1a1300;opacity:1;font-weight:700;}
+  .cell.start{background:var(--start)!important;box-shadow:0 0 0 2px var(--start),0 0 16px -3px var(--start)!important;}
+  .cell.goal{background:var(--goal)!important;box-shadow:0 0 0 2px var(--goal),0 0 16px -3px var(--goal)!important;}
+  .cell.start .badge,.cell.goal .badge{font-family:"Syne",sans-serif;font-weight:800;font-size:15px;color:#06140d;}
+  .cell.goal .badge{color:#2a0410;}
+  .cell.start .g,.cell.start .h,.cell.start .f,.cell.start .arrow,
+  .cell.goal .g,.cell.goal .h,.cell.goal .f{display:none;}
+
+  .side{display:flex;flex-direction:column;gap:14px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);}
+  .card h3{font-family:"Syne",sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px;}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:9px 12px;font-size:12.5px;}
+  .legend div{display:flex;align-items:center;gap:8px;color:var(--text);}
+  .sw{width:16px;height:16px;border-radius:5px;flex-shrink:0;}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .stat{background:var(--bg2);border:1px solid var(--line-soft);border-radius:11px;padding:10px 12px;}
+  .stat .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted2);}
+  .stat .v{font-family:"JetBrains Mono",monospace;font-size:19px;font-weight:700;margin-top:2px;}
+  #narr{font-size:13.5px;line-height:1.5;color:var(--text);min-height:74px;}
+  #narr .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+     padding:2px 7px;border-radius:6px;margin-bottom:8px;}
+  #narr ul{margin:6px 0 0 16px;color:var(--muted);font-size:12.5px;}
+  #narr li{margin:3px 0;}
+  .hint{font-size:12px;color:var(--muted2);margin-top:10px;line-height:1.45;}
+  .hint code{font-family:"JetBrains Mono",monospace;color:var(--open);background:var(--bg2);padding:1px 5px;border-radius:5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1><span class="star">A*</span> — Recherche de chemin</h1>
+      <p class="sub">L'A* part de Dijkstra et ajoute une <strong>priorité</strong> vers l'arrivée grâce à une heuristique « à vol d'oiseau ». On explore toujours la case de plus faible priorité <code style="font-family:'JetBrains Mono'">f</code>.</p>
+    </div>
+    <div class="formula"><span class="g">f</span> = <span class="g">g</span> <span style="color:var(--muted)">(coût Dijkstra)</span> + <b>h</b> <span style="color:var(--muted)">(heuristique)</span></div>
+  </header>
+
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Outil</span>
+      <button id="tWall" class="on" data-mode="wall"><span class="dot" style="background:var(--wall);box-shadow:inset 0 0 0 1px #2a3650"></span>Mur</button>
+      <button id="tStart" data-mode="start"><span class="dot" style="background:var(--start)"></span>Départ</button>
+      <button id="tGoal" data-mode="goal"><span class="dot" style="background:var(--goal)"></span>Arrivée</button>
+    </div>
+    <div class="group">
+      <span class="group-label">Exécution</span>
+      <button id="step" class="primary">▷ Pas à pas</button>
+      <button id="play">▶ Lecture</button>
+      <button id="reset" class="ghost">↺ Rejouer</button>
+    </div>
+    <div class="group">
+      <span class="group-label">Grille</span>
+      <button id="clear" class="ghost">Effacer murs</button>
+      <button id="maze" class="ghost">Obstacles ⚄</button>
+    </div>
+    <div class="group">
+      <label class="toggle"><input type="checkbox" id="diag" checked> Diagonales (1.4)</label>
+      <label class="toggle"><input type="checkbox" id="dij"> Mode Dijkstra (h=0)</label>
+    </div>
+    <div class="group">
+      <span class="speed">Vitesse <input type="range" id="speed" min="20" max="500" value="180"></span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="board-card">
+      <div id="grid"></div>
+    </div>
+
+    <div class="side">
+      <div class="card">
+        <h3>Étape en cours</h3>
+        <div id="narr"></div>
+      </div>
+      <div class="card">
+        <h3>Mesures</h3>
+        <div class="stats">
+          <div class="stat"><div class="k">Étapes</div><div class="v" id="sSteps">0</div></div>
+          <div class="stat"><div class="k">Frontière (open)</div><div class="v" id="sOpen">0</div></div>
+          <div class="stat"><div class="k">Visitées (closed)</div><div class="v" id="sClosed">0</div></div>
+          <div class="stat"><div class="k">Coût du chemin</div><div class="v" id="sCost">—</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Légende</h3>
+        <div class="legend">
+          <div><span class="sw" style="background:var(--start)"></span>Départ</div>
+          <div><span class="sw" style="background:var(--goal)"></span>Arrivée</div>
+          <div><span class="sw" style="background:color-mix(in srgb,var(--open) 35%, var(--panel2));box-shadow:inset 0 0 0 1px var(--open)"></span>Frontière</div>
+          <div><span class="sw" style="background:color-mix(in srgb,var(--closed) 35%, var(--panel2));box-shadow:inset 0 0 0 1px var(--closed)"></span>Visitée</div>
+          <div><span class="sw" style="background:var(--current)"></span>Examinée</div>
+          <div><span class="sw" style="background:var(--path)"></span>Chemin final</div>
+        </div>
+        <p class="hint">Sur chaque case : <code>g</code> en haut-gauche, <code>h</code> en haut-droite, <code>f</code> au centre, et une flèche vers le <strong>parent</strong> (clé de la reconstruction du chemin).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const COLS = 16, ROWS = 12;
+  const ORTHO = 1, DIAG = 1.4;            // coûts de transition (conformes au cours)
+  const gridEl = document.getElementById('grid');
+  let cells = [];                          // {r,c,wall,g,h,f,parent,state,el}
+  let start = {r:6,c:1}, goal = {r:6,c:14};
+  let mode = 'wall';
+  let diag = true, dijkstra = false;
+  let open = [], step = 0, done = false, found = false, current = null, playing = false, timer = null;
+
+  // ---------- construction de la grille ----------
+  function buildGrid(){
+    gridEl.style.gridTemplateColumns = `repeat(${COLS}, 42px)`;
+    gridEl.innerHTML = '';
+    cells = [];
+    for(let r=0;r<ROWS;r++){
+      const row=[];
+      for(let c=0;c<COLS;c++){
+        const el=document.createElement('div');
+        el.className='cell'; el.style.width='42px'; el.style.height='42px';
+        el.innerHTML='<span class="g"></span><span class="h"></span><span class="badge"></span><span class="f"></span><span class="arrow"></span>';
+        el.addEventListener('mousedown',e=>{e.preventDefault();paint(r,c,true);});
+        el.addEventListener('mouseenter',e=>{if(mouseDown)paint(r,c,false);});
+        gridEl.appendChild(el);
+        row.push({r,c,wall:false,g:Infinity,h:0,f:Infinity,parent:null,state:'',el});
+      }
+      cells.push(row);
+    }
+    // obstacle de démonstration : un mur avec un passage en bas
+    for(let r=2;r<=9;r++) cells[r][8].wall=true;
+    render();
+  }
+
+  let mouseDown=false;
+  document.addEventListener('mousedown',()=>mouseDown=true);
+  document.addEventListener('mouseup',()=>mouseDown=false);
+
+  function paint(r,c,isClick){
+    if(playing) return;
+    const cell=cells[r][c];
+    if(mode==='start'){ if(cell.wall||(r===goal.r&&c===goal.c))return; start={r,c}; resetRun(); return; }
+    if(mode==='goal'){ if(cell.wall||(r===start.r&&c===start.c))return; goal={r,c}; resetRun(); return; }
+    // mode mur
+    if((r===start.r&&c===start.c)||(r===goal.r&&c===goal.c)) return;
+    if(isClick) cell.wall=!cell.wall;
+    else cell.wall=true;
+    resetRun();
+  }
+
+  // ---------- A* ----------
+  function heuristic(a,b){
+    if(dijkstra) return 0;
+    const dr=a.r-b.r, dc=a.c-b.c;
+    return Math.sqrt(dr*dr+dc*dc);     // distance à vol d'oiseau (euclidienne)
+  }
+  function neighbors(cell){
+    const out=[];
+    const dirs = diag
+      ? [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[-1,1],[1,-1],[1,1]]
+      : [[-1,0],[1,0],[0,-1],[0,1]];
+    for(const [dr,dc] of dirs){
+      const r=cell.r+dr, c=cell.c+dc;
+      if(r<0||r>=ROWS||c<0||c>=COLS) continue;
+      const n=cells[r][c];
+      if(n.wall) continue;
+      // on empêche de couper à travers un coin formé de deux murs
+      if(dr!==0&&dc!==0){ if(cells[cell.r][c].wall&&cells[r][cell.c].wall) continue; }
+      const cost=(dr!==0&&dc!==0)?DIAG:ORTHO;
+      out.push({n,cost});
+    }
+    return out;
+  }
+
+  function resetRun(){
+    stopPlay();
+    open=[]; step=0; done=false; found=false; current=null;
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const cell=cells[r][c];
+      cell.g=Infinity; cell.h=0; cell.f=Infinity; cell.parent=null; cell.state=''; cell.path=false;
+    }
+    const s=cells[start.r][start.c];
+    s.g=0; s.h=heuristic(s,cells[goal.r][goal.c]); s.f=s.g+s.h; s.state='open';
+    open.push(s);
+    narrate('start');
+    render(); stats();
+  }
+
+  function doStep(){
+    if(done) return;
+    if(open.length===0){ done=true; narrate('fail'); render(); return; }
+    // case de plus faible f (départage : plus faible h, puis ordre d'insertion)
+    open.sort((a,b)=> (a.f-b.f) || (a.h-b.h));
+    const tiedF = open.filter(x=>Math.abs(x.f-open[0].f)<1e-9).length;
+    current = open.shift();
+    current.state='closed';
+    step++;
+
+    const g=cells[goal.r][goal.c];
+    if(current===g){ done=true; found=true; buildPath(); narrate('goal'); render(); stats(); return; }
+
+    const events=[];
+    for(const {n,cost} of neighbors(current)){
+      if(n.state==='closed') continue;
+      const tentative=current.g+cost;
+      if(tentative < n.g){
+        const wasOpen = n.state==='open';
+        n.parent=current;
+        n.g=tentative;
+        n.h=heuristic(n,g);
+        n.f=n.g+n.h;
+        if(!wasOpen){ n.state='open'; open.push(n); events.push({type:'add',n}); }
+        else events.push({type:'update',n});
+      }
+    }
+    narrate('expand',{tiedF,events});
+    render(); stats();
+  }
+
+  function buildPath(){
+    let node=cells[goal.r][goal.c];
+    const chain=[];
+    while(node){ chain.push(node); node=node.parent; }
+    // marque le chemin
+    cells.flat().forEach(c=>c.path=false);
+    chain.forEach(n=>n.path=true);
+  }
+
+  // ---------- rendu ----------
+  const ARROWS={ '-1,0':'↓','1,0':'↑','0,-1':'→','0,1':'←','-1,-1':'↘','-1,1':'↙','1,-1':'↗','1,1':'↖' };
+  function fmt(x){ return (Math.round(x*10)/10).toFixed(1); }
+  function render(){
+    const sCell=cells[start.r][start.c], gCell=cells[goal.r][goal.c];
+    for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+      const cell=cells[r][c], el=cell.el;
+      let cls='cell';
+      if(cell.wall) cls+=' wall';
+      else{
+        if(cell.state==='open') cls+=' open';
+        if(cell.state==='closed') cls+=' closed';
+        if(cell.path) cls+=' path';
+        if(cell===current && !done) cls+=' current';
+      }
+      if(cell===sCell) cls+=' start';
+      if(cell===gCell) cls+=' goal';
+      el.className=cls;
+      const gS=el.querySelector('.g'), hS=el.querySelector('.h'), fS=el.querySelector('.f'),
+            aS=el.querySelector('.arrow'), bS=el.querySelector('.badge');
+      bS.textContent = cell===sCell ? 'A' : (cell===gCell ? 'B' : '');
+      if(!cell.wall && cell!==sCell && cell!==gCell && cell.g!==Infinity){
+        gS.textContent=fmt(cell.g); hS.textContent=dijkstra?'':fmt(cell.h); fS.textContent=fmt(cell.f);
+        if(cell.parent){ const k=(cell.parent.r-cell.r)+','+(cell.parent.c-cell.c); aS.textContent=ARROWS[k]||''; }
+        else aS.textContent='';
+      } else { gS.textContent='';hS.textContent='';fS.textContent='';aS.textContent=''; }
+    }
+  }
+
+  function stats(){
+    document.getElementById('sSteps').textContent=step;
+    document.getElementById('sOpen').textContent=open.length;
+    document.getElementById('sClosed').textContent=cells.flat().filter(c=>c.state==='closed').length;
+    const g=cells[goal.r][goal.c];
+    document.getElementById('sCost').textContent = found ? fmt(g.g) : '—';
+  }
+
+  // ---------- narration pédagogique ----------
+  function narrate(kind,data){
+    const n=document.getElementById('narr');
+    let tag='', color='', html='';
+    if(kind==='start'){
+      tag='INIT'; color='var(--open)';
+      html=`On place le départ <b>A</b> dans la frontière avec <code>g=0</code>. Son heuristique <code>h</code> est la distance à vol d'oiseau jusqu'à <b>B</b>${dijkstra?' (désactivée en mode Dijkstra : <code>h=0</code>)':''}.`;
+    } else if(kind==='expand'){
+      tag='ÉTAPE '+step; color='var(--current)';
+      html=`On retire de la frontière la case de plus faible <code>f</code> et on la marque <em>visitée</em>. On examine ses voisins : <code>g_voisin = g_courant + coût</code> (croix = 1, diagonale = 1.4), puis <code>f = g + h</code>.`;
+      const ul=[];
+      const adds=data.events.filter(e=>e.type==='add').length;
+      const ups=data.events.filter(e=>e.type==='update').length;
+      if(adds) ul.push(`<li>${adds} voisin(s) ajouté(s) à la frontière.</li>`);
+      if(ups) ul.push(`<li><strong>Chemin plus court trouvé</strong> pour ${ups} case(s) → on met à jour le coût <em>et le parent</em>.</li>`);
+      if(!adds&&!ups) ul.push(`<li>Aucun voisin amélioré : passer par cette case coûterait plus cher que leur parent actuel.</li>`);
+      if(data.tiedF>1) ul.push(`<li>${data.tiedF} cases partageaient le même <code>f</code> : l'ordre d'examen est alors arbitraire.</li>`);
+      html+=`<ul>${ul.join('')}</ul>`;
+    } else if(kind==='goal'){
+      tag='ARRIVÉE'; color='var(--path)';
+      html=`<b>B</b> est atteint ! On reconstruit le chemin <strong>en remontant les flèches parentes</strong> depuis l'arrivée jusqu'au départ. Coût total = <code>${fmt(cells[goal.r][goal.c].g)}</code>.`;
+    } else if(kind==='fail'){
+      tag='AUCUN CHEMIN'; color='var(--goal)';
+      html=`La frontière est vide : aucun chemin ne relie <b>A</b> à <b>B</b>. Les murs bloquent complètement le passage.`;
+    }
+    n.innerHTML=`<span class="tag" style="background:color-mix(in srgb,${color} 22%, transparent);color:${color}">${tag}</span><br>${html}`;
+  }
+
+  // ---------- contrôles ----------
+  document.querySelectorAll('.toolbar button[data-mode]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.toolbar button[data-mode]').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on'); mode=b.dataset.mode;
+    });
+  });
+  document.getElementById('step').addEventListener('click',()=>{ if(playing)return; doStep(); });
+  document.getElementById('reset').addEventListener('click',resetRun);
+  document.getElementById('clear').addEvent
