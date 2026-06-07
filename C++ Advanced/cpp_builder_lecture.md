@@ -30,4 +30,8 @@ Refactor a sandwich shop with telescopics constructor (class has content() metho
 4. close the constructor making it private, to let the builder the only path to constuct sandwiches)
 5. encapsulate the build stereotypes in public methods
 
-sources :
+## sources :
+https://medium.com/@kamresh485/builder-pattern-in-c-6ffaeb44afe7
+https://refactoring.guru/design-patterns/builder/cpp/example
+https://medium.com/@antwang/builder-pattern-in-c-the-right-way-e943abbe0d2d
+https://platis.solutions/blog/2023/01/03/builder-pattern-cpp/
