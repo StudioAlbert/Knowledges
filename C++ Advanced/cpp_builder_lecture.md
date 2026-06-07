@@ -44,7 +44,7 @@ dossier exécutable du dépôt compagnon — le nom du dossier = le titre.
 
 ---
 
-### L'enflure du constructeur
+### Trop de constructeurs tuent le constructeur
 
 Au début un seul paramètre. Puis le besoin grandit, et les constructeurs
 se mettent à enchaîner — chacun déléguant au suivant.
@@ -70,7 +70,7 @@ On nomme les quatre douleurs à la diapo suivante.
 
 ---
 
-### Quatre douleurs
+### Quatre limites
 
 ```cpp
 Person c{"Cy", 40, "cy@example.com", false, true};   // que valent ces flags ?
@@ -82,13 +82,13 @@ Person c{"Cy", 40, "cy@example.com", false, true};   // que valent ces flags ?
   permutent sans la moindre erreur de compilation.
 - **Explosion combinatoire** — chaque champ optionnel double le nombre de
   surcharges plausibles.
-- **« Jusqu'où irez-vous ? »** — aucun point d'arrêt naturel à la cascade.
+- **« Jusqu'où irez-vous ? »**
 
 <small>Le compilateur accepte les deux booléens inversés. C'est exactement
 la classe de bug que le pattern Builder supprime.</small>
 
 Note:
-Garder ces quatre douleurs en tête : ce sont la grille d'évaluation de
+Garder ces quatre limites en tête : ce sont la grille d'évaluation de
 chaque solution qui suit. Le Builder répond aux quatre ; les fausses
 pistes de la diapo suivante n'en couvrent aucune complètement.
 
