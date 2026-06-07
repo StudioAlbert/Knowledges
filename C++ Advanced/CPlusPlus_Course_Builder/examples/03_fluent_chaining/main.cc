@@ -10,15 +10,18 @@
 
 class Person {
  public:
-  Person(std::string name, int age, std::string email, bool premium)
+  Person(std::string name, int age, std::string email, bool premium,
+         bool newsletter)
       : name_(std::move(name)),
         age_(age),
         email_(std::move(email)),
-        premium_(premium) {}
+        premium_(premium),
+        newsletter_(newsletter) {}
 
   void Print() const {
     std::cout << name_ << " (" << age_ << ") <" << email_ << ">"
-              << (premium_ ? " [premium]" : "") << '\n';
+              << (premium_ ? " [premium]" : "")
+              << (newsletter_ ? " [newsletter]" : "") << '\n';
   }
 
  private:
@@ -26,6 +29,7 @@ class Person {
   int age_;
   std::string email_;
   bool premium_;
+  bool newsletter_;
 };
 
 class PersonBuilder {
@@ -45,10 +49,14 @@ class PersonBuilder {
     premium_ = premium;
     return *this;
   }
+  PersonBuilder& WithNewsletter(bool on = true) {
+    newsletter_ = on;
+    return *this;
+  }
 
   Person Build() const {
     if (name_.empty()) throw std::invalid_argument("name is required");
-    return Person{name_, age_, email_, premium_};
+    return Person{name_, age_, email_, premium_, newsletter_};
   }
 
  private:
@@ -56,6 +64,7 @@ class PersonBuilder {
   int age_ = 0;
   std::string email_;
   bool premium_ = false;
+  bool newsletter_ = false;
 };
 
 int main() {
@@ -63,6 +72,7 @@ int main() {
                    .WithAge(30)
                    .WithEmail("ana@example.com")
                    .WithPremium()
+                   .WithNewsletter()
                    .Build();
   ana.Print();
 }

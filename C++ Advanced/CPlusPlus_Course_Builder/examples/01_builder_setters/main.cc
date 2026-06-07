@@ -10,15 +10,18 @@
 
 class Person {
  public:
-  Person(std::string name, int age, std::string email, bool premium)
+  Person(std::string name, int age, std::string email, bool premium,
+         bool newsletter)
       : name_(std::move(name)),
         age_(age),
         email_(std::move(email)),
-        premium_(premium) {}
+        premium_(premium),
+        newsletter_(newsletter) {}
 
   void Print() const {
     std::cout << name_ << " (" << age_ << ") <" << email_ << ">"
-              << (premium_ ? " [premium]" : "") << '\n';
+              << (premium_ ? " [premium]" : "")
+              << (newsletter_ ? " [newsletter]" : "") << '\n';
   }
 
  private:
@@ -26,6 +29,7 @@ class Person {
   int age_;
   std::string email_;
   bool premium_;
+  bool newsletter_;
 };
 
 class PersonBuilder {
@@ -36,14 +40,18 @@ class PersonBuilder {
   void SetAge(int age) { age_ = age; }
   void SetEmail(std::string email) { email_ = std::move(email); }
   void SetPremium(bool premium) { premium_ = premium; }
+  void SetNewsletter(bool on) { newsletter_ = on; }
 
-  Person Build() const { return Person{name_, age_, email_, premium_}; }
+  Person Build() const {
+    return Person{name_, age_, email_, premium_, newsletter_};
+  }
 
  private:
   std::string name_;
   int age_ = 0;            // defaults make every optional field truly optional
   std::string email_;
   bool premium_ = false;
+  bool newsletter_ = false;
 };
 
 int main() {
@@ -51,7 +59,8 @@ int main() {
   builder.SetAge(25);
   builder.SetEmail("bo@example.com");
   builder.SetPremium(true);
-  // No way to swap two flags by accident: each one is named.
+  builder.SetNewsletter(false);
+  // No way to swap the two flags by accident: each one is named.
 
   Person bo = builder.Build();
   bo.Print();

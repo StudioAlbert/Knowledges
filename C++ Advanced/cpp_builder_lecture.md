@@ -165,14 +165,16 @@ class PersonBuilder {
 public:
     explicit PersonBuilder(std::string name) : name_(std::move(name)) {}
 
-    void SetAge(int age)              { age_ = age; }
-    void SetEmail(std::string email)  { email_ = std::move(email); }
-    void SetPremium(bool premium)     { premium_ = premium; }
+    void SetAge(int age)               { age_ = age; }
+    void SetEmail(std::string email)   { email_ = std::move(email); }
+    void SetPremium(bool premium)      { premium_ = premium; }
+    void SetNewsletter(bool on)        { newsletter_ = on; }
 
-    Person Build() const { return Person{name_, age_, email_, premium_}; }
+    Person Build() const { return Person{name_, age_, email_, premium_, newsletter_}; }
 private:
     std::string name_;  int age_ = 0;
     std::string email_; bool premium_ = false;
+    bool newsletter_ = false;
 };
 ```
 
@@ -232,15 +234,17 @@ Renvoyer une **référence au builder** suffit à enchaîner les appels : la
 configuration devient une seule expression lisible.
 
 ```cpp
-PersonBuilder& WithAge(int age)            { age_ = age;   return *this; }
-PersonBuilder& WithEmail(std::string e)    { email_ = std::move(e); return *this; }
-PersonBuilder& WithPremium(bool p = true)  { premium_ = p; return *this; }
+PersonBuilder& WithAge(int age)               { age_ = age;   return *this; }
+PersonBuilder& WithEmail(std::string e)       { email_ = std::move(e); return *this; }
+PersonBuilder& WithPremium(bool p = true)     { premium_ = p; return *this; }
+PersonBuilder& WithNewsletter(bool on = true) { newsletter_ = on; return *this; }
 
 // Site d'appel :
 Person ana = PersonBuilder{"Ana"}
                  .WithAge(30)
                  .WithEmail("ana@example.com")
                  .WithPremium()
+                 .WithNewsletter()
                  .Build();
 ```
 
