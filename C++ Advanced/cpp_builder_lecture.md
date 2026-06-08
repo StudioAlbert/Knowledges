@@ -13,7 +13,7 @@ transition: slide
 
 <small>6 modules · 6 exemples · 1 exercice · C++17/20</small>
 
-<small>Dépôt : [github.com/SAE-Geneve/CPlusPlus_Course_Builder](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder)</small>
+<small>Dépôt : [github.com/StudioAlbert/cpp_builder_pattern_course_companion](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion)</small>
 
 Note:
 Objectif de cette heure : remplacer un constructeur qui enfle au fil des
@@ -21,6 +21,23 @@ champs par un point de construction lisible, sûr et validé. On suit une
 classe `Person` tout du long, et on termine sur un exercice « Sandwich
 shop » que vous refactorez vous-mêmes. Chaque diapo de code renvoie à un
 dossier exécutable du dépôt compagnon — le nom du dossier = le titre.
+
+---
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+## Sources
+
+<div style="color:#fff;">
+
+Code runnable du cours (sous-module `git`) :
+
+- 🔗 [github.com/StudioAlbert/cpp_builder_pattern_course_companion](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion)
+
+Inclus localement :
+
+- `companions/cpp_builder_pattern_course_companion/examples/` — un dossier par module
+- `companions/cpp_builder_pattern_course_companion/exercises/sandwich_shop/` — exercice (starter + solution)
+
+</div>
 
 ---
 

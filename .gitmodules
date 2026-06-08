@@ -1,0 +1,6 @@
+[submodule "C++ Advanced/companions/cpp_astar_course_companion"]
+	path = C++ Advanced/companions/cpp_astar_course_companion
+	url = https://github.com/StudioAlbert/cpp_astar_course_companion.git
+[submodule "C++ Advanced/companions/cpp_builder_pattern_course_companion"]
+	path = C++ Advanced/companions/cpp_builder_pattern_course_companion
+	url = https://github.com/StudioAlbert/cpp_builder_pattern_course_companion.git
