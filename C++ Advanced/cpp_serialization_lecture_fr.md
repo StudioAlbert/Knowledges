@@ -536,166 +536,166 @@ ConcreteVisitors sur une unique déclaration de champs. Structure
 déclarée une fois ; verbes variant librement.
 
 ---
-
-### Deux Visiteurs Concrets : Writer & Reader
-
-Pour le save/load les **éléments** sont vos types de données ; les
-**opérations** sont un writer et un reader — deux ConcreteVisitors,
-exactement comme `AreaVisitor`. On nomme les contrats avec deux
-`concept`s C++20, pour que les signatures se documentent elles-mêmes.
-
-```cpp
-// Type-feuille streamable dans les deux sens.
-template <class T>
-concept Serializable = requires(std::ostream& os, std::istream& is, T& x) {
-    { os << x };
-    { is >> x };
-};
-
-// Visiteur qui expose un callback make_field(T&).
-template <class V>
-concept FieldVisitor = requires(V& v, int& probe) {
-    { v.make_field(probe) };
-};
-
-struct Writer {                     // ConcreteVisitor : « save »
-    std::ostream& os;
-    template <Serializable T> void make_field(const T& x) { os << x << ' '; }
-};
-
-struct Reader {                     // ConcreteVisitor : « load »
-    std::istream& is;
-    template <Serializable T> void make_field(T& x) { is >> x; }
-};
-```
-
-<small>`make_field()` est le callback `visit` — un verbe, pas un nom :
-le visiteur *enregistre* ou *restaure* un champ. Les concepts rendent
-l'intention lisible dans toutes les signatures qui suivent.</small>
-
-Note:
-Les concepts remplacent le commentaire-en-prose : `Serializable` dit
-« ce type est une feuille streamable » et `FieldVisitor` dit « ce
-visiteur sait enregistrer un champ ». Les erreurs de compilation
-deviennent localisées et lisibles au lieu d'exploser dans les
-internals du template. Le probe-type `int&` du concept évite le piège
-des deux directions (Writer prend `const T&`, Reader prend `T&`) tout
-en garantissant un contrat utile.
-
----
-
-### Un Seul `serialize`, Réutilisé par les Deux
-
-Chaque type liste ses champs **une seule fois** dans `serialize`.
-Passez-lui un `Writer` et il sauvegarde ; passez-lui un `Reader` et il
-charge. L'ordre ne peut jamais diverger.
-
-```cpp
-struct Tile {
-    int id; bool walkable;
-    template <FieldVisitor V> void serialize(V& v) {
-        v.make_field(id); v.make_field(walkable);
-    }
-};
-
-struct TileMap {
-    int w, h;
-    std::vector<Tile> tiles;
-    template <FieldVisitor V> void serialize(V& v) {
-        v.make_field(w); v.make_field(h);
-        std::size_t n = tiles.size();
-        v.make_field(n);         // count : écrit au save, lu au load
-        tiles.resize(n);         // no-op au save ; dimensionne le vector au load
-        for (auto& t : tiles) t.serialize(v);   // récurrence dans le graphe
-    }
-};
-```
-
-<small>Une liste de champs, deux comportements — le piège de
-désynchronisation du Partie 1 a disparu *par construction*. La
-contrainte `FieldVisitor V` *exige* `make_field` à la compilation.</small>
-
-Note:
-`v.make_field(n)` puis `tiles.resize(n)` rend la symétrie littérale :
-les deux mêmes lignes écrivent-puis-noop au save et
-lisent-puis-grossissent au load. Comparez aux deux fonctions écrites à
-la main du Partie 1 qui pouvaient dériver — ici il n'y a qu'un ordre
-car il n'y a qu'une fonction.
-
----
-
-### En Pratique : Sérialiser une Tilemap
-
-Mise en commun — une save versionnée et auto-vérifiante :
-
-```cpp
-constexpr uint32_t kMagic = 0x544D4150;   // 'TMAP'
-constexpr uint32_t kVersion = 1;
-
-void save_map(const TileMap& m, const std::string& path) {
-    std::ofstream ofs(path);
-    Writer w{ofs};
-    uint32_t magic = kMagic, ver = kVersion;
-    w.make_field(magic); w.make_field(ver);     // header EN PREMIER — toujours
-    const_cast<TileMap&>(m).serialize(w);
-}
-
-void load_map(TileMap& m, const std::string& path) {
-    std::ifstream ifs(path);
-    Reader r{ifs};
-    uint32_t magic, ver;
-    r.make_field(magic); r.make_field(ver);
-    if (magic != kMagic)  throw std::runtime_error("not a tilemap");
-    if (ver  != kVersion) throw std::runtime_error("version mismatch");
-    m.serialize(r);
-}
-```
-
-<small>Numéro magique = « est-ce seulement mon fichier ? ». Version =
-« puis-je encore le lire ? ». Tous deux écrits *avant* la charge
-utile.</small>
-
-Note:
-C'est toute la séance en une diapo : choisir le texte ici pour la
-déboguabilité (Partie 3), rejeter le raccourci du cast brut parce que
-`tiles` possède un vector (Partie 4), appliquer le patron Visiteur pour
-que save et load partagent une liste de champs (Partie 6), et tout
-verrouiller derrière magic + version (l'invariant du Partie 1,
-appliqué).
-
----
-
-## Exercice — Un Système de Sauvegarde de Tilemap
+## Exercice 1 — Shape visitor
 <!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
-
 ### Exercice — Construisez-le
 
 Implémentez `save_map` / `load_map` pour la grille du City Builder en
-utilisant les **visiteurs Writer / Reader** du Partie 6.
+utilisant les **visiteurs Writer / Reader**.
 
 **Votre tâche :**
 
-1. Écrire `Writer` / `Reader`, chacun avec un `make_field()` contraint
-   par le concept `Serializable`.
-2. Donner à `Tile` et `TileMap` un unique `serialize(V&)` chacun,
-   contraint par le concept `FieldVisitor`.
-3. Écrire un en-tête **numéro magique + version** avant la charge utile ;
-   rejeter un mauvais magic et une version future au chargement.
-4. Test aller-retour : `save_map(m, "t.sav"); load_map(m2, "t.sav");`
-   puis `assert(m == m2)`.
-5. **Bonus :** ajouter un champ `biome` gardé par `version >= 2` ;
-   prouver qu'un fichier v1 se charge toujours avec le lecteur v2.
+1. *coming soon*
+2. *coming soon*
+3. *coming soon*
+---
+## Exercice 2 — Un Système de Sauvegarde de Tilemap
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>Objectif : éprouver *pourquoi* la conception à une seule
-fonction supprime la classe de bugs de désynchronisation — essayez d'en
-introduire un et observez-le ne pas compiler.</small>
+<small>implémentation de référence — le Visiteur appliqué au save/load</small>
+
+---
+
+### Le Modèle : Données + Contrat `visit`
+
+Les types portent **uniquement leurs champs** et une paire `Save`/`Load`
+qui délègue au visiteur. Aucune logique d'I/O dans les données.
+
+```cpp
+class Tile {
+public:
+    int x = 0, y = 0;
+    bool walkable = false;
+    std::string biome;
+
+    void Save(std::ofstream& ofs, Saver& v)  { v.visit(ofs, *this); }
+    void Load(std::ifstream& ifs, Loader& v) { v.visit(ifs, *this); }
+};
+
+class Tilemap {
+public:
+    int sizeX = 0, sizeY = 0;
+    std::vector<Tile> tiles;
+
+    void Save(std::ofstream& ofs, Saver& v)  { v.visit(ofs, *this); }
+    void Load(std::ifstream& ifs, Loader& v) { v.visit(ifs, *this); }
+};
+```
+
+<small>La structure se déclare **une seule fois**. `Save` et `Load` ne
+sont pas deux fonctions miroir : ce sont deux *visiteurs* sur cette
+unique déclaration.</small>
 
 Note:
-Le bonus est la vraie leçon : l'évolution versionnée est la contrainte
-qui sépare un jouet d'un système de save. Si un fichier v1 se charge
-proprement sous du code v2, la conception est saine.
+On retrouve exactement les rôles de la Partie 6 : `Tile`/`Tilemap` sont
+les ConcreteElements, `Save`/`Load` jouent le rôle d'`accept`, et les
+verbes vivent dans `Saver`/`Loader`.
+
+---
+
+### `Saver` : Aplatir en Texte
+
+Une surcharge `visit` par type. `Tilemap` écrit son en-tête puis
+**réutilise** le visiteur sur chaque tuile.
+
+```cpp
+// serializer_visitor.h
+class Saver {
+public:
+    void visit(std::ofstream& ofs, Tile&);
+    void visit(std::ofstream& ofs, Tilemap&);
+};
+
+// saver.cc
+void Saver::visit(std::ofstream& ofs, Tile& t) {
+    ofs << t.x << ";" << t.y << ";" << t.walkable << ";" << t.biome << "\n";
+}
+void Saver::visit(std::ofstream& ofs, Tilemap& m) {
+    ofs << m.sizeX << ";" << m.sizeY << "\n";
+    for (auto& tile : m.tiles) visit(ofs, tile);   // récursion sur l'élément
+}
+```
+
+<small>Sortie réelle (`00000001.sav`) — un en-tête, puis une ligne
+`x;y;walkable;biome` par tuile :</small>
+
+```text
+10;30
+3;3;1;grass
+5;5;0;water
+```
+
+---
+
+### `Loader` : Ressusciter depuis le Texte
+
+**Un enregistrement = une ligne.** On lit la ligne entière, puis on la
+découpe avec un `std::stringstream` — jamais de `getline(..., ';')`
+direct sur le flux (il franchirait les sauts de ligne).
+
+```cpp
+void Loader::visit(std::ifstream& ifs, Tile& t) {
+    std::string line;
+    if (!std::getline(ifs, line)) return;          // 1 ligne = 1 tuile
+    std::stringstream ss(line);
+    std::string f; int i = 0;
+    while (std::getline(ss, f, ';')) {             // split sur ';'
+        if      (i == 0) t.x = std::stoi(f);
+        else if (i == 1) t.y = std::stoi(f);
+        else if (i == 2) t.walkable = std::stoi(f);
+        else if (i == 3) t.biome = f;
+        ++i;
+    }
+}
+void Loader::visit(std::ifstream& ifs, Tilemap& m) {
+    std::string header; std::getline(ifs, header);
+    std::stringstream ss(header); std::string f;
+    std::getline(ss, f, ';'); m.sizeX = std::stoi(f);
+    std::getline(ss, f, ';'); m.sizeY = std::stoi(f);
+    while (ifs.peek() != EOF) {                    // borne propre, pas !eof()
+        Tile tile; visit(ifs, tile); m.tiles.emplace_back(tile);
+    }
+}
+```
+
+<small>`Save` et `Load` lisent la **même liste de champs, dans le même
+ordre** — l'invariant de la Partie 1, ici garanti par construction.</small>
+
+Note:
+Deux pièges classiques évités : `getline(ifs, line, ';')` qui avale le
+`\n` et désynchronise les tuiles, et `while(!ifs.eof())` qui ajoute une
+tuile fantôme (eof n'est positionné qu'*après* une lecture ratée).
+
+---
+
+### Aller-Retour & Élargissement
+
+```cpp
+Saver saver; Loader loader;
+Tilemap map; /* … remplir … */
+
+std::ofstream ofs(path); map.Save(ofs, saver); ofs.close();   // sérialise
+std::ifstream ifs(path); Tilemap loaded; loaded.Load(ifs, loader);  // relit
+```
+
+Les types ne changent jamais ; on ajoute des **verbes** :
+
+| ConcreteVisitor | Parcourt les mêmes champs pour… |
+| --------------- | ------------------------------- |
+| **Saver**       | écrire chaque champ (texte)     |
+| **Loader**      | relire chaque champ             |
+| Debug-dump      | logger chaque champ             |
+| Hash / Net-pack | checksum / ordre réseau         |
+
+<small>Un nouveau besoin = un nouveau visiteur, avec **zéro édition** de
+`Tile`/`Tilemap`. C'est tout l'intérêt du patron pour le save/load.</small>
+
+Note:
+Bonus possible en prolongement : un champ `biome` gardé par un numéro de
+version écrit en tête de fichier — un `Loader` v2 lit toujours un fichier
+v1. C'est la contrainte de *versioning* de la Partie 2.
 
 ---
 

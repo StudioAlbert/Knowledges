@@ -165,7 +165,7 @@ class CheckHungerAction : public Node {
 };
 ```
 
-Une condition simple. Le parent ne saura jamais qu'elle existe — il verra un `Node*`.
+Une condition simple. 
 
 ---
 
@@ -244,45 +244,13 @@ class Sequence : public Node {
 ### Point de départ — tag `925-tp-bt-starter`
 
 ```bash
-git checkout 925-tp-bt-starter
+git checkout 925
 ```
 
 Vous héritez d'un jeu **propre** : boucle SFML (fenêtre, `dt`, events),
 caméra (drag/zoom), tilemap + terrain. **Aucune IA.**
 
 On ajoute un NPC piloté par un BT que **vous** écrivez dans `core/ai/`.
-
----
-
-### Architecture en 3 couches
-
-- **`core/`** — la lib BT, **zéro dépendance SFML**. Namespace `core::ai::behaviour_tree`.
-- **`api/`** — le NPC (sprite + déplacement), fait le pont BT ↔ SFML.
-- **`game/`** — la boucle : instancie, `Update`, `Draw` le NPC.
-
-→ règle d'or : `core` ne connaît pas SFML.
-
----
-
-### Étape CMake — `core` doit compiler des `.cc`
-
-Aujourd'hui `core` est *header-only* :
-
-```cmake
-add_library(core INTERFACE)                  # ne compile AUCUN .cc
-target_include_directories(core INTERFACE include/)
-```
-
-Notre lib BT aura des `.cc` → on passe à une lib **compilée** :
-
-```cmake
-file(GLOB_RECURSE SRC_FILES src/*.cc)
-file(GLOB_RECURSE HEADER_FILES include/*.h)
-add_library(core ${SRC_FILES} ${HEADER_FILES})
-target_include_directories(core PUBLIC include/)
-```
-
-<small>Header-only = juste des en-têtes exposés · lib compilée = du code objet à lier.</small>
 
 ---
 
@@ -325,12 +293,18 @@ void Motor::Update(float dt) {
 
 ### À livrer
 
-1. `core/ai/` : `Node`/`Status`, `Action` (`std::function`), `Composite`, `Sequence` —
-   **en `unique_ptr`** (la version raw-pointer du Bloc 2 reste conceptuelle).
-2. `core/CMakeLists.txt` : INTERFACE → lib compilée.
-3. `api/ai/npc.{h,cc}` : sprite + `Motor` + un `bt_root_`,
-   arbre `Sequence(PickRandomDestination, MoveToDestination)`.
-4. `game/src/game.cc` : instancier `npc_`, l'`Update` et le `Draw`.
+1. Starter
+	1. `api/ai/npc.{h,cc}` : sprite + `Motor` + un `bt_root_`, il y a un npc de base
+	2. Éléments de base `Node`/`Status`, 
+	3. Implementer une première action : Move to destination 
+		1. créer la classe générique `Action`( utilisation de `std::function` pour l'éxécution d'une fonction externe)
+		2. implémenter une première action concrète : Move to destination en utilisant la classe Motor
+	4. Implémenter le noeud Composite `Sequence`
+		1. Classe générique core/ai/composite integrant un vecteur de ** `unique_ptr`** comme liste de noeuds
+		2. Classe concrète api/ai/sequence qui override le tick afin de respecter les règles de renvoi du status evoqué dans le cours
+		3. remplacer le noeud action du npc par le noeud sequence, l'action est maintenant un enfant de la sequence.
+		4. créer une nouvelle action PickRandomdestination
+2. Attention au `core/CMakeLists.txt` : Passage de INTERFACE à inclusion normale
 
 ---
 
@@ -611,10 +585,13 @@ Verbeux ? Oui. On y reviendra (Bloc 6).
 
 ### Objectifs
 
-1. Ajouter `Selector` dans `core/ai` (miroir de `Sequence`).
-2. Confirmer la **rule of five** sur `Node` / `Composite` (movable-only).
-3. Donner au NPC un 2ᵉ comportement : **se reposer quand il est fatigué**, sinon errer.
-4. Racine = `Selector(repos, errance)`.
+1. Pour la suite :
+	1. vous créerez sur le modele de la séquence un sélecteur, le tick respectant ses propres regles de renvoi des statuts
+	2. ce sélecteur permet de  choisir ensuite les différentes séquences du comportement voulu voir slidedu npc affamé
+2. Ajouter `Selector` dans `core/ai` (miroir de `Sequence`).
+3. Confirmer la **rule of five** sur `Node` / `Composite` (movable-only).
+4. Donner au NPC un 2ᵉ comportement : **se reposer quand il est fatigué**, sinon errer.
+5. Racine = `Selector(repos, errance)`.
 
 ---
 
@@ -858,7 +835,27 @@ auto tree = BT::Selector()
 
 ---
 
-### Piste C — Builder fluide
+### Piste B — Fluent builder
+
+---
+
+What is builder pattern?
+
+---
+
+Burger example : Part 1
+Problem is too many combinations
+
+---
+
+Burger example : Part 2
+Make accessors and methods allowing to build each part
+
+---
+
+Part 3 : Everything together, what a builder can build
+
+---
 
 ```cpp
 class TreeBuilder {

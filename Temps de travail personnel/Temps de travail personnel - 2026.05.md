@@ -40,6 +40,7 @@ https://studioalbert.github.io/Portfolio
 ---
 # Rework my courses
 
+## with theorical support
 ---
 
 # Use me
@@ -49,9 +50,9 @@ https://studioalbert.github.io/Portfolio
 
 ---
 
-# next steps
+# Next steps
 
-## demo site
+## Demo site
 
 ## Back to Unity stealth game
 
