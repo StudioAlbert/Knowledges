@@ -160,17 +160,17 @@ int octile(Vec2i a, Vec2i b) {
 > pour ce modèle. Manhattan le fait en 4-connexe, octile en 8-connexe.
 
 ---
-<!-- .slide: data-background-iframe="_widgets/astar_widgets.html" data-background-interactive -->
+<!-- .slide: data-background-iframe="widgets/_widgets/astar_widgets.html" data-background-interactive -->
 ### Démo interactive
 
 Note:
-Slide en plein écran sur le widget `_widgets/astar_widgets.html`.
+Slide en plein écran sur le widget `widgets/_widgets/astar_widgets.html`.
 Dessiner des murs, placer A/B, lancer en pas-à-pas. Montrer :
 - l'expansion de la frontière (open) vs visited,
 - les valeurs g/h/f par cellule,
 - le mode Dijkstra (h=0) qui explore beaucoup plus large,
 - l'effet du toggle diagonale sur le chemin.
-Fallback si l'iframe ne charge pas : ouvrir _widgets/astar_widgets.html.
+Fallback si l'iframe ne charge pas : ouvrir widgets/_widgets/astar_widgets.html.
 
 ---
 
