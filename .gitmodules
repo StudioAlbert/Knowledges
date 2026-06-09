@@ -7,3 +7,6 @@
 [submodule "widgets"]
 	path = widgets
 	url = https://github.com/StudioAlbert/widgets.git
+[submodule "_portfolio"]
+	path = _portfolio
+	url = https://github.com/StudioAlbert/Portfolio.git
