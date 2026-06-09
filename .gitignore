@@ -8,3 +8,6 @@
 
 .DS_Store
 Thumbs.db
+
+# Worktrees temporaires des agents Claude (ne pas committer)
+.claude/worktrees/
