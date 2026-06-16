@@ -374,13 +374,18 @@ vous-en pour tester chaque étape).
 
 **Votre tâche :**
 
-1. Remplacer le constructeur par des **accesseurs** ; tester via `Content()`.
-2. Ajouter une méthode **`Build()`**.
-3. Extraire une classe **`SandwichBuilder`** à mutateurs.
-4. **Chaîner** les mutateurs par rubrique (`box`, `bread`, `sauces`, …).
-5. Rendre le **constructeur privé** : le builder devient l'unique chemin.
-6. Encapsuler les **recettes** récurrentes en méthodes publiques (rôle
-   *Director* : `Blt()`, `Vegan()`).
+1. Un **builder qui écrit dans le produit** : 
+	* `friend class SandwichBuilder;
+	* `le builder détient `Sandwich sandwich_;
+	* ` et des mutateurs nommés (`WithBread`, `WithFilling`, `AddSauce`, `WithCheese`, …) écrivent dedans.
+2. Ajouter **`Build()`** qui renvoie le `sandwich_` embarqué.
+3. **Valider** dans `Build()` (seul endroit) : refuser un pain vide.
+4. **Chaîner** : chaque mutateur renvoie `*this`.
+5. **Constructeur par défaut privé** : le builder devient l'unique chemin.
+6. Encapsuler les **recettes** récurrentes (rôle *Director*), méthodes
+   statiques :
+   - `Blt()` → baguette · bacon · mayo · cheese · toasted *(eat in)*
+   - `Vegan()` → wholewheat · falafel · hummus · harissa *(eat in)*
 
 <small>📁 [`exercises/sandwich_shop`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/exercises/sandwich_shop) · corrigé sur la branche `solution/sandwich-shop`</small>
 
