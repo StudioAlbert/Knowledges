@@ -46,10 +46,10 @@ Inclus localement :
 
 1. **Module 1** — Le problème du constructeur télescopique *(10 min)*
 2. **Module 2** — La solution Builder *(8 min)*
-3. **Module 3** — Outils : classe dédiée + mutateurs *(10 min)*
+3. **Module 3** — Champs privés + `friend` + mutateurs `With*` *(10 min)*
 4. **Module 4** — `build()` retourne le produit *(7 min)*
 5. **Module 5** — Le chaînage (interface fluide) *(8 min)*
-6. **Module 6** — Retourner un smart pointer *(7 min)*
+6. **Module 6** — Smart pointer · verrouiller le constructeur *(7 min)*
 7. **Exercice** — Sandwich shop *(brief 5 min)*
 
 ---
@@ -78,7 +78,7 @@ public:
 };
 ```
 
-<small>📁 [`examples/00_telescoping_constructor`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/examples/00_telescoping_constructor)</small>
+<small>📁 [`examples/00_telescoping_constructor`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/examples/00_telescoping_constructor)</small>
 
 Note:
 C'est le « telescoping constructor » : chaque champ optionnel ajoute une
@@ -165,41 +165,54 @@ sérialisation). L'idée centrale : le produit ne voit le jour qu'à
 
 ---
 
-## Module 3 — Outils : classe dédiée + mutateurs
+## Module 3 — Champs privés + `friend` + mutateurs `With*`
 <!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small>des mutateurs nommés, un champ à la fois</small>
+<small>le builder écrit dans le produit · l'encapsulation reste intacte</small>
 
 ---
 
-### Une classe dédiée + des mutateurs
+### Le builder écrit dans le produit
 
-Chaque champ optionnel reçoit un **mutateur nommé**. Le site d'appel se lit
-comme de la prose, plus comme une rangée d'arguments anonymes.
+Le **produit** garde ses champs `private` et déclare le builder `friend`. Le
+**builder** détient le produit en cours (`product_`) et chaque mutateur `With*`
+y écrit directement — aucun champ dupliqué.
 
 ```cpp
-class PersonBuilder {
+class Person {
+    friend class PersonBuilder;          // seul le builder touche les champs
 public:
-    explicit PersonBuilder(std::string name) : name_(std::move(name)) {}
-
-    void SetAge(int age)              { age_ = age; }
-    void SetEmail(std::string email)  { email_ = std::move(email); }
-    void SetPremium(bool premium)     { premium_ = premium; }
-
-    Person Build() const { return Person{name_, age_, email_, premium_}; }
+    void Print() const;                  // lecture seule, aucun setter public
 private:
-    std::string name_;  int age_ = 0;
-    std::string email_; bool premium_ = false;
+    std::string name_;
+    int age_ = 0;                        // défauts → champs vraiment optionnels
+    std::string email_;
+    bool premium_ = false;
+};
+
+class PersonBuilder {
+    Person product_;                     // le produit en cours de construction
+public:
+    void WithName(std::string_view n)  { product_.name_    = n; }
+    void WithAge(int age)              { product_.age_     = age; }
+    void WithEmail(std::string_view e) { product_.email_   = e; }
+    void WithPremium(bool premium)     { product_.premium_ = premium; }
+
+    Person Build() const { return product_; }
 };
 ```
 
-<small>📁 [`examples/01_builder_setters`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/examples/01_builder_setters)</small>
+<small>`friend` donne au builder l'accès aux membres privés : `Person` n'expose
+ni constructeur public ni setter — impossible de fabriquer un `Person` à
+moitié valide depuis l'extérieur.</small>
+
+<small>📁 [`examples/01_build_returns_product`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/examples/01_build_returns_product)</small>
 
 Note:
-Version délibérément naïve : mutateurs qui renvoient `void`, donc pas
-encore de chaînage. On a déjà gagné la lisibilité — impossible de
-permuter deux booléens, chacun est nommé. Les défauts (`age_ = 0`)
-rendent chaque champ réellement optionnel.
+Mutateurs `void` ici : pas encore de chaînage (Module 5). L'essentiel est le
+design — champs privés + `friend` + produit embarqué — qui gagne d'un coup la
+lisibilité (chaque champ est nommé) et l'encapsulation (aucun accès direct aux
+champs de `Person`). La validation arrive au Module 4, dans `Build()`.
 
 ---
 
@@ -217,9 +230,10 @@ vérifier les invariants — un `Person` invalide ne peut jamais exister.
 
 ```cpp
 Person Build() const {
-    if (name_.empty()) throw std::invalid_argument("name is required");
-    if (age_ < 0)      throw std::invalid_argument("age cannot be negative");
-    return Person{name_, age_, email_};
+    // Un seul endroit pour valider, avant que le Person n'existe.
+    if (product_.name_.empty()) throw std::invalid_argument("name is required");
+    if (product_.age_ < 0)      throw std::invalid_argument("age cannot be negative");
+    return product_;                 // copie du produit embarqué
 }
 ```
 
@@ -227,7 +241,7 @@ Person Build() const {
 `Person`. La validation centralisée ici remplace des `assert` éparpillés
 dans tous les constructeurs.</small>
 
-<small>📁 [`examples/02_build_returns_product`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/examples/02_build_returns_product)</small>
+<small>📁 [`examples/01_build_returns_product`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/examples/01_build_returns_product)</small>
 
 Note:
 C'est l'argument numéro un du pattern, et celui que le brouillon ne
@@ -249,12 +263,14 @@ Renvoyer une **référence au builder** suffit à enchaîner les appels : la
 configuration devient une seule expression lisible.
 
 ```cpp
-PersonBuilder& WithAge(int age)            { age_ = age;   return *this; }
-PersonBuilder& WithEmail(std::string e)    { email_ = std::move(e); return *this; }
-PersonBuilder& WithPremium(bool p = true)  { premium_ = p; return *this; }
+PersonBuilder& WithName(std::string_view n) { product_.name_  = n; return *this; }
+PersonBuilder& WithAge(int age)            { product_.age_   = age; return *this; }
+PersonBuilder& WithEmail(std::string_view e){ product_.email_ = e; return *this; }
+PersonBuilder& WithPremium(bool p = true)  { product_.premium_ = p; return *this; }
 
 // Site d'appel :
-Person ana = PersonBuilder{"Ana"}
+Person ana = PersonBuilder{}
+                 .WithName("Ana")
                  .WithAge(30)
                  .WithEmail("ana@example.com")
                  .WithPremium()
@@ -264,7 +280,7 @@ Person ana = PersonBuilder{"Ana"}
 <small>C'est l'*interface fluide*. Une seule ligne sépare une API verbeuse
 d'une API qui se lit d'un trait : `return *this;`.</small>
 
-<small>📁 [`examples/03_fluent_chaining`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/examples/03_fluent_chaining)</small>
+<small>📁 [`examples/02_fluent_chaining`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/examples/02_fluent_chaining)</small>
 
 Note:
 Subtilité à connaître sans s'y attarder : pour chaîner *sur un temporaire*,
@@ -304,7 +320,11 @@ std::unique_ptr<Person> hero = CharacterBuilder{"Mage"}.WithLevel(7).Build();
 `unique_ptr` se justifie quand le produit est polymorphe ou possédé par le
 tas — pas pour faire un `new` gratuit.</small>
 
-<small>📁 [`examples/04_smart_pointer_product`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/examples/04_smart_pointer_product)</small>
+<small>C'est le **seul** exemple où le builder n'embarque *pas* le produit par
+valeur : copier un `Character` dans un `Person` le tronquerait (*slicing*).
+D'où des champs parallèles + `make_unique` du type concret.</small>
+
+<small>📁 [`examples/03_smart_pointer_product`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/examples/03_smart_pointer_product)</small>
 
 Note:
 Le piège fréquent : croire que « Builder » implique « pointeur ». Non. La
@@ -320,19 +340,19 @@ d'entrée. Aucun code ne peut fabriquer un `Person` non validé.
 
 ```cpp
 class Person {
-    Person(std::string name, int age);   // privé
-    friend class PersonBuilder;          // seul autorisé
-    // …
+    friend class PersonBuilder;          // seul autorisé à créer un Person
+    Person() = default;                  // ctor par défaut privé
+    // … champs privés …
 };
 
-// Person p{"x", 1};   // ❌ ne compile pas : constructeur privé
-Person ok = PersonBuilder{"Ana"}.WithAge(30).Build();   // ✅
+// Person p;   // ❌ ne compile pas : même le ctor par défaut est privé
+Person ok = PersonBuilder{}.WithName("Ana").WithAge(30).Build();   // ✅
 ```
 
 <small>Garantie forte : *tout* `Person` qui existe est passé par `build()`,
 donc par la validation. C'est l'étape 5 de l'exercice.</small>
 
-<small>📁 [`examples/05_private_ctor`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/examples/05_private_ctor)</small>
+<small>📁 [`examples/04_private_ctor`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/examples/04_private_ctor)</small>
 
 Note:
 On relie ici les deux idées : `build()` valide (Module 4) et le ctor privé
@@ -362,7 +382,7 @@ vous-en pour tester chaque étape).
 6. Encapsuler les **recettes** récurrentes en méthodes publiques (rôle
    *Director* : `Blt()`, `Vegan()`).
 
-<small>📁 [`exercises/sandwich_shop`](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder/tree/main/exercises/sandwich_shop) · corrigé sur la branche `solution/sandwich-shop`</small>
+<small>📁 [`exercises/sandwich_shop`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/exercises/sandwich_shop) · corrigé sur la branche `solution/sandwich-shop`</small>
 
 Note:
 La cible : reconstruire un BLT avec une API fluide et nommée, puis prouver
@@ -399,7 +419,7 @@ complet (6 étapes) vit sur la branche `solution/sandwich-shop` du dépôt.
 - 📘 [platis.solutions — Builder pattern in C++ (2023)](https://platis.solutions/blog/2023/01/03/builder-pattern-cpp/)
 - 📘 [« Builder pattern in C++ the right way » — A. Wang](https://medium.com/@antwang/builder-pattern-in-c-the-right-way-e943abbe0d2d)
 - 📘 [« Builder Pattern in C++ » — K. Sharma](https://medium.com/@kamresh485/builder-pattern-in-c-6ffaeb44afe7)
-- 💻 Dépôt compagnon : [github.com/SAE-Geneve/CPlusPlus_Course_Builder](https://github.com/SAE-Geneve/CPlusPlus_Course_Builder)
+- 💻 Dépôt compagnon : [github.com/StudioAlbert/cpp_builder_pattern_course_companion](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion)
 
 ---
 
