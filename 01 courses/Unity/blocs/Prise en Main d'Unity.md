@@ -22,6 +22,7 @@ Ouvrir Unity pour la première fois et poser un projet propre : le dépôt Git a
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | Intro to Unity | 1.5 | [[intro_to_unity]] |
@@ -29,6 +30,7 @@ Ouvrir Unity pour la première fois et poser un projet propre : le dépôt Git a
 | 3 | Setup GitHub for Unity | 1 | [[setup_github_for_unity]] |
 
 **Total : 3 cours, 5.5 h.**
+
 <!-- /cours:auto -->
 
 ## Validation

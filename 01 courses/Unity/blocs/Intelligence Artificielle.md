@@ -24,6 +24,7 @@ Un agent non joueur qui perçoit, décide, puis se déplace : les trois étages,
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | AI Pathfinding (Behaviour Tree, State machine) | 6 | [[ai_pathfinding_behaviour_tree_state_machine]] |
@@ -33,6 +34,7 @@ Un agent non joueur qui perçoit, décide, puis se déplace : les trois étages,
 | 5 | Unity AI - Utility AI | **?** | [[unity_ai_utility_ai]] |
 
 **Total : 5 cours, 15.75 h — 1 cours sans `duration_h`.**
+
 <!-- /cours:auto -->
 
 ## Validation

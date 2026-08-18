@@ -13,6 +13,6 @@ Thumbs.db
 .claude/worktrees/
 
 # Dépôts d'examens clonés (gérés dans leurs propres repos SAE-Geneve)
-01 courses/C++ Advanced/exams/925-cpp-exam-draft/
-01 courses/C++ Advanced/exams/cpp-exam-925/
-01 courses/C++ Advanced/exams/cpp_exam_prep_fizzbuzz/
+01 courses/C++/exams/925-cpp-exam-draft/
+01 courses/C++/exams/cpp-exam-925/
+01 courses/C++/exams/cpp_exam_prep_fizzbuzz/

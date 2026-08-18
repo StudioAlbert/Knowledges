@@ -23,12 +23,14 @@ Construire l'interface et la brancher au jeu, avec les deux systèmes que Unity 
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | UI | 6 | [[ui]] |
 | 2 | UI - UI Toolkit 2 | 6 | [[ui_ui_toolkit_2]] |
 
 **Total : 2 cours, 12 h.**
+
 <!-- /cours:auto -->
 
 ## Validation

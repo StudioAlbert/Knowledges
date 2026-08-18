@@ -23,11 +23,13 @@ La chaîne 2D complète du moteur, du Tilemap au contrôleur de plateformer, mon
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | 2D in Unity | 12 | [[2d_in_unity]] |
 
 **Total : 1 cours, 12 h.**
+
 <!-- /cours:auto -->
 
 ## Validation

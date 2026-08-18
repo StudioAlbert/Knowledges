@@ -23,6 +23,7 @@ Le moteur physique comme système d'interaction : masses et forces, volumes de c
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | Item Picking | 3 | [[item_picking]] |
@@ -30,6 +31,7 @@ Le moteur physique comme système d'interaction : masses et forces, volumes de c
 | 3 | Raycast | 6 | [[raycast]] |
 
 **Total : 3 cours, 15 h.**
+
 <!-- /cours:auto -->
 
 ## Validation

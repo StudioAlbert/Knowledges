@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronise les notes de bloc Unity depuis les notes de cours.
+"""Synchronise les notes de bloc depuis les notes de cours.
 
 Chaque note de cours porte `bloc: "[[Nom du bloc]]"` et `duration_h`.
 Ce script relit ces valeurs et, pour chaque note de `blocs/` :
@@ -10,7 +10,8 @@ Ce script relit ces valeurs et, pour chaque note de `blocs/` :
 Le frontmatter reste la source de verite lue par GSDA/Aurora : rien
 ici ne depend d'un plugin Obsidian.
 
-    python tools/sync_blocs.py            applique les mises a jour
+    python tools/sync_blocs.py            tous les cours
+    python tools/sync_blocs.py "C++"      un seul cours
     python tools/sync_blocs.py --check    n'ecrit rien, sort 1 si divergence
 """
 import re
@@ -18,9 +19,8 @@ import sys
 import pathlib
 import collections
 
-RACINE = pathlib.Path(__file__).resolve().parent.parent / "01 courses" / "Unity"
-COURS = RACINE / "cours"
-BLOCS = RACINE / "blocs"
+CATALOGUE = pathlib.Path(__file__).resolve().parent.parent / "01 courses"
+COURS_SUIVIS = ("Unity", "C++")
 
 DEBUT, FIN = "<!-- cours:auto -->", "<!-- /cours:auto -->"
 
@@ -40,8 +40,8 @@ def champ(fm, nom):
     return m.group(1) if m else None
 
 
-def lire_cours():
-    """Groupe les notes de cours par bloc, triees par chapter puis titre."""
+def lire_cours(COURS):
+    """Groupe les notes de cours par bloc, triees par titre."""
     par_bloc = collections.defaultdict(list)
     orphelins, sans_duree = [], []
     for chemin in sorted(COURS.glob("*.md")):
@@ -79,9 +79,13 @@ def tableau(cours):
     return "\n".join(lignes)
 
 
-def main():
-    verif = "--check" in sys.argv
-    par_bloc, orphelins, sans_duree = lire_cours()
+def traiter(cours_nom, verif):
+    """Synchronise un cours. Rend la liste de ses divergences."""
+    racine = CATALOGUE / cours_nom
+    COURS, BLOCS = racine / "cours", racine / "blocs"
+    if not BLOCS.is_dir():
+        return [f"{cours_nom}: dossier blocs/ absent"]
+    par_bloc, orphelins, sans_duree = lire_cours(COURS)
     divergences, touches = [], []
 
     for chemin in sorted(BLOCS.glob("*.md")):
@@ -100,7 +104,9 @@ def main():
             divergences.append(f"{nom}: cours={champ(fm, 'cours')} attendu {attendu}")
             fm = re.sub(r'^cours:.*$', f'cours: {attendu}', fm, count=1, flags=re.M)
 
-        neuf = f"{DEBUT}\n{tableau(cours)}\n{FIN}"
+        # lignes vides obligatoires : sans elles Obsidian prolonge le bloc HTML
+        # ouvert par le commentaire et avale le tableau au lieu de le rendre
+        neuf = f"{DEBUT}\n\n{tableau(cours)}\n\n{FIN}"
         if DEBUT in corps:
             ancien = corps[corps.index(DEBUT):corps.index(FIN) + len(FIN)]
             if ancien != neuf:
@@ -121,13 +127,27 @@ def main():
     for stem in sans_duree:
         divergences.append(f"cours sans duration_h : {stem}")
 
-    for ligne in divergences:
-        print("  " + ligne)
-    if verif:
-        print(f"\n{len(divergences)} divergence(s)")
-        return 1 if divergences else 0
-    print(f"\n{len(touches)} note(s) de bloc mise(s) a jour : {', '.join(touches) or '-'}")
-    return 0
+    if not verif and touches:
+        divergences.append(f"-> {len(touches)} note(s) reecrite(s)")
+    return divergences
+
+
+def main():
+    verif = "--check" in sys.argv
+    demandes = [a for a in sys.argv[1:] if not a.startswith("--")]
+
+    total = 0
+    for nom in demandes or list(COURS_SUIVIS):
+        divergences = traiter(nom, verif)
+        print(f"\n[{nom}]")
+        for ligne in divergences:
+            print("  " + ligne)
+        if not divergences:
+            print("  rien a signaler")
+        total += sum(1 for d in divergences if not d.startswith("->"))
+
+    print(f"\n{total} divergence(s)")
+    return 1 if (verif and total) else 0
 
 
 if __name__ == "__main__":

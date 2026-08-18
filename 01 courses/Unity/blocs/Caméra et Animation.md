@@ -23,6 +23,7 @@ Ce que le joueur voit et comment il le voit : machine à états d'animation, pui
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | Animator  1 | 6 | [[animator_1]] |
@@ -30,6 +31,7 @@ Ce que le joueur voit et comment il le voit : machine à états d'animation, pui
 | 3 | Cinemachine | 3 | [[cinemachine]] |
 
 **Total : 3 cours, 9 h — 1 cours sans `duration_h`.**
+
 <!-- /cours:auto -->
 
 ## Validation

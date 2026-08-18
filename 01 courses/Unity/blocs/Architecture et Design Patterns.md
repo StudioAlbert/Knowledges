@@ -23,6 +23,7 @@ Sortir du script monolithique : externaliser les données, encadrer les accès g
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | SOLID Principles in Unity | 3 | [[solid_principles_in_unity]] |
@@ -31,6 +32,7 @@ Sortir du script monolithique : externaliser les données, encadrer les accès g
 | 4 | Strategy pattern | **?** | [[strategy_pattern]] |
 
 **Total : 4 cours, 9 h — 2 cours sans `duration_h`.**
+
 <!-- /cours:auto -->
 
 ## Validation

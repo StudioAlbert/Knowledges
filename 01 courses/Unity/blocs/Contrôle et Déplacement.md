@@ -23,12 +23,14 @@ Rendre un objet jouable : lire les entrées avec le New Input System, puis chois
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | How to move | 3 | [[how_to_move]] |
 | 2 | New Input System | 3 | [[new_input_system]] |
 
 **Total : 2 cours, 6 h.**
+
 <!-- /cours:auto -->
 
 ## Validation

@@ -6,7 +6,7 @@ prerequis:
   - "[[Caméra et Animation]]"
 projet:
   - "[[Unity Game Prototypes]]"
-cours: 15
+cours: 18
 ---
 
 # VFX, Rendu et Game Feel
@@ -24,15 +24,17 @@ Le polish comme discipline mesurable : retours visuels, sonores et d'interface, 
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | Audio | 6 | [[audio]] |
 | 2 | Feedbacks, Juice | 6 | [[feedbacks_juice]] |
-| 3 | Lightning, Rendering | **?** | [[lightning_rendering]] |
+| 3 | Lightning, Rendering | 3 | [[lightning_rendering]] |
 | 4 | Particle Systems | **?** | [[particle_systems]] |
 | 5 | Shader Graph | 3 | [[shader_graph]] |
 
-**Total : 5 cours, 15 h — 2 cours sans `duration_h`.**
+**Total : 5 cours, 18 h — 1 cours sans `duration_h`.**
+
 <!-- /cours:auto -->
 
 ## Validation

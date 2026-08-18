@@ -23,6 +23,7 @@ Les briques de la boucle de jeu : tirer, infliger des dégâts, séquencer dans 
 ## Cours
 
 <!-- cours:auto -->
+
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | Coroutines | 3 | [[coroutines]] |
@@ -30,6 +31,7 @@ Les briques de la boucle de jeu : tirer, infliger des dégâts, séquencer dans 
 | 3 | Spawn | 3 | [[spawn]] |
 
 **Total : 3 cours, 9 h.**
+
 <!-- /cours:auto -->
 
 ## Validation
