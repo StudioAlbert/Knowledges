@@ -1,0 +1,34 @@
+﻿Nom,Module,Chapter order,Niveau / Section,Topic
+Setup GitHub for Unity,🐣 - Beginner,0.0,SAE 1A,Basics
+Chapter 1 — What to sense,🐰 - Medium,1,SAE 2A,Programming
+"Intro to Unity ",🐣 - Beginner,1.0,"Game Sup 1A, SAE 1A",Basics
+Prefabs,🐣 - Beginner,1.0,"Game Sup 1A, SAE 1A",Basics
+New Input System,🐣 - Beginner,1.1,"Game Sup 1A, SAE 1A",Basics
+Physics,🐣 - Beginner,1.2,,Physics
+How to move,🐣 - Beginner,1.2,"Game Sup 1A, SAE 1A","3C, Basics, Physics"
+"Shoot, Make damages",🐣 - Beginner,2.0,"Game Sup 1A, SAE 1A",Programming
+Raycast,🐣 - Beginner,2.1,"Game Sup 1A, SAE 1A","3C, Physics, Programming"
+UI,🐣 - Beginner,2.2,"Game Sup 1A, SAE 1A",UI
+Coroutines,🐣 - Beginner,2.2,"Game Sup 2A, SAE 2A",Programming
+Spawn,🐣 - Beginner,2.3,SAE 1A,Programming
+2D in Unity,🐣 - Beginner,3.1,SAE 1A,Basics
+Item Picking,🐣 - Beginner,3.2,SAE 1A,3C
+Cinemachine,🐣 - Beginner,4.1,"Game Sup 1A, SAE 1A",3C
+Animator  1,🐣 - Beginner,4.1,"Game Sup 1A, SAE 1A",3C
+"Feedbacks, Juice",🐣 - Beginner,5.2,SAE 1A,VFX / Feedbacks / Juice
+Shader Graph,🐣 - Beginner,5.3,"Game Sup 2A, SAE 1A, SAE 2A",VFX / Feedbacks / Juice
+"AI Pathfinding (Behaviour Tree, State machine)",🐰 - Medium,6.1,"Game Sup 1A, SAE 1A",
+AI Pathfinding (Nav mesh),🐰 - Medium,6.1,"Game Sup 1A, SAE 1A",
+SOLID Principles in Unity,🦁 - Advanced,6.2,"Game Sup 2A, SAE 2A",Programming
+Unity AI - Utility AI,,,"Game Sup 2A, SAE 1A",
+Unity AI - Core principles,🐰 - Medium,,"Game Sup 2A, SAE 1A",Programming
+UI - UI Toolkit 2,🐰 - Medium,,"Game Sup 2A, SAE 1A",
+Animator 2,🐰 - Medium,,"Game Sup 2A, SAE 1A",3C
+Singletons in Unity,🐰 - Medium,,SAE 1A,Programming
+Audio,🐣 - Beginner,,,
+Strategy pattern,🦁 - Advanced,,"Game Sup 2A, SAE 2A",Programming
+UI - UI Toolkit,🐰 - Medium,,"Game Sup 2A, SAE 1A",UI
+"Lightning, Rendering",🐰 - Medium,,"Game Sup 2A, SAE 2A",
+Particle Systems,🐰 - Medium,,"Game Sup 2A, SAE 2A",VFX / Feedbacks / Juice
+Scriptable Objects,🐰 - Medium,,"Game Sup 2A, SAE 1A",Programming
+Physics,,,,"3C, Basics"

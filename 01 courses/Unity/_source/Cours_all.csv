@@ -1,0 +1,34 @@
+﻿Nom,Chapter order,Date de création,Durée (en h),Module,Niveau / Section,Topic
+New Input System,1.1,13 décembre 2022 22:06,3,🐣 - Beginner,"Game Sup 1A, SAE 1A",Basics
+SOLID Principles in Unity,6.2,13 décembre 2022 22:10,3,🦁 - Advanced,"Game Sup 2A, SAE 2A",Programming
+Coroutines,2.2,13 décembre 2022 22:11,3,🐣 - Beginner,"Game Sup 2A, SAE 2A",Programming
+Raycast,2.1,13 décembre 2022 22:22,6,🐣 - Beginner,"Game Sup 1A, SAE 1A","3C, Physics, Programming"
+Physics,,13 décembre 2022 22:22,,,,"3C, Basics"
+Scriptable Objects,,13 décembre 2022 22:38,,🐰 - Medium,"Game Sup 2A, SAE 1A",Programming
+UI,2.2,13 décembre 2022 23:03,6,🐣 - Beginner,"Game Sup 1A, SAE 1A",UI
+Particle Systems,,13 décembre 2022 23:04,,🐰 - Medium,"Game Sup 2A, SAE 2A",VFX / Feedbacks / Juice
+Shader Graph,5.3,13 décembre 2022 23:05,3,🐣 - Beginner,"Game Sup 2A, SAE 1A, SAE 2A",VFX / Feedbacks / Juice
+"Lightning, Rendering",,13 décembre 2022 23:06,,🐰 - Medium,"Game Sup 2A, SAE 2A",
+AI Pathfinding (Nav mesh),6.1,17 mai 2023 14:01,6,🐰 - Medium,"Game Sup 1A, SAE 1A",
+Prefabs,1.0,28 novembre 2023 15:01,3,🐣 - Beginner,"Game Sup 1A, SAE 1A",Basics
+2D in Unity,3.1,11 décembre 2023 15:55,6,🐣 - Beginner,SAE 1A,Basics
+UI - UI Toolkit,,9 avril 2024 19:01,,🐰 - Medium,"Game Sup 2A, SAE 1A",UI
+Animator  1,4.1,5 novembre 2024 09:13,6,🐣 - Beginner,"Game Sup 1A, SAE 1A",3C
+Setup GitHub for Unity,0.0,4 décembre 2024 15:18,1,🐣 - Beginner,SAE 1A,Basics
+Item Picking,3.2,13 décembre 2024 11:45,3,🐣 - Beginner,SAE 1A,3C
+Cinemachine,4.1,10 janvier 2025 11:36,3,🐣 - Beginner,"Game Sup 1A, SAE 1A",3C
+Strategy pattern,,15 avril 2025 12:28,,🦁 - Advanced,"Game Sup 2A, SAE 2A",Programming
+"Intro to Unity ",1.0,6 octobre 2025 12:18,"1,5",🐣 - Beginner,"Game Sup 1A, SAE 1A",Basics
+How to move,1.2,6 octobre 2025 16:54,3,🐣 - Beginner,"Game Sup 1A, SAE 1A","3C, Basics, Physics"
+"Shoot, Make damages",2.0,13 octobre 2025 09:59,3,🐣 - Beginner,"Game Sup 1A, SAE 1A",Programming
+Spawn,2.3,3 novembre 2025 17:56,3,🐣 - Beginner,SAE 1A,Programming
+"AI Pathfinding (Behaviour Tree, State machine)",6.1,12 novembre 2025 10:15,6,🐰 - Medium,"Game Sup 1A, SAE 1A",
+"Feedbacks, Juice",5.2,12 novembre 2025 10:16,6,🐣 - Beginner,SAE 1A,VFX / Feedbacks / Juice
+Physics,1.2,20 novembre 2025 22:15,,🐣 - Beginner,,Physics
+Audio,,16 décembre 2025 17:02,,🐣 - Beginner,,
+Singletons in Unity,,18 décembre 2025 06:38,,🐰 - Medium,SAE 1A,Programming
+Animator 2,,2 janvier 2026 15:14,,🐰 - Medium,"Game Sup 2A, SAE 1A",3C
+UI - UI Toolkit 2,,13 février 2026 12:40,,🐰 - Medium,"Game Sup 2A, SAE 1A",
+Chapter 1 — What to sense,1,17 mars 2026 10:31,"0,75",🐰 - Medium,SAE 2A,Programming
+Unity AI - Core principles,,17 mars 2026 11:58,3,🐰 - Medium,"Game Sup 2A, SAE 1A",Programming
+Unity AI - Utility AI,,17 mars 2026 16:09,,,"Game Sup 2A, SAE 1A",

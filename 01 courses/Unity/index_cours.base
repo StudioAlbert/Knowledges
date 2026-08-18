@@ -1,0 +1,133 @@
+filters:
+  and:
+    - file.inFolder("01 courses/Unity/cours")
+    - file.ext == "md"
+properties:
+  note.title:
+    displayName: Titre
+  note.chapter:
+    displayName: Chapitre
+  note.duration_h:
+    displayName: Durée (h)
+  note.module:
+    displayName: Module
+  note.section:
+    displayName: Section
+  note.topic:
+    displayName: Topic
+  note.parent:
+    displayName: Parent
+  note.type:
+    displayName: Type
+  note.created:
+    displayName: Créé le
+  file.name:
+    displayName: lien
+views:
+  - type: table
+    name: Progression
+    filters:
+      and:
+        - type == "course"
+    order:
+      - chapter
+      - file.name
+      - title
+      - duration_h
+      - module
+      - topic
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: duration_h
+        direction: ASC
+      - property: file.name
+        direction: ASC
+    columnSize:
+      note.chapter: 118
+      file.name: 191
+      note.title: 210
+      note.duration_h: 105
+      note.module: 150
+  - type: table
+    name: Par module
+    filters:
+      and:
+        - type == "course"
+    groupBy:
+      property: module
+      direction: ASC
+    order:
+      - chapter
+      - title
+      - duration_h
+      - topic
+      - section
+    sort:
+      - property: chapter
+        direction: ASC
+  - type: table
+    name: Par section
+    filters:
+      and:
+        - type == "course"
+    groupBy:
+      property: section
+      direction: ASC
+    order:
+      - chapter
+      - title
+      - module
+      - duration_h
+      - topic
+    sort:
+      - property: chapter
+        direction: ASC
+  - type: table
+    name: Par topic
+    filters:
+      and:
+        - type == "course"
+    groupBy:
+      property: topic
+      direction: ASC
+    order:
+      - title
+      - chapter
+      - module
+      - duration_h
+    sort:
+      - property: title
+        direction: ASC
+  - type: table
+    name: Sous-pages
+    filters:
+      and:
+        - type == "section"
+    groupBy:
+      property: parent
+      direction: ASC
+    order:
+      - title
+      - parent
+      - module
+      - section
+    sort:
+      - property: title
+        direction: ASC
+  - type: table
+    name: Tout
+    order:
+      - title
+      - file.name
+      - chapter
+      - module
+      - section
+      - topic
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: type
+        direction: ASC
+      - property: title
+        direction: ASC
