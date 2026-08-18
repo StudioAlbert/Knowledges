@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # AI Fundamentals
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Decision Making
 
@@ -22,7 +22,7 @@ scalable one (behaviour trees), and finish on a glimpse of planning
 ---
 
 ## Agenda
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 1. **The AI Engine** — where decision making sits
 2. **State Pattern** — finite state machines
@@ -32,7 +32,7 @@ scalable one (behaviour trees), and finish on a glimpse of planning
 ---
 
 # The AI Engine
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 Note:
 Game AI is usually split into three layers: *decision making* (what
@@ -67,14 +67,14 @@ needs to look.
 ---
 
 # State Pattern
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ### Finite State Machines
 
 ---
 
 ## State Pattern — Définition
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 A **state machine** describes behaviour as a set of distinct
 *states*, and the *transitions* that move the agent between them.
@@ -251,7 +251,7 @@ boilerplate. The OO way pays off once you pass roughly four states.
 ---
 
 ### State Pattern — Sources
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - [Automata theory — Wikipedia](https://en.wikipedia.org/wiki/Automata_theory)
 - [Game Programming Patterns — State](https://gameprogrammingpatterns.com/state.html)
@@ -262,7 +262,7 @@ boilerplate. The OO way pays off once you pass roughly four states.
 ---
 
 # Behaviour Trees
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ### A graph that determines an actor's actions
 
@@ -559,14 +559,14 @@ over behaviour.
 ---
 
 # Workshop — The Robber
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 Build a behaviour tree that steals a diamond.
 
 ---
 
 ### Workshop steps
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 1. **Make a `Node` class**
 2. **Make a graph** and print all nodes
@@ -606,7 +606,7 @@ which fails the whole sequence — the heist aborts.
 ---
 
 # Goal-Oriented Action Planner
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ### GOAP
 
@@ -638,7 +638,7 @@ planner found those sequences.
 ---
 
 ### References
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - *Three States and a Plan: The A.I. of F.E.A.R.* — Jeff Orkin
 - [An Introduction to GOAP — Unity Learn](https://learn.unity.com/)
@@ -651,7 +651,7 @@ planner found those sequences.
 ---
 
 # Recap
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - **FSM** — one state at a time; simple, but transitions explode
 - **Behaviour Tree** — composable selectors & sequences; `RUNNING` /

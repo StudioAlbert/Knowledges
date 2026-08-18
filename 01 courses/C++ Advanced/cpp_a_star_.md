@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-- _templates/css/sae_styles.css
+- 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # A\* — Pathfinding en C++ moderne
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Cours · théorie + lecture de code + optimisations</small>
 
@@ -20,7 +20,7 @@ Les étudiants travaillent sur la branche 925 (pas encore d'A*) : ce cours
 leur donne la cible à atteindre.
 
 ---
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 ## Sources
 
 <div style="color:#fff;">
@@ -36,7 +36,7 @@ Inclus localement :
 </div>
 
 ---
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 ## Déroulé
 
 <div style="color:#fff;">
@@ -57,7 +57,7 @@ Inclus localement :
 ---
 
 ## Partie 1
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 ### Qu'est-ce que A\* ?
 
 ---
@@ -159,22 +159,22 @@ int octile(Vec2i a, Vec2i b) {
 > pour ce modèle. Manhattan le fait en 4-connexe, octile en 8-connexe.
 
 ---
-<!-- .slide: data-background-iframe="widgets/_widgets/astar_widgets.html" data-background-interactive -->
+<!-- .slide: data-background-iframe="00 widgets/_widgets/astar_widgets.html" data-background-interactive -->
 ### Démo interactive
 
 Note:
-Slide en plein écran sur le widget `widgets/_widgets/astar_widgets.html`.
+Slide en plein écran sur le widget `00 widgets/_widgets/astar_widgets.html`.
 Dessiner des murs, placer A/B, lancer en pas-à-pas. Montrer :
 - l'expansion de la frontière (open) vs visited,
 - les valeurs g/h/f par cellule,
 - le mode Dijkstra (h=0) qui explore beaucoup plus large,
 - l'effet du toggle diagonale sur le chemin.
-Fallback si l'iframe ne charge pas : ouvrir widgets/_widgets/astar_widgets.html.
+Fallback si l'iframe ne charge pas : ouvrir 00 widgets/_widgets/astar_widgets.html.
 
 ---
 
 ## Partie 2
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 ### Construire A\* à la main
 
 <small style="color:#fff;">On le re-construit pas à pas : contrat → structures → voisins → boucle → chemin.</small>
@@ -189,7 +189,7 @@ partie, on a tout vu — la 2.7 demande de tout assembler soi-même.
 ---
 
 ## 2.1 — Le contrat
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Que reçoit `FindPath`, que rend-il ?</small>
 
@@ -232,7 +232,7 @@ if (!grid[end.x, end.y].walkable)
 ---
 
 ## 2.2 — `std::unordered_set` : extraire les positions
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Représenter le terrain par un **ensemble de positions**, pas par une grille dense.</small>
 
@@ -335,7 +335,7 @@ bool operator==(Vec2i a, Vec2i b) {
 ---
 
 ## 2.3 — Le `Node` et la file de priorité
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Ce qu'on met dans l'open list, et comment on en sort le minimum.</small>
 
@@ -401,7 +401,7 @@ Fallback si l'iframe ne charge pas : ouvrir le lien Excalidraw directement.
 ---
 
 ## 2.4 — Voisins & heuristique
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Définir le déplacement, choisir `h`.</small>
 
@@ -439,7 +439,7 @@ auto manhattan = [](Vec2i a, Vec2i b){
 ---
 
 ## 2.5 — La boucle principale
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Pop min-`f`, marquer, edge-relax, recommencer.</small>
 
@@ -497,7 +497,7 @@ return std::unexpected(PathError::kNoPathFound);
 ---
 
 ## 2.6 — Reconstruire le chemin
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Remonter `came_from`, puis inverser.</small>
 
@@ -530,7 +530,7 @@ if (cur.pos == end) {
 ---
 
 ## 2.7 — À vous
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <div style="color:#fff;">
 
@@ -556,7 +556,7 @@ Le critère d'acceptation de chaque étape sert de petit test mental
 ---
 
 ## Partie 3
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 ### Optimisations possibles
 
 <small style="color:#fff;">Classées par effort / gain.</small>
@@ -590,7 +590,7 @@ Annexes
 ---
 
 ## 2.2 — `std::mdspan` : la grille sans copie
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Une vue multidim posée sur un buffer 1D contigu.</small>
 

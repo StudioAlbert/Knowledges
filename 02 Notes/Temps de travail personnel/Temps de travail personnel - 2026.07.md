@@ -2,7 +2,7 @@
 theme: white
 transition: slide
 css:
-  - _templates/css/temps_travail_perso.css
+  - 00 templates/css/temps_travail_perso.css
 slideNumber: true
 ---
 # Temps de travail personnel

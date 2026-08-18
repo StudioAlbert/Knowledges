@@ -1,7 +1,7 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---

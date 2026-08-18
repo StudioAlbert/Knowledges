@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-- _templates/css/sae_styles.css
+- 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # Behaviour Trees en C++ moderne
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Workshop · 4h · cours + TP incrémental</small>
 
@@ -18,7 +18,7 @@ Vous connaissez le pattern BT via Unity. Aujourd'hui on le réécrit en C++
 en partant d'une approche naïve, puis en l'amenant vers une lib idiomatique.
 
 ---
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 ## Déroulé
 
 <div style="color:#fff;">
@@ -37,7 +37,7 @@ en partant d'une approche naïve, puis en l'amenant vers une lib idiomatique.
 ---
 
 ## Bloc 1 — Rappel BT
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">20' · cours</small>
 
@@ -112,7 +112,7 @@ Selector (priorité)
 ---
 
 ## Bloc 2 — Première approche
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">30' · cours</small>
 
@@ -233,7 +233,7 @@ class Sequence : public Node {
 ---
 
 ## Bloc 3 — TP 1 : premier NPC errant
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">45' · TP · dans le projet CityBuilder</small>
 
@@ -460,7 +460,7 @@ window_.display();
 ---
 
 ## Bloc 4 — Polymorphisme & ownership
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">30' · cours</small>
 
@@ -577,7 +577,7 @@ Verbeux ? Oui. On y reviendra (Bloc 6).
 ---
 
 ## Bloc 5 — TP 2 : étoffer le comportement
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">45' · TP</small>
 
@@ -686,7 +686,7 @@ bt_root_ = std::move(root);
 ---
 
 ## Bloc 6 — Limites & optimisations
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">30' · cours</small>
 
@@ -817,7 +817,7 @@ auto tree = BT::Selector()
 ---
 
 ## Bloc 7 — TP 3 : Refactor & critique
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">40' · TP</small>
 
@@ -963,7 +963,7 @@ auto dt = std::chrono::steady_clock::now() - t0;
 ---
 
 ## Bloc 8 — Bilan
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 
@@ -989,7 +989,7 @@ auto dt = std::chrono::steady_clock::now() - t0;
 ---
 
 ## Questions ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small style="color:#fff;">Départ : tag `925-tp-bt-starter` · Corrigé : branche `925-tp-bt-corrected` (1 commit par TP)</small>
 

@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # Introduction to logic
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Opérateurs, algèbre de Boole, arithmétique non décimale
 
@@ -21,7 +21,7 @@ Le lien entre les deux, c'est que la machine ne connaît que le binaire.
 ---
 
 ## Source
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <div style="color:#fff;">
 
@@ -36,12 +36,12 @@ Exercices : [[Exercices - 02 - Introduction to Logic]] · Référence : [[Truth 
 ---
 
 # Opérateurs C++
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## C++ operators — arithmétique
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Operator | Name | Description | Example |
 |:-:|---|---|:-:|
@@ -54,7 +54,7 @@ Exercices : [[Exercices - 02 - Introduction to Logic]] · Référence : [[Truth 
 ---
 
 ## C++ operators — incrément et décalage
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Operator | Name | Description | Example |
 |:-:|---|---|:-:|
@@ -68,7 +68,7 @@ Exercices : [[Exercices - 02 - Introduction to Logic]] · Référence : [[Truth 
 ---
 
 ## C++ assignment operators
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Operator | Example | Same as | | Operator | Example | Same as |
 |:-:|:-:|:-:|---|:-:|:-:|:-:|
@@ -82,7 +82,7 @@ Exercices : [[Exercices - 02 - Introduction to Logic]] · Référence : [[Truth 
 ---
 
 ## Boolean operations
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 `True` et `False`, combinés par : **and** (`&&`), **or** (`||`), **equal** (`==`), **not equal** (`!=`).
 
@@ -99,7 +99,7 @@ True != False                             = ??
 ---
 
 ## Integer operations to boolean
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Opérateur | Signification |
 |:-:|---|
@@ -121,12 +121,12 @@ True != False                             = ??
 ---
 
 # Algèbre de Boole
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Operator AND
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 A and B (`A && B`) : **a ∧ b**
 
@@ -140,7 +140,7 @@ A and B (`A && B`) : **a ∧ b**
 ---
 
 ## Operator OR
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 A or B (`A || B`) : **a ∨ b**
 
@@ -154,7 +154,7 @@ A or B (`A || B`) : **a ∨ b**
 ---
 
 ## Operator NOT
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Not A (`!a`) : **¬a**
 
@@ -166,7 +166,7 @@ Not A (`!a`) : **¬a**
 ---
 
 ## Commutativité
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```
 a ∧ b  =  b ∧ a
@@ -177,7 +177,7 @@ a ∨ b  =  b ∨ a
 ---
 
 ## Distributivité mutuelle
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```
 a ∧ (b ∨ c)  =  (a ∧ b) ∨ (a ∧ c)
@@ -188,7 +188,7 @@ a ∨ (b ∧ c)  =  (a ∨ b) ∧ (a ∨ c)
 ---
 
 ## Lois de De Morgan
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```
 !(a ∧ b)  =  !a ∨ !b
@@ -204,7 +204,7 @@ même outil que dans l'exercice 2.2.
 ---
 
 ## Priorité des opérateurs
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 1. **not** est évalué en premier
 2. **and** est évalué en deuxième
@@ -213,12 +213,12 @@ même outil que dans l'exercice 2.2.
 ---
 
 # Arithmétique non décimale
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Non-decimal arithmetic
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 What is a decimal number ? It's a sum of *a* × 10ⁿ.
 
@@ -233,7 +233,7 @@ Exemple avec **368** :
 ---
 
 ## Changer de base
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Le même principe, mais en base 9 :
 
@@ -248,7 +248,7 @@ ne change dans la méthode, seule la valeur de la base change.
 ---
 
 ## Hexadecimal
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Préfixe `0x`. Digits are **0 to F** (= 15).
 
@@ -263,7 +263,7 @@ Exemple avec `0x182` :
 ---
 
 ## Hexadecimal — la table
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Hexa | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C | D | E | F |
 |---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -272,7 +272,7 @@ Exemple avec `0x182` :
 ---
 
 ## Binary
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Digits are **0 or 1**.
 

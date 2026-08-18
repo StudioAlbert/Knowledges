@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # Deeper dive into STD
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### 1 / 2 — file I/O, stringstream, algorithms
 
@@ -22,7 +22,7 @@ vous écrivez à la main.
 ---
 
 ## Source
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <div style="color:#fff;">
 
@@ -37,12 +37,12 @@ Suite : [[07 - Deeper dive into STD 2-2 - Algorithms]] · Exercices : [[Exercice
 ---
 
 # File I/O
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Pourquoi écrire dans un fichier externe ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - système de sauvegarde
 - settings
@@ -51,7 +51,7 @@ Suite : [[07 - Deeper dive into STD 2-2 - Algorithms]] · Exercices : [[Exercice
 ---
 
 ## Ouvrir un fichier
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -69,7 +69,7 @@ int main()
 ---
 
 ## Ouvrir un fichier ⇒ toujours fermer
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -87,7 +87,7 @@ int main()
 ---
 
 ## Lire en mode stream
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -109,7 +109,7 @@ int main()
 ---
 
 ## Lire en mode string
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -135,7 +135,7 @@ Différence avec la diapo précédente : `>>` découpe sur les espaces,
 ---
 
 ## Restart from file start
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 std::ifstream inFile;
@@ -163,7 +163,7 @@ repositionnement ne sert à rien.
 ---
 
 ## Écrire en mode stream
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 int main()
@@ -181,7 +181,7 @@ int main()
 ---
 
 ## Écrire — write()
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 int main()
@@ -201,7 +201,7 @@ int main()
 ---
 
 ## stringstream !
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -229,7 +229,7 @@ You can have :
 ---
 
 ## XML vs JSON
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - **XML** (Extensible Markup Language) is a pretty big standard.
 - **JSON** (JavaScript Object Notation) is pretty simple and easier to read.
@@ -237,7 +237,7 @@ You can have :
 ---
 
 ## JSON — exemple
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```json
 {
@@ -264,7 +264,7 @@ You can have :
 ---
 
 ## Schema
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - les schémas sont un moyen de vérifier le contenu de votre XML / JSON
 - ils **valident** votre XML / JSON
@@ -275,7 +275,7 @@ You can have :
 ---
 
 ## Pause
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Question time !
 
@@ -284,12 +284,12 @@ Vous pouvez aussi jouer avec VS2019 — ou faire une pause, au cas où votre cer
 ---
 
 # Algorithm
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Algorithm — pourquoi
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 La bibliothèque `<algorithm>` permet d'éviter :
 
@@ -303,7 +303,7 @@ C'est bien plus que `for_each` : il y a **105 algorithmes** en C++17.
 ---
 
 ## Algorithm — la bibliothèque
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 > The algorithms library defines functions for a variety of purposes (searching, sorting, counting, manipulating) that operate on ranges of elements.
 
@@ -334,7 +334,7 @@ int main()
 ---
 
 ## Algorithm — les ranges (C++20)
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 #include <vector>
@@ -363,7 +363,7 @@ endif(WIN32)
 ---
 
 ## Algorithm — execution policy (C++17)
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 L'execution policy peut optimiser votre code pour le rendre multithread ou vectorisé. Très utile si vous voulez que ça aille plus vite — **mais attention aux valeurs partagées !**
 
@@ -398,7 +398,7 @@ int main() {
 ---
 
 ## Algorithm — les familles
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - the **queries**
 - the **permutations**
@@ -413,12 +413,12 @@ int main() {
 ---
 
 # Itérateurs et intervalles
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Notion d'itérateur
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Un **itérateur** est un objet qui pointe l'élément d'un container.
 
@@ -433,7 +433,7 @@ Pour un `vector<int> myVector` :
 ---
 
 ## Déplacer un itérateur
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Avec les opérateurs d'addition : `++` (incrémentation), `--` (décrémentation), `+ 3`.
 
@@ -445,7 +445,7 @@ it = begin() + 6;        // saut direct
 ---
 
 ## Notion d'intervalle
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Deux itérateurs définissent un intervalle **`[it1, it2)`** — borne de gauche incluse, borne de droite exclue.
 
@@ -455,7 +455,7 @@ Deux itérateurs définissent un intervalle **`[it1, it2)`** — borne de gauche
 ---
 
 ## Fonction unaire, prédicat
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - **Fonction unaire** : fonction à un seul paramètre
 - **Prédicat** : fonction retournant un booléen
@@ -475,12 +475,12 @@ bool isTrue(auto element);
 ---
 
 # Les algorithmes, un par un
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## copy
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 copy(InputIterator first, InputIterator last, OutputIterator result);
@@ -491,7 +491,7 @@ Copie l'intervalle `[first, last)` à partir de `result`.
 ---
 
 ## count, count_if
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 Typename count(InputIterator first, InputIterator last, const T& val);
@@ -510,7 +510,7 @@ Typename count_if(InputIterator first, InputIterator last, UnaryPredicate pred);
 ---
 
 ## find, find_if
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 InputIterator find(InputIterator first, InputIterator last, const T& val);
@@ -529,7 +529,7 @@ InputIterator find_if(InputIterator first, InputIterator last, UnaryPredicate pr
 ---
 
 ## remove, remove_if
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 ForwardIterator remove(ForwardIterator first, ForwardIterator last, const T& val);
@@ -548,7 +548,7 @@ ForwardIterator remove_if(ForwardIterator first, ForwardIterator last, UnaryPred
 ---
 
 ## erase, erase_if
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 **DON'T FORGET ERASE OPERATION**
 
@@ -566,7 +566,7 @@ L'oublier est l'erreur la plus fréquente sur cette bibliothèque.
 ---
 
 ## sort, shuffle
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cpp
 void sort(RandomAccessIterator first, RandomAccessIterator last, Compare comp);
@@ -583,7 +583,7 @@ void shuffle(RandomAccessIterator first, RandomAccessIterator last, URNG&& g);
 ---
 
 ## Les queries
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::count` → count the elements
 - `std::find` → find an element in a collection
@@ -614,7 +614,7 @@ int main() {
 ---
 
 ## Les permutations
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::sort` → sort a collection. Vous pouvez spécifier un comparateur ; par défaut c'est `<=`
 - `std::shuffle` → shuffle a collection. Très utile pour mélanger
@@ -639,7 +639,7 @@ int main () {
 ---
 
 ## Les algos sur les sets
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::set_union` → make a merge between 2 sets
 - `std::set_intersection` → return the intersection
@@ -673,7 +673,7 @@ famille `set_*` exigent des intervalles **déjà triés**.
 ---
 
 ## Les movers
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::copy` → copy from a collection to another. Remplace `memcpy` et les autres fonctions C, désormais inutiles
 - `std::move` → this moves it. Retire le nom d'une variable et rend son contenu disponible pour la nouvelle. Façon **très** efficace de déplacer de la mémoire
@@ -700,7 +700,7 @@ int main()
 ---
 
 ## Les value modifiers — remplir
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::fill` → fill a collection with a value. Très utile par exemple pour remplir un vector qui est une texture, avec une couleur
 - `std::iota` → fill with incrementing values. Prend le début, la fin, et la valeur de départ
@@ -729,7 +729,7 @@ int main()
 ---
 
 ## Les value modifiers — supprimer
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::unique` → remove all except the first. Équivalent d'une copie vers un `set`, mais en place. **Il faut trier d'abord !**
 - `std::remove` → remove all matching elements. Prend l'élément à retirer
@@ -754,7 +754,7 @@ int main()
 ---
 
 ## Les algos sur la mémoire brute
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::uninitialized_fill` → s'utilise sur de la mémoire non initialisée, pour y assigner une valeur
 - `std::uninitialized_copy` → idem, mais appelle le constructeur de copie
@@ -763,7 +763,7 @@ int main()
 ---
 
 ## Et les autres
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - `std::for_each` → apply a function to a collection
 - `std::transform` → same, but outputs a collection
@@ -791,4 +791,4 @@ int main() {
 ---
 
 ## Questions ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->

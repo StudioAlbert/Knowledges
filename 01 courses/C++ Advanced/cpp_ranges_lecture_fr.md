@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-- _templates/css/sae_styles.css
+- 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # C++ Ranges
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Une STL moderne, en 3 heures
 
@@ -22,7 +22,7 @@ compagnon — le nom du dossier = le titre de la diapositive.
 ---
 
 ## Module 1 — Pourquoi les Ranges ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>Partie 1/4 · la taxe STL · verbosité</small>
 
@@ -353,7 +353,7 @@ soit on matérialise la vue, soit on utilise la forme algorithme.
 ---
 
 ## Durées de vie & patterns
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 
@@ -447,7 +447,7 @@ Fonctionne avec **n'importe quel** conteneur — `vector`, `set`, `map`, le vôt
 ---
 
 ## Module 5 — La hiérarchie des Ranges
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 
@@ -614,7 +614,7 @@ maintenant vérifiée.
 ---
 
 ## Module 6 — C++23 & au-delà
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 
@@ -647,7 +647,7 @@ Note:
 ---
 
 ## Exercices
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 
@@ -796,7 +796,7 @@ un compteur manuel.
 ---
 
 ## Conclusion
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Quand sortir les ranges
 
@@ -817,7 +817,7 @@ un compteur manuel.
 ---
 
 ## Ressources
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - 📘 [cppreference : bibliothèque Ranges](https://en.cppreference.com/w/cpp/ranges)
 - 📘 [Eric Niebler — range-v3](https://github.com/ericniebler/range-v3) (le prototype)
@@ -828,6 +828,6 @@ un compteur manuel.
 ---
 
 # Questions ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>Code : [github.com/SAE-Geneve/CPlusPlus_Course_Ranges](https://github.com/SAE-Geneve/CPlusPlus_Course_Ranges)</small>

@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # Sérialisation & Systèmes de Sauvegarde
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Aplatir des objets sur disque, et inversement, en 1 heure
 
@@ -22,7 +22,7 @@ pourrez intégrer directement au City Builder.
 ---
 
 ## Programme
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 1. **Partie 1** — Qu'est-ce que la sérialisation ? *(8 min)*
 2. **Partie 2** — Pourquoi sérialiser ? Sauvegarder & transmettre *(7 min)*
@@ -35,7 +35,7 @@ pourrez intégrer directement au City Builder.
 ---
 
 ## Partie 1 — Qu'est-ce que la Sérialisation ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>aplatir · transporter · ressusciter</small>
 
@@ -95,7 +95,7 @@ maintiennent les deux côtés en phase pour vous. On y arrive à la fin.
 ---
 
 ## Partie 2 — Pourquoi Sérialiser ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>deux cas d'usage : sauvegarder & transmettre</small>
 
@@ -145,7 +145,7 @@ quatre éléments comme grille d'évaluation pour chaque solution.
 ---
 
 ## Partie 3 — Texte vs Binaire
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>la première décision de conception</small>
 
@@ -204,7 +204,7 @@ c'est son super-pouvoir discret.
 ---
 
 ## Partie 4 — Solution 1 : Mémoire Brute
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>`reinterpret_cast` — l'outil rapide et tranchant</small>
 
@@ -276,7 +276,7 @@ est imbattable. Connaissez la frontière ; ne la dépassez pas.
 ---
 
 ## Partie 5 — Solution 2 : Boost.Serialization
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>la bibliothèque clé en main</small>
 
@@ -384,7 +384,7 @@ directement à vos propres types.
 ---
 
 ## Partie 6 — Solution 3 : Le Patron Visiteur
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 L'un des patrons originaux du **Gang of Four** — Gamma, Helm, Johnson &
 Vlissides, *Design Patterns* (1994).
@@ -537,7 +537,7 @@ déclarée une fois ; verbes variant librement.
 
 ---
 ## Exercice 1 — Shape visitor
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ---
 ### Exercice — Construisez-le
@@ -552,7 +552,7 @@ utilisant les **visiteurs Writer / Reader**.
 3. *coming soon*
 ---
 ## Exercice 2 — Un Système de Sauvegarde de Tilemap
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>implémentation de référence — le Visiteur appliqué au save/load</small>
 
@@ -700,7 +700,7 @@ v1. C'est la contrainte de *versioning* de la Partie 2.
 ---
 
 ## Synthèse
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Quelle Solution, Quand
 
@@ -722,7 +722,7 @@ v1. C'est la contrainte de *versioning* de la Partie 2.
 ---
 
 ## Ressources
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - 📘 [isocpp.org — FAQ Sérialisation](https://isocpp.org/wiki/faq/serialization)
 - 📘 [SJSU — Cours C++ Serialization (pointer swizzling)](https://www.cs.sjsu.edu/faculty/pearce/parties/lectures/cpp/advanced/Serialization.htm)
@@ -734,6 +734,6 @@ v1. C'est la contrainte de *versioning* de la Partie 2.
 ---
 
 # Questions ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>Suite : brancher les visiteurs Writer / Reader sur la tilemap du City Builder.</small>

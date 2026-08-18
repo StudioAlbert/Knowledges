@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # Setup
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Installation logicielle — vcpkg, CMake
 
@@ -21,7 +21,7 @@ manuellement aux propriétés du projet.
 ---
 
 ## Source
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <div style="color:#fff;">
 
@@ -36,12 +36,12 @@ Voir aussi : [[00 Tips - How to (Git, etc.)]]
 ---
 
 # Prérequis
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Prerequisites
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 1. **OS** — Windows (11, 10, 8.1, 7), Linux ou macOS
 2. **Visual Studio** — Community 2022 (fourni avec Unity)
@@ -54,7 +54,7 @@ Voir aussi : [[00 Tips - How to (Git, etc.)]]
 ---
 
 ## Install Git
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Download on the Git website : [gitforwindows.org](https://gitforwindows.org/)
 
@@ -66,7 +66,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Install CMake
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Download on the CMake website : [cmake.org/download](https://cmake.org/download/)
 
@@ -78,12 +78,12 @@ Launch the install, pick every default option, except those below :
 ---
 
 # Gestionnaires de paquets
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## vcpkg — pros
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - easy to get going (`git clone` then bootstrap it)
 - easy to use existing packages (`vcpkg install foo`, plus the integration is nice for Visual Studio)
@@ -94,7 +94,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## vcpkg — cons
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - builds everything from source. If you only want Boost as a header-only library, you still have to build it, which takes 30 min to 1 hour
 - no easy way to request a particular version of a package
@@ -102,7 +102,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Conan — pros
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - easy to get going (not quite as easy as vcpkg or Hunter, but still easy, with `pip install conan`)
 - integrates into every build system
@@ -113,7 +113,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Conan — cons
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - requires Python
 - non-intrusive CMake integration is still somewhat intrusive by default, because it came much later — existing packages weren't aware of how to be easily consumed non-intrusively from Conan
@@ -122,7 +122,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Hunter — pros
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - easy to get going (just add the `HunterGate` command)
 - easy to use with CMake — the command to find dependencies mirrors `find_package`
@@ -131,7 +131,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Hunter — cons
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - only supports CMake, and intrusive CMake integration
 - adding new packages requires submitting a PR
@@ -142,7 +142,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Le package manager Windows
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - the package manager for Windows (and Linux and macOS)
 - a central place to store different open-source projects — think `/port` for Windows
@@ -157,12 +157,12 @@ maintenu par Microsoft, et c'est celui que l'on utilise dans le module.
 ---
 
 # Utiliser vcpkg
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## vcpkg — installation
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <small>[vcpkg.io](https://vcpkg.io/en/index.html)</small>
 
@@ -180,7 +180,7 @@ Start PowerShell and build :
 ---
 
 ## vcpkg — intégration et paquets
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Install vcpkg for the current system (only needed by msbuild) :
 
@@ -198,7 +198,7 @@ Start installing the software needed :
 ---
 
 ## vcpkg — triplets
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 You can specify the **triplet** at the end of the install to get a specific version of the library :
 
@@ -214,7 +214,7 @@ You can have multiple versions of the same library installed with different trip
 ---
 
 ## vcpkg — commandes
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Commande | Effet |
 |---|---|
@@ -228,7 +228,7 @@ You can have multiple versions of the same library installed with different trip
 ---
 
 ## vcpkg — à vous
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Installez vcpkg, puis la bibliothèque **Protobuf**.
 
@@ -242,7 +242,7 @@ You can always install both ;P
 ---
 
 ## Pause
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Question time !
 
@@ -251,12 +251,12 @@ Vous pouvez aussi jouer avec VS2019 — ou faire une pause, au cas où votre cer
 ---
 
 # CMake
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## CMake-gui
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Les champs à renseigner dans l'interface :
 
@@ -273,7 +273,7 @@ Drive pour voir l'emplacement exact des champs.
 ---
 
 ## CMake-gui — configuration
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - **choix de l'IDE**
 - **choix du toolchain** : outil d'inclusion des librairies externes
@@ -281,7 +281,7 @@ Drive pour voir l'emplacement exact des champs.
 ---
 
 ## CMake — les instructions générées
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 À la fin du processus d'installation vcpkg, vous avez dû remarquer quelque chose comme :
 
@@ -295,7 +295,7 @@ These are instructions for CMake !
 ---
 
 ## So what is CMake?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - CMake is an open-source, cross-platform family of tools designed to **build, test and package** software
 - it generates Visual Studio files, Xcode files and makefiles
@@ -305,7 +305,7 @@ These are instructions for CMake !
 ---
 
 ## CMake — comment l'utiliser
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - create a new file named `CMakeLists.txt` in the root of your project
 - edit this file
@@ -313,7 +313,7 @@ These are instructions for CMake !
 ---
 
 ## CMake — l'en-tête du fichier
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 A CMake file starts with the version of CMake you intend to use :
 
@@ -330,7 +330,7 @@ project(SoftwareGL)
 ---
 
 ## CMake — les dépendances
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Then you specify which outside libraries you want to use, and link them (remember vcpkg?) :
 
@@ -344,7 +344,7 @@ We are almost done !
 ---
 
 ## CMake — les bibliothèques
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Now we can specify what we need to build : libraries and executables (you can have multiple of each).
 
@@ -361,7 +361,7 @@ add_library(SoftwareGL STATIC
 ---
 
 ## CMake — les variables de chemin
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 `${PROJECT_SOURCE_DIR}` can be replaced by :
 
@@ -380,7 +380,7 @@ ${CMAKE_CURRENT_BINARY_DIR}
 ---
 
 ## CMake — lier la bibliothèque
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cmake
 target_link_libraries(SoftwareGL
@@ -393,7 +393,7 @@ target_link_libraries(SoftwareGL
 ---
 
 ## CMake — l'exécutable
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Same thing for the executable. The `WIN32` flag specifies that we want a Windows executable, not a command-line one.
 
@@ -408,7 +408,7 @@ add_executable(Game WIN32
 ---
 
 ## CMake — à propos de WIN32
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 You may or may not need the `WIN32` descriptor in your exe : it tells the linker to use `WinMain` and not `main` as an entry point.
 
@@ -417,7 +417,7 @@ As explained before, the `WIN32` descriptor specifies whether you want an execut
 ---
 
 ## CMake — lier l'exécutable
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```cmake
 target_link_libraries(Game
@@ -433,7 +433,7 @@ You may need `SDL2::SDL2main` too.
 ---
 
 ## CMake — le dossier build
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Now save it !
 
@@ -447,7 +447,7 @@ cd build
 ---
 
 ## CMake — générer la solution
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ```powershell
 cmake .. -DCMAKE_TOOLCHAIN_FILE="$Env:VCPKG_ROOT\vcpkg\scripts\buildsystems\vcpkg.cmake"
@@ -459,7 +459,7 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE="$Env:VCPKG_ROOT\vcpkg\scripts\buildsystems\vcpk
 ---
 
 ## CMake — et maintenant
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - vous savez utiliser CMake et vcpkg : vous pouvez convertir tous vos projets C++
 - ça demande un peu de temps pour s'y faire, mais ça vaut le temps passé
@@ -468,6 +468,6 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE="$Env:VCPKG_ROOT\vcpkg\scripts\buildsystems\vcpk
 ---
 
 ## Questions ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Question time !

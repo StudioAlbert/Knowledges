@@ -2,7 +2,7 @@
 
 > Plan de production pour transformer le brouillon `C++ Advanced/cpp_builder_lecture.md`
 > en une lecture finie, alignée sur le style maison (Obsidian Advanced Slides +
-> `_templates/css/sae_styles.css`), avec analyse « bonnes pratiques », contenu
+> `00 templates/css/sae_styles.css`), avec analyse « bonnes pratiques », contenu
 > additionnel léger, et un dépôt compagnon (exemples + prérequis + branche corrigée).
 >
 > **Langue :** français, pour rester cohérent avec les lectures finalisées
@@ -20,13 +20,13 @@
   ---
   theme: white
   css:
-    - _templates/css/sae_styles.css
+    - 00 templates/css/sae_styles.css
   slideNumber: true
   transition: slide
   ---
   ```
 - [ ] **Diapo titre** : `# Titre` + commentaire de fond
-  `<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->`,
+  `<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->`,
   un `###` sous-titre, une ligne `<small>` « N modules · N exemples · 1 exercice · C++17/20 »,
   et une ligne `<small>Dépôt : […]</small>`.
 - [ ] **Diapos section** : `## Module X — …` + même `data-background` + `<small>` tagline.

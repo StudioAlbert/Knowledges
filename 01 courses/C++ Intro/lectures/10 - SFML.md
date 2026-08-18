@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # SFML
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Sortir de la console — fenêtre, sprites, sons
 
@@ -21,7 +21,7 @@ ajoute du son. La physique arrive à la séance suivante avec Box2D.
 ---
 
 ## Source
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <div style="color:#fff;">
 
@@ -36,7 +36,7 @@ Exercices : [[Exercices - 10 - SFML]] · Suite : [[11 - Box 2D]]
 ---
 
 ## Games Programming
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 L'interface console, c'est bien, mais un jeu c'est beaucoup plus :
 
@@ -52,7 +52,7 @@ L'interface console, c'est bien, mais un jeu c'est beaucoup plus :
 ---
 
 ## Graphical world vs physical world
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Les deux mondes sont clairement séparés dans un jeu !
 
@@ -66,7 +66,7 @@ Exemple avec Super Mario 64 : [vidéo](https://youtu.be/kpk2tdsPh0A?t=626)
 ---
 
 ## Game Engine
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Si vous voulez créer un jeu, le faire *from scratch* est un travail difficile. La plupart des débutants commencent dans un moteur (Unity, Unreal, Godot, Game Maker, …).
 
@@ -75,7 +75,7 @@ Mais vous n'êtes pas n'importe quels débutants, et vous aurez tout le temps de
 ---
 
 ## SFML — les sous-systèmes
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 API open source gratuite, divisée en plusieurs sous-systèmes :
 
@@ -90,7 +90,7 @@ API open source gratuite, divisée en plusieurs sous-systèmes :
 ---
 
 ## SFML — ce que ça vaut
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - API facile à comprendre, très orientée objet
 - utilise l'**ancien OpenGL** pour le rendu ; peu utilisée dans les « vrais » jeux (on utilise plutôt SDL, une autre API, plus bas niveau) et pas utilisée sur console
@@ -99,12 +99,12 @@ API open source gratuite, divisée en plusieurs sous-systèmes :
 ---
 
 # La boucle de jeu
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Game Loop
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Pour que nos jeux tournent en continu, il nous faut une **game loop** qui tourne jusqu'à ce qu'on quitte le jeu.
 
@@ -115,7 +115,7 @@ Mais d'abord, il nous faut une fenêtre dans laquelle boucler.
 ---
 
 ## sf::RenderWindow
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Cette fenêtre nous permet de gérer les inputs, les événements, et de dessiner dedans.
 
@@ -144,7 +144,7 @@ while (window.isOpen())
 ---
 
 ## Events
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Liste non exhaustive des événements SFML :
 
@@ -159,7 +159,7 @@ Liste non exhaustive des événements SFML :
 ---
 
 ## Limiting framerate
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - vous pouvez faire tourner votre jeu à 1200 fps, mais vous restez graphiquement limité par la fréquence de rafraîchissement de l'écran (60 Hz, 120 Hz, 144 Hz…)
 - limiter le framerate laisse respirer l'OS, et sur mobile ou portable, ça ne vide pas la batterie
@@ -169,12 +169,12 @@ Liste non exhaustive des événements SFML :
 ---
 
 # Afficher
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## sf::Texture
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 On charge une Texture depuis le disque (formats supportés typiques : PNG, JPG, BMP, etc.).
 
@@ -185,7 +185,7 @@ Charger une Texture est **lent**, mais pratique. Comment la met-on dans la fenê
 ---
 
 ## Draw a Sprite
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 SFML utilise la classe `sf::Sprite` pour définir le dessin d'une `sf::Texture` dans la fenêtre.
 
@@ -201,7 +201,7 @@ texture est locale et sort de scope, le sprite pointe dans le vide.
 ---
 
 ## Positioning
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - la position `(0, 0)` de la fenêtre SFML est en **haut à gauche** ; `(width, height)` est en bas à droite. **Y plus grand = plus bas** ;)
 - par défaut, toutes les positions sont en **pixels**
@@ -210,7 +210,7 @@ texture est locale et sort de scope, le sprite pointe dans le vide.
 ---
 
 ## Moving a sprite with keyboard
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 D'abord récupérer les inputs clavier, puis changer la position du Sprite.
 
@@ -222,7 +222,7 @@ Deux façons de récupérer le clavier :
 ---
 
 ## Camera
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 `sf::View` (centre + taille) représente un rectangle que l'on donne à la caméra, pour pouvoir se déplacer **sans déplacer tous les sprites** ! Déplacer la caméra revient à déplacer le centre de la `sf::View`.
 
@@ -233,7 +233,7 @@ On verra ce qu'il y a réellement dans une `sf::View` en GPR5300 (spoiler : c'es
 ---
 
 ## Managing resize like a boss
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Quand on redimensionne une fenêtre, la vue va comprimer ou étirer les sprites à l'écran.
 
@@ -242,7 +242,7 @@ Correctif simple : mettre à jour la vue de la fenêtre avec la nouvelle taille.
 ---
 
 ## Framebuffer
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Parfois, on veut d'abord rendre dans une Texture séparée avant de la dessiner à l'écran — pensez à la **minimap** d'un RPG.
 
@@ -253,7 +253,7 @@ Au redimensionnement de l'écran, vous voudrez sans doute redimensionner les fra
 ---
 
 ## Animation
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Il y a une classe `sf::Animation` dans SFML… en fait non, il n'y a **pas** d'animation dans SFML. Mais qu'est-ce qu'une animation ? Plusieurs images échangées à une fréquence donnée !
 
@@ -262,12 +262,12 @@ Par exemple : vous créez un fichier JSON décrivant une animation avec les keyf
 ---
 
 # Le son
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Playing a sound
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 SFML supporte la musique et les sons en **WAV, FLAC et OGG** — pas le MP3 !
 
@@ -276,21 +276,21 @@ SFML utilise en interne un thread séparé pour jouer l'audio : vous n'avez qu'�
 ---
 
 ## sf::Sound
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Comme Texture + Sprite : il faut charger un `sf::SoundBuffer` (le contenu du son), le donner à un `sf::Sound`, pour enfin pouvoir appeler `play()`.
 
 ---
 
 ## sf::Music
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 La musique peut être un gros fichier : au lieu de la charger d'un coup à l'`Init`, `sf::Music` **stream** le fichier depuis le disque pendant la lecture — pas besoin de SoundBuffer.
 
 ---
 
 ## Graphical world — conclusion
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 C'est à peu près tout pour SFML ! Vous pouvez maintenant afficher votre jeu à l'écran et le faire bouger un peu.
 
@@ -299,7 +299,7 @@ C'est à peu près tout pour SFML ! Vous pouvez maintenant afficher votre jeu à
 ---
 
 ## Pause
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Question time !
 

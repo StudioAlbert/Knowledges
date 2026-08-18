@@ -1,13 +1,13 @@
 ---
 theme: white
 css:
-  - _templates/css/sae_styles.css
+  - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
 ---
 
 # Good practices
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 ### Nomenclature, structuration, revue de code
 
@@ -22,7 +22,7 @@ transposables ici.
 ---
 
 ## Source
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 <div style="color:#fff;">
 
@@ -39,19 +39,19 @@ Dépôt d'exemples :
 ---
 
 ## Analyse de quelques travaux
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 🔗 [github.com/StudioAlbert/CPlusPlus-Class-GoodPractices](https://github.com/StudioAlbert/CPlusPlus-Class-GoodPractices.git)
 
 ---
 
 # Conventions
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 ---
 
 ## Nomenclature
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 **1 solution** qui contient les projets.
 
@@ -73,7 +73,7 @@ Les types de projet : **Classroom** (projet servant à illustrer le cours), **Ex
 ---
 
 ## Règles de nommage — variables
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 | Convention | S'applique à |
 |---|---|
@@ -87,7 +87,7 @@ Les types de projet : **Classroom** (projet servant à illustrer le cours), **Ex
 ---
 
 ## Structuration de la solution
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Note:
 Diapo constituée uniquement d'une capture de l'explorateur de solution.
@@ -96,7 +96,7 @@ Se référer à la présentation Drive, ou au dépôt d'exemples.
 ---
 
 # Revue de code
-<!-- .slide: data-background="_images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
 
 Note:
 Les diapos qui suivent étaient chacune une capture de code d'étudiant.
@@ -106,21 +106,21 @@ présentation d'origine ou dans le dépôt d'exemples.
 ---
 
 ## Utilisation du `for`
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 **La condition de sortie n'utilise pas la variable déclarée.**
 
 ---
 
 ## Répétition du code
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 Déplacement dans le programme → déplacement dans une fonction.
 
 ---
 
 ## La fonction ne remplit pas « vraiment » sa fonction
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 - **En théorie** : retourne la valeur.
 - **Dans les faits** : retourne la valeur **plus le mot de liaison**.
@@ -128,18 +128,18 @@ Déplacement dans le programme → déplacement dans une fonction.
 ---
 
 ## Ce cas arrive-t-il vraiment ?
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 À commenter.
 
 ---
 
 ## Fonction transparente
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
 
 La valeur traverse la fonction…
 
 ---
 
 ## Mélange de conditions
-<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->

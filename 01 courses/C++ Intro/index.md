@@ -2,7 +2,7 @@
 
 Transposition en markdown du dossier Drive [1 - 4FSC0PF001 - Introduction to Games Programming](https://drive.google.com/drive/folders/1LIp0FH63ayK0ZbEqpVyEaAEoMpkfIllI), soit 35 fichiers : 15 présentations, 15 documents, 4 schémas et 1 tableur.
 
-Les présentations sont des decks **Obsidian Advanced Slides**, directement projetables (`theme: white`, `_templates/css/sae_styles.css`). Chaque note porte en tête un lien vers son original Drive.
+Les présentations sont des decks **Obsidian Advanced Slides**, directement projetables (`theme: white`, `00 templates/css/sae_styles.css`). Chaque note porte en tête un lien vers son original Drive.
 
 ## Déroulé du module
 
