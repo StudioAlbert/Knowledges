@@ -11,3 +11,8 @@ Thumbs.db
 
 # Worktrees temporaires des agents Claude (ne pas committer)
 .claude/worktrees/
+
+# Dépôts d'examens clonés (gérés dans leurs propres repos SAE-Geneve)
+01 courses/C++ Advanced/exams/925-cpp-exam-draft/
+01 courses/C++ Advanced/exams/cpp-exam-925/
+01 courses/C++ Advanced/exams/cpp_exam_prep_fizzbuzz/
