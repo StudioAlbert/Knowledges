@@ -9,3 +9,5 @@ vcpkg en mode manifest vcpkg.json
 function const, permet l'acces
 
 API
+une API ca fai pas plaisir a changer, et pendant longtemps
+bad names survive loner than bad implementations

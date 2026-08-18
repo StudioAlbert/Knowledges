@@ -384,8 +384,8 @@ vous-en pour tester chaque étape).
 5. **Constructeur par défaut privé** : le builder devient l'unique chemin.
 6. Encapsuler les **recettes** récurrentes (rôle *Director*), méthodes
    statiques :
-   - `Blt()` → baguette · bacon · mayo · cheese · toasted *(eat in)*
-   - `Vegan()` → wholewheat · falafel · hummus · harissa *(eat in)*
+   - `Blt()` → baguette · bacon · lettuce . tomato *(eat in)*
+	   - `Vegan()` → wholewheat · falafel · hummus · harissa *(eat in)*
 
 <small>📁 [`exercises/sandwich_shop`](https://github.com/StudioAlbert/cpp_builder_pattern_course_companion/tree/main/exercises/sandwich_shop) · corrigé sur la branche `solution/sandwich-shop`</small>
 

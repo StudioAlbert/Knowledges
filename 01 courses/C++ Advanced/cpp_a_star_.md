@@ -32,7 +32,6 @@ Code runnable du cours (sous-modules `git`) :
 Inclus localement :
 
 - `companions/cpp_astar_course_companion/` — exemples par slide (Partie 2)
-- `companions/cpp_astar_course_companion/STEP_BY_STEP.md` — guide d'implémentation
 
 </div>
 
@@ -45,7 +44,7 @@ Inclus localement :
 - **Partie 1** — Qu'est-ce que A\* ? *(théorie)*
 - **Partie 2** — Construire A\* à la main *(pas à pas, code)*
   - 2.1 Le contrat (signature, garde-fous, `std::expected`)
-  - 2.2 `std::mdspan` : la grille sans copie
+  - 2.2 `std::unordered_set` : extraire les positions du tilemap
   - 2.3 Le `Node` et la file de priorité
   - 2.4 Voisins & heuristique (Manhattan)
   - 2.5 La boucle principale
@@ -232,35 +231,106 @@ if (!grid[end.x, end.y].walkable)
 
 ---
 
-## 2.2 — `std::mdspan` : la grille sans copie
+## 2.2 — `std::unordered_set` : extraire les positions
 <!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
 
-<small style="color:#fff;">Une vue multidim posée sur un buffer 1D contigu.</small>
+<small style="color:#fff;">Représenter le terrain par un **ensemble de positions**, pas par une grille dense.</small>
 
 ---
 
-### `std::mdspan` — quoi & comment
+### Du dense au creux
 
-- **Quoi** (C++23) : une **vue** multidimensionnelle, **non-propriétaire**,
-  posée sur un buffer **1D contigu**. Un `span` à N dimensions. **Zéro copie**.
-- **Comment** :
-  - construite depuis pointeur + *extents* : `std::mdspan(data, nx, ny)` ;
-  - indexée `grid[x, y]` (subscript multi-args C++23) ;
-  - `extent(0)` / `extent(1)` = dimensions ;
-  - *layout-right* par défaut ⇒ index plat = `x * extent(1) + y` ;
-  - `dextents<size_t, 2>` = dimensions connues **à l'exécution**.
+- Le tilemap **génère** des positions (les cases *walkable*, ou les murs).
+- Plutôt qu'une grille **dense** `mdspan` (toutes les cases, même vides),
+  on **extrait** les positions utiles dans un ensemble :
 
-<small>📁 Companion : `01_mdspan/01_basics`</small>
+```cpp
+std::unordered_set<Vec2i> walkable;
+for (std::size_t x = 0; x < grid.extent(0); ++x)
+  for (std::size_t y = 0; y < grid.extent(1); ++y)
+    if (grid[x, y].walkable)
+      walkable.insert({ int(x), int(y) });
+```
+
+- Le test d'un voisin devient `walkable.contains(n)` — `InBounds` est
+  **implicite** : une position absente du set n'est pas franchissable.
 
 ---
 
-### `std::mdspan` — pourquoi ici
+### Le gain de complexité
 
-- **Découple** l'algo du conteneur réel : `vector`, `array`, buffer GPU…
-  l'algo ne voit qu'« une grille 2D indexable ».
-- **Zéro copie / zéro coût** d'abstraction.
+| Représentation | Test « walkable ? » | Mémoire |
+|---|:---:|:---:|
+| `std::vector<Vec2i>` | **O(n)** scan | creuse |
+| `vector` trié + `binary_search` | **O(log n)** | creuse |
+| **`std::unordered_set<Vec2i>`** | **O(1)** amorti | creuse |
+| `mdspan` dense | O(1) | **O(W·H)** pleine |
 
-<small>📁 Companion : `01_mdspan/02_tilemap`</small>
+- Le test de présence est l'**opération chaude** : 4 voisins à chaque pop.
+- `unordered_set` = **O(1) amorti** *et* mémoire **proportionnelle au
+  nombre de cases utiles** (pas `W·H`) → idéal pour une carte **éparse**.
+
+---
+
+### Pourquoi un *hash* ?
+
+- `unordered_set` est une **table de hachage** : chaque clé est rangée
+  dans un *bucket* via `hash(clé) % nb_buckets`.
+- `Vec2i` n'est pas hachable d'origine → on **spécialise** `std::hash` :
+
+```cpp
+template <>
+struct std::hash<Vec2i> {
+  std::size_t operator()(Vec2i v) const noexcept {
+    const std::size_t hx = std::hash<int>{}(v.x);
+    const std::size_t hy = std::hash<int>{}(v.y);
+    return hx ^ (hy << 1);   // le décalage évite que (a,b) et (b,a) collisionnent
+  }
+};
+```
+
+- Un **bon** hash répartit les clés sur les buckets → accès **O(1) amorti**.
+- Un **mauvais** hash entasse tout dans un bucket → on retombe en **O(n)**.
+
+---
+
+### Un *bucket*, c'est quoi ?
+
+- Une table de hachage, c'est un **tableau de buckets** (des « casiers »).
+- `hash(clé) % nb_buckets` = **l'indice du casier** où ranger la clé.
+- Un bucket garde **toutes** les clés tombées sur cet indice (en général
+  une petite **liste chaînée**) :
+
+```
+bucket 0 │ (2,3)
+bucket 1 │ (5,1) → (0,4)     ← collision : 2 clés, 1 casier
+bucket 2 │ ·
+bucket 3 │ (7,2)
+```
+
+- **Lookup** `contains(p)` : `hash(p)` → on saute au bon casier → on
+  **scanne ses (rares) clés** en les comparant avec `==`.
+- **Load factor** = `taille / nb_buckets`. Trop élevé ⇒ la table
+  **s'agrandit et re-hache** (*rehash*) pour garder les casiers courts.
+
+---
+
+### Pourquoi un `operator==` ?
+
+- Le hash **n'est pas injectif** : deux positions différentes peuvent
+  tomber dans le **même bucket** (*collision*).
+- Pour les **départager**, le set compare les clés avec `==` :
+
+```cpp
+bool operator==(Vec2i a, Vec2i b) {
+  return a.x == b.x && a.y == b.y;
+}
+// C++20, dans la struct :  bool operator==(const Vec2i&) const = default;
+```
+
+- **Le hash localise le bucket ; le `==` tranche à l'intérieur.**
+- Règle d'or : `a == b` ⇒ `hash(a) == hash(b)`. Hash et `==` doivent
+  rester **cohérents**, sinon le set se comporte mal.
 
 ---
 
@@ -475,8 +545,6 @@ Reconstruisez `FindPath` pas à pas, en **6 étapes** :
 
 Chaque étape a un **objectif** et un **critère d'acceptation**.
 
-📘 Guide complet : <code>companions/cpp_astar_course_companion/STEP_BY_STEP.md</code>
-
 </div>
 
 Note:
@@ -515,3 +583,38 @@ Le critère d'acceptation de chaque étape sert de petit test mental
 - **Hiérarchique** (clusters / portails) pour les grandes cartes.
 - **Cache de chemins** + **requêtes par lots** (plusieurs NPC, même zone).
 
+---
+
+Annexes
+
+---
+
+## 2.2 — `std::mdspan` : la grille sans copie
+<!-- .slide: data-background="_images/01_slide_fond_GP_22_08_22.jpg" -->
+
+<small style="color:#fff;">Une vue multidim posée sur un buffer 1D contigu.</small>
+
+---
+
+### `std::mdspan` — quoi & comment
+
+- **Quoi** (C++23) : une **vue** multidimensionnelle, **non-propriétaire**,
+  posée sur un buffer **1D contigu**. Un `span` à N dimensions. **Zéro copie**.
+- **Comment** :
+  - construite depuis pointeur + *extents* : `std::mdspan(data, nx, ny)` ;
+  - indexée `grid[x, y]` (subscript multi-args C++23) ;
+  - `extent(0)` / `extent(1)` = dimensions ;
+  - *layout-right* par défaut ⇒ index plat = `x * extent(1) + y` ;
+  - `dextents<size_t, 2>` = dimensions connues **à l'exécution**.
+
+<small>📁 Companion : `01_mdspan/01_basics`</small>
+
+---
+
+### `std::mdspan` — pourquoi ici
+
+- **Découple** l'algo du conteneur réel : `vector`, `array`, buffer GPU…
+  l'algo ne voit qu'« une grille 2D indexable ».
+- **Zéro copie / zéro coût** d'abstraction.
+
+<small>📁 Companion : `01_mdspan/02_tilemap`</small>
