@@ -1,0 +1,171 @@
+// Custom styles and auto-scaling for markdeep slides
+
+markdeepOptions = {
+    tocStyle: 'none',
+    detectMath: true,
+    onLoad: function() {
+        initSlides();
+
+        // Add custom styles after everything is loaded
+        var customStyle = document.createElement('style');
+        customStyle.textContent = `
+            .slide {
+                background-image: url('images/slide_bg.jpg') !important;
+                background-size: cover !important;
+                background-position: center !important;
+            }
+            .slide:first-of-type {
+                background-image: url('images/title_bg.jpg') !important;
+            }
+            :root {
+                --side-margin: 2.5rem !important;
+            }
+            .slide-content {
+                padding-left: 2.5rem !important;
+            }
+            .md h2 {
+                background: none !important;
+                margin-top: 2.75rem !important;
+                color: black !important;
+            }
+            .md p {
+                margin-top: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .md ul, .md ol {
+                margin-top: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+                line-height: 1.2 !important;
+            }
+            .md li {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                line-height: 1.3 !important;
+            }
+            .md li p {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .md pre {
+                padding: 0.3rem 0.5rem !important;
+            }
+            nobr {
+                display: inline-block;
+                max-width: 23rem;
+            }
+            .MathJax_Display {
+                max-width: 100%;
+            }
+        `;
+        document.head.appendChild(customStyle);
+
+        // Auto-scale helper function
+        function autoScaleElement(element, minFontSize) {
+            var slide = element.closest('.slide-content');
+            if (!slide) return;
+
+            var rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+            var bottomMargin = 2.75 * rootSize; // 2.75rem in pixels
+            var slideHeight = slide.clientHeight - bottomMargin;
+            var elemRect = element.getBoundingClientRect();
+            var slideRect = slide.getBoundingClientRect();
+            var elemBottom = elemRect.bottom - slideRect.top;
+
+            // Only shrink if element overflows the slide
+            if (elemBottom > slideHeight) {
+                var computedStyle = window.getComputedStyle(element);
+                var currentSize = parseFloat(computedStyle.fontSize);
+                var fontSize = currentSize / rootSize;
+
+                function setFontSize(el, size) {
+                    el.style.fontSize = size + 'rem';
+                    el.querySelectorAll('*').forEach(function(child) {
+                        child.style.fontSize = 'inherit';
+                    });
+                }
+
+                while (elemBottom > slideHeight && fontSize > minFontSize) {
+                    fontSize -= 0.02;
+                    setFontSize(element, fontSize);
+                    elemRect = element.getBoundingClientRect();
+                    elemBottom = elemRect.bottom - slideRect.top;
+                }
+            }
+        }
+
+        // Auto-scale code blocks only if they overflow
+        document.querySelectorAll('.slide pre').forEach(function(pre) {
+            autoScaleElement(pre, 0.2);
+        });
+
+        // Auto-scale lists only if they overflow
+        document.querySelectorAll('.slide ul, .slide ol').forEach(function(list) {
+            autoScaleElement(list, 0.2);
+        });
+
+        // Auto-scale tables only if they overflow
+        document.querySelectorAll('.slide table').forEach(function(table) {
+            autoScaleElement(table, 0.2);
+        });
+
+        // Auto-scale inline SVGs only if they overflow vertically.
+        // MathJax SVGs are handled by the MathJax-specific scaler below.
+        document.querySelectorAll('.slide-content svg').forEach(function(svg) {
+            if (svg.closest('.MathJax, .MathJax_Display, .MathJax_SVG, .MathJax_SVG_Display')) {
+                return;
+            }
+
+            var slide = svg.closest('.slide-content');
+            if (!slide) return;
+
+            var rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+            var bottomMargin = 2.75 * rootSize;
+            var slideHeight = slide.clientHeight - bottomMargin;
+            var svgRect = svg.getBoundingClientRect();
+            var slideRect = slide.getBoundingClientRect();
+            var svgBottom = svgRect.bottom - slideRect.top;
+
+            if (svgBottom > slideHeight) {
+                var availableHeight = slideHeight - (svgRect.top - slideRect.top);
+
+                if (availableHeight > 0 && availableHeight < svgRect.height) {
+                    var scale = availableHeight / svgRect.height;
+                    svg.style.width = (svgRect.width * scale) + 'px';
+                    svg.style.height = (svgRect.height * scale) + 'px';
+                }
+            }
+        });
+
+        // Auto-scale MathJax display equations that overflow horizontally
+        function scaleMathJax() {
+            document.querySelectorAll('.slide .MathJax_Display').forEach(function(mathDisplay) {
+                var slide = mathDisplay.closest('.slide-content');
+                if (!slide) return;
+
+                var slideRect = slide.getBoundingClientRect();
+                var slideWidth = slideRect.width - 2 * 2.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+                // Get the actual math content width from the inner nobr or .MathJax span
+                var mathContent = mathDisplay.querySelector('nobr') || mathDisplay.querySelector('.MathJax');
+                if (!mathContent) return;
+
+                var mathWidth = mathContent.scrollWidth;
+
+                if (mathWidth > slideWidth) {
+                    var scale = slideWidth / mathWidth;
+                    mathDisplay.style.transform = 'scale(' + scale + ')';
+                    mathDisplay.style.transformOrigin = 'left center';
+                }
+            });
+        }
+
+        // Wait for MathJax to finish rendering
+        if (typeof MathJax !== 'undefined' && MathJax.Hub) {
+            MathJax.Hub.Queue(scaleMathJax);
+        } else {
+            setTimeout(scaleMathJax, 1000);
+        }
+    }
+};

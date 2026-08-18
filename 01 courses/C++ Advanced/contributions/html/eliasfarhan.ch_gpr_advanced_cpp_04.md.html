@@ -1,0 +1,897 @@
+
+<!-- saved from url=(0057)https://eliasfarhan.ch/gpr/advanced_cpp_04.md.html#slide0 -->
+<html style="--vw: 15.21px; --vh: 7.35px; --aspect-ratio: 1.7777777777777777; --font-size: 28; --slide-progress-display: none;" class="wider draft"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=600, initial-scale=1"><style>body{max-width:680px;margin:auto;padding:20px;text-align:justify;line-height:140%; -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-smoothing:antialiased;color:#222;font-family:Palatino,Georgia,"Times New Roman",serif}</style><style>@media print{*{-webkit-print-color-adjust:exact;text-shadow:none !important}}body{counter-reset: h1 h2 h3 h4 h5 h6 paragraph}@page{margin:0;size:auto}#mdContextMenu{position:absolute;background:#383838;cursor:default;border:1px solid #999;color:#fff;padding:4px 0px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Helvetica Neue",sans-serif;font-size:85%;font-weight:600;border-radius:4px;box-shadow:0px 3px 10px rgba(0,0,0,35%)}#mdContextMenu div{padding:0px 20px}#mdContextMenu div:hover{background:#1659d1}.md code,.md pre{font-family:Menlo,Consolas,monospace;font-size:93%;text-align:left;line-height:140%}.md .mediumToc code,.md longToc code,.md .shortToc code,.md h1 code,.md h2 code,.md h3 code,.md h4 code,.md h5 code,.md h6 code{font-size:unset}.md div.title{font-size:26px;font-weight:800;line-height:120%;text-align:center}.md div.afterTitles{height:10px}.md div.subtitle{text-align:center}.md iframe.textinsert, .md object.textinsert,.md iframe:not(.markdeep){display:block;margin-top:10px;margin-bottom:10px;width:100%;height:75vh;border:1px solid #000;border-radius:4px;background:#f5f5f4}.md .image{display:inline-block}.md img{max-width:100%;page-break-inside:avoid}.md li{text-align:left;text-indent:0}.md pre.listing {width:100%;tab-size:4;-moz-tab-size:4;-o-tab-size:4;counter-reset:line;overflow-x:auto;resize:horizontal}.md pre.listing .linenumbers span.line:before{width:30px;margin-left:-28px;font-size:80%;text-align:right;counter-increment:line;content:counter(line);display:inline-block;padding-right:13px;margin-right:8px;color:#ccc}.md div.tilde{margin:20px 0 -10px;text-align:center}.md .imagecaption,.md .tablecaption,.md .listingcaption{display:inline-block;margin:7px 5px 12px;text-align:justify;font-style:italic}.md img.pixel{image-rendering:-moz-crisp-edges;image-rendering:pixelated}.md blockquote.fancyquote{margin:25px 0 25px;text-align:left;line-height:160%}.md blockquote.fancyquote::before{content:"“";color:#DDD;font-family:Times New Roman;font-size:45px;line-height:0;margin-right:6px;vertical-align:-0.3em}.md span.fancyquote{font-size:118%;color:#777;font-style:italic}.md span.fancyquote::after{content:"”";font-style:normal;color:#DDD;font-family:Times New Roman;font-size:45px;line-height:0;margin-left:6px;vertical-align:-0.3em}.md blockquote.fancyquote .author{width:100%;margin-top:10px;display:inline-block;text-align:right}.md small{font-size:60%}.md big{font-size:150%}.md div.title,contents,.md .tocHeader,.md h1,.md h2,.md h3,.md h4,.md h5,.md h6,.md .shortTOC,.md .mediumTOC,.nonumberh1,.nonumberh2,.nonumberh3,.nonumberh4,.nonumberh5,.nonumberh6{font-family:Verdana,Helvetica,Arial,sans-serif;margin:13.4px 0 13.4px;padding:15px 0 3px;border-top:none;clear:both}.md .tocTop {display:none}.md h1,.md h2,.md h3,.md h4,.md h5,.md h6,.md .nonumberh1,.md .nonumberh2,.md .nonumberh3,.md .nonumberh4,.md .nonumberh5,.md .nonumberh6{page-break-after:avoid;break-after:avoid}.md svg.diagram{display:block;font-family:Menlo,Consolas,monospace;font-size:93%;text-align:center;stroke-linecap:round;stroke-width:2px;page-break-inside:avoid;stroke:#000;fill:#000}.md svg.diagram .opendot{fill:#fff}.md svg.diagram .shadeddot{fill:#CCC}.md svg.diagram .dotteddot{stroke:#000;stroke-dasharray:4;fill:none}.md svg.diagram text{stroke:none}@media print{@page{margin:1in 5mm;transform: scale(150%)}}@media print{.md .pagebreak{page-break-after:always;visibility:hidden}}.md a{font-family:Georgia,Palatino,'Times New Roman'}.md h1,.md .tocHeader,.md .nonumberh1{border-bottom:3px solid;font-size:20px;font-weight:bold;}.md h1,.md .nonumberh1{counter-reset: h2 h3 h4 h5 h6}.md h2,.md .nonumberh2{counter-reset: h3 h4 h5 h6;border-bottom:2px solid #999;color:#555;font-weight:bold;font-size:18px;}.md h3,.md h4,.md h5,.md h6,.md .nonumberh3,.md .nonumberh4,.md .nonumberh5,.md .nonumberh6{font-family:Verdana,Helvetica,Arial,sans-serif;color:#555;font-size:16px;}.md h3{counter-reset:h4 h5 h6}.md h4{counter-reset:h5 h6}.md h5{counter-reset:h6}.md div.table{margin:16px 0 16px 0}.md table{border-collapse:collapse;line-height:140%;page-break-inside:avoid}.md table.table{margin:auto}.md table.calendar{width:100%;margin:auto;font-size:11px;font-family:Verdana,Helvetica,Arial,sans-serif}.md table.calendar th{font-size:16px}.md .today{background:#ECF8FA}.md .calendar .parenthesized{color:#999;font-style:italic}.md table.table th{color:#FFF;background-color:#AAA;border:1px solid #888;padding:8px 15px 8px 15px}.md table.table td{padding:5px 15px 5px 15px;border:1px solid #888}.md table.table tr:nth-child(even){background:#EEE}.md pre.tilde{border-top: 1px solid #CCC;border-bottom: 1px solid #CCC;padding: 5px 0 5px 20px;margin:0 0 0 0;background:#FCFCFC;page-break-inside:avoid}.md a.target{width:0px;height:0px;visibility:hidden;font-size:0px;display:inline-block}.md a:link, .md a:visited{color:#38A;text-decoration:none}.md a:link:hover{text-decoration:underline}.md dt{font-weight:700}.md dl>dd{margin-top:-8px; margin-bottom:8px}.md dl>table{margin:35px 0 30px}.md code{page-break-inside:avoid;} @media print{.md .listing code{white-space:pre-wrap}}.md .endnote{font-size:13px;line-height:15px;padding-left:10px;text-indent:-10px}.md .bib{padding-left:80px;text-indent:-80px;text-align:left}.markdeepFooter{font-size:9px;text-align:right;padding-top:80px;color:#999}.md .mediumTOC{float:right;font-size:12px;line-height:15px;border-left:1px solid #CCC;padding-left:15px;margin:15px 0px 15px 25px}.md .mediumTOC .level1{font-weight:600}.md .longTOC .level1{font-weight:600;display:block;padding-top:12px;margin:0 0 -20px}.md .shortTOC{text-align:center;font-weight:bold;margin-top:15px;font-size:14px}.md .admonition{position:relative;margin:1em 0;padding:.4rem 1rem;border-radius:.2rem;border-left:2.5rem solid rgba(68,138,255,.4);background-color:rgba(68,138,255,.15);}.md .admonition-title{font-weight:bold;border-bottom:solid 1px rgba(68,138,255,.4);padding-bottom:4px;margin-bottom:4px;margin-left: -1rem;padding-left:1rem;margin-right:-1rem;border-color:rgba(68,138,255,.4)}.md .admonition.tip{border-left:2.5rem solid rgba(50,255,90,.4);background-color:rgba(50,255,90,.15)}.md .admonition.tip::before{content:"\24d8";font-weight:bold;font-size:150%;position:relative;top:3px;color:rgba(26,128,46,.8);left:-2.95rem;display:block;width:0;height:0}.md .admonition.tip>.admonition-title{border-color:rgba(50,255,90,.4)}.md .admonition.warn,.md .admonition.warning{border-left:2.5rem solid rgba(255,145,0,.4);background-color:rgba(255,145,0,.15)}.md .admonition.warn::before,.md .admonition.warning::before{content:"\26A0";font-weight:bold;font-size:150%;position:relative;top:2px;color:rgba(128,73,0,.8);left:-2.95rem;display:block;width:0;height:0}.md .admonition.warn>.admonition-title,.md .admonition.warning>.admonition-title{border-color:rgba(255,145,0,.4)}.md .admonition.error{border-left: 2.5rem solid rgba(255,23,68,.4);background-color:rgba(255,23,68,.15)}.md .admonition.error>.admonition-title{border-color:rgba(255,23,68,.4)}.md .admonition.error::before{content: "\2612";font-family:"Arial";font-size:200%;position:relative;color:rgba(128,12,34,.8);top:-2px;left:-3rem;display:block;width:0;height:0}.md .admonition p:last-child{margin-bottom:0}.md li.checked,.md li.unchecked{list-style:none;overflow:visible;text-indent:-1.2em}.md li.checked:before,.md li.unchecked:before{content:"\2611";display:block;float:left;width:1em;font-size:120%}.md li.unchecked:before{content:"\2610"}</style><style>.md h1::before {
+content:counter(h1) " ";
+counter-increment: h1;margin-right:10px}.md h2::before {
+content:counter(h1) "."counter(h2) " ";
+counter-increment: h2;margin-right:10px}.md h3::before {
+content:counter(h1) "."counter(h2) "."counter(h3) " ";
+counter-increment: h3;margin-right:10px}.md h4::before {
+content:counter(h1) "."counter(h2) "."counter(h3) "."counter(h4) " ";
+counter-increment: h4;margin-right:10px}.md h5::before {
+content:counter(h1) "."counter(h2) "."counter(h3) "."counter(h4) "."counter(h5) " ";
+counter-increment: h5;margin-right:10px}.md h6::before {
+content:counter(h1) "."counter(h2) "."counter(h3) "."counter(h4) "."counter(h5) "."counter(h6) " ";
+counter-increment: h6;margin-right:10px}</style><style>.hljs{display:block;overflow-x:auto;padding:0.5em;background:#fff;color:#000;-webkit-text-size-adjust:none}.hljs-comment{color:#006a00}.hljs-keyword{color:#02E}.hljs-literal,.nginx .hljs-title{color:#aa0d91}.method,.hljs-list .hljs-title,.hljs-tag .hljs-title,.setting .hljs-value,.hljs-winutils,.tex .hljs-command,.http .hljs-title,.hljs-request,.hljs-status,.hljs-name{color:#008}.hljs-envvar,.tex .hljs-special{color:#660}.hljs-string{color:#c41a16}.hljs-tag .hljs-value,.hljs-cdata,.hljs-filter .hljs-argument,.hljs-attr_selector,.apache .hljs-cbracket,.hljs-date,.hljs-regexp{color:#080}.hljs-sub .hljs-identifier,.hljs-pi,.hljs-tag,.hljs-tag .hljs-keyword,.hljs-decorator,.ini .hljs-title,.hljs-shebang,.hljs-prompt,.hljs-hexcolor,.hljs-rule .hljs-value,.hljs-symbol,.hljs-symbol .hljs-string,.hljs-number,.css .hljs-function,.hljs-function .hljs-title,.coffeescript .hljs-attribute{color:#A0C}.hljs-function .hljs-title{font-weight:bold;color:#000}.hljs-class .hljs-title,.smalltalk .hljs-class,.hljs-type,.hljs-typename,.hljs-tag .hljs-attribute,.hljs-doctype,.hljs-class .hljs-id,.hljs-built_in,.setting,.hljs-params,.clojure .hljs-attribute{color:#5c2699}.hljs-variable{color:#3f6e74}.css .hljs-tag,.hljs-rule .hljs-property,.hljs-pseudo,.hljs-subst{color:#000}.css .hljs-class,.css .hljs-id{color:#9b703f}.hljs-value .hljs-important{color:#ff7700;font-weight:bold}.hljs-rule .hljs-keyword{color:#c5af75}.hljs-annotation,.apache .hljs-sqbracket,.nginx .hljs-built_in{color:#9b859d}.hljs-preprocessor,.hljs-preprocessor *,.hljs-pragma{color:#643820}.tex .hljs-formula{background-color:#eee;font-style:italic}.diff .hljs-header,.hljs-chunk{color:#808080;font-weight:bold}.diff .hljs-change{background-color:#bccff9}.hljs-addition{background-color:#baeeba}.hljs-deletion{background-color:#ffc8bd}.hljs-comment .hljs-doctag{font-weight:bold}.method .hljs-id{color:#000}</style><style>div.title { padding-top: 40px; } div.afterTitles { height: 15px; }</style>
+<link rel="stylesheet" href="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/fonts.css">
+<script>
+window.courseConfig = {
+    title: "Error Handling in Games",
+    instructor: "Elias Farhan"
+};
+</script>
+<script src="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/title-slide.js.téléchargement"></script><script type="text/javascript" src="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/MathJax.js.téléchargement"></script><style>
+            .slide {
+                background-image: url('images/slide_bg.jpg') !important;
+                background-size: cover !important;
+                background-position: center !important;
+            }
+            .slide:first-of-type {
+                background-image: url('images/title_bg.jpg') !important;
+            }
+            :root {
+                --side-margin: 2.5rem !important;
+            }
+            .slide-content {
+                padding-left: 2.5rem !important;
+            }
+            .md h2 {
+                background: none !important;
+                margin-top: 2.75rem !important;
+                color: black !important;
+            }
+            .md p {
+                margin-top: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .md ul, .md ol {
+                margin-top: 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+                line-height: 1.2 !important;
+            }
+            .md li {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                line-height: 1.3 !important;
+            }
+            .md li p {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .md pre {
+                padding: 0.3rem 0.5rem !important;
+            }
+            nobr {
+                display: inline-block;
+                max-width: 23rem;
+            }
+            .MathJax_Display {
+                max-width: 100%;
+            }
+        </style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body style="visibility: visible;" id="md"><div id="MathJax_Message" style="display: none;"></div><span class="md"><div id="black" style="display: none;"></div><div class="slide" id="slide0" style="display: inline-block;"><div class="slide-content"><div style="background-image: url(&#39;images/title_bg.jpg&#39;); background-size: cover; background-position: center; margin: 0 calc(-1 * var(--side-margin)); padding: 0 var(--side-margin); height: var(--slide-height); display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+
+<p></p><p>
+
+</p><div style="display: flex; flex-direction: column; align-items: center; margin-left: 2rem;">
+<div style="position: relative; width: 4.0rem; height: 4.0rem; margin-bottom: 1rem;">
+<div style="background: white; border-radius: 50%; width: 98%; height: 98%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+<img src="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/gpr_logo.png" style="height: 4rem; width: 4rem; aspect-ratio: 1/1; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+</div>
+<img src="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/eliasfarhan_circle.png" style="height: 4rem; border-radius: 50%;">
+</div>
+
+<p></p><p>
+
+</p><div style="margin-left: 3rem; color: white;">
+<div style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; line-height: 1.2;">Error Handling in Games</div>
+<div style="font-size: 1.4rem;">Elias Farhan</div>
+</div>
+
+<p></p><p>
+
+</p></div>
+
+</div></div><div class="slide" id="slide1" style="display: inline-block;"><div class="slide-number">1<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.018518518518518517 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whatarewedoingtoday?">&nbsp;</a><a class="target" name="/whatarewedoingtoday?">&nbsp;</a><a class="target" name="toc0.1">&nbsp;</a><h2>What are we doing today?</h2>
+<ul>
+<li class="minus">How a function reports that something <strong class="asterisk">went wrong</strong>
+</li>
+<li class="minus">Classic <strong class="asterisk">error codes</strong> and <code>std::error_code</code>
+</li>
+<li class="minus">Errors as <strong class="asterisk">values</strong>: <code>std::optional</code>, <code>std::expected</code>
+</li>
+<li class="minus"><strong class="asterisk">Exceptions</strong>: how they work, and why games often <strong class="asterisk">ban</strong> them
+</li>
+<li class="minus">Ways to <strong class="asterisk">leave a program</strong>: <code>std::terminate</code>, <code>std::abort</code>, <code>std::exit</code>
+</li>
+<li class="minus"><strong class="asterisk"><code>noexcept</code></strong>, then catching <strong class="asterisk">bugs</strong> with <code>assert</code>, <strong class="asterisk">C++26 contracts</strong>, and <code>static_assert</code></li></ul>
+
+</div></div><div class="slide" id="slide2" style="display: inline-block;"><div class="slide-number">2<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.037037037037037035 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whatdoes%22wrong%22evenmean?">&nbsp;</a><a class="target" name="whatdoes“wrong”evenmean?">&nbsp;</a><a class="target" name="toc1">&nbsp;</a><h1>What does “wrong” even mean?</h1>
+</div></div><div class="slide" id="slide3" style="display: inline-block;"><div class="slide-number">3<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.05555555555555555 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="twokindsofwrong">&nbsp;</a><a class="target" name="whatdoes“wrong”evenmean?/twokindsofwrong">&nbsp;</a><a class="target" name="toc1.1">&nbsp;</a><h2>Two kinds of wrong</h2>
+<p>
+
+
+Before picking a tool, decide which problem you have. They are <strong class="asterisk">not</strong> the same.
+
+</p><ul>
+<li class="minus"><strong class="asterisk">Errors</strong>: expected at runtime, from the outside world, like a missing file or a bad packet
+</li>
+<li class="minus"><strong class="asterisk">Bugs</strong>: broken assumptions in <em class="asterisk">your</em> code, like a null pointer or an out-of-range index
+</li>
+<li class="minus">Errors are <strong class="asterisk">handled and recovered</strong>; bugs are <strong class="asterisk">fixed before shipping</strong></li></ul>
+
+</div></div><div class="slide" id="slide4" style="display: inline-block;"><div class="slide-number">4<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.07407407407407407 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whatgoeswronginaframe?">&nbsp;</a><a class="target" name="whatdoes“wrong”evenmean?/whatgoeswronginaframe?">&nbsp;</a><a class="target" name="toc1.2">&nbsp;</a><h2>What goes wrong in a frame?</h2>
+<p>
+
+
+A running game constantly touches things that can <strong class="asterisk">fail</strong> for reasons you do not control.
+
+</p><ul>
+<li class="minus">An asset fails to load or is <strong class="asterisk">corrupt</strong>
+</li>
+<li class="minus">A save file is from an <strong class="asterisk">older</strong> version
+</li>
+<li class="minus">A network packet is <strong class="asterisk">malformed</strong>
+</li>
+<li class="minus">A config value is <strong class="asterisk">out of range</strong></li></ul>
+
+</div></div><div class="slide" id="slide5" style="display: inline-block;"><div class="slide-number">5<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.09259259259259259 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="howcanafunctionsignalfailure?">&nbsp;</a><a class="target" name="whatdoes“wrong”evenmean?/howcanafunctionsignalfailure?">&nbsp;</a><a class="target" name="toc1.3">&nbsp;</a><h2>How can a function signal failure?</h2>
+<p>
+
+
+One function, several conventions. Each has a different cost and ergonomics.
+
+</p><ul>
+<li class="minus">Return an <strong class="asterisk">error code</strong>, write the result to an out-parameter
+</li>
+<li class="minus">Return an <strong class="asterisk">optional</strong> or <strong class="asterisk">expected</strong> value
+</li>
+<li class="minus"><strong class="asterisk">Throw</strong> an exception
+</li>
+<li class="minus"><strong class="asterisk">Abort</strong> the program (it was a bug, not an error)</li></ul>
+
+</div></div><div class="slide" id="slide6" style="display: inline-block;"><div class="slide-number">6<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.1111111111111111 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="errorcodes">&nbsp;</a><a class="target" name="errorcodes">&nbsp;</a><a class="target" name="toc2">&nbsp;</a><h1>Error codes</h1>
+</div></div><div class="slide" id="slide7" style="display: inline-block;"><div class="slide-number">7<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.12962962962962962 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="thec-styleapproach">&nbsp;</a><a class="target" name="errorcodes/thec-styleapproach">&nbsp;</a><a class="target" name="toc2.1">&nbsp;</a><h2>The C-style approach</h2>
+<p>
+
+
+Return a status, hand the real result back through an <strong class="asterisk">out-parameter</strong>.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">load_texture</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path, Texture* out)</span></span>;   <span class="hljs-comment">// 0 = ok, non-zero = error</span></span>
+<span class="line"></span>
+<span class="line">Texture tex;</span>
+<span class="line"><span class="hljs-keyword">if</span> (load_texture(<span class="hljs-string">"hero.png"</span>, &amp;tex) != <span class="hljs-number">0</span>) {</span>
+<span class="line">    <span class="hljs-comment">// handle failure</span></span>
+<span class="line">}</span></code></pre></div></div><div class="slide" id="slide8" style="display: inline-block;"><div class="slide-number">8<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.14814814814814814 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="errorcodesareeasytoignore">&nbsp;</a><a class="target" name="errorcodes/errorcodesareeasytoignore">&nbsp;</a><a class="target" name="toc2.2">&nbsp;</a><h2>Error codes are easy to ignore</h2>
+<p>
+
+
+Nothing forces the caller to <strong class="asterisk">look</strong> at the return value.
+
+</p><pre class="listing backtick"><code><span class="line">load_texture(<span class="hljs-string">"hero.png"</span>, &amp;tex);   <span class="hljs-comment">// return value silently dropped</span></span>
+<span class="line">use(tex);                         <span class="hljs-comment">// tex may be garbage</span></span></code></pre></div></div><div class="slide" id="slide9" style="display: inline-block;"><div class="slide-number">9<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.16666666666666666 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="namingthemwithanenum">&nbsp;</a><a class="target" name="errorcodes/namingthemwithanenum">&nbsp;</a><a class="target" name="toc2.3">&nbsp;</a><h2>Naming them with an enum</h2>
+<p>
+
+
+A scoped enum makes each failure <strong class="asterisk">self-documenting</strong> instead of a magic number.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-keyword">enum</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoadError</span> {</span> none, not_found, bad_format, out_of_memory };</span>
+<span class="line"></span>
+<span class="line"><span class="hljs-function">LoadError <span class="hljs-title">load_texture</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path, Texture&amp; out)</span></span>;</span></code></pre></div></div><div class="slide" id="slide10" style="display: inline-block;"><div class="slide-number">10<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.18518518518518517 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="std::error_code">&nbsp;</a><a class="target" name="errorcodes/std::error_code">&nbsp;</a><a class="target" name="toc2.4">&nbsp;</a><h2>std::error_code</h2>
+<p>
+
+
+The standard's portable error type: an <strong class="asterisk">integer plus a category</strong> that explains it.
+
+</p><pre class="listing backtick" style="font-size: 0.749999rem;"><code style="font-size: inherit;"><span class="line" style="font-size: inherit;"><span class="hljs-meta" style="font-size: inherit;">#<span class="hljs-meta-keyword" style="font-size: inherit;">include</span> <span class="hljs-meta-string" style="font-size: inherit;">&lt;system_error&gt;</span></span></span>
+<span class="line" style="font-size: inherit;"></span>
+<span class="line" style="font-size: inherit;"><span class="hljs-built_in" style="font-size: inherit;">std</span>::error_code ec;</span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">auto</span> bytes = read_file(<span class="hljs-string" style="font-size: inherit;">"level.bin"</span>, ec);</span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">if</span> (ec) {</span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-built_in" style="font-size: inherit;">log</span>(ec.message());        <span class="hljs-comment" style="font-size: inherit;">// human-readable, e.g. "No such file or directory"</span></span>
+<span class="line" style="font-size: inherit;">}</span></code></pre></div></div><div class="slide" id="slide11" style="display: inline-block;"><div class="slide-number">11<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.2037037037037037 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="theout-parameterproblem">&nbsp;</a><a class="target" name="errorcodes/theout-parameterproblem">&nbsp;</a><a class="target" name="toc2.5">&nbsp;</a><h2>The out-parameter problem</h2>
+<p>
+
+
+The value and the error travel through <strong class="asterisk">two different channels</strong>, so they can disagree.
+
+</p><p>
+
+<svg class="diagram" xmlns="http://www.w3.org/2000/svg" version="1.1" style="margin: 0rem auto; width: 20.8929rem; height: 6.42857rem;" viewBox="0 0 416 128"><g transform="translate(8,16 )">
+<path d="M 32,16 L 32,64 " style="fill:none;"></path>
+<path d="M 112,16 L 112,64 " style="fill:none;"></path>
+<path d="M 272,16 L 272,64 " style="fill:none;"></path>
+<path d="M 352,16 L 352,64 " style="fill:none;"></path>
+<path d="M 32,16 L 112,16 " style="fill:none;"></path>
+<path d="M 224,16 L 240,16 " style="fill:none;"></path>
+<path d="M 272,16 L 352,16 " style="fill:none;"></path>
+<path d="M 128,32 L 232,32 " style="fill:none;"></path>
+<path d="M 232,48 L 248,48 " style="fill:none;"></path>
+<path d="M 32,64 L 112,64 " style="fill:none;"></path>
+<path d="M 272,64 L 352,64 " style="fill:none;"></path>
+<polygon points="240,48 228,42.4 228,53.6 " style="stroke:none" transform="rotate(180,232,48 )"></polygon>
+<polygon points="232,16 220,10.4 220,21.6 " style="stroke:none" transform="rotate(180,224,16 )"></polygon>
+<polygon points="136,32 124,26.4 124,37.6 " style="stroke:none" transform="rotate(180,128,32 )"></polygon>
+<g transform="translate(0,0)"><text text-anchor="middle" x="32" y="4">c</text><text text-anchor="middle" x="40" y="4">a</text><text text-anchor="middle" x="48" y="4">l</text><text text-anchor="middle" x="56" y="4">l</text><text text-anchor="middle" x="64" y="4">e</text><text text-anchor="middle" x="72" y="4">r</text><text text-anchor="middle" x="272" y="4">c</text><text text-anchor="middle" x="280" y="4">a</text><text text-anchor="middle" x="288" y="4">l</text><text text-anchor="middle" x="296" y="4">l</text><text text-anchor="middle" x="304" y="4">e</text><text text-anchor="middle" x="312" y="4">e</text><text text-anchor="middle" x="152" y="20">s</text><text text-anchor="middle" x="160" y="20">t</text><text text-anchor="middle" x="168" y="20">a</text><text text-anchor="middle" x="176" y="20">t</text><text text-anchor="middle" x="184" y="20">u</text><text text-anchor="middle" x="192" y="20">s</text><text text-anchor="middle" x="296" y="36">l</text><text text-anchor="middle" x="304" y="36">o</text><text text-anchor="middle" x="312" y="36">a</text><text text-anchor="middle" x="320" y="36">d</text><text text-anchor="middle" x="152" y="52">o</text><text text-anchor="middle" x="160" y="52">u</text><text text-anchor="middle" x="168" y="52">t</text><text text-anchor="middle" x="176" y="52">-</text><text text-anchor="middle" x="184" y="52">p</text><text text-anchor="middle" x="192" y="52">a</text><text text-anchor="middle" x="200" y="52">r</text><text text-anchor="middle" x="208" y="52">a</text><text text-anchor="middle" x="216" y="52">m</text><text text-anchor="middle" x="32" y="100">v</text><text text-anchor="middle" x="40" y="100">a</text><text text-anchor="middle" x="48" y="100">l</text><text text-anchor="middle" x="56" y="100">u</text><text text-anchor="middle" x="64" y="100">e</text><text text-anchor="middle" x="80" y="100">v</text><text text-anchor="middle" x="88" y="100">a</text><text text-anchor="middle" x="96" y="100">l</text><text text-anchor="middle" x="104" y="100">i</text><text text-anchor="middle" x="112" y="100">d</text><text text-anchor="middle" x="128" y="100">o</text><text text-anchor="middle" x="136" y="100">n</text><text text-anchor="middle" x="144" y="100">l</text><text text-anchor="middle" x="152" y="100">y</text><text text-anchor="middle" x="168" y="100">i</text><text text-anchor="middle" x="176" y="100">f</text><text text-anchor="middle" x="192" y="100">s</text><text text-anchor="middle" x="200" y="100">t</text><text text-anchor="middle" x="208" y="100">a</text><text text-anchor="middle" x="216" y="100">t</text><text text-anchor="middle" x="224" y="100">u</text><text text-anchor="middle" x="232" y="100">s</text><text text-anchor="middle" x="248" y="100">s</text><text text-anchor="middle" x="256" y="100">a</text><text text-anchor="middle" x="264" y="100">y</text><text text-anchor="middle" x="272" y="100">s</text><text text-anchor="middle" x="288" y="100">s</text><text text-anchor="middle" x="296" y="100">o</text><text text-anchor="middle" x="304" y="100">,</text><text text-anchor="middle" x="320" y="100">b</text><text text-anchor="middle" x="328" y="100">y</text><text text-anchor="middle" x="344" y="100">h</text><text text-anchor="middle" x="352" y="100">a</text><text text-anchor="middle" x="360" y="100">n</text><text text-anchor="middle" x="368" y="100">d</text></g></g></svg>
+
+</p></div></div><div class="slide" id="slide12" style="display: inline-block;"><div class="slide-number">12<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.2222222222222222 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whatiftherewasaway...">&nbsp;</a><a class="target" name="errorcodes/whatiftherewasaway...">&nbsp;</a><a class="target" name="toc2.6">&nbsp;</a><h2>What if there was a way...</h2>
+<p>
+
+
+to return <strong class="asterisk">either</strong> a value <strong class="asterisk">or</strong> an error, in a single object the caller cannot ignore?
+
+</p></div></div><div class="slide" id="slide13" style="display: inline-block;"><div class="slide-number">13<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.24074074074074073 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="errorsasvalues">&nbsp;</a><a class="target" name="errorsasvalues">&nbsp;</a><a class="target" name="toc3">&nbsp;</a><h1>Errors as values</h1>
+</div></div><div class="slide" id="slide14" style="display: inline-block;"><div class="slide-number">14<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.25925925925925924 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="std::optional">&nbsp;</a><a class="target" name="errorsasvalues/std::optional">&nbsp;</a><a class="target" name="toc3.1">&nbsp;</a><h2>std::optional</h2>
+<p>
+
+
+A value that <strong class="asterisk">might not be there</strong>. Either it holds a <code>T</code>, or it holds nothing.
+
+</p><pre class="listing backtick" style="font-size: 0.609999rem;"><code style="font-size: inherit;"><span class="line" style="font-size: inherit;"><span class="hljs-meta" style="font-size: inherit;">#<span class="hljs-meta-keyword" style="font-size: inherit;">include</span> <span class="hljs-meta-string" style="font-size: inherit;">&lt;optional&gt;</span></span></span>
+<span class="line" style="font-size: inherit;"></span>
+<span class="line" style="font-size: inherit;"><span class="hljs-function" style="font-size: inherit;"><span class="hljs-built_in" style="font-size: inherit;">std</span>::optional&lt; Entity &gt; <span class="hljs-title" style="font-size: inherit;">find_entity</span><span class="hljs-params" style="font-size: inherit;">(EntityId id)</span></span>;</span>
+<span class="line" style="font-size: inherit;"></span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">if</span> (<span class="hljs-keyword" style="font-size: inherit;">auto</span> e = find_entity(id)) {</span>
+<span class="line" style="font-size: inherit;">    use(*e);                  <span class="hljs-comment" style="font-size: inherit;">// present</span></span>
+<span class="line" style="font-size: inherit;">} <span class="hljs-keyword" style="font-size: inherit;">else</span> {</span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-comment" style="font-size: inherit;">// absent</span></span>
+<span class="line" style="font-size: inherit;">}</span></code></pre></div></div><div class="slide" id="slide15" style="display: inline-block;"><div class="slide-number">15<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.2777777777777778 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="optionalsays%22no%22,not%22why%22">&nbsp;</a><a class="target" name="errorsasvalues/optionalsays“no”,not“why”">&nbsp;</a><a class="target" name="toc3.2">&nbsp;</a><h2>optional says “no”, not “why”</h2>
+<p>
+
+
+It can tell you a value is <strong class="asterisk">missing</strong>, but never the <strong class="asterisk">reason</strong> it failed.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-function"><span class="hljs-built_in">std</span>::optional&lt; Texture &gt; <span class="hljs-title">load</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path)</span></span>;</span>
+<span class="line"><span class="hljs-comment">// not_found? bad_format? out_of_memory? optional cannot say</span></span></code></pre></div></div><div class="slide" id="slide16" style="display: inline-block;"><div class="slide-number">16<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.2962962962962963 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="std::expected">&nbsp;</a><a class="target" name="errorsasvalues/std::expected">&nbsp;</a><a class="target" name="toc3.3">&nbsp;</a><h2>std::expected</h2>
+<p>
+
+
+Since <strong class="asterisk">C++23</strong>: holds <strong class="asterisk">either</strong> a value <strong class="asterisk">or</strong> an error, in one type.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;expected&gt;</span></span></span>
+<span class="line"></span>
+<span class="line"><span class="hljs-function"><span class="hljs-built_in">std</span>::expected&lt; Texture, LoadError &gt; <span class="hljs-title">load_texture</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path)</span></span>;</span></code></pre></div></div><div class="slide" id="slide17" style="display: inline-block;"><div class="slide-number">17<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.3148148148148148 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="readinganexpected">&nbsp;</a><a class="target" name="errorsasvalues/readinganexpected">&nbsp;</a><a class="target" name="toc3.4">&nbsp;</a><h2>Reading an expected</h2>
+<p>
+
+
+Check first, then reach for the value <strong class="asterisk">or</strong> the error, never both.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-keyword">auto</span> result = load_texture(<span class="hljs-string">"hero.png"</span>);</span>
+<span class="line"><span class="hljs-keyword">if</span> (result) {</span>
+<span class="line">    use(*result);                 <span class="hljs-comment">// or result.value()</span></span>
+<span class="line">} <span class="hljs-keyword">else</span> {</span>
+<span class="line">    <span class="hljs-built_in">log</span>(to_string(result.error()));</span>
+<span class="line">}</span></code></pre></div></div><div class="slide" id="slide18" style="display: inline-block;"><div class="slide-number">18<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.3333333333333333 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="returningsuccessorfailure">&nbsp;</a><a class="target" name="errorsasvalues/returningsuccessorfailure">&nbsp;</a><a class="target" name="toc3.5">&nbsp;</a><h2>Returning success or failure</h2>
+<p>
+
+
+Build a value directly, or return a <code>std::unexpected</code> carrying the error.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-function"><span class="hljs-built_in">std</span>::expected&lt; Texture, LoadError &gt; <span class="hljs-title">load_texture</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path)</span> </span>{</span>
+<span class="line">    <span class="hljs-keyword">if</span> (!exists(path))   <span class="hljs-keyword">return</span> <span class="hljs-built_in">std</span>::unexpected(LoadError::not_found);</span>
+<span class="line">    Texture t = decode(path);</span>
+<span class="line">    <span class="hljs-keyword">return</span> t;                     <span class="hljs-comment">// success</span></span>
+<span class="line">}</span></code></pre></div></div><div class="slide" id="slide19" style="display: inline-block;"><div class="slide-number">19<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.35185185185185186 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="chainingwithoutif-checks">&nbsp;</a><a class="target" name="errorsasvalues/chainingwithoutif-checks">&nbsp;</a><a class="target" name="toc3.6">&nbsp;</a><h2>Chaining without if-checks</h2>
+<p>
+
+
+Monadic operations let errors <strong class="asterisk">short-circuit</strong> through a pipeline.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-keyword">auto</span> hp = load_texture(<span class="hljs-string">"hero.png"</span>)</span>
+<span class="line">    .and_then(upload_to_gpu)      <span class="hljs-comment">// runs only on success</span></span>
+<span class="line">    .transform(make_sprite)       <span class="hljs-comment">// maps the value</span></span>
+<span class="line">    .or_else(use_placeholder);    <span class="hljs-comment">// runs only on error</span></span></code></pre></div></div><div class="slide" id="slide20" style="display: inline-block;"><div class="slide-number">20<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.37037037037037035 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whatiftherewasaway...">&nbsp;</a><a class="target" name="errorsasvalues/whatiftherewasaway...">&nbsp;</a><a class="target" name="toc3.7">&nbsp;</a><h2>What if there was a way...</h2>
+<p>
+
+
+to make a function that <strong class="asterisk">cannot</strong> return normally just <strong class="asterisk">jump out</strong>, past every caller in between?
+
+</p></div></div><div class="slide" id="slide21" style="display: inline-block;"><div class="slide-number">21<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.3888888888888889 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="exceptions">&nbsp;</a><a class="target" name="exceptions">&nbsp;</a><a class="target" name="toc4">&nbsp;</a><h1>Exceptions</h1>
+</div></div><div class="slide" id="slide22" style="display: inline-block;"><div class="slide-number">22<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.4074074074074074 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="throw,try,catch">&nbsp;</a><a class="target" name="exceptions/throw,try,catch">&nbsp;</a><a class="target" name="toc4.1">&nbsp;</a><h2>throw, try, catch</h2>
+<p>
+
+
+An exception <strong class="asterisk">abandons</strong> the normal path and unwinds until someone <strong class="asterisk">catches</strong> it.
+
+</p><pre class="listing backtick" style="font-size: 0.789999rem;"><code style="font-size: inherit;"><span class="line" style="font-size: inherit;"><span class="hljs-function" style="font-size: inherit;">Texture <span class="hljs-title" style="font-size: inherit;">load_texture</span><span class="hljs-params" style="font-size: inherit;">(<span class="hljs-keyword" style="font-size: inherit;">const</span> <span class="hljs-keyword" style="font-size: inherit;">char</span>* path)</span> </span>{</span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-keyword" style="font-size: inherit;">if</span> (!exists(path)) <span class="hljs-keyword" style="font-size: inherit;">throw</span> <span class="hljs-built_in" style="font-size: inherit;">std</span>::runtime_error(<span class="hljs-string" style="font-size: inherit;">"not found"</span>);</span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-keyword" style="font-size: inherit;">return</span> decode(path);</span>
+<span class="line" style="font-size: inherit;">}</span>
+<span class="line" style="font-size: inherit;"></span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">try</span>            { <span class="hljs-keyword" style="font-size: inherit;">auto</span> t = load_texture(<span class="hljs-string" style="font-size: inherit;">"hero.png"</span>); }</span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">catch</span> (<span class="hljs-keyword" style="font-size: inherit;">const</span> <span class="hljs-built_in" style="font-size: inherit;">std</span>::exception&amp; e) { <span class="hljs-built_in" style="font-size: inherit;">log</span>(e.what()); }</span></code></pre></div></div><div class="slide" id="slide23" style="display: inline-block;"><div class="slide-number">23<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.42592592592592593 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="stackunwindingrunsdestructors">&nbsp;</a><a class="target" name="exceptions/stackunwindingrunsdestructors">&nbsp;</a><a class="target" name="toc4.2">&nbsp;</a><h2>Stack unwinding runs destructors</h2>
+<p>
+
+
+As the exception travels up, every local object on the way is <strong class="asterisk">destroyed</strong>. RAII still holds.
+
+</p><p>
+
+<svg class="diagram" xmlns="http://www.w3.org/2000/svg" version="1.1" style="margin: 0rem auto; width: 20.8929rem; height: 4.82143rem;" viewBox="0 0 416 96"><g transform="translate(8,16 )">
+<path d="M 280,0 L 280,48 " style="fill:none;"></path>
+<path d="M 88,0 L 280,0 " style="fill:none;"></path>
+<path d="M 96,64 L 120,64 " style="fill:none;"></path>
+<polygon points="288,48 276,42.4 276,53.6 " style="stroke:none" transform="rotate(90,280,48 )"></polygon>
+<polygon points="104,64 92,58.4 92,69.6 " style="stroke:none" transform="rotate(180,96,64 )"></polygon>
+<g transform="translate(0,0)"><text text-anchor="middle" x="32" y="4">t</text><text text-anchor="middle" x="40" y="4">h</text><text text-anchor="middle" x="48" y="4">r</text><text text-anchor="middle" x="56" y="4">o</text><text text-anchor="middle" x="64" y="4">w</text><text text-anchor="middle" x="48" y="20">^</text><text text-anchor="middle" x="32" y="36">d</text><text text-anchor="middle" x="40" y="36">e</text><text text-anchor="middle" x="48" y="36">c</text><text text-anchor="middle" x="56" y="36">o</text><text text-anchor="middle" x="64" y="36">d</text><text text-anchor="middle" x="72" y="36">e</text><text text-anchor="middle" x="80" y="36">(</text><text text-anchor="middle" x="88" y="36">)</text><text text-anchor="middle" x="144" y="36">~</text><text text-anchor="middle" x="152" y="36">B</text><text text-anchor="middle" x="160" y="36">u</text><text text-anchor="middle" x="168" y="36">f</text><text text-anchor="middle" x="176" y="36">f</text><text text-anchor="middle" x="184" y="36">e</text><text text-anchor="middle" x="192" y="36">r</text><text text-anchor="middle" x="200" y="36">(</text><text text-anchor="middle" x="208" y="36">)</text><text text-anchor="middle" x="304" y="36">u</text><text text-anchor="middle" x="312" y="36">n</text><text text-anchor="middle" x="320" y="36">w</text><text text-anchor="middle" x="328" y="36">i</text><text text-anchor="middle" x="336" y="36">n</text><text text-anchor="middle" x="344" y="36">d</text><text text-anchor="middle" x="352" y="36">i</text><text text-anchor="middle" x="360" y="36">n</text><text text-anchor="middle" x="368" y="36">g</text><text text-anchor="middle" x="32" y="52">l</text><text text-anchor="middle" x="40" y="52">o</text><text text-anchor="middle" x="48" y="52">a</text><text text-anchor="middle" x="56" y="52">d</text><text text-anchor="middle" x="64" y="52">(</text><text text-anchor="middle" x="72" y="52">)</text><text text-anchor="middle" x="144" y="52">~</text><text text-anchor="middle" x="152" y="52">F</text><text text-anchor="middle" x="160" y="52">i</text><text text-anchor="middle" x="168" y="52">l</text><text text-anchor="middle" x="176" y="52">e</text><text text-anchor="middle" x="184" y="52">(</text><text text-anchor="middle" x="192" y="52">)</text><text text-anchor="middle" x="32" y="68">m</text><text text-anchor="middle" x="40" y="68">a</text><text text-anchor="middle" x="48" y="68">i</text><text text-anchor="middle" x="56" y="68">n</text><text text-anchor="middle" x="64" y="68">(</text><text text-anchor="middle" x="72" y="68">)</text><text text-anchor="middle" x="136" y="68">c</text><text text-anchor="middle" x="144" y="68">a</text><text text-anchor="middle" x="152" y="68">u</text><text text-anchor="middle" x="160" y="68">g</text><text text-anchor="middle" x="168" y="68">h</text><text text-anchor="middle" x="176" y="68">t</text><text text-anchor="middle" x="192" y="68">h</text><text text-anchor="middle" x="200" y="68">e</text><text text-anchor="middle" x="208" y="68">r</text><text text-anchor="middle" x="216" y="68">e</text><text text-anchor="middle" x="224" y="68">,</text><text text-anchor="middle" x="240" y="68">r</text><text text-anchor="middle" x="248" y="68">e</text><text text-anchor="middle" x="256" y="68">s</text><text text-anchor="middle" x="264" y="68">o</text><text text-anchor="middle" x="272" y="68">u</text><text text-anchor="middle" x="280" y="68">r</text><text text-anchor="middle" x="288" y="68">c</text><text text-anchor="middle" x="296" y="68">e</text><text text-anchor="middle" x="304" y="68">s</text><text text-anchor="middle" x="320" y="68">r</text><text text-anchor="middle" x="328" y="68">e</text><text text-anchor="middle" x="336" y="68">l</text><text text-anchor="middle" x="344" y="68">e</text><text text-anchor="middle" x="352" y="68">a</text><text text-anchor="middle" x="360" y="68">s</text><text text-anchor="middle" x="368" y="68">e</text><text text-anchor="middle" x="376" y="68">d</text></g></g></svg>
+
+</p></div></div><div class="slide" id="slide24" style="display: inline-block;"><div class="slide-number">24<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.4444444444444444 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="exceptionscleanupthehappypath">&nbsp;</a><a class="target" name="exceptions/exceptionscleanupthehappypath">&nbsp;</a><a class="target" name="toc4.3">&nbsp;</a><h2>Exceptions clean up the happy path</h2>
+<p>
+
+
+The success code reads top-to-bottom, with <strong class="asterisk">no error checks</strong> interleaved.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-keyword">auto</span> tex   = load_texture(<span class="hljs-string">"hero.png"</span>);   <span class="hljs-comment">// throws on failure</span></span>
+<span class="line"><span class="hljs-keyword">auto</span> sprite = make_sprite(tex);</span>
+<span class="line"><span class="hljs-keyword">auto</span> id     = upload_to_gpu(sprite);     <span class="hljs-comment">// no `if (err)` between steps</span></span></code></pre></div></div><div class="slide" id="slide25" style="display: inline-block;"><div class="slide-number">25<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.46296296296296297 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="exceptionsarenotfree">&nbsp;</a><a class="target" name="exceptions/exceptionsarenotfree">&nbsp;</a><a class="target" name="toc4.4">&nbsp;</a><h2>Exceptions are not free</h2>
+<p>
+
+
+The mechanism costs something whether or not you ever <code>throw</code>.
+
+</p><ul>
+<li class="minus">Larger <strong class="asterisk">binary</strong>: unwinding tables for every function
+</li>
+<li class="minus">A <code>throw</code> is <strong class="asterisk">slow</strong>, orders of magnitude past a return
+</li>
+<li class="minus">Timing becomes <strong class="asterisk">unpredictable</strong>, bad for a fixed frame budget
+</li>
+<li class="minus">Harder to reason about every possible <strong class="asterisk">exit</strong> path</li></ul>
+
+</div></div><div class="slide" id="slide26" style="display: inline-block;"><div class="slide-number">26<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.48148148148148145 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whygamesoftendisablethem">&nbsp;</a><a class="target" name="exceptions/whygamesoftendisablethem">&nbsp;</a><a class="target" name="toc4.5">&nbsp;</a><h2>Why games often disable them</h2>
+<p>
+
+
+Performance and platform constraints push many engines to turn exceptions <strong class="asterisk">off</strong>.
+
+</p><ul>
+<li class="minus">Console SDKs and hot loops want <strong class="asterisk">predictable</strong> cost
+</li>
+<li class="minus">Many engines ship with <code>-fno-exceptions</code>
+</li>
+<li class="minus">Alternative libraries (e.g. <strong class="asterisk">EASTL</strong>) assume no exceptions
+</li>
+<li class="minus">Determinism matters for <strong class="asterisk">replays</strong> and <strong class="asterisk">netcode</strong></li></ul>
+
+</div></div><div class="slide" id="slide27" style="display: inline-block;"><div class="slide-number">27<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.5 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="buildingwithoutexceptions">&nbsp;</a><a class="target" name="exceptions/buildingwithoutexceptions">&nbsp;</a><a class="target" name="toc4.6">&nbsp;</a><h2>Building without exceptions</h2>
+<p>
+
+
+Disable them at the compiler, and a stray <code>throw</code> <strong class="asterisk">terminates</strong> instead of unwinding.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-comment">// g++ / clang++ :  -fno-exceptions</span></span>
+<span class="line"><span class="hljs-comment">// MSVC          :  remove /EHsc</span></span>
+<span class="line"></span>
+<span class="line"><span class="hljs-keyword">throw</span> <span class="hljs-built_in">std</span>::runtime_error(<span class="hljs-string">"x"</span>);   <span class="hljs-comment">// with exceptions off -&gt; std::terminate / abort</span></span></code></pre></div></div><div class="slide" id="slide28" style="display: inline-block;"><div class="slide-number">28<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.5185185185185185 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="leavingtheprogram">&nbsp;</a><a class="target" name="leavingtheprogram">&nbsp;</a><a class="target" name="toc5">&nbsp;</a><h1>Leaving the program</h1>
+</div></div><div class="slide" id="slide29" style="display: inline-block;"><div class="slide-number">29<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.5370370370370371 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="std::terminate">&nbsp;</a><a class="target" name="leavingtheprogram/std::terminate">&nbsp;</a><a class="target" name="toc5.1">&nbsp;</a><h2>std::terminate</h2>
+<p>
+
+
+The runtime's last resort, triggered by an <strong class="asterisk">unhandled exception</strong> or a broken <code>noexcept</code>.
+
+</p><ul>
+<li class="minus">Called <strong class="asterisk">for</strong> you, not by you
+</li>
+<li class="minus">Runs the current <strong class="asterisk">terminate handler</strong>
+</li>
+<li class="minus">The default handler calls <strong class="asterisk"><code>std::abort</code></strong>
+</li>
+<li class="minus">No unwinding, no destructors</li></ul>
+
+</div></div><div class="slide" id="slide30" style="display: inline-block;"><div class="slide-number">30<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.5555555555555556 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="std::abort">&nbsp;</a><a class="target" name="leavingtheprogram/std::abort">&nbsp;</a><a class="target" name="toc5.2">&nbsp;</a><h2>std::abort</h2>
+<p>
+
+
+<strong class="asterisk">Abnormal</strong> termination, immediately: no destructors, no flushing, raises <code>SIGABRT</code>.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span></span>
+<span class="line"></span>
+<span class="line"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">abort</span>();        <span class="hljs-comment">// stops now; this is what a failed assert() calls</span></span></code></pre></div></div><div class="slide" id="slide31" style="display: inline-block;"><div class="slide-number">31<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.5740740740740741 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="std::exit">&nbsp;</a><a class="target" name="leavingtheprogram/std::exit">&nbsp;</a><a class="target" name="toc5.3">&nbsp;</a><h2>std::exit</h2>
+<p>
+
+
+<strong class="asterisk">Normal</strong> termination that still runs global cleanup, but skips <strong class="asterisk">local</strong> objects.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span></span>
+<span class="line"></span>
+<span class="line"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">exit</span>(EXIT_FAILURE);   <span class="hljs-comment">// runs atexit handlers + static dtors, flushes streams</span></span></code></pre></div></div><div class="slide" id="slide32" style="display: inline-block;"><div class="slide-number">32<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.5925925925925926 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="returnfrommain">&nbsp;</a><a class="target" name="leavingtheprogram/returnfrommain">&nbsp;</a><a class="target" name="toc5.4">&nbsp;</a><h2>return from main</h2>
+<p>
+
+
+The <strong class="asterisk">clean</strong> exit: unwinds locals, then destroys statics, like falling off the end of <code>main</code>.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{</span>
+<span class="line">    Game game;              <span class="hljs-comment">// ~Game() runs on return</span></span>
+<span class="line">    <span class="hljs-keyword">return</span> EXIT_SUCCESS;</span>
+<span class="line">}</span></code></pre></div></div><div class="slide" id="slide33" style="display: inline-block;"><div class="slide-number">33<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.6111111111111112 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whichexitwhen?">&nbsp;</a><a class="target" name="leavingtheprogram/whichexitwhen?">&nbsp;</a><a class="target" name="toc5.5">&nbsp;</a><h2>Which exit when?</h2>
+<p>
+
+
+Pick by <strong class="asterisk">how much cleanup</strong> you can still afford to run.
+</p><div class="table"><table class="table" style="font-size: 0.8rem;"><tbody style="font-size: inherit;"><tr style="font-size: inherit;"><th style="text-align: left; font-size: inherit;">  Mechanism </th><th style="text-align: left; font-size: inherit;"> Local dtors </th><th style="text-align: left; font-size: inherit;"> Static dtors </th><th style="text-align: left; font-size: inherit;"> Use when                </th></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  <code style="font-size: inherit;">return</code> from main </td><td style="text-align: left; font-size: inherit;"> yes </td><td style="text-align: left; font-size: inherit;"> yes </td><td style="text-align: left; font-size: inherit;"> normal shutdown         </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  <code style="font-size: inherit;">std::exit</code> </td><td style="text-align: left; font-size: inherit;"> no </td><td style="text-align: left; font-size: inherit;"> yes </td><td style="text-align: left; font-size: inherit;"> bail out, flush logs    </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  <code style="font-size: inherit;">std::abort</code> </td><td style="text-align: left; font-size: inherit;"> no </td><td style="text-align: left; font-size: inherit;"> no </td><td style="text-align: left; font-size: inherit;"> unrecoverable bug       </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  <code style="font-size: inherit;">std::terminate</code> </td><td style="text-align: left; font-size: inherit;"> no </td><td style="text-align: left; font-size: inherit;"> no </td><td style="text-align: left; font-size: inherit;"> unhandled exception     </td></tr>
+</tbody></table></div>
+
+</div></div><div class="slide" id="slide34" style="display: inline-block;"><div class="slide-number">34<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.6296296296296297 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="exceptionsvsexpected">&nbsp;</a><a class="target" name="leavingtheprogram/exceptionsvsexpected">&nbsp;</a><a class="target" name="toc5.6">&nbsp;</a><h2>Exceptions vs expected</h2>
+<p>
+
+
+Two answers to “this can fail”. Pick by <strong class="asterisk">how often</strong> failure happens.
+</p><div class="table"><table class="table" style="font-size: 0.84rem;"><tbody style="font-size: inherit;"><tr style="font-size: inherit;"><th style="text-align: left; font-size: inherit;">  Use <code style="font-size: inherit;">std::expected</code> </th><th style="text-align: left; font-size: inherit;"> Use exceptions                 </th></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  failure is <strong class="asterisk" style="font-size: inherit;">routine</strong> </td><td style="text-align: left; font-size: inherit;"> failure is <strong class="asterisk" style="font-size: inherit;">truly rare</strong>      </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  hot paths, tight loops </td><td style="text-align: left; font-size: inherit;"> startup, tooling, editors      </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  exceptions are <strong class="asterisk" style="font-size: inherit;">disabled</strong> </td><td style="text-align: left; font-size: inherit;"> exceptions are <strong class="asterisk" style="font-size: inherit;">enabled</strong>     </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  error is part of the API </td><td style="text-align: left; font-size: inherit;"> error is exceptional           </td></tr>
+</tbody></table></div>
+
+</div></div><div class="slide" id="slide35" style="display: inline-block;"><div class="slide-number">35<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.6481481481481481 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="noexcept">&nbsp;</a><a class="target" name="noexcept">&nbsp;</a><a class="target" name="toc6">&nbsp;</a><h1>noexcept</h1>
+</div></div><div class="slide" id="slide36" style="display: inline-block;"><div class="slide-number">36<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.6666666666666666 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="promisingnottothrow">&nbsp;</a><a class="target" name="noexcept/promisingnottothrow">&nbsp;</a><a class="target" name="toc6.1">&nbsp;</a><h2>Promising not to throw</h2>
+<p>
+
+
+<code>noexcept</code> marks a function that will <strong class="asterisk">never</strong> let an exception escape.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(Buffer&amp; a, Buffer&amp; b)</span> <span class="hljs-keyword">noexcept</span></span>;</span>
+<span class="line"></span>
+<span class="line">Buffer(Buffer&amp;&amp; other) <span class="hljs-keyword">noexcept</span>;     <span class="hljs-comment">// moves should not throw</span></span></code></pre></div></div><div class="slide" id="slide37" style="display: inline-block;"><div class="slide-number">37<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.6851851851851852 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="noexceptunlocksoptimizations">&nbsp;</a><a class="target" name="noexcept/noexceptunlocksoptimizations">&nbsp;</a><a class="target" name="toc6.2">&nbsp;</a><h2>noexcept unlocks optimizations</h2>
+<p>
+
+
+The library checks it to choose <strong class="asterisk">faster</strong> code paths.
+
+</p><ul>
+<li class="minus"><code>std::vector</code> growth <strong class="asterisk">moves</strong> elements only if the move is <code>noexcept</code>
+</li>
+<li class="minus">Otherwise it <strong class="asterisk">copies</strong> to stay exception-safe, which is slower
+</li>
+<li class="minus">Callers skip generating <strong class="asterisk">unwinding</strong> scaffolding around the call</li></ul>
+
+</div></div><div class="slide" id="slide38" style="display: inline-block;"><div class="slide-number">38<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.7037037037037037 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="breakingthepromiseisfatal">&nbsp;</a><a class="target" name="noexcept/breakingthepromiseisfatal">&nbsp;</a><a class="target" name="toc6.3">&nbsp;</a><h2>Breaking the promise is fatal</h2>
+<p>
+
+
+Throw out of a <code>noexcept</code> function and the program is <strong class="asterisk">terminated</strong>. No catch can save it.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">()</span> <span class="hljs-keyword">noexcept</span> </span>{</span>
+<span class="line">    <span class="hljs-keyword">throw</span> <span class="hljs-built_in">std</span>::runtime_error(<span class="hljs-string">"boom"</span>);   <span class="hljs-comment">// calls std::terminate immediately</span></span>
+<span class="line">}</span></code></pre></div></div><div class="slide" id="slide39" style="display: inline-block;"><div class="slide-number">39<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.7222222222222222 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="wherenoexceptbelongs">&nbsp;</a><a class="target" name="noexcept/wherenoexceptbelongs">&nbsp;</a><a class="target" name="toc6.4">&nbsp;</a><h2>Where noexcept belongs</h2>
+<p>
+
+
+Mark the operations the standard library and your callers <strong class="asterisk">expect</strong> to be safe.
+
+</p><ul>
+<li class="minus"><strong class="asterisk">Move</strong> constructors and move assignment
+</li>
+<li class="minus"><strong class="asterisk">Destructors</strong> (already <code>noexcept</code> by default)
+</li>
+<li class="minus"><strong class="asterisk">swap</strong> and simple accessors
+</li>
+<li class="minus">Functions that genuinely <strong class="asterisk">cannot</strong> fail</li></ul>
+
+</div></div><div class="slide" id="slide40" style="display: inline-block;"><div class="slide-number">40<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.7407407407407407 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="whatiftherewasaway...">&nbsp;</a><a class="target" name="noexcept/whatiftherewasaway...">&nbsp;</a><a class="target" name="toc6.5">&nbsp;</a><h2>What if there was a way...</h2>
+<p>
+
+
+to catch the <strong class="asterisk">bugs</strong>, the states that should be <em class="asterisk">impossible</em>, before they ever ship?
+
+</p></div></div><div class="slide" id="slide41" style="display: inline-block;"><div class="slide-number">41<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.7592592592592593 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="bugs:assert&amp;contracts">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts">&nbsp;</a><a class="target" name="toc7">&nbsp;</a><h1>Bugs: assert &amp; contracts</h1>
+</div></div><div class="slide" id="slide42" style="display: inline-block;"><div class="slide-number">42<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.7777777777777778 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="errorsvsbugs,revisited">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/errorsvsbugs,revisited">&nbsp;</a><a class="target" name="toc7.1">&nbsp;</a><h2>Errors vs bugs, revisited</h2>
+<p>
+
+
+Different problems, different tools. Do not use one for the other.
+</p><div class="table"><table class="table" style="font-size: 0.84rem;"><tbody style="font-size: inherit;"><tr style="font-size: inherit;"><th style="text-align: left; font-size: inherit;">  Situation </th><th style="text-align: left; font-size: inherit;"> Tool                     </th></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  file missing, packet malformed </td><td style="text-align: left; font-size: inherit;"> <code style="font-size: inherit;">expected</code> / exceptions  </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  index out of range (logic bug) </td><td style="text-align: left; font-size: inherit;"> <code style="font-size: inherit;">assert</code> / contracts     </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  broken function precondition </td><td style="text-align: left; font-size: inherit;"> <code style="font-size: inherit;">assert</code> / contracts     </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  recoverable runtime failure </td><td style="text-align: left; font-size: inherit;"> error as a <strong class="asterisk" style="font-size: inherit;">value</strong>     </td></tr>
+</tbody></table></div>
+
+</div></div><div class="slide" id="slide43" style="display: inline-block;"><div class="slide-number">43<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.7962962962962963 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="assert">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/assert">&nbsp;</a><a class="target" name="toc7.2">&nbsp;</a><h2>assert</h2>
+<p>
+
+
+From <code>&lt;cassert&gt;</code>: check a condition that you believe is <strong class="asterisk">always</strong> true.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cassert&gt;</span></span></span>
+<span class="line"></span>
+<span class="line"><span class="hljs-function">Entity&amp; <span class="hljs-title">get</span><span class="hljs-params">(EntityId id)</span> </span>{</span>
+<span class="line">    assert(id &lt; entities.size() &amp;&amp; <span class="hljs-string">"entity id out of range"</span>);</span>
+<span class="line">    <span class="hljs-keyword">return</span> entities[id];</span>
+<span class="line">}</span></code></pre></div></div><div class="slide" id="slide44" style="display: inline-block;"><div class="slide-number">44<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.8148148148148148 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="assertdisappearsinrelease">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/assertdisappearsinrelease">&nbsp;</a><a class="target" name="toc7.3">&nbsp;</a><h2>assert disappears in release</h2>
+<p>
+
+
+Define <code>NDEBUG</code> and every <code>assert</code> compiles to <strong class="asterisk">nothing</strong>.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-comment">// debug build:    assert(p != nullptr);  -&gt; checked</span></span>
+<span class="line"><span class="hljs-comment">// -DNDEBUG build:  assert(p != nullptr);  -&gt; removed, zero cost</span></span></code></pre></div></div><div class="slide" id="slide45" style="display: inline-block;"><div class="slide-number">45<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.8333333333333334 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="assertguidelines">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/assertguidelines">&nbsp;</a><a class="target" name="toc7.4">&nbsp;</a><h2>assert guidelines</h2>
+<p>
+
+
+Asserts document <strong class="asterisk">invariants</strong> for the developer, not error handling for the user.
+
+</p><ul>
+<li class="minus">The condition must have <strong class="asterisk">no side effects</strong>, since it vanishes in release
+</li>
+<li class="minus">Check <strong class="asterisk">preconditions</strong>, <strong class="asterisk">postconditions</strong>, and <strong class="asterisk">invariants</strong>
+</li>
+<li class="minus">Never assert on <strong class="asterisk">external</strong> input: that is a real error
+</li>
+<li class="minus">A failed assert means a <strong class="asterisk">bug to fix</strong>, not a case to recover</li></ul>
+
+</div></div><div class="slide" id="slide46" style="display: inline-block;"><div class="slide-number">46<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.8518518518518519 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="c++26contracts">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/c++26contracts">&nbsp;</a><a class="target" name="toc7.5">&nbsp;</a><h2>C++26 contracts</h2>
+<p>
+
+
+A language-level successor to <code>assert</code>: <strong class="asterisk">preconditions</strong>, <strong class="asterisk">postconditions</strong>, and assertions.
+
+</p><pre class="listing backtick" style="font-size: 0.789999rem;"><code style="font-size: inherit;"><span class="line" style="font-size: inherit;"><span class="hljs-function" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">int</span> <span class="hljs-title" style="font-size: inherit;">divide</span><span class="hljs-params" style="font-size: inherit;">(<span class="hljs-keyword" style="font-size: inherit;">int</span> a, <span class="hljs-keyword" style="font-size: inherit;">int</span> b)</span></span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-title" style="font-size: inherit;">pre</span><span class="hljs-params" style="font-size: inherit;">(b != <span class="hljs-number" style="font-size: inherit;">0</span>)</span>               <span class="hljs-comment" style="font-size: inherit;">// precondition</span></span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-title" style="font-size: inherit;">post</span><span class="hljs-params" style="font-size: inherit;">(r: r * b == a)</span>       <span class="hljs-comment" style="font-size: inherit;">// postcondition, r names the result</span></span>
+<span class="line" style="font-size: inherit;"></span>{</span>
+<span class="line" style="font-size: inherit;">    contract_assert(b != <span class="hljs-number" style="font-size: inherit;">0</span>);  <span class="hljs-comment" style="font-size: inherit;">// in-body assertion</span></span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-keyword" style="font-size: inherit;">return</span> a / b;</span>
+<span class="line" style="font-size: inherit;">}</span></code></pre></div></div><div class="slide" id="slide47" style="display: inline-block;"><div class="slide-number">47<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.8703703703703703 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="contractsvsassert">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/contractsvsassert">&nbsp;</a><a class="target" name="toc7.6">&nbsp;</a><h2>Contracts vs assert</h2>
+<p>
+
+
+Contracts move the checks <strong class="asterisk">into the function signature</strong>, where callers can see them.
+</p><div class="table"><table class="table" style="font-size: 0.62rem;"><tbody style="font-size: inherit;"><tr style="font-size: inherit;"><th style="text-align: left; font-size: inherit;">  <code style="font-size: inherit;">assert</code> </th><th style="text-align: left; font-size: inherit;"> C++26 contracts               </th></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  body only </td><td style="text-align: left; font-size: inherit;"> <code style="font-size: inherit;">pre</code> / <code style="font-size: inherit;">post</code> on the <strong class="asterisk" style="font-size: inherit;">API</strong> </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  macro, <code style="font-size: inherit;">&lt;cassert&gt;</code> </td><td style="text-align: left; font-size: inherit;"> language <strong class="asterisk" style="font-size: inherit;">keywords</strong>         </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  on/off via <code style="font-size: inherit;">NDEBUG</code> </td><td style="text-align: left; font-size: inherit;"> <strong class="asterisk" style="font-size: inherit;">per-build</strong> semantic        </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  no result access </td><td style="text-align: left; font-size: inherit;"> <code style="font-size: inherit;">post</code> can name the <strong class="asterisk" style="font-size: inherit;">result</strong>  </td></tr>
+</tbody></table></div>
+
+</div></div><div class="slide" id="slide48" style="display: inline-block;"><div class="slide-number">48<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.8888888888888888 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="contractsemantics">&nbsp;</a><a class="target" name="bugs:assert&amp;contracts/contractsemantics">&nbsp;</a><a class="target" name="toc7.7">&nbsp;</a><h2>Contract semantics</h2>
+<p>
+
+
+The build chooses <strong class="asterisk">what happens</strong> when a contract is violated, with no recompiling the source.
+
+</p><ul>
+<li class="minus"><strong class="asterisk">ignore</strong>: not checked, like release <code>assert</code>
+</li>
+<li class="minus"><strong class="asterisk">observe</strong>: checked, logs, then <strong class="asterisk">continues</strong>
+</li>
+<li class="minus"><strong class="asterisk">enforce</strong>: checked, then <strong class="asterisk">terminates</strong></li></ul>
+
+</div></div><div class="slide" id="slide49" style="display: inline-block;"><div class="slide-number">49<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.9074074074074074 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="static_assert">&nbsp;</a><a class="target" name="static_assert">&nbsp;</a><a class="target" name="toc8">&nbsp;</a><h1>static_assert</h1>
+</div></div><div class="slide" id="slide50" style="display: inline-block;"><div class="slide-number">50<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.9259259259259259 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="checkingatcompiletime">&nbsp;</a><a class="target" name="static_assert/checkingatcompiletime">&nbsp;</a><a class="target" name="toc8.1">&nbsp;</a><h2>Checking at compile time</h2>
+<p>
+
+
+<code>assert</code> and contracts run while the game is <strong class="asterisk">running</strong>; <code>static_assert</code> runs while it is <strong class="asterisk">built</strong>.
+
+</p><pre class="listing backtick"><code><span class="line"><span class="hljs-keyword">static_assert</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">void</span>*) == <span class="hljs-number">8</span>, <span class="hljs-string">"64-bit builds only"</span>);</span>
+<span class="line"></span>
+<span class="line"><span class="hljs-comment">// a false condition is a compile error: the program never links</span></span></code></pre></div></div><div class="slide" id="slide51" style="display: inline-block;"><div class="slide-number">51<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.9444444444444444 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="compile-timevsruntime">&nbsp;</a><a class="target" name="static_assert/compile-timevsruntime">&nbsp;</a><a class="target" name="toc8.2">&nbsp;</a><h2>Compile-time vs runtime</h2>
+<p>
+
+
+The condition must be a <strong class="asterisk">constant expression</strong>, so it costs <strong class="asterisk">nothing</strong> at runtime.
+</p><div class="table"><table class="table" style="font-size: 0.64rem;"><tbody style="font-size: inherit;"><tr style="font-size: inherit;"><th style="text-align: left; font-size: inherit;">  <code style="font-size: inherit;">assert</code> / contracts </th><th style="text-align: left; font-size: inherit;"> <code style="font-size: inherit;">static_assert</code>               </th></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  checked at <strong class="asterisk" style="font-size: inherit;">runtime</strong> </td><td style="text-align: left; font-size: inherit;"> checked at <strong class="asterisk" style="font-size: inherit;">compile time</strong>   </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  can vanish in release </td><td style="text-align: left; font-size: inherit;"> never in the binary at all    </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  any runtime condition </td><td style="text-align: left; font-size: inherit;"> <strong class="asterisk" style="font-size: inherit;">constexpr</strong> condition only  </td></tr>
+<tr style="font-size: inherit;"><td style="text-align: left; font-size: inherit;">  failure <strong class="asterisk" style="font-size: inherit;">terminates</strong> </td><td style="text-align: left; font-size: inherit;"> failure <strong class="asterisk" style="font-size: inherit;">fails the build</strong>   </td></tr>
+</tbody></table></div>
+
+</div></div><div class="slide" id="slide52" style="display: inline-block;"><div class="slide-number">52<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.9629629629629629 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="static_assertingames">&nbsp;</a><a class="target" name="static_assert/static_assertingames">&nbsp;</a><a class="target" name="toc8.3">&nbsp;</a><h2>static_assert in games</h2>
+<p>
+
+
+Lock down assumptions the engine relies on, so a violation <strong class="asterisk">never compiles</strong>.
+
+</p><pre class="listing backtick" style="font-size: 0.749999rem;"><code style="font-size: inherit;"><span class="line" style="font-size: inherit;"><span class="hljs-class" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">struct</span> <span class="hljs-title" style="font-size: inherit;">NetPacket</span> {</span> <span class="hljs-keyword" style="font-size: inherit;">uint16_t</span> id; <span class="hljs-keyword" style="font-size: inherit;">uint16_t</span> len; <span class="hljs-keyword" style="font-size: inherit;">uint32_t</span> tick; };</span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">static_assert</span>(<span class="hljs-keyword" style="font-size: inherit;">sizeof</span>(NetPacket) == <span class="hljs-number" style="font-size: inherit;">8</span>, <span class="hljs-string" style="font-size: inherit;">"packet layout changed"</span>);</span>
+<span class="line" style="font-size: inherit;"></span>
+<span class="line" style="font-size: inherit;"><span class="hljs-function" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">template</span>&lt; <span class="hljs-keyword" style="font-size: inherit;">typename</span> T &gt;</span>
+<span class="line" style="font-size: inherit;"><span class="hljs-keyword" style="font-size: inherit;">void</span> <span class="hljs-title" style="font-size: inherit;">serialize</span><span class="hljs-params" style="font-size: inherit;">(<span class="hljs-keyword" style="font-size: inherit;">const</span> T&amp; v)</span> </span>{</span>
+<span class="line" style="font-size: inherit;">    <span class="hljs-keyword" style="font-size: inherit;">static_assert</span>(<span class="hljs-built_in" style="font-size: inherit;">std</span>::is_trivially_copyable_v&lt; T &gt;, <span class="hljs-string" style="font-size: inherit;">"T must be POD"</span>);</span>
+<span class="line" style="font-size: inherit;">}</span></code></pre></div></div><div class="slide" id="slide53" style="display: inline-block;"><div class="slide-number">53<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(0.9814814814814815 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="references">&nbsp;</a><a class="target" name="static_assert/references">&nbsp;</a><a class="target" name="toc8.4">&nbsp;</a><h2>References</h2>
+<ul>
+<li class="minus"><a href="https://en.cppreference.com/w/cpp/utility/expected">cppreference: std::expected</a>
+</li>
+<li class="minus"><a href="https://en.cppreference.com/w/cpp/utility/optional">cppreference: std::optional</a>
+</li>
+<li class="minus"><a href="https://en.cppreference.com/w/cpp/error/error_code">cppreference: std::error_code</a>
+</li>
+<li class="minus"><a href="https://en.cppreference.com/w/cpp/utility/program">cppreference: program support utilities</a>
+</li>
+<li class="minus"><a href="https://en.cppreference.com/w/cpp/language/noexcept_spec">cppreference: noexcept specifier</a>
+</li>
+<li class="minus"><a href="https://wg21.link/p2900">P2900: Contracts for C++</a></li></ul>
+
+</div></div><div class="slide" id="slide54" style="display: inline-block;"><div class="slide-number">54<span class="slide-number-total">/55</span></div><div class="slide-progress" style="width: calc(1 * var(--slide-width));"></div><div class="slide-content">
+
+
+<a class="target" name="conclusion">&nbsp;</a><a class="target" name="static_assert/conclusion">&nbsp;</a><a class="target" name="toc8.5">&nbsp;</a><h2>Conclusion</h2>
+<ul style="font-size: 0.66rem;">
+<li class="minus" style="font-size: inherit;">Separate <strong class="asterisk" style="font-size: inherit;">errors</strong> (runtime, recoverable) from <strong class="asterisk" style="font-size: inherit;">bugs</strong> (broken assumptions): they need different tools.
+</li>
+<li class="minus" style="font-size: inherit;"><strong class="asterisk" style="font-size: inherit;">Error codes</strong> and <code style="font-size: inherit;">std::error_code</code> are easy to ignore and split value from status.
+</li>
+<li class="minus" style="font-size: inherit;"><code style="font-size: inherit;">std::optional</code> says <em class="asterisk" style="font-size: inherit;">missing</em>; <strong class="asterisk" style="font-size: inherit;"><code style="font-size: inherit;">std::expected</code></strong> (C++23) returns a value <strong class="asterisk" style="font-size: inherit;">or</strong> an error in one type, ignorable by no one.
+</li>
+<li class="minus" style="font-size: inherit;"><strong class="asterisk" style="font-size: inherit;">Exceptions</strong> keep the happy path clean but cost binary size and predictable timing, so many games disable them with <code style="font-size: inherit;">-fno-exceptions</code>.
+</li>
+<li class="minus" style="font-size: inherit;">Know how a program <strong class="asterisk" style="font-size: inherit;">leaves</strong>: <code style="font-size: inherit;">return</code> unwinds and cleans up, <code style="font-size: inherit;">std::exit</code> skips locals, <code style="font-size: inherit;">std::abort</code> / <code style="font-size: inherit;">std::terminate</code> stop cold.
+</li>
+<li class="minus" style="font-size: inherit;"><strong class="asterisk" style="font-size: inherit;"><code style="font-size: inherit;">noexcept</code></strong> promises no throw, unlocks faster moves, and <strong class="asterisk" style="font-size: inherit;">terminates</strong> if broken.
+</li>
+<li class="minus" style="font-size: inherit;">Use <strong class="asterisk" style="font-size: inherit;"><code style="font-size: inherit;">assert</code></strong> / <strong class="asterisk" style="font-size: inherit;">C++26 contracts</strong> for bugs (invariants and pre/postconditions), not for handling user-facing errors.
+</li>
+<li class="minus" style="font-size: inherit;"><strong class="asterisk" style="font-size: inherit;"><code style="font-size: inherit;">static_assert</code></strong> moves the check to <strong class="asterisk" style="font-size: inherit;">compile time</strong>: guard struct layouts and template requirements so a broken assumption never builds.</li></ul>
+
+<p>
+
+<script src="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/slide-init.js.téléchargement"></script>
+<link rel="stylesheet" href="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/relativize.css">
+<link rel="stylesheet" href="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/markdeep-slides.css">
+
+</p><p>
+
+<script src="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/slide-utils.js.téléchargement"></script>
+
+</p></div></div></span><div id="mdContextMenu" style="visibility:hidden"></div><div class="markdeepFooter"><i>formatted by <a href="https://casual-effects.com/markdeep" style="color:#999">Markdeep&nbsp;1.11&nbsp;&nbsp;</a></i><div style="display:inline-block;font-size:13px;font-family:&#39;Times New Roman&#39;,serif;vertical-align:middle;transform:translate(-3px,-1px)rotate(135deg);">✒</div></div><style>@page { size: 640px 360px; }@media print { .slide, .slide { --slide-width: 640px !important; --slide-height: 360px; }</style><link rel="stylesheet" href="./eliasfarhan.ch_gpr_advanced_cpp_04.md_files/simple.css"></body></html>
