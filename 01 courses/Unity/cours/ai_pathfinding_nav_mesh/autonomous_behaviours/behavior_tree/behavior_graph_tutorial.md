@@ -1,12 +1,7 @@
 ---
 title: How To Use Unity's Behavior Graph For AI With Behavior Trees
 type: section
-module: 🐰 - Medium
-section:
-  - Game Sup 1A
-  - SAE 1A
 parent: "[[01 courses/Unity/cours/ai_pathfinding_nav_mesh/autonomous_behaviours/behavior_tree|Behavior Tree]]"
-source: notion
 ---
 # How To Use Unity's Behavior Graph For AI With Behavior Trees
 

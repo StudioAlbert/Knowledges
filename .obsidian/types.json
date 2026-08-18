@@ -1,0 +1,15 @@
+{
+  "types": {
+    "bloc": "multitext",
+    "duration_h": "number",
+    "cours": "number",
+    "prerequis": "multitext",
+    "projet": "multitext",
+    "specialisation": "multitext",
+    "mineur": "text",
+    "parent": "multitext",
+    "type": "text",
+    "title": "text",
+    "created": "datetime"
+  }
+}

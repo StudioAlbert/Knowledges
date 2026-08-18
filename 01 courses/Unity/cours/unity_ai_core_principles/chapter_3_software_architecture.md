@@ -1,12 +1,7 @@
 ---
 title: Chapter 3 — Software architecture
 type: section
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 1A
 parent: "[[unity_ai_core_principles|Unity AI - Core principles]]"
-source: notion
 ---
 # Chapter 3 — Software architecture
 

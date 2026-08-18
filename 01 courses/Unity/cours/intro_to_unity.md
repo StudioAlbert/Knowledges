@@ -1,16 +1,9 @@
 ---
 title: Intro to Unity
 type: course
-chapter: "1.0"
 duration_h: 1.5
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - Basics
+bloc: "[[Prise en Main d'Unity]]"
 created: 2025-10-06T12:18
-source: notion
 ---
 # Intro to Unity
 

@@ -1,20 +1,15 @@
 ---
 title: Physics
 type: course
-chapter: "1.2"
-module: "🐣 - Beginner"
-topic:
-  - Physics
+duration_h: 6
+bloc: "[[Physique et Interactions]]"
 created: 2025-11-20T22:15
-source: notion
 ---
 # Physics
 
 ### Exemples
 
 ## Contenu
-
-Timing : 6h
 
 ### Rigidbody
 

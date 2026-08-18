@@ -1,18 +1,9 @@
 ---
 title: Raycast
 type: course
-chapter: "2.1"
 duration_h: 6
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - 3C
-  - Physics
-  - Programming
+bloc: "[[Physique et Interactions]]"
 created: 2022-12-13T22:22
-source: notion
 ---
 # Raycast
 

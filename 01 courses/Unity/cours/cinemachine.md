@@ -1,16 +1,9 @@
 ---
 title: Cinemachine
 type: course
-chapter: "4.1"
 duration_h: 3
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - 3C
+bloc: "[[Caméra et Animation]]"
 created: 2025-01-10T11:36
-source: notion
 ---
 # Cinemachine
 

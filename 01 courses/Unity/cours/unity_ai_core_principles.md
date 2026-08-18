@@ -2,14 +2,8 @@
 title: Unity AI - Core principles
 type: course
 duration_h: 3
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 1A
-topic:
-  - Programming
+bloc: "[[Intelligence Artificielle]]"
 created: 2026-03-17T11:58
-source: notion
 ---
 # Unity AI - Core principles
 

@@ -1,18 +1,9 @@
 ---
 title: How to move
 type: course
-chapter: "1.2"
 duration_h: 3
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - 3C
-  - Basics
-  - Physics
+bloc: "[[Contrôle et Déplacement]]"
 created: 2025-10-06T16:54
-source: notion
 ---
 # How to move
 

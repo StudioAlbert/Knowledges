@@ -1,16 +1,9 @@
 ---
 title: SOLID Principles in Unity
 type: course
-chapter: "6.2"
 duration_h: 3
-module: "🦁 - Advanced"
-section:
-  - Game Sup 2A
-  - SAE 2A
-topic:
-  - Programming
+bloc: "[[Architecture et Design Patterns]]"
 created: 2022-12-13T22:10
-source: notion
 ---
 # SOLID Principles in Unity
 

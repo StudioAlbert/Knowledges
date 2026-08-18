@@ -1,12 +1,9 @@
 ---
 title: Lightning, Rendering
 type: course
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 2A
+bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2022-12-13T23:06
-source: notion
+duration_h: 3
 ---
 # Lightning, Rendering
 

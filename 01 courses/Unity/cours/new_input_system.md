@@ -1,16 +1,9 @@
 ---
 title: New Input System
 type: course
-chapter: "1.1"
 duration_h: 3
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - Basics
+bloc: "[[Contrôle et Déplacement]]"
 created: 2022-12-13T22:06
-source: notion
 ---
 # New Input System
 

@@ -1,14 +1,9 @@
 ---
 title: AI Pathfinding (Behaviour Tree, State machine)
 type: course
-chapter: "6.1"
 duration_h: 6
-module: "🐰 - Medium"
-section:
-  - Game Sup 1A
-  - SAE 1A
+bloc: "[[Intelligence Artificielle]]"
 created: 2025-11-12T10:15
-source: notion
 ---
 # AI Pathfinding (Behaviour Tree, State machine)
 

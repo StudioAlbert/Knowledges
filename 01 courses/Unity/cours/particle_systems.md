@@ -1,14 +1,8 @@
 ---
 title: Particle Systems
 type: course
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 2A
-topic:
-  - VFX / Feedbacks / Juice
+bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2022-12-13T23:04
-source: notion
 ---
 # Particle Systems
 

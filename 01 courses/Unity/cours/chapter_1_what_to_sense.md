@@ -1,15 +1,9 @@
 ---
 title: Chapter 1 — What to sense
 type: course
-chapter: "1"
 duration_h: 0.75
-module: "🐰 - Medium"
-section:
-  - SAE 2A
-topic:
-  - Programming
+bloc: "[[Intelligence Artificielle]]"
 created: 2026-03-17T10:31
-source: notion
 ---
 # Chapter 1 — What to sense
 

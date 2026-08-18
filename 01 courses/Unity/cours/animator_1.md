@@ -1,16 +1,9 @@
 ---
 title: Animator  1
 type: course
-chapter: "4.1"
 duration_h: 6
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - 3C
+bloc: "[[Caméra et Animation]]"
 created: 2024-11-05T09:13
-source: notion
 ---
 # Animator  1
 

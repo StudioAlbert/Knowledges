@@ -1,16 +1,15 @@
 ---
 title: Modèle de cours
 type: template
+duration_h:
+bloc:
 created: 2025-10-06T11:56
-source: notion
 ---
 # Modèle de cours
 
 ### Exemples
 
 ## Contenu
-
-Timing : 6h
 
 ### A télécharger
 

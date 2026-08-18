@@ -1,15 +1,9 @@
 ---
 title: 2D in Unity
 type: course
-chapter: "3.1"
-duration_h: 6
-module: "🐣 - Beginner"
-section:
-  - SAE 1A
-topic:
-  - Basics
+duration_h: 12
+bloc: "[[Jeu 2D]]"
 created: 2023-12-11T15:55
-source: notion
 ---
 # 2D in Unity
 

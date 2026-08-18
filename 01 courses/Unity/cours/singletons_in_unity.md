@@ -1,21 +1,15 @@
 ---
 title: Singletons in Unity
 type: course
-module: "🐰 - Medium"
-section:
-  - SAE 1A
-topic:
-  - Programming
+duration_h: 6
+bloc: "[[Architecture et Design Patterns]]"
 created: 2025-12-18T06:38
-source: notion
 ---
 # Singletons in Unity
 
 ### Exemples
 
 ## Contenu
-
-Timing : 6h
 
 ### A télécharger
 

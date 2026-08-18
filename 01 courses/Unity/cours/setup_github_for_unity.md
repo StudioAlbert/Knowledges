@@ -1,15 +1,9 @@
 ---
 title: Setup GitHub for Unity
 type: course
-chapter: "0.0"
 duration_h: 1
-module: "🐣 - Beginner"
-section:
-  - SAE 1A
-topic:
-  - Basics
+bloc: "[[Prise en Main d'Unity]]"
 created: 2024-12-04T15:18
-source: notion
 ---
 # Setup GitHub for Unity
 

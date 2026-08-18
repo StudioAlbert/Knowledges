@@ -1,11 +1,17 @@
 ---
 title: Intro
 type: index
-source: notion
 ---
-Blocs pedagogiques
+# Blocs pédagogiques
 
+Chaque cours porte une propriété `bloc`. Les blocs vivent dans `blocs/`, suivent le
+schéma du vault GSDA (`type: bloc`, `specialisation`, `prerequis`,
+`cours`) et totalisent les heures des cours qui les référencent.
 
+Le compteur `cours:` de chaque bloc est régénéré par `tools/sync_blocs.py` ; la vue
+*Heures par bloc* ci-dessous recalcule la même somme en direct pour la contrôler.
+
+![[blocs.base]]
 
 # Index des cours
 

@@ -1,17 +1,15 @@
 ---
 title: Audio
 type: course
-module: "🐣 - Beginner"
+duration_h: 6
+bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2025-12-16T17:02
-source: notion
 ---
 # Audio
 
 ### Exemples
 
 ## Contenu
-
-Timing : 6h
 
 ### A télécharger
 

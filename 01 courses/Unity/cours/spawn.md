@@ -1,15 +1,9 @@
 ---
 title: Spawn
 type: course
-chapter: "2.3"
 duration_h: 3
-module: "🐣 - Beginner"
-section:
-  - SAE 1A
-topic:
-  - Programming
+bloc: "[[Programmation Gameplay]]"
 created: 2025-11-03T17:56
-source: notion
 ---
 # Spawn
 

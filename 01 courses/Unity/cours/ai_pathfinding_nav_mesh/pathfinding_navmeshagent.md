@@ -1,12 +1,7 @@
 ---
 title: "Pathfinding : NavMeshAgent"
 type: section
-module: "🐰 - Medium"
-section:
-  - Game Sup 1A
-  - SAE 1A
 parent: "[[ai_pathfinding_nav_mesh|AI Pathfinding (Nav mesh)]]"
-source: notion
 ---
 # Pathfinding : NavMeshAgent
 

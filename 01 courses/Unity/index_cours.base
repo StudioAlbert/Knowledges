@@ -5,22 +5,14 @@ filters:
 properties:
   note.title:
     displayName: Titre
-  note.chapter:
-    displayName: Chapitre
   note.duration_h:
     displayName: Durée (h)
-  note.module:
-    displayName: Module
-  note.section:
-    displayName: Section
-  note.topic:
-    displayName: Topic
+  note.bloc:
+    displayName: Bloc
   note.parent:
     displayName: Parent
   note.type:
     displayName: Type
-  note.created:
-    displayName: Créé le
   file.name:
     displayName: lien
 views:
@@ -29,76 +21,31 @@ views:
     filters:
       and:
         - type == "course"
+    groupBy:
+      property: bloc
+      direction: ASC
     order:
-      - chapter
       - file.name
       - title
       - duration_h
-      - module
-      - topic
-    sort:
-      - property: chapter
-        direction: ASC
-      - property: duration_h
-        direction: ASC
-      - property: file.name
-        direction: ASC
+    sort: []
     columnSize:
-      note.chapter: 118
-      file.name: 191
+      file.name: 303
       note.title: 210
       note.duration_h: 105
-      note.module: 150
   - type: table
-    name: Par module
+    name: Par bloc
     filters:
       and:
         - type == "course"
     groupBy:
-      property: module
-      direction: ASC
-    order:
-      - chapter
-      - title
-      - duration_h
-      - topic
-      - section
-    sort:
-      - property: chapter
-        direction: ASC
-  - type: table
-    name: Par section
-    filters:
-      and:
-        - type == "course"
-    groupBy:
-      property: section
-      direction: ASC
-    order:
-      - chapter
-      - title
-      - module
-      - duration_h
-      - topic
-    sort:
-      - property: chapter
-        direction: ASC
-  - type: table
-    name: Par topic
-    filters:
-      and:
-        - type == "course"
-    groupBy:
-      property: topic
+      property: bloc
       direction: ASC
     order:
       - title
-      - chapter
-      - module
       - duration_h
-    sort:
-      - property: title
-        direction: ASC
+    summaries:
+      duration_h: Sum
   - type: table
     name: Sous-pages
     filters:
@@ -110,8 +57,6 @@ views:
     order:
       - title
       - parent
-      - module
-      - section
     sort:
       - property: title
         direction: ASC
@@ -120,13 +65,8 @@ views:
     order:
       - title
       - file.name
-      - chapter
-      - module
-      - section
-      - topic
+      - bloc
     sort:
-      - property: chapter
-        direction: ASC
       - property: type
         direction: ASC
       - property: title

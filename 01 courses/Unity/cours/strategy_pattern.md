@@ -1,14 +1,8 @@
 ---
 title: Strategy pattern
 type: course
-module: "🦁 - Advanced"
-section:
-  - Game Sup 2A
-  - SAE 2A
-topic:
-  - Programming
+bloc: "[[Architecture et Design Patterns]]"
 created: 2025-04-15T12:28
-source: notion
 ---
 # Strategy pattern
 

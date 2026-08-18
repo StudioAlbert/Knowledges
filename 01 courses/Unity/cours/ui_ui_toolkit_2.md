@@ -1,20 +1,15 @@
 ---
 title: UI - UI Toolkit 2
 type: course
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 1A
+duration_h: 6
+bloc: "[[Interface Utilisateur]]"
 created: 2026-02-13T12:40
-source: notion
 ---
 # UI - UI Toolkit 2
 
 ### Exemples
 
 ## Contenu
-
-Timing : 6h
 
 Another key role is that of the UI programmer, who will team up closely with the previous roles. They will work with a chosen tech stack, establish a process or pipeline to ingest all of the UI design into functional interfaces, wire gameplay code to UI, and feed data back into the game systems from UI.
 

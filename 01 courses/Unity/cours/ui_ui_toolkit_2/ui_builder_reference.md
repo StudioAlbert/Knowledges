@@ -1,12 +1,7 @@
 ---
 title: UI Builder — référence Unity
 type: section
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 1A
 parent: "[[ui_ui_toolkit_2|UI - UI Toolkit 2]]"
-source: notion
 ---
 # UI Builder — référence Unity
 

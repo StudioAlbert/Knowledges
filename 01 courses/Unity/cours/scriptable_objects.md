@@ -1,14 +1,8 @@
 ---
 title: Scriptable Objects
 type: course
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 1A
-topic:
-  - Programming
+bloc: "[[Architecture et Design Patterns]]"
 created: 2022-12-13T22:38
-source: notion
 ---
 # Scriptable Objects
 

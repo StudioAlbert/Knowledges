@@ -1,24 +1,15 @@
 ---
 title: Shoot, Make damages
 type: course
-chapter: "2.0"
 duration_h: 3
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - Programming
+bloc: "[[Programmation Gameplay]]"
 created: 2025-10-13T09:59
-source: notion
 ---
 # Shoot, Make damages
 
 ### Exemples
 
 ## Contenu
-
-Timing : 6h
 
 ### A télécharger
 

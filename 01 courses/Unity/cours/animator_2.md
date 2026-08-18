@@ -1,14 +1,8 @@
 ---
 title: Animator 2
 type: course
-module: "🐰 - Medium"
-section:
-  - Game Sup 2A
-  - SAE 1A
-topic:
-  - 3C
+bloc: "[[Caméra et Animation]]"
 created: 2026-01-02T15:14
-source: notion
 ---
 # Animator 2
 

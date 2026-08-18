@@ -1,23 +1,15 @@
 ---
 title: Feedbacks, Juice
 type: course
-chapter: "5.2"
 duration_h: 6
-module: "🐣 - Beginner"
-section:
-  - SAE 1A
-topic:
-  - VFX / Feedbacks / Juice
+bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2025-11-12T10:16
-source: notion
 ---
 # Feedbacks, Juice
 
 ### Exemples
 
 ## Contenu
-
-Timing : 3 h
 
 ### A télécharger
 

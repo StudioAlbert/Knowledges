@@ -1,14 +1,9 @@
 ---
 title: AI Pathfinding (Nav mesh)
 type: course
-chapter: "6.1"
 duration_h: 6
-module: "🐰 - Medium"
-section:
-  - Game Sup 1A
-  - SAE 1A
+bloc: "[[Intelligence Artificielle]]"
 created: 2023-05-17T14:01
-source: notion
 ---
 # AI Pathfinding (Nav mesh)
 

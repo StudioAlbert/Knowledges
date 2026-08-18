@@ -1,11 +1,8 @@
 ---
 title: Unity AI - Utility AI
 type: course
-section:
-  - Game Sup 2A
-  - SAE 1A
+bloc: "[[Intelligence Artificielle]]"
 created: 2026-03-17T16:09
-source: notion
 ---
 # Unity AI - Utility AI
 

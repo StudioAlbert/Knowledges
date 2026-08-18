@@ -1,16 +1,9 @@
 ---
 title: UI
 type: course
-chapter: "2.2"
 duration_h: 6
-module: "🐣 - Beginner"
-section:
-  - Game Sup 1A
-  - SAE 1A
-topic:
-  - UI
+bloc: "[[Interface Utilisateur]]"
 created: 2022-12-13T23:03
-source: notion
 ---
 # UI
 
