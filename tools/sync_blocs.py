@@ -94,6 +94,11 @@ def traiter(cours_nom, verif):
         if fm is None or champ(fm, "type") != "bloc":
             continue
         nom = chemin.stem
+        if DEBUT not in corps:
+            # tableau tenu a la main (schema GSDA) : on n'y touche pas, et on
+            # ne recalcule pas `cours:` non plus, il compte des lignes ecrites
+            # a la main et non des notes de cours.
+            continue
         cours = par_bloc.pop(nom, [])
         if not cours:
             divergences.append(f"{nom}: aucun cours rattache")
@@ -107,13 +112,10 @@ def traiter(cours_nom, verif):
         # lignes vides obligatoires : sans elles Obsidian prolonge le bloc HTML
         # ouvert par le commentaire et avale le tableau au lieu de le rendre
         neuf = f"{DEBUT}\n\n{tableau(cours)}\n\n{FIN}"
-        if DEBUT in corps:
-            ancien = corps[corps.index(DEBUT):corps.index(FIN) + len(FIN)]
-            if ancien != neuf:
-                divergences.append(f"{nom}: tableau des cours desynchronise")
-                corps = corps.replace(ancien, neuf)
-        else:
-            divergences.append(f"{nom}: marqueurs {DEBUT} absents")
+        ancien = corps[corps.index(DEBUT):corps.index(FIN) + len(FIN)]
+        if ancien != neuf:
+            divergences.append(f"{nom}: tableau des cours desynchronise")
+            corps = corps.replace(ancien, neuf)
 
         nouveau = "---\n" + fm + "---\n" + corps
         if nouveau != texte and not verif:

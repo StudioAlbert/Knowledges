@@ -1,0 +1,57 @@
+filters:
+  and:
+    - file.inFolder("01 courses/Theory/cours")
+    - file.ext == "md"
+properties:
+  note.title:
+    displayName: Titre
+  note.duration_h:
+    displayName: Durée (h)
+  note.bloc:
+    displayName: Bloc
+  note.type:
+    displayName: Type
+  file.name:
+    displayName: lien
+views:
+  - type: table
+    name: Progression
+    filters:
+      and:
+        - type == "course"
+    groupBy:
+      property: bloc
+      direction: ASC
+    order:
+      - file.name
+      - title
+      - duration_h
+    sort: []
+    columnSize:
+      file.name: 303
+      note.title: 210
+      note.duration_h: 105
+  - type: table
+    name: Par bloc
+    filters:
+      and:
+        - type == "course"
+    groupBy:
+      property: bloc
+      direction: ASC
+    order:
+      - title
+      - duration_h
+    summaries:
+      duration_h: Sum
+  - type: table
+    name: Tout
+    order:
+      - title
+      - file.name
+      - bloc
+    sort:
+      - property: type
+        direction: ASC
+      - property: title
+        direction: ASC
