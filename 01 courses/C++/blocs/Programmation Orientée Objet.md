@@ -41,5 +41,5 @@ Petite hiérarchie de classes cohérente, exercée par un programme de test.
 
 - Spécialisation : [[C++]]
 - Prérequis : [[Bases de la Programmation]]
-- Bloc suivant : [[Structures de Données et STL]]
+- Bloc suivant : [[Structures de Données]]
 - Index des cours : [[index_cours.base|Index]]

@@ -5,7 +5,14 @@ mineur: Games Programming
 prerequis:
   - "[[Contrôle et Déplacement]]"
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[2 5D Isometric Space Shooter]]"
+  - "[[2D Aventure Game]]"
+  - "[[2D Beat Them All]]"
+  - "[[2D Platformer]]"
+  - "[[Pirate exploration game]]"
+  - "[[TPS Target Shooting Game]]"
+  - "[[Tank vs Towers]]"
+  - "[[Versus Race Game - Micromachine Like]]"
 cours: 15
 ---
 

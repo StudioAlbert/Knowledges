@@ -2,7 +2,7 @@
 title: Box2D
 type: course
 duration_h: 3
-bloc: "[[SFML et Box2D]]"
+bloc: "[[Game Prog 101]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

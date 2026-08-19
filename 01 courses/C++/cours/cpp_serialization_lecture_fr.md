@@ -2,7 +2,7 @@
 title: Sérialisation & systèmes de sauvegarde
 type: course
 duration_h: 1
-bloc: "[[Patterns et Persistance]]"
+bloc: "[[Patterns]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

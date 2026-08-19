@@ -5,7 +5,9 @@ mineur: Games Programming
 prerequis:
   - "[[Prise en Main d'Unity]]"
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[2D Aventure Game]]"
+  - "[[2D Beat Them All]]"
+  - "[[2D Platformer]]"
 cours: 12
 ---
 

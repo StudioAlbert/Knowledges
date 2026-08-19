@@ -2,7 +2,7 @@
 title: C++ Ranges
 type: course
 duration_h: 3
-bloc: "[[Généricité Moderne]]"
+bloc: "[[Generique, prog fonctionnelle]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

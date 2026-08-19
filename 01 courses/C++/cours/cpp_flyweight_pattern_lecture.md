@@ -2,7 +2,7 @@
 title: Flyweight Pattern
 type: course
 duration_h: 3
-bloc: "[[Patterns et Persistance]]"
+bloc: "[[Patterns]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

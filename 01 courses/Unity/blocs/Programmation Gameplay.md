@@ -5,8 +5,18 @@ mineur: Games Programming
 prerequis:
   - "[[Physique et Interactions]]"
 projet:
-  - "[[Unity Game Prototypes]]"
-cours: 9
+  - "[[2 5D Isometric Space Shooter]]"
+  - "[[2D Aventure Game]]"
+  - "[[2D Beat Them All]]"
+  - "[[2D Platformer]]"
+  - "[[Dungeon Crawler Rogue-Lite]]"
+  - "[[Pirate exploration game]]"
+  - "[[TPS Adventure Game 2]]"
+  - "[[TPS Target Shooting Game]]"
+  - "[[Tank vs Towers]]"
+  - "[[Tower Defense]]"
+  - "[[Versus Race Game - Micromachine Like]]"
+cours: 12
 ---
 
 # Programmation Gameplay
@@ -27,10 +37,11 @@ Les briques de la boucle de jeu : tirer, infliger des dégâts, séquencer dans 
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
 | 1 | Coroutines | 3 | [[coroutines]] |
-| 2 | Shoot, Make damages | 3 | [[shoot_make_damages]] |
-| 3 | Spawn | 3 | [[spawn]] |
+| 2 | Entity Component System | 3 | [[Entity Component System]] |
+| 3 | Shoot, Make damages | 3 | [[shoot_make_damages]] |
+| 4 | Spawn | 3 | [[spawn]] |
 
-**Total : 3 cours, 9 h.**
+**Total : 4 cours, 12 h.**
 
 <!-- /cours:auto -->
 

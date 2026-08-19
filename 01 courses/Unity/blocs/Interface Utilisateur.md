@@ -5,7 +5,12 @@ mineur: Games Programming
 prerequis:
   - "[[Prise en Main d'Unity]]"
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[2 5D Isometric Space Shooter]]"
+  - "[[2D Beat Them All]]"
+  - "[[Dungeon Crawler Rogue-Lite]]"
+  - "[[Local multiplayer Versus Asymetric Versus Cooperat]]"
+  - "[[TPS Target Shooting Game]]"
+  - "[[Tower Defense]]"
 cours: 12
 ---
 

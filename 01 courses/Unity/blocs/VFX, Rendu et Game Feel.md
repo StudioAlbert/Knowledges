@@ -5,7 +5,6 @@ mineur: Games Programming
 prerequis:
   - "[[Caméra et Animation]]"
 projet:
-  - "[[Unity Game Prototypes]]"
 cours: 18
 ---
 

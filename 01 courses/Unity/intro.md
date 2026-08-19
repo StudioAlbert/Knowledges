@@ -11,7 +11,7 @@ schéma du vault GSDA (`type: bloc`, `specialisation`, `prerequis`,
 Le compteur `cours:` de chaque bloc est régénéré par `tools/sync_blocs.py` ; la vue
 *Heures par bloc* ci-dessous recalcule la même somme en direct pour la contrôler.
 
-![[blocs.base]]
+![[01 courses/Unity/index_blocs.base]]
 
 # Index des cours
 

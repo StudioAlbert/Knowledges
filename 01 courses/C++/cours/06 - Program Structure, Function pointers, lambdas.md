@@ -2,7 +2,8 @@
 title: Program Structure
 type: course
 duration_h: 3
-bloc: "[[Structure de Programme et Bonnes Pratiques]]"
+bloc:
+  - "[[Generique, prog fonctionnelle]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

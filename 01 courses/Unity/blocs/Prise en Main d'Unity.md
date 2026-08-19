@@ -4,7 +4,8 @@ specialisation: "[[Unity]]"
 mineur: Games Programming
 prerequis: []
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[2 5D Isometric Space Shooter]]"
+  - "[[Tower Defense]]"
 cours: 5.5
 ---
 

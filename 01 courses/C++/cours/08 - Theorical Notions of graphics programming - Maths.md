@@ -2,7 +2,8 @@
 title: Introduction to maths
 type: course
 duration_h: 3
-bloc: "[[Maths pour la Programmation Graphique]]"
+bloc:
+  - "[[Game Prog 101]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

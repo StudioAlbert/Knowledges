@@ -3,7 +3,7 @@ type: bloc
 specialisation: "[[C++]]"
 mineur: Games Programming
 prerequis:
-  - "[[Patterns et Persistance]]"
+  - "[[Patterns]]"
 projet:
   - "[[City Builder]]"
 cours: 6
@@ -40,6 +40,6 @@ Deux sous-systèmes du projet communiquant par événements, avec chemins d'erre
 ## Liens
 
 - Spécialisation : [[C++]]
-- Prérequis : [[Patterns et Persistance]]
+- Prérequis : [[Patterns]]
 - Bloc suivant : [[IA en C++]]
 - Index des cours : [[index_cours.base|Index]]

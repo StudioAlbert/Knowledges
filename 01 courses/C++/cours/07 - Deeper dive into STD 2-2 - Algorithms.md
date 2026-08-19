@@ -2,7 +2,7 @@
 title: Deeper dive into STD 2/2 — Algorithms
 type: course
 duration_h: 0
-bloc: "[[Structures de Données et STL]]"
+bloc: "[[Structures de Données]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css

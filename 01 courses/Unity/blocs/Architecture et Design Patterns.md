@@ -5,7 +5,12 @@ mineur: Games Programming
 prerequis:
   - "[[Programmation Gameplay]]"
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[Dungeon Crawler Rogue-Lite]]"
+  - "[[Pirate exploration game]]"
+  - "[[TPS Adventure Game 2]]"
+  - "[[TPS Target Shooting Game]]"
+  - "[[Tower Defense]]"
+  - "[[Versus Race Game - Micromachine Like]]"
 cours: 9
 ---
 

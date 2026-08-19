@@ -3,11 +3,11 @@ type: bloc
 specialisation: "[[C++]]"
 mineur: Games Programming
 prerequis:
-  - "[[Généricité Moderne]]"
-  - "[[Patterns et Persistance]]"
+  - "[[Generique, prog fonctionnelle]]"
+  - "[[Patterns]]"
 projet:
   - "[[City Builder]]"
-cours: 7
+cours: 10
 ---
 
 # IA en C++
@@ -29,8 +29,9 @@ Faire décider et se déplacer un agent : recherche de chemin sur une grille, pu
 | --- | --- | --- | --- |
 | 1 | A* — Pathfinding en C++ moderne | 3 | [[cpp_a_star_]] |
 | 2 | Behaviour Trees en C++ moderne | 4 | [[cpp_behaviour_tree_lecture]] |
+| 3 | Setup — vcpkg, CMake | 3 | [[Maths, algorithmie - Theorie des graphes]] |
 
-**Total : 2 cours, 7 h.**
+**Total : 3 cours, 10 h.**
 
 <!-- /cours:auto -->
 
@@ -41,6 +42,6 @@ Agent du City Builder qui trouve son chemin et enchaîne ses tâches par arbre d
 ## Liens
 
 - Spécialisation : [[C++]]
-- Prérequis : [[Généricité Moderne]] · [[Patterns et Persistance]]
+- Prérequis : [[Generique, prog fonctionnelle]] · [[Patterns]]
 - Bloc suivant : —
 - Index des cours : [[index_cours.base|Index]]

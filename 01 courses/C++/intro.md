@@ -5,7 +5,7 @@ type: index
 # Blocs pédagogiques
 
 Le cours C++ réunit l'ancien *C++ Intro* (module 4FSC0PF001) et l'ancien *C++ Advanced*
-en un seul cursus de 11 blocs. Chaque lecture porte une propriété `bloc` ; les blocs
+en un seul cursus de 9 blocs. Chaque lecture porte une propriété `bloc` ; les blocs
 vivent dans `blocs/`, suivent le schéma du vault GSDA (`type: bloc`, `specialisation`,
 `prerequis`, `cours`) et totalisent les heures des lectures qui les référencent.
 
@@ -16,7 +16,7 @@ formatives et ressources sont rattachés au cursus mais ne comptent pas d'heures
 Le compteur `cours:` de chaque bloc est régénéré par `tools/sync_blocs.py` ; la vue
 *Heures par bloc* ci-dessous recalcule la même somme en direct pour la contrôler.
 
-![[blocs.base]]
+![[01 courses/C++/index_blocs.base]]
 
 # Index des cours
 

@@ -5,7 +5,7 @@ mineur: Games Programming
 prerequis:
   - "[[Contrôle et Déplacement]]"
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[TPS Target Shooting Game]]"
 cours: 9
 ---
 

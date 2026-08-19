@@ -5,7 +5,7 @@ mineur: Games Programming
 prerequis:
   - "[[Architecture et Design Patterns]]"
 projet:
-  - "[[Unity Game Prototypes]]"
+  - "[[Dungeon Crawler Rogue-Lite]]"
 cours: 15.75
 ---
 

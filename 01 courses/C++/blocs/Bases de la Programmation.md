@@ -6,7 +6,7 @@ prerequis:
   - "[[Outillage et Environnement]]"
 projet:
   - "[[City Builder]]"
-cours: 9
+cours: 12
 ---
 
 # Bases de la Programmation
@@ -26,11 +26,12 @@ Les briques communes à tous les langages impératifs, posées en C++ : contrôl
 
 | # | Cours | Heures | Lien |
 | --- | --- | --- | --- |
-| 1 | Introduction to logic | 3 | [[02 - Introduction to logic - non decimal arithmetic]] |
-| 2 | Programming Basics 1/2 — if, boucles, fonctions | 3 | [[01.01 - Programming Basics - if, loops]] |
-| 3 | Programming Basics 2/2 — enum, arrays, string | 3 | [[01.02 - Programming Basics 2-2 - enum, string]] |
+| 1 | Data Structures | 3 | [[03 - Data Structures (array, vector, map, etc.)]] |
+| 2 | Introduction to logic | 3 | [[02 - Introduction to logic - non decimal arithmetic]] |
+| 3 | Programming Basics 1/2 — if, boucles, fonctions | 3 | [[01.01 - Programming Basics - if, loops]] |
+| 4 | Programming Basics 2/2 — enum, arrays, string | 3 | [[01.02 - Programming Basics 2-2 - enum, string]] |
 
-**Total : 3 cours, 9 h.**
+**Total : 4 cours, 12 h.**
 
 <!-- /cours:auto -->
 

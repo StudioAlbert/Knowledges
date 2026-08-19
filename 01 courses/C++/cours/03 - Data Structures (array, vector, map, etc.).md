@@ -2,7 +2,8 @@
 title: Data Structures
 type: course
 duration_h: 3
-bloc: "[[Structures de Données et STL]]"
+bloc:
+  - "[[Bases de la Programmation]]"
 theme: white
 css:
   - 00 templates/css/sae_styles.css
