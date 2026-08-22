@@ -24,14 +24,10 @@ Toutes les lectures, filtrables par bloc : [[index_cours.base|Index]]
 
 ![[index_cours.base]]
 
-# Parcours de la partie Intro
-
-[[parcours_intro]] conserve la table d'origine du module 4FSC0PF001 : elle est la seule
-à relier chaque lecture à ses exercices et à sa formative, et à documenter les
-irrégularités de la numérotation Drive (deux `04`, deux `07`, pas de `05` ni de `09`).
-
 # Autres dossiers
 
-- `exercices/` · `formatives/` · `ressources/` — supports d'accompagnement, sans bloc
+- `exercices/` · `ressources/` — supports d'accompagnement, sans bloc
+- `projets/` — briefs de projets et formatives, rattachés aux blocs par la propriété `projet`
 - `drafts/` — lectures non finalisées, hors cursus tant qu'elles ne sont pas promues dans `cours/`
-- `exams/` · `contributions/` · `companions/` — examens, matériel externe, dépôts compagnons
+- `exams/` — sujets d'examen ; les dépôts clonés ici sont gitignorés (repos SAE-Geneve séparés)
+- `companion projects/` — dépôts compagnons, en sous-modules git
