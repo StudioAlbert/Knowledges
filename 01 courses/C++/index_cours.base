@@ -28,8 +28,8 @@ views:
       - duration_h
     sort: []
     columnSize:
-      file.name: 303
-      note.title: 210
+      file.name: 397
+      note.title: 262
       note.duration_h: 105
   - type: table
     name: Par bloc
