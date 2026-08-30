@@ -16,7 +16,9 @@ Released under the [MIT License](LICENSE).
 
 - **[Obsidian](https://obsidian.md/)** with the community plugins listed in
   [`.obsidian/community-plugins.json`](.obsidian/community-plugins.json):
-  - `obsidian-advanced-slides` — **required**, lectures are reveal.js decks
+  - `slides-extended` — **required**, lectures are reveal.js decks. It succeeds
+    `obsidian-advanced-slides`, whose files are still in `.obsidian/plugins/` but which
+    is no longer enabled; both read the same deck syntax
   - `obsidian-excalidraw-plugin`, `code-files`, `card-board`, `obsidian-git`
 - **Python 3** for `tools/sync_blocs.py` (standard library only, no install step)
 
@@ -61,7 +63,7 @@ Each course under `01 courses/` follows the same shape:
 
 ### Two note types
 
-**`type: course`** — one lecture, rendered as an Advanced Slides deck. See
+**`type: course`** — one lecture, rendered as a Slides Extended deck. See
 [`cours/cpp_builder_lecture.md`](01%20courses/C%2B%2B/cours/cpp_builder_lecture.md):
 
 ```yaml
