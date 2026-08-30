@@ -40,7 +40,7 @@ when needed.
 | `00 images` | Slide backgrounds and screenshots referenced by the decks |
 | `00 templates/css` | `sae_styles.css` (the deck theme), `temps_travail_perso.css` |
 | `00 widgets` | Submodule → [StudioAlbert/widgets](https://github.com/StudioAlbert/widgets) — interactive HTML widgets published on GitHub Pages |
-| `01 courses` | The curricula: `C++`, `Unity`, `Theory`, `Game programming - Généralités` |
+| `01 courses` | The curricula: `C++`, `Unity`, `Theory`, `AI`, `PCG`, `Game programming - Généralités` |
 | `02 Notes` | Personal notes (bio, work-time logs) — not teaching material |
 | `tools` | `sync_blocs.py` |
 
@@ -122,8 +122,8 @@ python tools/sync_blocs.py
 > **Do not hand-edit the table between `<!-- cours:auto -->` and `<!-- /cours:auto -->`** —
 > it is overwritten on the next run. Fix the lecture frontmatter instead.
 
-The script only walks `Unity` and `C++` (its `COURS_SUIVIS` constant); `Theory` blocks are
-maintained by hand.
+The script walks `Unity`, `C++`, `PCG` and `AI` (its `COURS_SUIVIS` constant); `Theory`
+blocks are maintained by hand.
 
 ## Index views
 

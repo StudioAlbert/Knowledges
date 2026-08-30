@@ -20,7 +20,7 @@ import pathlib
 import collections
 
 CATALOGUE = pathlib.Path(__file__).resolve().parent.parent / "01 courses"
-COURS_SUIVIS = ("Unity", "C++")
+COURS_SUIVIS = ("Unity", "C++", "PCG", "AI")
 
 DEBUT, FIN = "<!-- cours:auto -->", "<!-- /cours:auto -->"
 
