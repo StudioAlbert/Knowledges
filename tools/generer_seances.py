@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Génère les notes de préparation de séance dans `01 courses/GSDA 2026-2027/cours`.
+"""Génère les notes de préparation de séance dans les dossiers `*/cours` du vault.
 
 Une note par heure de cours attribuée à Sébastien Albert sur les modules 1 et 2 de
 l'année 2026-2027, nommée `<MINEURE>-<SPÉCIALISATION>-<BLOC>-<NN> - <Titre>.md`.
+Chaque séance est déposée dans le `cours/` de sa matière — `C++`, `Theory` ou
+`Unity` — à côté du deck qu'elle découpe. Elle porte `type: seance` et aucun
+`duration_h` : `sync_blocs.py` ne retient que `type == "course"`, et les vues
+*Progression* et *Par bloc* des `index_cours.base` aussi.
 
 Tout ce qui est factuel est lu dans le vault `_GSDA_Tech_Vault` :
 
@@ -28,7 +32,19 @@ from pathlib import Path
 
 KNOWLEDGES = Path(__file__).resolve().parent.parent
 GSDA = KNOWLEDGES.parent / "_GSDA_Tech_Vault"
-DEST = KNOWLEDGES / "01 courses" / "GSDA 2026-2027" / "cours"
+# Une seance vit dans le dossier `cours/` de sa matiere, avec les decks qu'elle
+# decoupe. Ce sont les dossiers que le kanban `01 courses/__course base.base`
+# ramasse, son filtre etant `file.folder.endsWith("/cours")`.
+DOSSIERS = {
+    "C++": KNOWLEDGES / "01 courses" / "C++" / "cours",
+    "Theory": KNOWLEDGES / "01 courses" / "Theory" / "cours",
+    "Unity": KNOWLEDGES / "01 courses" / "Unity" / "cours",
+}
+
+# Un fichier de ces dossiers n'appartient a ce script que si son nom porte un
+# code hierarchique. Sans ce garde-fou, les 70 decks existants passeraient pour
+# des orphelins a supprimer.
+NOM_SEANCE = re.compile("^(?:GPR|TC|WD)-[A-Z]+-[A-Z0-9]+-[0-9]{2} - ")
 
 # Un support plus petit que cela est un squelette, pas un deck exploitable.
 TAILLE_SQUELETTE = 1500
@@ -220,11 +236,15 @@ def creneaux_fixes(bloc_codes):
 
 # --- Construction des séances ----------------------------------------------
 
-def date_locale(prefixe, code_cours, titre):
+def dossier(seance):
+    return DOSSIERS[SUBJECT[seance["code_spe"]]]
+
+
+def date_locale(prefixe, code_cours, titre, code_spe):
     """`date_scheduled` déjà posée à la main dans la note de destination, s'il y en a une."""
     nom = "%s-%s - %s.md" % (prefixe, code_cours,
                              titre.replace("/", "-").replace(":", " -"))
-    chemin = DEST / nom
+    chemin = DOSSIERS[SUBJECT[code_spe]] / nom
     if not chemin.exists():
         return ""
     return champ(lire(chemin), "date_scheduled")
@@ -271,7 +291,7 @@ def collecte():
             if not date:
                 # Le vault GSDA ne date pas tout. Une date posée à la main dans la note
                 # locale fait foi tant que le département n'a rien arrêté.
-                date = date_locale(prefixe, code_cours, ligne["titre"])
+                date = date_locale(prefixe, code_cours, ligne["titre"], code_spe)
 
             supports = []
             for nom in LIEN_SEB.findall(ligne["source"]):
@@ -528,11 +548,10 @@ def main():
 
     seances = collecte()
     voisins = voisinage(seances)
-    DEST.mkdir(parents=True, exist_ok=True)
 
     crees, majs, inchanges, attendus = [], [], [], set()
     for s in seances:
-        chemin = DEST / nom_fichier(s)
+        chemin = dossier(s) / nom_fichier(s)
         attendus.add(chemin.name)
         tete, corps = rendre(s, voisins[s["code"]])
 
@@ -559,7 +578,8 @@ def main():
         if args.apply:
             chemin.write_text(neuf, encoding="utf-8", newline="\n")
 
-    orphelins = sorted(p.name for p in DEST.glob("*.md") if p.name not in attendus)
+    orphelins = sorted(p.name for d in set(DOSSIERS.values()) for p in d.glob("*.md")
+                       if NOM_SEANCE.match(p.name) and p.name not in attendus)
 
     print("séances au programme : %d  (module 1 : %d · module 2 : %d)"
           % (len(seances),

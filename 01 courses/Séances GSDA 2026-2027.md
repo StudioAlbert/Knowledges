@@ -1,13 +1,13 @@
 ---
-title: GSDA 2026-2027 — préparation des séances
+title: Séances GSDA 2026-2027
 type: index
 ---
 
-# GSDA 2026-2027 — préparation des séances
+# Séances GSDA 2026-2027
 
 Une note par **heure de cours** attribuée à Sébastien Albert sur les modules 1 et 2 de
-l'année académique 2026-2027, soit **69 séances**. Ce dossier n'est pas un cursus : c'est
-la liste de travail qui relie le planning du département au matériel de ce vault.
+l'année académique 2026-2027, soit **69 séances**. Ce n'est pas un cursus : c'est la liste
+de travail qui relie le planning du département au matériel de ce vault.
 
 | | |
 |---|---|
@@ -15,12 +15,28 @@ la liste de travail qui relie le planning du département au matériel de ce vau
 | Module 2 | 23 nov. 2026 → 12 févr. 2027 — **14 séances** |
 | Datées | 37 · les 32 autres attendent que le département pose leur créneau |
 
-## Ce que ces notes ne sont pas
+## Où elles vivent
 
-`cours/` contient ici des **séances d'1 h**, pas des decks. Les supports, eux, restent où
-ils sont — `01 courses/C++/cours/`, `Unity/cours/`, `Theory/` — et gardent leur `duration_h`
-de 3 h. Une séance porte `type: seance` et **aucun** `duration_h` : elle n'entre donc ni
-dans `index_cours.base`, ni dans le total d'heures d'un bloc, ni dans `sync_blocs.py`.
+Chaque séance est dans le `cours/` de sa matière, **à côté du deck qu'elle découpe** :
+
+| Dossier | Séances |
+|---|---|
+| `01 courses/C++/cours` | 30 — `GPR-CF-*` |
+| `01 courses/Theory/cours` | 20 — `TC-FT-*` et `GPR-PE-CD-00` |
+| `01 courses/Unity/cours` | 19 — `GPR-UN-*` |
+
+Le code dans le nom de fichier suffit à les distinguer d'un deck. Elles portent
+`type: seance` et **aucun `duration_h`** : une séance d'1 h n'est pas un cours de 3 h et ne
+doit pas entrer dans les totaux d'heures.
+
+Ce que cela implique, concrètement :
+
+- `tools/sync_blocs.py` ne retient que `type == "course"` — les séances ne touchent ni le
+  `cours:` d'un bloc ni son tableau `## Cours`.
+- Les vues **Progression** et **Par bloc** des `index_cours.base` filtrent sur
+  `type == "course"` : les séances n'y apparaissent pas.
+- La vue **Tout**, elle, n'a pas de filtre : les séances **y apparaissent**, triées par
+  `type`. C'est cohérent avec son nom.
 
 ## Le nom d'une note
 
@@ -36,13 +52,12 @@ du bloc — **jamais le rang de la ligne**. Le Tronc Commun porte `TC-`, pas `GP
 Ces notes apparaissent dans `01 courses/__course base.base`, colonne **To prepare**,
 réparties en deux couloirs par leur `projet`. Le champ `tache` dit la nature du travail :
 
-| `tache` | Ce que ça veut dire |
-|---|---|
-| `découper` | Un deck de 3 h existe et couvre plusieurs heures du lot : en extraire une tranche |
-| `adapter` | Un deck existe et ne sert qu'à cette séance : le recadrer sur 1 h |
-| `découper + écrire`, `adapter + écrire` | Deux sources citées, une seule utilisable |
-| `écrire depuis les livres` | Pas de deck : rédiger depuis les sections M3D / FGED1 citées |
-| `créer de zéro` | Rien d'exploitable — souvent un fichier qui **existe** mais ne fait que quelques centaines d'octets |
+| `tache` | Ce que ça veut dire | Nombre |
+|---|---|---|
+| `découper` | Un deck de 3 h existe et couvre plusieurs heures du lot : en extraire une tranche | 50 |
+| `créer de zéro` | Rien d'exploitable — souvent un fichier qui **existe** mais ne fait que quelques centaines d'octets | 14 |
+| `écrire depuis les livres` | Pas de deck : rédiger depuis les sections M3D / FGED1 citées | 3 |
+| `découper + écrire` · `adapter + écrire` | Deux sources citées, une seule utilisable | 1 · 1 |
 
 > [!warning] Un `duration_h` ne prouve pas qu'un support existe
 > Six notes Unity annoncent 3 ou 6 h alors qu'elles sont vides ou à l'état de gabarit :
@@ -61,7 +76,10 @@ Une note a deux zones. Entre `<!-- seance:auto -->` et `<!-- /seance:auto -->`, 
 recalculé depuis `_GSDA_Tech_Vault` à chaque exécution — **ne rien y écrire à la main**.
 Sous `## Notes de préparation`, la place est au rédacteur : le script n'y touche jamais.
 Le frontmatter est régénéré, à une exception près : une `date_scheduled` posée à la main y
-est relue et conservée tant que le département n'en a pas arrêté une.
+est relue et conservée.
+
+Le script ne considère comme siens que les fichiers dont le nom porte un code hiérarchique ;
+les 60 decks qui partagent ces dossiers ne risquent rien.
 
 ## Liens
 
