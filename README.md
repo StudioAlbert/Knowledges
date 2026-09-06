@@ -43,8 +43,9 @@ when needed.
 | `00 templates/css` | `sae_styles.css` (the deck theme), `temps_travail_perso.css` |
 | `00 widgets` | Submodule → [StudioAlbert/widgets](https://github.com/StudioAlbert/widgets) — interactive HTML widgets published on GitHub Pages |
 | `01 courses` | The curricula: `C++`, `Unity`, `Theory`, `AI`, `PCG`, `Game programming - Généralités` |
+| `01 courses/GSDA 2026-2027` | Per-session prep notes for the 2026-2027 teaching year — **not** a curriculum, see below |
 | `02 Notes` | Personal notes (bio, work-time logs) — not teaching material |
-| `tools` | `sync_blocs.py` |
+| `tools` | `sync_blocs.py`, `generer_seances.py` |
 
 ## How a course is organised
 
@@ -126,6 +127,32 @@ python tools/sync_blocs.py
 
 The script walks `Unity`, `C++`, `PCG` and `AI` (its `COURS_SUIVIS` constant); `Theory`
 blocks are maintained by hand.
+
+## Teaching sessions — `01 courses/GSDA 2026-2027`
+
+The department vault (`_GSDA_Tech_Vault`, a sibling checkout) plans teaching in **1 h
+sessions**; this vault holds **3 h decks**. `01 courses/GSDA 2026-2027/cours` bridges the
+two: one note per session Sébastien Albert teaches in 2026-2027, saying what to prepare,
+from which deck, and how far along it is. 69 notes — 55 in module 1, 14 in module 2.
+
+Filenames follow the department's hierarchical code,
+`<MINOR>-<SPECIALISATION>-<BLOCK>-<NN> - <Title>.md` (`GPR-CF-EDC-02 - Gestionnaires de
+paquets.md`). Every segment is read from `_GSDA_Tech_Vault`; none is invented here.
+
+These notes carry `type: seance` and **no** `duration_h`, so they stay out of
+`index_cours.base` and out of the hour totals — a 1 h session is not a lecture. They do
+show up on the `01 courses/__course base.base` kanban, in the *To prepare* column.
+
+```bash
+python tools/generer_seances.py --check    # writes nothing, reports divergences
+python tools/generer_seances.py --apply    # creates what is missing, refreshes frontmatter
+```
+
+> **Everything between `<!-- seance:auto -->` and `<!-- /seance:auto -->` is regenerated** —
+> edit the vaults, not the block. Whatever you write under `## Notes de préparation` is
+> yours and is never touched. A `date_scheduled` you set by hand is read back and kept.
+
+See [`01 courses/GSDA 2026-2027/intro.md`](01%20courses/GSDA%202026-2027/intro.md).
 
 ## Index views
 

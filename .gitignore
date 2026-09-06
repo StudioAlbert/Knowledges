@@ -16,3 +16,6 @@ Thumbs.db
 01 courses/C++/exams/925-cpp-exam-draft/
 01 courses/C++/exams/cpp-exam-925/
 01 courses/C++/exams/cpp_exam_prep_fizzbuzz/
+
+# Cache Python des outils
+tools/__pycache__/
