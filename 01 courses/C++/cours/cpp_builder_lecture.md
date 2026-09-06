@@ -1,6 +1,8 @@
 ---
 title: C++ Builder
 type: course
+status: Backlog
+subject: C++
 duration_h: 2
 bloc: "[[Patterns]]"
 theme: white

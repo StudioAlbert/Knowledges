@@ -1,6 +1,8 @@
 ---
 title: UI
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Interface Utilisateur]]"
 created: 2022-12-13T23:03

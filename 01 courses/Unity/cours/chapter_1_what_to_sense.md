@@ -1,6 +1,8 @@
 ---
 title: Chapter 1 — What to sense
 type: course
+status: Backlog
+subject: Unity
 duration_h: 0.75
 bloc: "[[Intelligence Artificielle]]"
 created: 2026-03-17T10:31

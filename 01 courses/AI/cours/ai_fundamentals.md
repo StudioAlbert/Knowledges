@@ -1,6 +1,8 @@
 ---
 title: AI Fundamentals
 type: course
+status: Backlog
+subject: AI
 duration_h: 3
 bloc: "[[AI Fundamentals]]"
 theme: white

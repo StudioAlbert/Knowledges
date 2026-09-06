@@ -1,0 +1,52 @@
+filters:
+  and:
+    - and:
+        - file.folder.endsWith("/cours")
+    - file.ext == "md"
+views:
+  - type: kanban-action-planner
+    name: Kanban
+    groupBy:
+      property: projet
+      direction: ASC
+    sort:
+      - property: file.name
+        direction: ASC
+    statuses:
+      - Backlog
+      - To prepare
+      - Ready
+      - Done
+    calendarMode: false
+    triageMode: false
+    timelineMode: false
+    wbsMode: false
+    agendaMode: false
+    calendarTab: scheduled
+    calendarPanelCollapsed: false
+    calendarShowScheduled: true
+    calendarShowDeadlines: true
+    filterQuery: ""
+    calendarRangeOverride: month
+    collapsedColumns:
+      - Ready
+      - Done
+      - __unmapped__
+      - Backlog
+    cardSort: name
+    laneGrouping: property
+    laneGroupingProperty: note.bloc
+  - type: table
+    name: Liste
+    groupBy:
+      property: bloc
+      direction: ASC
+    order:
+      - file.name
+      - bloc
+      - tache
+    sort:
+      - property: tache
+        direction: ASC
+      - property: bloc
+        direction: ASC

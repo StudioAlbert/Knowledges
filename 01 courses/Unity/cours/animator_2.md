@@ -1,6 +1,8 @@
 ---
 title: Animator 2
 type: course
+status: Backlog
+subject: Unity
 bloc: "[[Caméra et Animation]]"
 created: 2026-01-02T15:14
 ---

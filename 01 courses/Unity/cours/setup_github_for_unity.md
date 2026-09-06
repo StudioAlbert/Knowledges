@@ -1,6 +1,8 @@
 ---
 title: Setup GitHub for Unity
 type: course
+status: Backlog
+subject: Unity
 duration_h: 1
 bloc: "[[Prise en Main d'Unity]]"
 created: 2024-12-04T15:18

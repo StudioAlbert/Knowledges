@@ -1,6 +1,8 @@
 ---
 title: Intro to Unity
 type: course
+status: Backlog
+subject: Unity
 duration_h: 1.5
 bloc: "[[Prise en Main d'Unity]]"
 created: 2025-10-06T12:18

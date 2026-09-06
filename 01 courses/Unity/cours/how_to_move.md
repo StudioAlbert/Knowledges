@@ -1,6 +1,8 @@
 ---
 title: How to move
 type: course
+status: Backlog
+subject: Unity
 duration_h: 3
 bloc: "[[Contrôle et Déplacement]]"
 created: 2025-10-06T16:54

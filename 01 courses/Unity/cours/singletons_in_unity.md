@@ -1,6 +1,8 @@
 ---
 title: Singletons in Unity
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Architecture et Design Patterns]]"
 created: 2025-12-18T06:38

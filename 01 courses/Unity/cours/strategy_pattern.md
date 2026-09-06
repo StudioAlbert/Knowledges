@@ -1,6 +1,8 @@
 ---
 title: Strategy pattern
 type: course
+status: Backlog
+subject: Unity
 bloc: "[[Architecture et Design Patterns]]"
 created: 2025-04-15T12:28
 ---

@@ -1,6 +1,8 @@
 ---
 title: Shoot, Make damages
 type: course
+status: Backlog
+subject: Unity
 duration_h: 3
 bloc: "[[Programmation Gameplay]]"
 created: 2025-10-13T09:59

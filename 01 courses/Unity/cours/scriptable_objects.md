@@ -1,6 +1,8 @@
 ---
 title: Scriptable Objects
 type: course
+status: Backlog
+subject: Unity
 bloc: "[[Architecture et Design Patterns]]"
 created: 2022-12-13T22:38
 ---

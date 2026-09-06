@@ -1,6 +1,8 @@
 ---
 title: Sérialisation & systèmes de sauvegarde
 type: course
+status: Backlog
+subject: C++
 duration_h: 1
 bloc: "[[Patterns]]"
 theme: white

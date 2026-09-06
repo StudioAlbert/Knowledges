@@ -1,6 +1,8 @@
 ---
 title: Unity AI - Utility AI
 type: course
+status: Backlog
+subject: Unity
 bloc: "[[Intelligence Artificielle]]"
 created: 2026-03-17T16:09
 ---

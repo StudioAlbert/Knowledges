@@ -1,6 +1,8 @@
 ---
 title: Audio
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2025-12-16T17:02

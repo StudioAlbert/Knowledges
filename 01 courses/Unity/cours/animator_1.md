@@ -1,6 +1,8 @@
 ---
 title: Animator  1
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Caméra et Animation]]"
 created: 2024-11-05T09:13

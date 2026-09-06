@@ -1,6 +1,8 @@
 ---
 title: Procedural Content Generation — Applications
 type: course
+status: Backlog
+subject: PCG
 duration_h: 3
 bloc: "[[Fondamentaux de la génération procédurale]]"
 theme: white

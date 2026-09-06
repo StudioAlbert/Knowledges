@@ -1,6 +1,8 @@
 ---
 title: UI - UI Toolkit 2
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Interface Utilisateur]]"
 created: 2026-02-13T12:40

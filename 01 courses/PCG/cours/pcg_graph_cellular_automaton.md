@@ -1,6 +1,8 @@
 ---
 title: Graphs & Cellular Automata
 type: course
+status: Backlog
+subject: PCG
 duration_h: 3
 bloc: "[[Algorithmes de génération]]"
 theme: white

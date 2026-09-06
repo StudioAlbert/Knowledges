@@ -1,6 +1,8 @@
 ---
 title: Deeper dive into STD 2/2 — Algorithms
 type: course
+status: Backlog
+subject: C++
 duration_h: 0
 bloc: "[[Structures de Données]]"
 theme: white

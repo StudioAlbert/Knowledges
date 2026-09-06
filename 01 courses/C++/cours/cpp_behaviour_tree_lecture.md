@@ -1,6 +1,8 @@
 ---
 title: Behaviour Trees en C++ moderne
 type: course
+status: Backlog
+subject: C++
 duration_h: 4
 bloc: "[[IA en C++]]"
 theme: white

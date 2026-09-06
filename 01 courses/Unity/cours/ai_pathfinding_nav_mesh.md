@@ -1,6 +1,8 @@
 ---
 title: AI Pathfinding (Nav mesh)
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Intelligence Artificielle]]"
 created: 2023-05-17T14:01

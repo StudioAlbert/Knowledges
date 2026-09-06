@@ -1,6 +1,8 @@
 ---
 title: 2D in Unity
 type: course
+status: Backlog
+subject: Unity
 duration_h: 12
 bloc: "[[Jeu 2D]]"
 created: 2023-12-11T15:55

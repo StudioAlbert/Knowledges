@@ -1,6 +1,8 @@
 ---
 title: Spawn
 type: course
+status: Backlog
+subject: Unity
 duration_h: 3
 bloc: "[[Programmation Gameplay]]"
 created: 2025-11-03T17:56

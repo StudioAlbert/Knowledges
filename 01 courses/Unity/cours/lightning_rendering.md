@@ -1,6 +1,8 @@
 ---
 title: Lightning, Rendering
 type: course
+status: Backlog
+subject: Unity
 bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2022-12-13T23:06
 duration_h: 3

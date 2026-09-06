@@ -1,6 +1,8 @@
 ---
 title: Introduction to maths
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc:
   - "[[Game Prog 101]]"

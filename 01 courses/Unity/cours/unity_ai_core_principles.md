@@ -1,6 +1,8 @@
 ---
 title: Unity AI - Core principles
 type: course
+status: Backlog
+subject: Unity
 duration_h: 3
 bloc: "[[Intelligence Artificielle]]"
 created: 2026-03-17T11:58

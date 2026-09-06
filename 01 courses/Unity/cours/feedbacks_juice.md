@@ -1,6 +1,8 @@
 ---
 title: Feedbacks, Juice
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[VFX, Rendu et Game Feel]]"
 created: 2025-11-12T10:16

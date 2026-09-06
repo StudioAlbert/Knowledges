@@ -1,6 +1,8 @@
 ---
 title: Steering Behaviours
 type: course
+status: Backlog
+subject: AI
 duration_h: 3
 bloc: "[[Movement & Pathfinding]]"
 theme: white

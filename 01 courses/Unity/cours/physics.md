@@ -1,6 +1,8 @@
 ---
 title: Physics
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Physique et Interactions]]"
 created: 2025-11-20T22:15

@@ -1,6 +1,8 @@
 ---
 title: std::expected & gestion d'erreur
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc: "[[Communication et Robustesse]]"
 theme: white

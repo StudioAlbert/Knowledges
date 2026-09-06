@@ -1,6 +1,8 @@
 ---
 title: Deeper dive into STD 1/2 — file I/O, stringstream
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc: "[[Structures de Données]]"
 theme: white

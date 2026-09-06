@@ -1,6 +1,8 @@
 ---
 title: AI Pathfinding (Behaviour Tree, State machine)
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Intelligence Artificielle]]"
 created: 2025-11-12T10:15

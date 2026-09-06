@@ -1,6 +1,8 @@
 ---
 title: Setup — Tips & how-to, Git
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc: "[[Outillage et Environnement]]"
 theme: white

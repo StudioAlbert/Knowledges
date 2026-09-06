@@ -1,6 +1,8 @@
 ---
 title: Cinemachine
 type: course
+status: Backlog
+subject: Unity
 duration_h: 3
 bloc: "[[Caméra et Animation]]"
 created: 2025-01-10T11:36

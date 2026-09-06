@@ -1,6 +1,8 @@
 ---
 title: Object-Oriented Programming — advanced
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc: "[[Programmation Orientée Objet]]"
 theme: white

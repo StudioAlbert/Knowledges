@@ -1,6 +1,8 @@
 ---
 title: New Input System
 type: course
+status: Backlog
+subject: Unity
 duration_h: 3
 bloc: "[[Contrôle et Déplacement]]"
 created: 2022-12-13T22:06

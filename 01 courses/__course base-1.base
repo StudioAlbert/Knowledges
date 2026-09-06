@@ -1,0 +1,20 @@
+filters:
+  and:
+    - file.ext == "md"
+    - or:
+        - file.hasTag("course")
+        - file.inFolder("01 courses/AI/cours")
+        - file.inFolder("01 courses/C++/cours")
+        - file.inFolder("01 courses/PCG/cours")
+        - file.inFolder("01 courses/Unity/cours")
+        - file.inFolder("01 courses/Theory/cours")
+views:
+  - type: kanban-action-planner
+    name: Kanban
+    statuses:
+      - Backlog
+      - To prepare
+      - Ready
+      - Done
+  - type: table
+    name: Liste

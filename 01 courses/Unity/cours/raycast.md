@@ -1,6 +1,8 @@
 ---
 title: Raycast
 type: course
+status: Backlog
+subject: Unity
 duration_h: 6
 bloc: "[[Physique et Interactions]]"
 created: 2022-12-13T22:22

@@ -1,6 +1,8 @@
 ---
 title: Flyweight Pattern
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc: "[[Patterns]]"
 theme: white

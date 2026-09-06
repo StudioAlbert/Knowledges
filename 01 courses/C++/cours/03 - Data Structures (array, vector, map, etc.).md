@@ -1,6 +1,8 @@
 ---
 title: Data Structures
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc:
   - "[[Bases de la Programmation]]"

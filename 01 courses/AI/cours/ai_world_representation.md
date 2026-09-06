@@ -1,6 +1,8 @@
 ---
 title: AI World Representation
 type: course
+status: Backlog
+subject: AI
 duration_h: 3
 bloc: "[[AI Fundamentals]]"
 theme: white

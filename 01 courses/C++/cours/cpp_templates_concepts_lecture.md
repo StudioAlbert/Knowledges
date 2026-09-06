@@ -1,6 +1,8 @@
 ---
 title: C++ Templates & Concepts
 type: course
+status: Backlog
+subject: C++
 duration_h: 3
 bloc: "[[Generique, prog fonctionnelle]]"
 theme: white

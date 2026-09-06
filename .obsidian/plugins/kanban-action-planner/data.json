@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "defaultStatusProperty": "status",
+  "defaultOrderProperty": "manual_order",
+  "defaultBlockedByProperty": "blocked_by",
+  "defaultContextsProperty": "contexts",
+  "defaultScheduledDateProperty": "date_scheduled",
+  "defaultDueDateProperty": "date_due",
+  "defaultDeferDateProperty": "date_defer",
+  "defaultEstimateProperty": "estimate",
+  "minutesPerDay": 480,
+  "defaultMilestonesProperty": "milestones",
+  "defaultProgressProperty": "progress",
+  "defaultDurationProperty": "duration",
+  "defaultTotalDurationProperty": "total_duration",
+  "activeTimeSession": null,
+  "reviewedDateProperty": "last_reviewed",
+  "reviewIntervalProperty": "review_interval",
+  "reviewCountProperty": "review_count",
+  "defaultReviewIntervalDays": 30,
+  "defaultDateFormat": "YYYY-MM-DD",
+  "firstDayOfWeek": 1,
+  "cardChipStyle": "minimal",
+  "dueSoonThresholdDays": 7,
+  "dueCountdownStyle": "title",
+  "triageCelebrateOnComplete": true,
+  "defaultStatuses": [],
+  "noteTypes": [
+    {
+      "id": "__default__",
+      "name": "Default",
+      "source": "local",
+      "typeRecognition": {
+        "mappings": []
+      },
+      "statusProperty": "status",
+      "orderProperty": "manual_order",
+      "columns": [],
+      "laneGrouping": {
+        "kind": "none"
+      },
+      "colors": {
+        "autoAssign": true,
+        "overrides": {}
+      },
+      "archive": {
+        "archiveFolder": "",
+        "triggerStatuses": []
+      },
+      "wipLimits": {},
+      "enumProperties": {},
+      "automations": [],
+      "relationships": [
+        {
+          "role": "parent",
+          "linkProperty": "parent"
+        },
+        {
+          "role": "sibling",
+          "linkProperty": "siblings"
+        },
+        {
+          "role": "child",
+          "linkProperty": "children"
+        },
+        {
+          "role": "blocked_by",
+          "linkProperty": "blocked_by"
+        }
+      ],
+      "calendar": {
+        "enabled": false,
+        "scheduledDateProperty": "date_scheduled",
+        "dueDateProperty": "date_due",
+        "deferDateProperty": "",
+        "dateFormat": "YYYY-MM-DD",
+        "defaultRange": "month",
+        "tabSort": "manual_order"
+      }
+    }
+  ]
+}
