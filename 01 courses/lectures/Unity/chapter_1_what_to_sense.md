@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 0.75
 bloc_gsda:
 created: 2026-03-17T10:31
+manual_order: 43
 ---
 # Chapter 1 — What to sense
 

@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda: VFX, Rendu et Game Feel
 created: 2025-11-12T10:16
+manual_order: 46
 ---
 # Feedbacks, Juice
 

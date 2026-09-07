@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 3
 bloc_gsda:
 created: 2026-03-17T11:58
+manual_order: 66
 ---
 # Unity AI - Core principles
 

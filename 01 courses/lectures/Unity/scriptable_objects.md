@@ -5,6 +5,7 @@ status: Backlog
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 created: 2022-12-13T22:38
+manual_order: 56
 ---
 # Scriptable Objects
 

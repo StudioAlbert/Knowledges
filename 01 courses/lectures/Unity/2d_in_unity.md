@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 12
 bloc_gsda:
 created: 2023-12-11T15:55
+manual_order: 36
 ---
 # 2D in Unity
 

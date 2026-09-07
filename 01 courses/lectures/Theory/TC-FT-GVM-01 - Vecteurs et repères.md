@@ -7,11 +7,14 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-925, GP-926]
+classes:
+  - GP-925
+  - GP-926
 manual_order: 42
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
+date_scheduled: 2026-10-07
 ---
 
 # Vecteurs et repères

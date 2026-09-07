@@ -6,6 +6,7 @@ subject: Unity
 bloc_gsda: VFX, Rendu et Game Feel
 created: 2022-12-13T23:06
 duration_h: 3
+manual_order: 50
 ---
 # Lightning, Rendering
 

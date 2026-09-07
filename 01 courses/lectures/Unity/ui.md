@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda:
 created: 2022-12-13T23:03
+manual_order: 64
 ---
 # UI
 

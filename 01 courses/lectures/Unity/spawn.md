@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 3
 bloc_gsda:
 created: 2025-11-03T17:56
+manual_order: 62
 ---
 # Spawn
 

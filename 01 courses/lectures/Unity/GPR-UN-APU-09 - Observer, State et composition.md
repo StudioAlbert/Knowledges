@@ -7,8 +7,9 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
-classes: [GP-925]
-date_scheduled: 2026-10-15
+classes:
+  - GP-925
+date_scheduled: 2026-10-01
 manual_order: 32
 estimate: 1h
 tache: découper

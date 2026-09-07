@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 3
 bloc_gsda:
 created: 2025-10-13T09:59
+manual_order: 59
 ---
 # Shoot, Make damages
 

@@ -6,11 +6,8 @@ filters:
 views:
   - type: kanban-action-planner
     name: Kanban
-    groupBy:
-      property: projet
-      direction: ASC
     sort:
-      - property: file.name
+      - property: date_scheduled
         direction: ASC
     statuses:
       - Backlog
@@ -33,19 +30,20 @@ views:
       - Done
       - __unmapped__
       - Backlog
-    cardSort: name
-    laneGrouping: property
+    cardSort: property
+    laneGrouping: none
     laneGroupingProperty: note.bloc_gsda
+    cardSortProperty: note.date_scheduled
   - type: table
     name: Liste
-    groupBy:
-      property: bloc_gsda
-      direction: ASC
     order:
       - file.name
       - bloc_gsda
       - tache
+      - date_scheduled
     sort:
+      - property: file.name
+        direction: DESC
       - property: tache
         direction: ASC
       - property: bloc_gsda

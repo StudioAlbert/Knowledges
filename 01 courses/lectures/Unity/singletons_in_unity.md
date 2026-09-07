@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda: Architecture et Patterns Unity
 created: 2025-12-18T06:38
+manual_order: 60
 ---
 # Singletons in Unity
 

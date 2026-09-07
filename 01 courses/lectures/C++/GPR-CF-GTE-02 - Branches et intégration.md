@@ -7,8 +7,10 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Git et Travail en Équipe
 specialisation: "[[C++ Fondamentaux]]"
-classes: [GP-926, WEB-926]
-date_scheduled: 2026-09-09
+classes:
+  - GP-926
+  - WEB-926
+date_scheduled:
 manual_order: 5
 estimate: 1h
 tache: découper

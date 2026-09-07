@@ -7,8 +7,10 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Résolution d'Équation
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-925, WEB-926]
-date_scheduled: 2026-10-08
+classes:
+  - GP-925
+  - WEB-926
+date_scheduled: 2026-10-21
 manual_order: 26
 estimate: 1h
 tache: découper

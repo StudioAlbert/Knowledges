@@ -7,8 +7,11 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Représentation des Nombres et Logique Binaire
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-926, WEB-926, WEB-925]
-date_scheduled: 2026-09-16
+classes:
+  - GP-926
+  - WEB-926
+  - WEB-925
+date_scheduled: 2026-09-30
 manual_order: 6
 estimate: 1h
 tache: découper

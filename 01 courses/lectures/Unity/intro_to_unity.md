@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 1.5
 bloc_gsda:
 created: 2025-10-06T12:18
+manual_order: 48
 ---
 # Intro to Unity
 

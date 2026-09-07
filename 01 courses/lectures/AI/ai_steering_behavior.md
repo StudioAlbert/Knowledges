@@ -11,6 +11,7 @@ css:
 slideNumber: true
 transition: slide
 source_slides: https://docs.google.com/presentation/d/1YGAQb00UQ4Vo6S7Dn9-Q6Z881JGWoxza36SAROk-xVg/edit
+manual_order: 5
 ---
 
 # AI Fundamentals

@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda:
 created: 2024-11-05T09:13
+manual_order: 40
 ---
 # Animator  1
 

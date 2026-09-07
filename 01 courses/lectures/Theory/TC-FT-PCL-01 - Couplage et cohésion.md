@@ -7,11 +7,14 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Principes de Conception Logicielle
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-926, WEB-925]
+classes:
+  - GP-926
+  - WEB-925
 manual_order: 47
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
+date_scheduled: 2026-10-21
 ---
 
 # Couplage et cohésion

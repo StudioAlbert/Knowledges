@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda:
 created: 2023-05-17T14:01
+manual_order: 39
 ---
 # AI Pathfinding (Nav mesh)
 

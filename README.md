@@ -56,7 +56,7 @@ material; inside it, one folder per subject — `C++`, `Unity`, `Theory`, `AI`, 
 | `exercises/<subject>/` | Exercise sheets, attached to a lecture, no hours |
 | `resources/<subject>/` | Support material (Git, coroutines, …), no hours |
 | `projects/<subject>/` | Project and formative briefs |
-| `drafts/<subject>/` | Unfinished lectures — outside the curriculum until promoted to `lectures/` |
+| `_drafts/<subject>/` | Unfinished lectures — outside the curriculum until promoted to `lectures/` |
 | `exams/<subject>/` | Exam material; the working clones themselves are gitignored |
 | `companion projects/<subject>/` | Submodules — runnable code that goes with a lecture |
 | `_source/<subject>/` | Raw material kept from an import |

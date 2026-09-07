@@ -2,14 +2,17 @@
 title: Bases et changements de base
 type: seance
 code: TC-FT-RNLB-01
-status: To prepare
+status: Backlog
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Représentation des Nombres et Logique Binaire
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-926, WEB-926, WEB-925]
-date_scheduled: 2026-09-09
-manual_order: 1
+classes:
+  - GP-926
+  - WEB-926
+  - WEB-925
+date_scheduled:
+manual_order: 68
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

@@ -10,6 +10,7 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+manual_order: 25
 ---
 
 <!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->

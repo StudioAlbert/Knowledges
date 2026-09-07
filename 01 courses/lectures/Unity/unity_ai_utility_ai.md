@@ -5,6 +5,7 @@ status: Backlog
 subject: Unity
 bloc_gsda:
 created: 2026-03-17T16:09
+manual_order: 67
 ---
 # Unity AI - Utility AI
 

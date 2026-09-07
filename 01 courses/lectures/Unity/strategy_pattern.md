@@ -5,6 +5,7 @@ status: Backlog
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 created: 2025-04-15T12:28
+manual_order: 63
 ---
 # Strategy pattern
 

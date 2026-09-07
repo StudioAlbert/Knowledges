@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 3
 bloc_gsda:
 created: 2025-01-10T11:36
+manual_order: 44
 ---
 # Cinemachine
 

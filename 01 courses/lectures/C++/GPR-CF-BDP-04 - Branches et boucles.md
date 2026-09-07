@@ -7,8 +7,10 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation
 specialisation: "[[C++ Fondamentaux]]"
-classes: [GP-926, WEB-926]
-date_scheduled: 2026-09-16
+classes:
+  - GP-926
+  - WEB-926
+date_scheduled: 2026-10-01
 manual_order: 8
 estimate: 1h
 tache: découper

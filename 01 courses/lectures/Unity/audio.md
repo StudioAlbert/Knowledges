@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda: VFX, Rendu et Game Feel
 created: 2025-12-16T17:02
+manual_order: 42
 ---
 # Audio
 

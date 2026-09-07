@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 3
 bloc_gsda:
 created: 2025-10-06T16:54
+manual_order: 47
 ---
 # How to move
 

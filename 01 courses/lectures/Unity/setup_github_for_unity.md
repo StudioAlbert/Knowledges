@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 1
 bloc_gsda:
 created: 2024-12-04T15:18
+manual_order: 57
 ---
 # Setup GitHub for Unity
 

@@ -10,6 +10,7 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+manual_order: 22
 ---
 
 # A\* — Pathfinding en C++ moderne

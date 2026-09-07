@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 3
 bloc_gsda: Architecture et Patterns Unity
 created: 2022-12-13T22:10
+manual_order: 61
 ---
 # SOLID Principles in Unity
 

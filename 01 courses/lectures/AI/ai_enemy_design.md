@@ -11,6 +11,7 @@ css:
 slideNumber: true
 transition: slide
 source_slides: https://docs.google.com/presentation/d/1A7l6WDBqciNgMD7fQu1YGGjrBMJTJvXNcN5DjXSixrw/edit
+manual_order: 2
 ---
 
 # Enemy Design

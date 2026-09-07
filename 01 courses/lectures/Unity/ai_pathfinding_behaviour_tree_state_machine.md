@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda:
 created: 2025-11-12T10:15
+manual_order: 38
 ---
 # AI Pathfinding (Behaviour Tree, State machine)
 

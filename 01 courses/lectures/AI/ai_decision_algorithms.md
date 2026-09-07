@@ -12,8 +12,9 @@ slideNumber: true
 transition: slide
 source_slides: https://docs.google.com/presentation/d/1LQFu96jekKiG9GIxXDrrT3RJNj-czFsDJtPaGZSCkFM/edit
 tags:
-- courses
-- AI
+  - courses
+  - AI
+manual_order: 1
 ---
 
 # AI Fundamentals

@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda:
 created: 2025-11-20T22:15
+manual_order: 53
 ---
 # Physics
 

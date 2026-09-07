@@ -6,6 +6,7 @@ subject: Unity
 duration_h: 6
 bloc_gsda:
 created: 2026-02-13T12:40
+manual_order: 65
 ---
 # UI - UI Toolkit 2
 

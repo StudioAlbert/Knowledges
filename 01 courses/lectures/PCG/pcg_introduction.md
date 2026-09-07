@@ -11,6 +11,7 @@ css:
 slideNumber: true
 transition: slide
 source_slides: https://docs.google.com/presentation/d/13eUqW3xYpEjPs_vNyqM1hh2HEseGHztCnkEp4oYbTiY/edit
+manual_order: 34
 ---
 
 # Procedural Generation
