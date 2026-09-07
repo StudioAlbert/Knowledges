@@ -1,8 +1,8 @@
 filters:
   and:
-    - and:
-        - file.folder.endsWith("/cours")
+    - file.inFolder("01 courses/lectures")
     - file.ext == "md"
+    - type != "section"
 views:
   - type: kanban-action-planner
     name: Kanban
@@ -35,18 +35,18 @@ views:
       - Backlog
     cardSort: name
     laneGrouping: property
-    laneGroupingProperty: note.bloc
+    laneGroupingProperty: note.bloc_gsda
   - type: table
     name: Liste
     groupBy:
-      property: bloc
+      property: bloc_gsda
       direction: ASC
     order:
       - file.name
-      - bloc
+      - bloc_gsda
       - tache
     sort:
       - property: tache
         direction: ASC
-      - property: bloc
+      - property: bloc_gsda
         direction: ASC

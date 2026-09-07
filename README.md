@@ -3,12 +3,12 @@
 Teaching vault for the **C++** and **Unity** Games Programming modules at
 [SAE Institute Geneva](https://www.sae.edu/), maintained by Sébastien Albert.
 
-It holds the lectures, exercises, project briefs and the pedagogical blocks that group
-them. Everything is plain Markdown with YAML frontmatter — the frontmatter *is* the source
-of truth, so the vault stays readable and scriptable outside Obsidian.
+It holds the lectures, exercises and project briefs of the curricula. Everything is plain
+Markdown with YAML frontmatter — the frontmatter *is* the source of truth, so the vault
+stays readable and scriptable outside Obsidian.
 
-Prose in this README is English; folder names, note titles and frontmatter values are kept
-verbatim in French, because they are identifiers used by links and scripts.
+Prose in this README is English; note titles and frontmatter values are kept verbatim in
+French, because they are identifiers used by links.
 
 Released under the [MIT License](LICENSE).
 
@@ -20,7 +20,6 @@ Released under the [MIT License](LICENSE).
     `obsidian-advanced-slides`, whose files are still in `.obsidian/plugins/` but which
     is no longer enabled; both read the same deck syntax
   - `obsidian-excalidraw-plugin`, `code-files`, `card-board`, `obsidian-git`
-- **Python 3** for `tools/sync_blocs.py` (standard library only, no install step)
 
 ## Clone
 
@@ -31,7 +30,7 @@ Released under the [MIT License](LICENSE).
 git clone --recurse-submodules https://github.com/StudioAlbert/Knowledges.git
 ```
 
-The exam repositories under `01 courses/C++/exams/` are **not** submodules — they are
+The exam repositories under `01 courses/exams/C++/` are **not** submodules — they are
 gitignored working clones of separate SAE-Geneve repositories, and are cloned by hand
 when needed.
 
@@ -42,36 +41,43 @@ when needed.
 | `00 images` | Slide backgrounds and screenshots referenced by the decks |
 | `00 templates/css` | `sae_styles.css` (the deck theme), `temps_travail_perso.css` |
 | `00 widgets` | Submodule → [StudioAlbert/widgets](https://github.com/StudioAlbert/widgets) — interactive HTML widgets published on GitHub Pages |
-| `01 courses` | The curricula: `C++`, `Unity`, `Theory`, `AI`, `PCG`, `Game programming - Généralités` |
+| `01 courses` | The teaching material, organised by category — see below |
 | `02 Notes` | Personal notes (bio, work-time logs) — not teaching material |
-| `tools` | `sync_blocs.py`, `generer_seances.py` |
 
-## How a course is organised
+## How `01 courses` is organised
 
-Each course under `01 courses/` follows the same shape:
+**Category first, subject second.** Each folder under `01 courses/` is a kind of
+material; inside it, one folder per subject — `C++`, `Unity`, `Theory`, `AI`, `PCG`,
+`Game programming - Généralités`.
 
 | Path | Role |
 | --- | --- |
-| `intro.md` | Entry point — explains the curriculum and embeds the index views |
-| `blocs/` | Pedagogical blocks, one note per block |
-| `cours/` | Lectures, one note per lecture |
-| `exercices/` | Exercise sheets, attached to a lecture, no hours |
-| `projets/` | Project and formative briefs |
-| `ressources/` | Support material (Git, coroutines, …), no hours |
-| `drafts/` | Unfinished lectures — outside the curriculum until promoted to `cours/` |
-| `index_cours.base`, `index_blocs.base` | Obsidian table views over the two note types |
+| `lectures/<subject>/` | Lectures, one note per lecture, rendered as Slides Extended decks — and the 69 session notes, next to the deck they slice |
+| `exercises/<subject>/` | Exercise sheets, attached to a lecture, no hours |
+| `resources/<subject>/` | Support material (Git, coroutines, …), no hours |
+| `projects/<subject>/` | Project and formative briefs |
+| `drafts/<subject>/` | Unfinished lectures — outside the curriculum until promoted to `lectures/` |
+| `exams/<subject>/` | Exam material; the working clones themselves are gitignored |
+| `companion projects/<subject>/` | Submodules — runnable code that goes with a lecture |
+| `_source/<subject>/` | Raw material kept from an import |
+| `_archive/` | Older content, frozen as it was |
 
-### Two note types
+Note titles are unique across the vault, so wikilinks are written bare — `[[C++ Builder]]`,
+not a path. Moving a note between categories does not break them.
+
+### The lecture note
 
 **`type: course`** — one lecture, rendered as a Slides Extended deck. See
-[`cours/cpp_builder_lecture.md`](01%20courses/C%2B%2B/cours/cpp_builder_lecture.md):
+[`lectures/C++/10 - SFML.md`](01%20courses/lectures/C%2B%2B/10%20-%20SFML.md):
 
 ```yaml
 ---
-title: C++ Builder
+title: SFML
 type: course
-duration_h: 2
-bloc: "[[Patterns]]"
+status: Backlog
+subject: C++
+duration_h: 3
+bloc_gsda: SFML et Box2D
 theme: white
 css:
   - 00 templates/css/sae_styles.css
@@ -80,52 +86,20 @@ transition: slide
 ---
 ```
 
-**`type: bloc`** — a block grouping several lectures. See
-[`blocs/Patterns.md`](01%20courses/C%2B%2B/blocs/Patterns.md):
+**Sizing rule.** One lecture is worth **3 h**, unless the deck states its own duration
+(Builder 2 h, Serialisation 1 h, Behaviour Tree 4 h). Exercises, formatives and resources
+belong to the curriculum but carry no hours.
 
-```yaml
----
-type: bloc
-specialisation: "[[C++]]"
-mineur: Games Programming
-prerequis:
-  - "[[Generique, prog fonctionnelle]]"
-projet:
-  - "[[City Builder]]"
-cours: 9
----
-```
+### `bloc_gsda`
 
-Its body always has the same four sections: `## Objectifs`, `## Cours` (generated — see
-below), `## Validation`, `## Liens`.
+The department vault `_GSDA_Tech_Vault` groups teaching into **blocks**. A note names the
+block it belongs to in `bloc_gsda`, as plain text — never a wikilink, there is no block
+note in this vault — and the kanban lays out its lanes from it.
 
-### Sizing rule
-
-**One lecture is worth 3 h**, unless the deck states its own duration (Builder 2 h,
-Serialisation 1 h, Behaviour Tree 4 h). Exercises, formatives and resources belong to the
-curriculum but carry no hours. The `cours:` field of a block is the sum of the `duration_h`
-of the lectures pointing at it.
-
-## Keeping blocks in sync
-
-`tools/sync_blocs.py` reads `bloc` and `duration_h` from the lectures and, for each note in
-`blocs/`, recomputes the `cours:` total and regenerates the table in the `## Cours` section.
-
-```bash
-python tools/sync_blocs.py
-```
-
-| Command | Effect |
-| --- | --- |
-| `python tools/sync_blocs.py` | Sync every tracked course |
-| `python tools/sync_blocs.py "C++"` | Sync one course only |
-| `python tools/sync_blocs.py --check` | Write nothing; report divergences and exit 1 if any (usable as a pre-commit gate) |
-
-> **Do not hand-edit the table between `<!-- cours:auto -->` and `<!-- /cours:auto -->`** —
-> it is overwritten on the next run. Fix the lecture frontmatter instead.
-
-The script walks `Unity`, `C++`, `PCG` and `AI` (its `COURS_SUIVIS` constant); `Theory`
-blocks are maintained by hand.
+It is deliberately **empty on 49 notes**. Those decks were filed under an older, home-made
+block scheme whose names have no GSDA counterpart, and several of them duplicate GSDA
+material. An empty `bloc_gsda` marks a note still to be placed; the duplicates get sorted
+out by hand.
 
 ## Teaching sessions
 
@@ -134,40 +108,25 @@ sessions**; this vault holds **3 h decks**. 69 session notes bridge the two — 
 Sébastien Albert teaches in 2026-2027 (55 in module 1, 14 in module 2) — each saying what
 to prepare, from which deck, and how far along it is.
 
-They live in the `cours/` folder of their subject, **next to the deck they slice**: 30 in
-`C++`, 20 in `Theory`, 19 in `Unity`. The filename carries the department's hierarchical
-code, `<MINOR>-<SPECIALISATION>-<BLOCK>-<NN> - <Title>.md`
+They live in `lectures/<subject>/`, **next to the deck they slice**: 30 in `C++`, 20 in
+`Theory`, 19 in `Unity`. The filename carries the department's hierarchical code,
+`<MINOR>-<SPECIALISATION>-<BLOCK>-<NN> - <Title>.md`
 (`GPR-CF-EDC-02 - Gestionnaires de paquets.md`), which is what tells a session apart from a
 deck at a glance. Every segment is read from `_GSDA_Tech_Vault`; none is invented here.
 
 A session carries `type: seance` and **no** `duration_h` — an hour is not a lecture and must
-not enter the hour totals. `sync_blocs.py` keeps only `type == "course"`, and so do the
-*Progression* and *Par bloc* views; the *Tout* view has no such filter, so sessions do show
-up there. They appear on the `01 courses/__course base.base` kanban, in the *To prepare*
-column.
+not enter the hour totals. They appear on the `01 courses/__course base.base` kanban, in
+the *To prepare* column.
 
-```bash
-python tools/generer_seances.py --check    # writes nothing, reports divergences
-python tools/generer_seances.py --apply    # creates what is missing, refreshes frontmatter
-```
-
-> **Everything between `<!-- seance:auto -->` and `<!-- /seance:auto -->` is regenerated** —
-> edit the vaults, not the block. Whatever you write under `## Notes de préparation` is
-> yours and is never touched. A `date_scheduled` you set by hand is read back and kept.
-
-The script only claims files whose name carries a hierarchical code, so the decks sharing
-those folders are never touched.
+They were generated once from `_GSDA_Tech_Vault` and are now **maintained by hand**: there
+is no script left to refresh them, so a change on the department side has to be carried
+over manually.
 
 See [`01 courses/Séances GSDA 2026-2027.md`](01%20courses/S%C3%A9ances%20GSDA%202026-2027.md).
 
-## Index views
+## The kanban
 
-Each course ships two `.base` views, embedded in its `intro.md`:
-
-- **`index_cours.base`** — all lectures. Views: *Progression* and *Par bloc* (grouped by
-  block, hours summed), *Tout*.
-- **`index_blocs.base`** — the blocks themselves, plus *Heures par bloc*, which recomputes
-  the hour totals live to cross-check the script.
-
-Two views act as gap-finders: **Sans bloc** lists lectures with no `bloc`, and
-**À compléter** lists lectures with no `duration_h`.
+[`01 courses/__course base.base`](01%20courses/__course%20base.base) is the one Obsidian
+view of the vault. It picks up every note in `lectures/` except the `type: section` sub-notes, columns
+them by `status` (*Backlog*, *To prepare*, *Ready*, *Done*), groups them by `projet` and
+lays out lanes by `bloc_gsda`.

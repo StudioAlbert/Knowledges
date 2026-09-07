@@ -17,26 +17,20 @@ de travail qui relie le planning du département au matériel de ce vault.
 
 ## Où elles vivent
 
-Chaque séance est dans le `cours/` de sa matière, **à côté du deck qu'elle découpe** :
+Chaque séance est dans le `lectures/` de sa matière, **à côté du deck qu'elle découpe** :
 
 | Dossier | Séances |
 |---|---|
-| `01 courses/C++/cours` | 30 — `GPR-CF-*` |
-| `01 courses/Theory/cours` | 20 — `TC-FT-*` et `GPR-PE-CD-00` |
-| `01 courses/Unity/cours` | 19 — `GPR-UN-*` |
+| `01 courses/lectures/C++` | 30 — `GPR-CF-*` |
+| `01 courses/lectures/Theory` | 20 — `TC-FT-*` et `GPR-PE-CD-00` |
+| `01 courses/lectures/Unity` | 19 — `GPR-UN-*` |
 
 Le code dans le nom de fichier suffit à les distinguer d'un deck. Elles portent
 `type: seance` et **aucun `duration_h`** : une séance d'1 h n'est pas un cours de 3 h et ne
 doit pas entrer dans les totaux d'heures.
 
-Ce que cela implique, concrètement :
-
-- `tools/sync_blocs.py` ne retient que `type == "course"` — les séances ne touchent ni le
-  `cours:` d'un bloc ni son tableau `## Cours`.
-- Les vues **Progression** et **Par bloc** des `index_cours.base` filtrent sur
-  `type == "course"` : les séances n'y apparaissent pas.
-- La vue **Tout**, elle, n'a pas de filtre : les séances **y apparaissent**, triées par
-  `type`. C'est cohérent avec son nom.
+Leur `bloc_gsda` nomme le bloc du vault GSDA qu'elles découpent ; `source_gsda` pointe sur
+le dépôt où ce bloc est tenu.
 
 ## Le nom d'une note
 
@@ -65,21 +59,11 @@ réparties en deux couloirs par leur `projet`. Le champ `tache` dit la nature du
 > `lightning_rendering` (271 o), `lightning` (164 o), `feedbacks_juice` (1,3 ko). C'est ce
 > qui fait passer 14 séances de « découper » à « créer de zéro ».
 
-## Régénérer
+## Tenues à la main
 
-```bash
-python tools/generer_seances.py --check    # n'écrit rien, liste les divergences
-python tools/generer_seances.py --apply    # crée ce qui manque, rafraîchit l'en-tête
-```
-
-Une note a deux zones. Entre `<!-- seance:auto -->` et `<!-- /seance:auto -->`, tout est
-recalculé depuis `_GSDA_Tech_Vault` à chaque exécution — **ne rien y écrire à la main**.
-Sous `## Notes de préparation`, la place est au rédacteur : le script n'y touche jamais.
-Le frontmatter est régénéré, à une exception près : une `date_scheduled` posée à la main y
-est relue et conservée.
-
-Le script ne considère comme siens que les fichiers dont le nom porte un code hiérarchique ;
-les 60 decks qui partagent ces dossiers ne risquent rien.
+Ces notes ont été générées une fois depuis `_GSDA_Tech_Vault`, puis le script a été
+retiré : **elles n'ont plus de source automatique**. Ce qui y est écrit y reste, et ce qui
+change dans le vault GSDA ne redescend plus tout seul — c'est à reporter à la main.
 
 ## Liens
 
