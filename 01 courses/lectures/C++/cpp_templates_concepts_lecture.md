@@ -13,14 +13,14 @@ transition: slide
 manual_order: 31
 ---
 
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # C++ Templates & Concepts
 ### A 3-Hour Lecture
 
 **2h de cours · 1h d'exercices**
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Agenda
 
 1. **Part 1** - Function Templates *(25 min)*
@@ -29,12 +29,12 @@ manual_order: 31
 4. **Part 6** - Exercises *(1h)*
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Part 1
 ## Function Templates
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 1.1 - Origine
 
 Sans les templates, il faudrait écrire un `max` pour chaque type :
@@ -57,7 +57,7 @@ max<double>(1, 2); // explicit instantiation
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 1.2 - Type Deduction Rules
 
 Le compilateur déduit `T` à partir du site d'appel - il n'est pas nécessaire de le spécifier explicitement :
@@ -75,7 +75,7 @@ print("hello");  // T = const char*
 > L'instanciation explicite (`print<int>(x)`) n'est requise que lorsque la déduction est ambiguë ou que l'on souhaite forcer un type précis.
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 1.3 - Multiple & Non-Type Parameters
 
 **Plusieurs paramètres de type :**
@@ -95,7 +95,7 @@ auto arr = makeArray<int, 10>(); // std::array<int, 10>
 > `N` est résolu entièrement à la compilation - aucun coût à l'exécution.
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 1.4 - `if constexpr`
 
 Branchement à la compilation à l'intérieur d'un template - **les branches mortes ne sont pas compilées** :
@@ -115,7 +115,7 @@ void describe(T val) {
 > Contrairement à un `if` classique, la branche écartée n'a même pas besoin d'être valide pour le type donné.
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 1.4 - Key Rule: Headers Only
 
 > ⚠️ **L'implémentation des templates doit se trouver dans les fichiers d'en-tête**, pas dans les `.cpp`.
@@ -133,12 +133,12 @@ T max(T a, T b) { ... }
 ```
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Part 2
 ## Class Templates
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 2.1 - Basic Class Template
 
 ```cpp
@@ -166,7 +166,7 @@ Stack<std::string> strStack;
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 2.2 - Member Function Templates
 
 Une classe template peut avoir **ses propres** méthodes templates :
@@ -184,7 +184,7 @@ public:
 > `T` est le type au niveau de la classe. `U` est propre à cette méthode - il peut différer de `T` tant que `U` est convertible vers `T`.
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 2.3 - Template Specialization
 
 Personnaliser le comportement pour **des types précis** :
@@ -208,7 +208,7 @@ public:
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 2.4 - Real Example: `Vec2<T>`
 
 Un vecteur 2D générique - plusieurs fonctionnalités des templates réunies dans une seule classe :
@@ -246,7 +246,7 @@ using Vec2f = Vec2<float>;
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 2.4 - `Vec2<T>` - Key Points
 
 - **Contrainte au niveau de la classe** : `requires std::is_arithmetic_v<T>` - rejette `Vec2<std::string>` dès la compilation
@@ -266,12 +266,12 @@ Vec2i d{1, 2};
 ```
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Part 3
 ## Concepts
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.1 - Standard Library Concepts First
 
 Avant d'écrire les vôtres, sachez ce que C++20 propose dans `<concepts>` :
@@ -290,7 +290,7 @@ Avant d'écrire les vôtres, sachez ce que C++20 propose dans `<concepts>` :
 | `std::ranges::range<T>`         | T possède begin/end                        |
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.2 - Why Concepts?
 
 Avant C++20, contraindre des templates passait par le **SFINAE** - cryptique et illisible :
@@ -315,7 +315,7 @@ square("hello"); // Error: "hello" does not satisfy Arithmetic
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.3 - Defining Concepts
 
 **Encapsuler un type trait :**
@@ -332,7 +332,7 @@ concept Printable = requires(T val) {
 };
 ```
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.4 - Concepts composés
 **Concept composé - combiner des concepts existants :**
 ```cpp
@@ -345,7 +345,7 @@ concept Sortable = requires(T container) {
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.5 - Four Ways to Apply Concepts
 
 ```cpp
@@ -369,7 +369,7 @@ T square(T x) requires Numeric<T> { return x * x; }
 > Privilégier le **style 2** pour la cohérence dans toute la base de code.
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.6 - Concepts on `Vec2`: Interop
 
 `Vec2` doit pouvoir accepter des types de vecteurs externes (par exemple ceux d'une bibliothèque de physique).
@@ -392,7 +392,7 @@ concept is_convertible_to_vector2 = requires(VectorT v) {
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## 3.7 - Concepts on `Vec2`: Subsumption
 
 Deux constructeurs - un pour la correspondance exacte, un pour le convertible - **sans ambiguïté grâce à la négation** :
@@ -412,18 +412,18 @@ constexpr explicit Vec2(VectorT v)
 > C'est la **subsomption de concepts** - le compilateur choisit la surcharge la plus contrainte.
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Part 4
 ## Exercises - 1 Hour
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Exercise 1
 ## Class Template: `AssetManager<TAsset, TAssetType>`
 ### 30 minutes
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 1 - Context
 
 Votre base de code contient `core::experimental::AssetManager`.
@@ -438,7 +438,7 @@ Objectif : **le reconstruire à partir de zéro**, comprendre chaque choix de co
 - À placer dans le `namespace core`
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 1 - Skeleton
 
 ```cpp
@@ -475,7 +475,7 @@ private:
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 1 - What to Implement
 
 **`load()`** - peupler `assets_` à partir des chemins :
@@ -500,7 +500,7 @@ const sf::Texture& tex = mgr.get(TextureIndex::kMaison);
 ```
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 1 - Bonus
 
 Ajouter un paramètre template non-type `StringLiteral` pour un **chemin de dossier de base**, assemblé au chargement :
@@ -520,13 +520,13 @@ core::AssetManager<sf::Texture, TextureIndex, "../_assets/sprites/"> mgr;
 > Cela correspond à la version expérimentale déjà présente dans votre base de code.
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Exercise 2
 ## Function Templates: Type-Safe Math Utilities
 ### 30 minutes
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 2 - Context
 
 Implémenter un header d'utilitaires mathématiques en respectant les règles du projet.
@@ -540,7 +540,7 @@ Implémenter un header d'utilitaires mathématiques en respectant les règles du
 - **D** - Tester avec `Vec2f`
 
 ---
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 2 - Part A & B
 
 **`lerp` - concept personnalisé :**
@@ -565,7 +565,7 @@ T clamp(T val, T lo, T hi);
 
 ---
 
-<!-- slide bg="[[01_slide_GP_GA_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_content.jpg]]" -->
 ## Exercise 2 - Part C & D
 
 **`map` - remapping entre intervalles :**
@@ -588,7 +588,7 @@ Vec2f result = lerp(Vec2f{0.0f, 0.0f}, Vec2f{1.0f, 1.0f}, 0.5f);
 > Si `Vec2f` ne compile pas avec `lerp`, vérifiez quel opérateur manque et ajoutez-le.
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Summary
 
 ---
@@ -607,5 +607,5 @@ Vec2f result = lerp(Vec2f{0.0f, 0.0f}, Vec2f{1.0f, 1.0f}, 0.5f);
 | Règles du projet | Pas de `std::function` / `any` ; utiliser plutôt les concepts + `std::invocable` |
 
 ---
-<!-- slide bg="[[01_slide_fond_GP_22_08_22.jpg]]" -->
+<!-- slide bg="[[01_slide_fond_titre.jpg]]" -->
 # Questions?

@@ -38,7 +38,7 @@ Pourquoi ne pas copier les sources, vcpkg avantages et limites, Conan, Hunter, l
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-EDC-01 - Chaîne d'outils et prérequis]]
+- Séance précédente : [[01 courses/lectures/C++/GPR-CF-EDC-01 - Chaîne d'outils et prérequis]]
 - Séance suivante : [[GPR-CF-EDC-03 - Premier projet CMake]]
 
 ## Notes de préparation

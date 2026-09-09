@@ -18,7 +18,7 @@ manual_order: 1
 ---
 
 # AI Fundamentals
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Decisions making
 
@@ -33,7 +33,7 @@ teaching either one.
 ---
 
 ## Agenda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **The AI engine** — where decision making sits
 2. **State pattern** — finite state machines
@@ -45,7 +45,7 @@ teaching either one.
 ---
 
 # AI Engine
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ```text
    +---------+     +----------------+     +---------+
@@ -60,7 +60,7 @@ teaching either one.
 ---
 
 # State pattern
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Definition
 
@@ -152,7 +152,7 @@ many states you expect.
 ---
 
 # Behaviour trees
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### A graph that determines the actor's actions
 
@@ -330,7 +330,7 @@ AND and selector = OR, they can read any behaviour tree in the wild.
 ---
 
 # Workshop
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Build a robber AI, step by step:
 
@@ -362,7 +362,7 @@ debug steps 3 to 6. Do not let them skip step 2.
 ---
 
 # Goal Oriented Action Planner
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Instead of authoring *what to do*, author **what each action requires and what it
 produces**, then let the agent **plan** a sequence that reaches its goal.
@@ -385,7 +385,7 @@ F.E.A.R., 2005.
 ---
 
 # References
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - *Three States and a Plan: The A.I. of F.E.A.R.* — the founding GOAP paper
 - *An Introduction to GOAP* — Unity Learn

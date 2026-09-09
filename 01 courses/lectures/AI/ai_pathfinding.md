@@ -15,7 +15,7 @@ manual_order: 4
 ---
 
 # AI Fundamentals
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Pathfinding
 
@@ -30,7 +30,7 @@ for everyone at once = flow field.
 ---
 
 ## Agenda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **The graph** — cities, crossroads, roads
 2. **BFS** — and why it is not enough
@@ -43,7 +43,7 @@ for everyone at once = flow field.
 ---
 
 # The waypoint graph
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Build the vocabulary on something concrete — a road map:
 
@@ -68,7 +68,7 @@ works on any graph.
 ---
 
 # BFS
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Breadth first search finds a path from A to B by exploring layer by layer.
 
@@ -93,7 +93,7 @@ second, heuristics fix the first.
 ---
 
 # Weights
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Not every step costs the same. *Civilization VI*, 2016:
 
@@ -114,7 +114,7 @@ pathfinder just obeys.
 ---
 
 # Dijkstra
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 <small>Edsger Dijkstra, 1956 — reportedly designed in about twenty minutes, in a
 café, without paper.</small>
@@ -195,7 +195,7 @@ search still spreads **in every direction**.
 ---
 
 # Heuristics
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 > A technique designed for solving a problem more quickly when classic methods
 > are too slow, or for finding an approximate solution when classic methods fail
@@ -213,7 +213,7 @@ is why A* is the famous one.
 ---
 
 # A\*
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 A\* sits **on top of Dijkstra**, adding a priority for the nodes that look
 closest to the destination.
@@ -360,7 +360,7 @@ expensive. Worth stating; not worth proving here.
 ---
 
 # Flow fields
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 When there is **only one destination**, do not run a search per agent. Point
 every cell of the map at the destination, once.
@@ -380,7 +380,7 @@ Dijkstra maps, used for movement instead of level design.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `redblobgames.com/pathfinding/a-star/introduction.html` — the one to read first
 - `theory.stanford.edu/~amitp/GameProgramming/` — A\* implementation details

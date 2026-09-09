@@ -11,7 +11,7 @@ source_slides: https://docs.google.com/presentation/d/16PDth6PeUJceHoB_TrW-9kfZO
 ---
 
 # Procedural Generation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Exercices
 
@@ -25,7 +25,7 @@ entre les cours. Chacun tient en une séance de TP.
 ---
 
 # Generative Map I
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Perlin noise map
 
@@ -43,7 +43,7 @@ design, pas une constante. Faire varier le seuil en direct devant la classe.
 ---
 
 # Generative Map II
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Cellular automaton
 
@@ -62,7 +62,7 @@ grille.
 ---
 
 # Markov chains
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Construire une chaîne de Markov capable de **générer des noms de lieux** selon
 les règles ci-dessous :
@@ -99,7 +99,7 @@ le premier générateur *sous contrainte* que les étudiants écrivent.
 ---
 
 # Parcours d'arbre
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 1. Constituer un **arbre de nœuds** — peux-tu le **visualiser dans Unity** ?
 2. Comparer une recherche en **BFS** et en **DFS**

@@ -14,7 +14,7 @@ manual_order: 14
 ---
 
 # Object-Oriented Programming
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Advanced — static, surcharge, héritage, polymorphisme
 
@@ -29,7 +29,7 @@ l'exécution avec les fonctions virtuelles.
 ---
 
 ## Source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <div style="color:#fff;">
 
@@ -44,12 +44,12 @@ Exercices : [[Exercices - 04 - OOP]] · Formatives : [[Formative - OOP Minigame 
 ---
 
 # Static
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Class — static attribute
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **`monster.h`**
 
@@ -103,7 +103,7 @@ C'est l'oubli classique, et l'erreur de linkage qui va avec.
 ---
 
 ## Membres et méthodes static
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Membres static**
 
@@ -118,7 +118,7 @@ C'est l'oubli classique, et l'erreur de linkage qui va avec.
 ---
 
 ## struct
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 struct Monster {
@@ -131,7 +131,7 @@ struct Monster {
 ---
 
 ## Class vs struct
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | | Visibilité par défaut |
 |---|---|
@@ -143,12 +143,12 @@ De manière générale, utiliser un `struct` **sans fonction**, juste pour maint
 ---
 
 # Surcharge d'opérateur
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Surcharge d'opérateur
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Il est possible de surcharger les opérateurs pour faire des opérations entre instances :
 
@@ -165,7 +165,7 @@ Il est possible de surcharger les opérateurs pour faire des opérations entre i
 ---
 
 ## Surcharge d'opérateur — exemple
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **`myOwnTime.h`**
 
@@ -230,7 +230,7 @@ int main()
 ---
 
 ## Pause
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Question time !
 
@@ -239,12 +239,12 @@ Vous pouvez aussi jouer avec VS2019 — ou faire une pause, au cas où votre cer
 ---
 
 # Héritage
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Héritage — le principe
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```mermaid
 classDiagram
@@ -267,7 +267,7 @@ classDiagram
 ---
 
 ## Héritage — le code
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **`monster.h`**
 
@@ -327,7 +327,7 @@ void Dragon::PrintHealth()
 ---
 
 ## Héritage — les deux points à retenir
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - **héritage du constructeur** avec la directive `using`
 - le mot-clé **`protected`** permet aux classes filles d'utiliser les membres et méthodes de la classe parent
@@ -341,7 +341,7 @@ justement l'erreur à faire remarquer aux étudiants.
 ---
 
 ## Héritage — le « mode »
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 class A {
@@ -374,7 +374,7 @@ class D : private A {
 ---
 
 ## Héritage multiple
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 class B {
@@ -394,12 +394,12 @@ class C : public A, public B {
 ---
 
 # Polymorphisme
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Polymorphisme
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - Le C++ utilise un **typage statique** : le type d'un objet est déterminé lors de la **compilation**.
 - Dans certains cas, on a besoin que le typage soit **dynamique** : le type d'un objet est déterminé lors de l'**exécution**.
@@ -409,7 +409,7 @@ class C : public A, public B {
 ---
 
 ## Héritage virtual
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```mermaid
 classDiagram
@@ -427,7 +427,7 @@ Les deux classes déclarent `print()` : laquelle sera appelée ?
 ---
 
 ## Héritage virtual — la démonstration
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 class A {
@@ -461,7 +461,7 @@ l'**objet**.
 ---
 
 ## Héritage virtual pur
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 // a virtual pure method can be seen as an interface.
@@ -493,7 +493,7 @@ int main() {
 ---
 
 ## Pause
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Question time !
 

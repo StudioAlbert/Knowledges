@@ -14,7 +14,7 @@ manual_order: 24
 ---
 
 # C++ Builder
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Construire des objets complexes, lisiblement, en 1 heure
 
@@ -30,7 +30,7 @@ shop » que vous refactorez vous-mêmes. Chaque diapo de code renvoie à un
 dossier exécutable du dépôt compagnon — le nom du dossier = le titre.
 
 ---
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ## Sources
 
 <div style="color:#fff;">
@@ -49,7 +49,7 @@ Inclus localement :
 ---
 
 ## Programme
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **Module 1** — Le problème du constructeur télescopique *(10 min)*
 2. **Module 2** — La solution Builder *(8 min)*
@@ -62,7 +62,7 @@ Inclus localement :
 ---
 
 ## Module 1 — Le problème du constructeur télescopique
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>lisibilité · sites d'appel fragiles · explosion combinatoire</small>
 
@@ -141,7 +141,7 @@ exposer une API de construction stable.
 ---
 
 ## Module 2 — La solution Builder
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>séparer *quoi construire* de *comment assembler*</small>
 
@@ -173,7 +173,7 @@ sérialisation). L'idée centrale : le produit ne voit le jour qu'à
 ---
 
 ## Module 3 — Champs privés + `friend` + mutateurs `With*`
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>le builder écrit dans le produit · l'encapsulation reste intacte</small>
 
@@ -224,7 +224,7 @@ champs de `Person`). La validation arrive au Module 4, dans `Build()`.
 ---
 
 ## Module 4 — build() retourne le produit
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>le seul endroit où l'objet naît · donc le seul endroit où valider</small>
 
@@ -258,7 +258,7 @@ de matérialiser le produit. Le brief de l'exercice s'appuie là-dessus.
 ---
 
 ## Module 5 — Le chaînage (interface fluide)
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>`return *this;` — c'est tout</small>
 
@@ -299,7 +299,7 @@ l'expression complète. Détail dans le dépôt.
 ---
 
 ## Module 6 — Retourner un smart pointer
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>valeur par défaut · pointeur seulement si polymorphe / possédé</small>
 
@@ -369,7 +369,7 @@ construction ». L'exercice les fait implémenter dans l'ordre.
 ---
 
 ## Exercice — Sandwich shop
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ---
 
@@ -404,7 +404,7 @@ complet (6 étapes) vit sur la branche `solution/sandwich-shop` du dépôt.
 ---
 
 ## Synthèse
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Quel outil, quand
 
@@ -425,7 +425,7 @@ complet (6 étapes) vit sur la branche `solution/sandwich-shop` du dépôt.
 ---
 
 ## Ressources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - 📘 [refactoring.guru — Builder (C++)](https://refactoring.guru/design-patterns/builder/cpp/example)
 - 📘 [platis.solutions — Builder pattern in C++ (2023)](https://platis.solutions/blog/2023/01/03/builder-pattern-cpp/)
@@ -436,6 +436,6 @@ complet (6 étapes) vit sur la branche `solution/sandwich-shop` du dépôt.
 ---
 
 # Questions ?
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>Suite : refactorez le Sandwich shop derrière un `SandwichBuilder`.</small>

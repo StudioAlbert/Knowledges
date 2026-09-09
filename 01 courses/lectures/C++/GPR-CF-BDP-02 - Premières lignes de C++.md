@@ -32,15 +32,14 @@ Historique et standards du langage, commentaires, hello world, variables, types 
 
 ## Matériel
 
-- Support : [[01.01 - Programming Basics - if, loops]] — `01 courses/lectures/C++/01.01 - Programming Basics - if, loops.md` (17,9 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1BWCyCFyfi5hxUMsSEnCvPpweoJpYSvnvFNRjcZIJTmU/edit
-    - Exercices : [[Exercices - 01 - Programming Basics]]
+- Support : [[01 courses/slides/C++/GPR-CF-BDP-02 - Premières lignes de C++|GPR-CF-BDP-02 - Premières lignes de C++]] 
+- Slides d'origine : https://docs.google.com/presentation/d/1BWCyCFyfi5hxUMsSEnCvPpweoJpYSvnvFNRjcZIJTmU/edit
+- Exercices : [[Exercices - 01 - Programming Basics]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Bases de la Programmation.md`, ligne `02`
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-BDP-01 - Penser comme un programme]]
+- Séance précédente : [[01 courses/lectures/C++/GPR-CF-BDP-01 - Penser comme un programme]]
 - Séance suivante : [[GPR-CF-BDP-03 - Fonctions]]
 
-## Notes de préparation
 

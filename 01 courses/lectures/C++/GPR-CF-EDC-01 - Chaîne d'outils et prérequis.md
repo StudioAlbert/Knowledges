@@ -2,7 +2,7 @@
 title: Chaîne d'outils et prérequis
 type: seance
 code: GPR-CF-EDC-01
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Environnement de Développement C++
@@ -32,8 +32,8 @@ Ce qu'il faut installer et pourquoi, compilateur et IDE, installation de Git et 
 
 ## Matériel
 
-- Support : [[00 - Setup - vcpkg, cmake]] — `01 courses/lectures/C++/00 - Setup - vcpkg, cmake.md` (12,5 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1OVcZbS1UI66iGssrPsT8pxC9PYVNvyA1RSnN8WcpXuM/edit
+- [[01 courses/slides/C++/GPR-CF-EDC-01 - Chaîne d'outils et prérequis|Support]]
+- Slides d'origine : https://docs.google.com/presentation/d/1OVcZbS1UI66iGssrPsT8pxC9PYVNvyA1RSnN8WcpXuM/edit
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Environnement de Développement C++.md`, ligne `01`
 
 ## Liens

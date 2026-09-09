@@ -1,9 +1,9 @@
 ---
-title: Setup — Tips & how-to, Git
+title: Principes et premier dépôt
 type: course
 status: Backlog
 subject: C++
-duration_h: 3
+duration_h: 1
 bloc_gsda: Git et Travail en Équipe
 theme: white
 css:
@@ -13,8 +13,8 @@ transition: slide
 manual_order: 8
 ---
 
-# Setup
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+# Principes et premier dépôt
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Tips & how-to — Git
 
@@ -27,23 +27,8 @@ module.
 
 ---
 
-## Source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
-
-<div style="color:#fff;">
-
-Présentation d'origine (contient les captures d'écran non transposées) :
-
-- 🔗 [Google Slides — 00 Tips : How to (Git, etc.)](https://docs.google.com/presentation/d/1ynVuF4Stssp_Qah9BGvz-qCh7j1czABkqER7qZmVcLE/edit)
-
-Exercices : [[00 - Git]] · Voir aussi : [[00 - Setup - vcpkg, cmake]]
-
-</div>
-
----
-
 ## Git — principes
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - sauvegarder son code sur un serveur
 - travailler à plusieurs
@@ -52,7 +37,7 @@ Exercices : [[00 - Git]] · Voir aussi : [[00 - Setup - vcpkg, cmake]]
 ---
 
 ## Git — les branches
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Créer des branches :
 
@@ -62,7 +47,7 @@ Créer des branches :
 ---
 
 ## Git — l'écosystème
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Les dépôts d'hébergement Git distants — GitHub, GitLab, Bitbucket…
 
@@ -78,7 +63,7 @@ Les interfaces graphiques Git (GUI) côté client :
 ---
 
 ## Install Git
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Download on the Git website : [git-scm.com/downloads](https://git-scm.com/downloads)
 
@@ -90,7 +75,7 @@ Launch the install, pick every default option, except those below :
 ---
 
 ## Récupérer un dépôt de code (depuis GitHub)
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Depuis la page GitHub du projet :
 
@@ -107,7 +92,7 @@ git clone [repo_url]
 ---
 
 ## Mettre à jour, et partager
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Mettre à jour et fusionner le repo local**
 
@@ -126,7 +111,7 @@ git push
 ---
 
 ## Créer un repo avec des fichiers existants
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```bash
 git init
@@ -144,7 +129,7 @@ commandes. La séquence ci-dessus la reconstitue.
 ---
 
 ## En savoir plus
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - [Atlassian — Git cheat sheet](https://www.atlassian.com/fr/git/tutorials/atlassian-git-cheatsheet)
 - [Présentation Git (CNRS)](https://giorgi.pages.math.cnrs.fr/git_pres/#15)
@@ -156,7 +141,7 @@ commandes. La séquence ci-dessus la reconstitue.
 ---
 
 ## Pause
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Question time !
 

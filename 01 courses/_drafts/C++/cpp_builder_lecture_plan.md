@@ -26,7 +26,7 @@
   ---
   ```
 - [ ] **Diapo titre** : `# Titre` + commentaire de fond
-  `<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->`,
+  `<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->`,
   un `###` sous-titre, une ligne `<small>` « N modules · N exemples · 1 exercice · C++17/20 »,
   et une ligne `<small>Dépôt : […]</small>`.
 - [ ] **Diapos section** : `## Module X — …` + même `data-background` + `<small>` tagline.

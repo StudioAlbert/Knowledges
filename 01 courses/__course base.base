@@ -6,14 +6,18 @@ filters:
 views:
   - type: kanban-action-planner
     name: Kanban
+    order:
+      - file.name
+      - bloc_gsda
     sort:
       - property: date_scheduled
         direction: ASC
     statuses:
       - Backlog
       - To prepare
+      - To check
       - Ready
-      - Done
+      - Post-mortem
     calendarMode: false
     triageMode: false
     timelineMode: false
@@ -26,13 +30,12 @@ views:
     filterQuery: ""
     calendarRangeOverride: month
     collapsedColumns:
-      - Ready
       - Done
       - __unmapped__
       - Backlog
     cardSort: property
-    laneGrouping: none
-    laneGroupingProperty: note.bloc_gsda
+    laneGrouping: property
+    laneGroupingProperty: note.date_scheduled
     cardSortProperty: note.date_scheduled
   - type: table
     name: Liste

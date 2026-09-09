@@ -15,7 +15,7 @@ manual_order: 34
 ---
 
 # Procedural Generation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Making things that make things
 
@@ -31,7 +31,7 @@ finish on the first concrete tools: seeds, noise, partitioning, Markov chains.
 ---
 
 ## Agenda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **Modularity** — modules, gestalts, gestalt space
 2. **Patterns & scenes** — the design vocabulary
@@ -43,7 +43,7 @@ finish on the first concrete tools: seeds, noise, partitioning, Markov chains.
 ---
 
 # Modularity
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 Everything procedural starts here. If you cannot name your modules, you have
@@ -108,7 +108,7 @@ The Borderlands weapon generator is exactly this.
 ---
 
 # Patterns
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 From architecture to level design. The reference is Christopher Alexander's
@@ -162,7 +162,7 @@ Dead Cells all sit here.
 ---
 
 # Procedural content generation
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Making things that make things
 
@@ -299,7 +299,7 @@ the resource management stays tense — the generator serves a mechanic.
 ---
 
 # Beyond levels
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 Quick tour, one slide each. The point is that "procedural" is a method, not a
@@ -361,7 +361,7 @@ applied to locomotion rather than to a rig.
 ---
 
 # Warning
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Beginners start building their content generator **before knowing what their
 content is**.
@@ -378,7 +378,7 @@ handmade level your generator is trying to reproduce."
 ---
 
 # Random is not procedural
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 | | |
 | --- | --- |
@@ -440,7 +440,7 @@ the scene patterns.</small>
 ---
 
 # Node based generation
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 Three classic space-carving families. These are the first generators students
@@ -508,7 +508,7 @@ pattern to remember.
 ---
 
 # Markov chains
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 A set of **states** and **transitions**, each transition carrying a probability.
 
@@ -591,7 +591,7 @@ the budget disposes. It is the first constrained generator the students write.
 ---
 
 # Seed generation
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 A **linear congruential generator**:
 
@@ -611,7 +611,7 @@ written in this module takes a seed.
 ---
 
 # Cellular automaton
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The Conway Game of Life, repurposed: start from noise, then **smooth it** —
 about five iterations is usually enough — and you get caves.
@@ -626,7 +626,7 @@ that comes with it: a cave system split into unreachable pockets is useless.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `rejbrand.se/rejbrand/article.asp?ItemIndex=425`
 - `tinybirdgames.com/2018/04/10/adventures-in-procedural-generation/`

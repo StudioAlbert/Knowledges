@@ -15,7 +15,7 @@ manual_order: 6
 ---
 
 # AI Fundamentals
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Artificial space representations
 
@@ -30,7 +30,7 @@ algorithm is even possible.
 ---
 
 ## Agenda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **Waypoint graph** — a set of points
 2. **NavMesh** — a set of convex shapes
@@ -42,7 +42,7 @@ paths, and what does a query cost?</small>
 ---
 
 # Waypoint graph
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 A **set of points**, linked to one another.
 
@@ -83,7 +83,7 @@ smoother paths and a slower search.
 ---
 
 # NavMesh
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 A set of **convex shapes** covering the walkable surface.
 
@@ -121,7 +121,7 @@ Always snap the target to the navmesh, or fail loudly.
 ---
 
 # Point query system
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The mix of the two previous solutions — and what shipped games actually use:
 
@@ -160,7 +160,7 @@ pick the best, and put the intelligence in the scoring.
 ---
 
 # Choosing
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 | | Waypoint graph | NavMesh | Point query |
 | --- | --- | --- | --- |
@@ -178,7 +178,7 @@ shipped game uses both. If a student must pick one for a school project, navmesh
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `gameaipro.com` — the reference collection of expert articles, free online
 - `theory.stanford.edu/~amitp/GameProgramming/MapRepresentations.html` — the hierarchy of representations

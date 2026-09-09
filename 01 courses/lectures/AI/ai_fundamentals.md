@@ -15,7 +15,7 @@ manual_order: 3
 ---
 
 # AI Fundamentals
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### The map of the module
 
@@ -29,7 +29,7 @@ not go deep on anything here — go *wide*, and name what is coming.
 ---
 
 ## The three families
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```text
    AI
@@ -59,7 +59,7 @@ and it comes back in the world representation lecture.
 ---
 
 # The AI engine
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Every agent runs the same loop, every frame:
 
@@ -83,7 +83,7 @@ open by pointing at which box it lives in.
 ---
 
 # Movement
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Three levels of sophistication, in order:
 
@@ -103,7 +103,7 @@ and it is three lines of vector maths.
 ---
 
 # Decision — decision tree
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The simplest decision structure. You have written hundreds.
 
@@ -125,7 +125,7 @@ being the right answer.
 ---
 
 # Decision — finite state machine
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The most elementary form of game AI. Typically implemented with:
 
@@ -149,7 +149,7 @@ lecture derives, and it is the same pattern as the Unity Animator.
 ---
 
 # Decision — behaviour tree
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 First used in **Halo 2**. Another way to write AI, much easier to **serialise**:
 
@@ -167,7 +167,7 @@ recompile. An enum-and-switch FSM is code, and only a programmer can touch it.
 ---
 
 # Pathfinding
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 More than for player characters, these algorithms exist for **AI agents**.
 
@@ -187,7 +187,7 @@ sentence saves an hour of confusion later.
 ---
 
 # It starts with a graph
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Before any algorithm, be clear about the **mathematical structure** underneath.
 
@@ -204,7 +204,7 @@ minutes what a whiteboard does in forty.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `gamedev.net/articles/programming/artificial-intelligence/the-total-beginners-guide-to-game-ai-r4942/` — covers decision, pathfinding and movement, exactly this module
 - `youtube.com/user/tthompso` — AI and Games: case studies of real shipped AI

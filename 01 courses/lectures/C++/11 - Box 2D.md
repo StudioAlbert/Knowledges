@@ -14,7 +14,7 @@ manual_order: 20
 ---
 
 # Box2D
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Le monde physique — corps, fixtures, contacts, platformer
 
@@ -28,7 +28,7 @@ sauter uniquement au sol, wall jump, plateformes traversables par le bas.
 ---
 
 ## Source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <div style="color:#fff;">
 
@@ -43,7 +43,7 @@ Séance précédente : [[10 - SFML]]
 ---
 
 ## Physical world
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Le monde physique ne fonctionne pas comme le monde graphique.
 
@@ -55,12 +55,12 @@ Et la physique n'a pas besoin de fonctionner comme la physique du monde réel : 
 ---
 
 # Les briques de Box2D
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## b2World
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Dans Box2D, vous avez littéralement un `b2World`, qui a besoin d'une **gravité** pour démarrer. Notez que l'on utilise `b2Vec2`, et non `sf::Vector2`.
 
@@ -72,7 +72,7 @@ Ce `b2World` est notre interface vers le monde physique :
 ---
 
 ## b2Body + b2BodyDef
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Dans Box2D, un `b2Body` est un **rigidbody**. Voyez-le comme un point dans l'espace, représentant un objet physique qui peut bouger, et auquel on peut appliquer une `linearVelocity` et des forces.
 
@@ -81,7 +81,7 @@ Pour créer un `b2Body`, on demande au `b2World` d'en créer un, en lui donnant 
 ---
 
 ## b2BodyDef
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Plusieurs membres intéressants dans `b2BodyDef` :
 
@@ -92,7 +92,7 @@ Plusieurs membres intéressants dans `b2BodyDef` :
 ---
 
 ## b2Body — les types
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Type | Réagit à | Exemple typique |
 |---|---|---|
@@ -103,7 +103,7 @@ Plusieurs membres intéressants dans `b2BodyDef` :
 ---
 
 ## b2Shape
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Un point dans l'espace, c'est bien, mais on veut des **formes** physiques. Celles supportées par Box2D :
 
@@ -116,7 +116,7 @@ Pour un corps **static**, vous pouvez créer une fixture directement avec une sh
 ---
 
 ## b2Fixture (le Collider d'Unity)
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Une shape, c'est bien, mais il nous faut plus d'infos pour gérer les contacts et les collisions :
 
@@ -128,19 +128,19 @@ Une shape, c'est bien, mais il nous faut plus d'infos pour gérer les contacts e
 ---
 
 ## Créer un vrai corps dynamique
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Définir **un** `b2BodyDef`, **une** shape (ici un `b2PolygonShape` en boîte) et **une** `b2Fixture`.
 
 ---
 
 # Relier physique et graphique
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Copier les valeurs du monde physique vers le monde graphique
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On ne voit pas le monde physique tant qu'on n'a pas copié les positions et les rotations vers le monde graphique.
 
@@ -149,7 +149,7 @@ Comme on n'utilise pas les mêmes unités de mesure, il nous faut une façon de 
 ---
 
 ## Déplacer notre personnage
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On modifie la logique précédente : `input -> graphics` devient **`input -> physics -> graphics`**.
 
@@ -163,7 +163,7 @@ Typiquement, on met la **friction à 0.0** et **fixedRotation à true** sur le c
 ---
 
 ## Contact Listener
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Pour pouvoir réagir aux contacts et collisions, il faut créer notre propre **contact listener**, qui sera appelé par le `b2World` s'il y a un contact — méthodes `BeginContact` / `EndContact`.
 
@@ -172,7 +172,7 @@ Un `b2Contact` contient les **deux fixtures** en contact (ou en collision). Depu
 ---
 
 ## User Data
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 `void*` est un pointeur vers quelque chose. Le problème, en C++, c'est qu'on n'a aucun moyen de savoir ce qu'il y a derrière un `void*`.
 
@@ -183,12 +183,12 @@ Avec ce type unique, on peut savoir quel objet entre en collision avec quel autr
 ---
 
 # Un platformer, concrètement
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Platformer goals
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On ne veut sauter **que** lorsqu'on est au sol. Il faut donc récupérer le contact avec le sol.
 
@@ -203,7 +203,7 @@ Plusieurs cas à résoudre :
 ---
 
 ## 1 — Ne pas sauter en l'air
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Utilisez une **fixture séparée pour le pied**, et incrémentez un compteur de contacts à chaque contact.
 
@@ -212,7 +212,7 @@ Utilisez une **fixture séparée pour le pied**, et incrémentez un compteur de 
 ---
 
 ## 2 — Toucher le sol par le côté
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Utiliser une fixture de pied séparée (`isSensor = true`) permet de distinguer le corps du personnage de son pied.
 
@@ -221,7 +221,7 @@ Utiliser une fixture de pied séparée (`isSensor = true`) permet de distinguer 
 ---
 
 ## 3 — Passer d'une plateforme à une autre
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Utiliser une fixture de pied séparée (`isSensor = true`) avec une valeur **entière** permet de passer d'une plateforme à l'autre tout en restant considéré comme au sol :
 
@@ -238,7 +238,7 @@ est encore posé sur la seconde.
 ---
 
 ## 4 — Wall jump
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Comme pour la fixture de pied, vous pouvez ajouter des **fixtures latérales** pour savoir où vous touchez le mur.
 
@@ -249,7 +249,7 @@ Vous pouvez alors donner la possibilité de sauter, mais du **côté opposé** a
 ---
 
 ## 5 — One way platform
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Celle-ci est particulièrement délicate.
 
@@ -258,14 +258,14 @@ Il faut **désactiver le contact** — pas le corps — entre le corps du person
 ---
 
 ## Physical conclusion
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Vous avez maintenant une simulation physique complète ! Vous pouvez évidemment ajouter des comportements physiques plus complexes — on en verra certains sur Unity.
 
 ---
 
 ## Conclusion
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On peut maintenant développer des jeux avec C++.
 

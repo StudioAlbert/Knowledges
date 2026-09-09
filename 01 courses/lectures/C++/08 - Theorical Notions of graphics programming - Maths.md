@@ -14,7 +14,7 @@ manual_order: 18
 ---
 
 # Introduction to maths
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Notions théoriques pour la programmation graphique
 
@@ -29,7 +29,7 @@ séparément.
 ---
 
 ## Source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <div style="color:#fff;">
 
@@ -44,12 +44,12 @@ Exercices : [[Exercices - 08 - Introduction to Maths]]
 ---
 
 # Géométrie et vecteurs
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Number sets
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Ensemble | Contenu |
 |:-:|---|
@@ -61,14 +61,14 @@ Exercices : [[Exercices - 08 - Introduction to Maths]]
 ---
 
 ## Basic geometry
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Let's look at basic geometric facts that might be useful later on.
 
 ---
 
 ## Pythagore
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Given a right triangle :
 
@@ -82,7 +82,7 @@ a² + b² = c²
 ---
 
 ## Trigonometry
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Given a right triangle with angle **α** at vertex A :
 
@@ -101,7 +101,7 @@ Angle at vertex B : **β = 90 − α**
 ---
 
 ## Angle unit
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - **Degree** — 0° à 360°, dans le sens antihoraire
 - **Radian** — 0 à 2π
@@ -113,7 +113,7 @@ Dans Neko Engine, vous pouvez utiliser des fonctions `Sin` et `Cos` spécifiques
 ---
 
 ## Vectors !
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Vectors are defined by :
 
@@ -128,7 +128,7 @@ Différence entre *speed* et *velocity*.
 ---
 
 ## Magnitude
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Using Pythagoras' formula, we can find the length of a vector.
 
@@ -141,7 +141,7 @@ Vector2 example :
 ---
 
 ## Lerp
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 I want to go from point A to point B with `t = 0..1` :
 
@@ -154,7 +154,7 @@ Result = Lerp(A, B, t)
 ---
 
 ## Projection
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Exemple : dans un jeu de course, comment savoir qui est premier et qui est dernier ? On **projette** la position sur le tracé et on compare les valeurs.
 
@@ -163,7 +163,7 @@ Exemple : dans un jeu de course, comment savoir qui est premier et qui est derni
 ---
 
 ## Reflection
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Étant donnée une **normale**, on calcule facilement la réflexion d'un vecteur d'entrée — ce n'est pas toujours un vecteur perpendiculaire.
 
@@ -172,7 +172,7 @@ Exemple : dans un jeu de course, comment savoir qui est premier et qui est derni
 ---
 
 ## Rotation in 2D space
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 En 2D, l'axe de rotation est l'axe **z**. Pour un angle α :
 
@@ -184,7 +184,7 @@ y2 = sin(α) * x1 + cos(α) * y1
 ---
 
 ## Rotation in 3D space
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 En 3D, on utilise les **quaternions** — des objets mathématiques complets et bizarres. On peut générer un quaternion depuis des angles d'Euler, ou depuis un axe et un angle.
 
@@ -193,7 +193,7 @@ En 3D, on utilise les **quaternions** — des objets mathématiques complets et 
 ---
 
 ## Vector 2 — perpendicular
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Il y a **2** vecteurs perpendiculaires à tout vecteur non nul.
 
@@ -206,7 +206,7 @@ V'' = (-y,  x)
 ---
 
 ## Vector 3 — perpendicular
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 En 3D, il y a une **infinité** de vecteurs perpendiculaires à un vecteur donné.
 
@@ -215,12 +215,12 @@ En 3D, il y a une **infinité** de vecteurs perpendiculaires à un vecteur donn�
 ---
 
 # Fonctions et courbes
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Let's talk about math functions
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 f(x) = 3x² + 4x − 7
@@ -233,7 +233,7 @@ f(x) = 3x² + 4x − 7
 ---
 
 ## First degree function
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Ces fonctions sont des **droites**.
 
@@ -250,7 +250,7 @@ Autre nom : **polynôme linéaire**.
 ---
 
 ## Second degree function
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Ces fonctions sont des **paraboles**.
 
@@ -265,7 +265,7 @@ Ou simplement : `f(x) = ax² + bx + c`, où **a** définit si la parabole s'ouvr
 ---
 
 ## Square root
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 f(x) = √x = x^0.5
@@ -276,7 +276,7 @@ C'est l'inverse de la fonction quadratique.
 ---
 
 ## Sinus et cosinus
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On les a découverts avec la trigonométrie, mais ils ont aussi des caractéristiques d'**onde**.
 
@@ -285,7 +285,7 @@ Vous connaissez sûrement des ennemis qui se déplacent en sinusoïde !
 ---
 
 ## Parametric function
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Given `t = [0..2π]` :
 
@@ -303,14 +303,14 @@ X² + Y² = r²
 ---
 
 ## Absolute value
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Peut servir à faire rebondir une balle, en combinaison avec une sinusoïde.
 
 ---
 
 ## Clamp
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 function clamp(x, min, max):
@@ -326,7 +326,7 @@ Vous pouvez utiliser cette fonction quand vous ne voulez pas que votre personnag
 ---
 
 ## (Inbe)tweening ou easing functions
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Le *tweening* est un terme d'animation, mais on peut utiliser des fonctions pour adoucir un mouvement ou un comportement — **parce que le linéaire, c'est moche !**
 
@@ -335,7 +335,7 @@ Le *tweening* est un terme d'animation, mais on peut utiliser des fonctions pour
 ---
 
 ## Normalizing
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Les fonctions 1D qui nous intéressent ont `x = [0..1]` et `y = [0..1]`.
 
@@ -344,21 +344,21 @@ Il est alors facile de simplement multiplier par la valeur que l'on veut.
 ---
 
 ## SmoothStart
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On ne veut pas démarrer d'un coup : on veut une accélération douce au début — c'est-à-dire une tangente **horizontale** au départ, au lieu d'être directement diagonale.
 
 ---
 
 ## SmoothStop
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Même chose, mais on veut finir doucement.
 
 ---
 
 ## Smooth(er)Step
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 Smoothstep   : f(x) = 3x² − 2x³              x = [0, 1]
@@ -370,14 +370,14 @@ Ou en mélangeant **smoothstart** et **smoothstop**.
 ---
 
 ## SmoothArch
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Smooth start **et** smooth stop, mais en faisant un aller-retour.
 
 ---
 
 ## Other curves
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Vous voudrez peut-être implémenter d'autres types de courbes spécifiques :
 
@@ -389,12 +389,12 @@ Vous voudrez peut-être implémenter d'autres types de courbes spécifiques :
 ---
 
 # Les nombres en machine
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Number notations
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Le système Hindou-Arabe compte en **base 10** — probablement parce que nous avons 10 doigts.
 
@@ -411,7 +411,7 @@ Cependant :
 ---
 
 ## Comment un nombre est implémenté dans l'ordinateur
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 À cause de l'électronique, les ordinateurs stockent beaucoup de valeurs en 0 et 1.
 
@@ -437,7 +437,7 @@ Little-Endian : 11000100 00000000 00000000 00000000
 ---
 
 ## Hexadecimal
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Le binaire est souvent encombrant, donc en informatique on aime bien l'**hexadécimal** :
 
@@ -456,19 +456,19 @@ Le passage de l'hexadécimal au binaire est immédiat :
 ---
 
 # Probabilités et combinatoire
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Probability and combinatorics basics
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **The first rule of probability is that your intuition is wrong !**
 
 ---
 
 ## Combinatorics
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Calculer le nombre de possibilités.
 
@@ -477,7 +477,7 @@ Combien de possibilités pour un dé, pour deux dés, … ?
 ---
 
 ## Permutations sans répétition
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Le nombre de possibilités de mettre 6 balles de couleurs différentes dans 6 boîtes ordonnées :
 
@@ -490,7 +490,7 @@ soit 6! = 720
 ---
 
 ## Permutations avec répétition
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Un mot de passe alphanumérique : `a-z0-9`, soit 26 lettres + 10 chiffres = **36**.
 
@@ -503,7 +503,7 @@ Mot de passe de 5 caractères (exemple : `a4fz1`) :
 ---
 
 ## Combinaison sans répétition
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Étant donnés 40 étudiants en game art, les répartir en 2 classes — ou choisir 20 étudiants parmi 40 :
 
@@ -514,7 +514,7 @@ C(40, 20) = 40! / (20! × (40−20)!)
 ---
 
 ## Combinaison avec répétition
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Combien de pièces de domino existe-t-il ?
 
@@ -523,7 +523,7 @@ On a 7 éléments `{blanc, 1, 2, 3, 4, 5, 6}`, pris 2 par 2 : **28**.
 ---
 
 ## Probability basics — la pièce
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Quelle est la probabilité d'obtenir pile sur une pièce suisse ?
 
@@ -532,7 +532,7 @@ Quelle est la probabilité d'obtenir pile sur une pièce suisse ?
 ---
 
 ## Probability basics — le dé
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Quelle est la probabilité d'obtenir un « 6 » sur un dé ?
 
@@ -541,7 +541,7 @@ Quelle est la probabilité d'obtenir un « 6 » sur un dé ?
 ---
 
 ## Probability basics — deux piles d'affilée
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Quelle est la probabilité d'avoir deux fois pile d'affilée ?
 
@@ -559,7 +559,7 @@ tails, heads
 ---
 
 ## Probability basics — la même classe
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Deux amis A et B rejoignent SAE Institute en Game Art, avec 38 autres étudiants répartis en deux classes. Quelle est la probabilité qu'ils finissent dans la même classe ?
 
@@ -579,14 +579,14 @@ du fait que A occupe déjà une des 20 places de sa classe.
 ---
 
 ## Probability basics — les anniversaires
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Quelle est la probabilité que deux personnes de cette classe aient le même anniversaire (jour et mois) ?
 
 ---
 
 ## Probability basics — probabilité conditionnelle
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Quelle est la probabilité d'avoir deux piles d'affilée, **sachant qu'on a déjà fait pile** ?
 
@@ -602,7 +602,7 @@ tails, heads
 ---
 
 ## Théorème de Bayes
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 La probabilité de A sachant B est la probabilité de B sachant A, multipliée par la probabilité de A, divisée par la probabilité de B.
 
@@ -613,12 +613,12 @@ P(A|B) = P(B|A) × P(A) / P(B)
 ---
 
 # Statistiques
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Statistics
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Les ingénieurs utilisent les données pour prendre des décisions, et il vous faut des outils pour analyser ces données.
 
@@ -627,7 +627,7 @@ Vous en aurez besoin pour votre travail de bachelor, et si vous décidez de dév
 ---
 
 ## Expected value
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Ou *average*, ou *expectation*, ou *mean*.
 
@@ -638,7 +638,7 @@ L'*expected value* est la valeur que l'on peut en moyenne attendre.
 ---
 
 ## Variance
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Mesure à quel point un ensemble de nombres est dispersé autour de sa valeur moyenne.
 
@@ -647,7 +647,7 @@ C'est le **carré** de l'écart-type (*standard deviation*).
 ---
 
 ## Median
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Une valeur séparant la moitié haute de la moitié basse d'un échantillon.
 
@@ -658,7 +658,7 @@ Parfois, médiane et *expected value* coïncident.
 ---
 
 ## Statistics test
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Le problème des petits échantillons, c'est que les moyennes partent dans tous les sens.
 
@@ -669,7 +669,7 @@ Les statistiques, c'est essentiellement : étant donné un échantillon, que peu
 ---
 
 ## Student's t-test
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Prenons un exemple : le temps de build de votre projet sur SSD versus sur HDD. Est-ce **statistiquement** plus rapide de builder sur SSD ?
 
@@ -678,7 +678,7 @@ Comme on fait la même chose (builder le même projet dans deux configurations),
 ---
 
 ## Student's t-test — en pratique
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. On définit **p**, la probabilité que l'hypothèse nulle soit vraie (par exemple 5 %).
 2. Dans Excel, on fait un « t-Test: Two-Sample Assuming Unequal Variances » (en français : *Test d'égalité des espérances : deux observations de variances différentes*).
@@ -688,7 +688,7 @@ Comme on fait la même chose (builder le même projet dans deux configurations),
 ---
 
 ## Difference of means
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 On a montré que les populations sont différentes, mais pas **à quel point**.
 
@@ -701,7 +701,7 @@ Si l'intervalle chevauche 0 (5 ± 10, par exemple), c'est que la différence n'e
 ---
 
 ## Un exemple plus concret côté jeu
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Vous travaillez sur votre jeu mobile, avec un mode de jeu spécifique. On veut tester si les joueurs jouent davantage quand on baisse la difficulté. Problème : le temps de jeu part dans tous les sens (1 h par semaine pour certains, 10 h pour d'autres).
 
@@ -712,7 +712,7 @@ On calcule ensuite les différences pour chaque joueur, et on obtient une belle 
 ---
 
 ## Comment utiliser le t-test correctement
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - si **des personnes différentes** sont assignées à la version A et à la version B → test *two-sample*, non apparié
 - si **les mêmes personnes** jouent la version A, puis la B → test **apparié** (*paired test*)
@@ -720,7 +720,7 @@ On calcule ensuite les différences pour chaque joueur, et on obtient une belle 
 ---
 
 ## Binary outcomes
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - **Relative risk** (*risk ratio*) : « les fumeurs ont 4× plus de risques de prendre feu que les non-fumeurs ». Tend à magnifier de petites différences absolues.
 - **Two-sample z-test** (*difference of proportions*) : « la part de marché a monté de 5 %, de 20 % à 25 % ».
@@ -728,7 +728,7 @@ On calcule ensuite les différences pour chaque joueur, et on obtient une belle 
 ---
 
 ## Mann-Whitney test
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Deux versions différentes d'un puzzle, chronométrées avec des testeurs différents (cette fois, pas les mêmes testeurs).
 
@@ -737,7 +737,7 @@ La distribution est **non normale** : il faut alors utiliser le test de Mann-Whi
 ---
 
 ## Conclusion
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Les maths sont votre **outil**. Comme tout outil, vous n'avez pas toujours besoin de savoir comment il est fabriqué, mais vous devez savoir…
 

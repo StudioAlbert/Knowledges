@@ -14,7 +14,7 @@ manual_order: 15
 ---
 
 # Program Structure
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Compilation, function pointers, functors, lambdas
 
@@ -29,7 +29,7 @@ et finalement la lambda, qui remplace les deux.
 ---
 
 ## Source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <div style="color:#fff;">
 
@@ -44,7 +44,7 @@ Exercices : [[Exercices - 06 - Program Structure, Function pointers, lambdas]]
 ---
 
 ## Program structure — les questions
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - What is a program ?
 - What is the entry point ?
@@ -56,12 +56,12 @@ Exercices : [[Exercices - 06 - Program Structure, Function pointers, lambdas]]
 ---
 
 # Entry point
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Entry point !
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 This is where the C stack starts.
 
@@ -85,7 +85,7 @@ int WINAPI WinMain(
 ---
 
 ## Entry point — une seule fois
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - les deux premières formes viennent de la bibliothèque externe C, liée par défaut à votre programme
 - ça peut être désactivé — mais vous n'avez alors plus les bibliothèques C ou C++, tout en pouvant encore utiliser `WinMain` (sous Windows)
@@ -95,12 +95,12 @@ int WINAPI WinMain(
 ---
 
 # Compilation
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Program and compilation — les étapes
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. on prend le fichier et on passe le **préprocesseur**
 2. puis vient la compilation des **templates** (le même processus)
@@ -111,7 +111,7 @@ int WINAPI WinMain(
 ---
 
 ## Mise en pratique
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - create a new file `rectangle.h`
 - create a new file `rectangle.cpp`
@@ -121,7 +121,7 @@ int WINAPI WinMain(
 ---
 
 ## Le header
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #pragma once
@@ -151,7 +151,7 @@ Les pragmas sont des instructions spécifiques au compilateur, mais celle-ci est
 ---
 
 ## Le source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include "rectangle.h"
@@ -171,7 +171,7 @@ bool Rectangle::is_inside(int x, int y) {
 ---
 
 ## L'utilisation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -192,7 +192,7 @@ Vous pouvez inclure `rectangle.h` et l'utiliser comme s'il était déclaré just
 ---
 
 ## Ce que l'on peut inclure
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - you can include stuff you wrote yourself
 - you can include stuff from the internet (almost) — c'est encore un peu trop avancé, il faut mettre en place les bindings
@@ -202,12 +202,12 @@ Vous pouvez inclure `rectangle.h` et l'utiliser comme s'il était déclaré just
 ---
 
 # Directives de précompilation
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## La liste
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 #include
@@ -223,7 +223,7 @@ Vous pouvez inclure `rectangle.h` et l'utiliser comme s'il était déclaré just
 ---
 
 ## `#include`
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `#include <fichier>` — recherche le fichier parmi les **fichiers ressource** (chemins système)
 - `#include "fichier"` — recherche le fichier **selon le chemin indiqué** (relatif au fichier courant)
@@ -231,7 +231,7 @@ Vous pouvez inclure `rectangle.h` et l'utiliser comme s'il était déclaré just
 ---
 
 ## `#define`
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Permet de **substituer du texte** :
 
@@ -241,26 +241,26 @@ Permet de **substituer du texte** :
 ---
 
 ## `#ifdef` `#ifndef` `#else` `#elseif` `#endif`
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Agit comme un **guard** pour les compilations circulaires — empêche les doubles déclarations.
 
 ---
 
 ## `#ifdef` — compilation conditionnelle
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Compilation conditionnelle à certaines déclarations (le système, notamment).
 
 ---
 
 # Fonctions et lambdas
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## Function
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 A function is a set of statements that are called when you call it ; it will return where you called it when finished.
 
@@ -288,7 +288,7 @@ Ceci utilise l'instruction assembleur `[call]`.
 ---
 
 ## Function — valeurs par défaut
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 You can pre-declare a function (in a `.h`, as we'll see later). In the pre-declaration you can specify **default values** :
 
@@ -305,7 +305,7 @@ Watch out for what is valid or not :
 ---
 
 ## Function pointer
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Equivalent of a function, but in a C-style function.
 
@@ -326,7 +326,7 @@ C'est la raison pour laquelle on peut nommer une fonction sans spécifier les pa
 ---
 
 ## Functor
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Equivalent of a function, but in a class structure.
 
@@ -354,7 +354,7 @@ C'est l'ancienne façon de faire ; la suivante montre comment on procède aujour
 ---
 
 ## Lambda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 A lambda is a functor, packaged in a nice way.
 
@@ -374,7 +374,7 @@ int result = power_lambda(2, 20);
 ---
 
 ## Lambda — appel immédiat
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 A lambda has no type — or rather, it has its own type.
 
@@ -389,7 +389,7 @@ You get the return value directly at call time by adding the call parameters at 
 ---
 
 ## Lambda — la capture
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 [capture_list](parameters) -> return_type {

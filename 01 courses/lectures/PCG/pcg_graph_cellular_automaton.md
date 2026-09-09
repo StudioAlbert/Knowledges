@@ -15,7 +15,7 @@ manual_order: 33
 ---
 
 # Procedural Generation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Graphs and cellular automata
 
@@ -31,7 +31,7 @@ the whole difficulty in both halves.
 ---
 
 ## Agenda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **Graphs** — nodes, links, direction, weight
 2. **Minimum spanning tree** — Kruskal, and rooms connected by corridors
@@ -43,7 +43,7 @@ the whole difficulty in both halves.
 ---
 
 # Graphs
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 <small>Discrete mathematics</small>
 
@@ -118,7 +118,7 @@ rather than by *length* changes the generated dungeon completely.
 ---
 
 # Minimum spanning tree
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The set of links of an undirected spanning tree that:
 
@@ -193,7 +193,7 @@ produces corridors that make spatial sense.
 ---
 
 # Trees
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The graph produced by the MST is a special one:
 
@@ -317,7 +317,7 @@ where any answer will do.
 ---
 
 # Cellular automata
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 Second half. The structure changes completely: no more explicit graph, only a
@@ -454,7 +454,7 @@ character controller. Always ask what *the player* can traverse.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `tutorialspoint.com/discrete_mathematics/graph_and_graph_models.htm` — graph primer
 - `geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/` — Kruskal

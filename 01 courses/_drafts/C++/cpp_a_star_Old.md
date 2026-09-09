@@ -7,7 +7,7 @@ transition: slide
 ---
 
 # A\* — Pathfinding en C++ moderne
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Cours · théorie + lecture de code + optimisations</small>
 
@@ -20,7 +20,7 @@ Les étudiants travaillent sur la branche 925 (pas encore d'A*) : ce cours
 leur donne la cible à atteindre.
 
 ---
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ## Déroulé
 
 <div style="color:#fff;">
@@ -38,7 +38,7 @@ leur donne la cible à atteindre.
 ---
 
 ## Partie 1
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ### Qu'est-ce que A\* ?
 
 ---
@@ -122,7 +122,7 @@ Fallback si l'iframe ne charge pas : ouvrir 00 widgets/_widgets/astar_widgets.ht
 ---
 
 ## Partie 2
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ### Analyse de `FindPath`
 
 <small style="color:#fff;">Fichier : <code>core/include/ai/a_star.h</code> · namespace <code>core::ai::pathfinding</code></small>
@@ -412,7 +412,7 @@ TEST(Pathfinding, NonSquareGrid) {            // 4 de large × 3 de haut
 ---
 
 ## Partie 3
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ### Optimisations possibles
 
 <small style="color:#fff;">Classées par effort / gain.</small>
@@ -468,7 +468,7 @@ TEST(Pathfinding, NonSquareGrid) {            // 4 de large × 3 de haut
 > Refactor pour l'**architecture**, mais **mesure** avant/après.
 
 ---
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ## Bilan
 
 <div style="color:#fff;">

@@ -28,16 +28,16 @@ Ce qu'est un gestionnaire de version, instantané contre différence, zone d'ind
 
 **Découper un deck existant.** `00 Tips - How to (Git, etc.)` (3,9 ko) porte 3 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-GTE-02`, `GPR-CF-GTE-03` — les découper en une seule passe évite de rouvrir le deck 3 fois.
 
+Rappatrier images des principes Git, etc.
+
 ## Matériel
 
-- Support : [[00 Tips - How to (Git, etc.)]] — `01 courses/lectures/C++/00 Tips - How to (Git, etc.).md` (3,9 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1ynVuF4Stssp_Qah9BGvz-qCh7j1czABkqER7qZmVcLE/edit
+- [[01 courses/slides/C++/GPR-CF-GTE-01 - Principes et premier dépôt|Slides GPR-CF-GTE-01 - Principes et premier dépôt]] 
+- Slides d'origine : https://docs.google.com/presentation/d/1ynVuF4Stssp_Qah9BGvz-qCh7j1czABkqER7qZmVcLE/edit
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Git et Travail en Équipe.md`, ligne `01`
 
 ## Liens
 
 - Séance précédente : —
 - Séance suivante : [[GPR-CF-GTE-02 - Branches et intégration]]
-
-## Notes de préparation
 

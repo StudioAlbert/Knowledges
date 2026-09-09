@@ -14,7 +14,7 @@ manual_order: 22
 ---
 
 # A\* — Pathfinding en C++ moderne
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Cours · théorie + lecture de code + optimisations</small>
 
@@ -27,7 +27,7 @@ Les étudiants travaillent sur la branche 925 (pas encore d'A*) : ce cours
 leur donne la cible à atteindre.
 
 ---
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ## Sources
 
 <div style="color:#fff;">
@@ -43,7 +43,7 @@ Inclus localement :
 </div>
 
 ---
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ## Déroulé
 
 <div style="color:#fff;">
@@ -64,7 +64,7 @@ Inclus localement :
 ---
 
 ## Partie 1
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ### Qu'est-ce que A\* ?
 
 ---
@@ -181,7 +181,7 @@ Fallback si l'iframe ne charge pas : ouvrir 00 widgets/_widgets/astar_widgets.ht
 ---
 
 ## Partie 2
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ### Construire A\* à la main
 
 <small style="color:#fff;">On le re-construit pas à pas : contrat → structures → voisins → boucle → chemin.</small>
@@ -196,7 +196,7 @@ partie, on a tout vu — la 2.7 demande de tout assembler soi-même.
 ---
 
 ## 2.1 — Le contrat
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Que reçoit `FindPath`, que rend-il ?</small>
 
@@ -239,7 +239,7 @@ if (!grid[end.x, end.y].walkable)
 ---
 
 ## 2.2 — `std::unordered_set` : extraire les positions
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Représenter le terrain par un **ensemble de positions**, pas par une grille dense.</small>
 
@@ -342,7 +342,7 @@ bool operator==(Vec2i a, Vec2i b) {
 ---
 
 ## 2.3 — Le `Node` et la file de priorité
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Ce qu'on met dans l'open list, et comment on en sort le minimum.</small>
 
@@ -408,7 +408,7 @@ Fallback si l'iframe ne charge pas : ouvrir le lien Excalidraw directement.
 ---
 
 ## 2.4 — Voisins & heuristique
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Définir le déplacement, choisir `h`.</small>
 
@@ -446,7 +446,7 @@ auto manhattan = [](Vec2i a, Vec2i b){
 ---
 
 ## 2.5 — La boucle principale
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Pop min-`f`, marquer, edge-relax, recommencer.</small>
 
@@ -504,7 +504,7 @@ return std::unexpected(PathError::kNoPathFound);
 ---
 
 ## 2.6 — Reconstruire le chemin
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Remonter `came_from`, puis inverser.</small>
 
@@ -537,7 +537,7 @@ if (cur.pos == end) {
 ---
 
 ## 2.7 — À vous
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <div style="color:#fff;">
 
@@ -563,7 +563,7 @@ Le critère d'acceptation de chaque étape sert de petit test mental
 ---
 
 ## Partie 3
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 ### Optimisations possibles
 
 <small style="color:#fff;">Classées par effort / gain.</small>
@@ -596,7 +596,7 @@ Annexes
 ---
 
 ## 2.2 — `std::mdspan` : la grille sans copie
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small style="color:#fff;">Une vue multidim posée sur un buffer 1D contigu.</small>
 

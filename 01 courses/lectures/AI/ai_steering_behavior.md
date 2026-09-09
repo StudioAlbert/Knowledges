@@ -15,7 +15,7 @@ manual_order: 5
 ---
 
 # AI Fundamentals
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Movements: Steering Behaviours
 
@@ -29,7 +29,7 @@ object and starts looking like a creature.
 ---
 
 ## Where we are
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Layer | Question | This lecture |
 | --- | --- | --- |
@@ -47,7 +47,7 @@ Drawing this three-layer split early prevents the usual confusion between
 ---
 
 # Following a path
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 **Implementation:** the agent follows a single path — a list of points — and
 edits its `transform` every frame.
@@ -107,7 +107,7 @@ the subtraction never changes.
 ---
 
 # Steering behaviours
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 Go through them in order. Each one is one line of vector maths, and each one
@@ -301,7 +301,7 @@ the perception radius is what makes a thousand boids affordable.
 ---
 
 # Combining behaviours
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 The second half of the lecture, and the more interesting one. Every game needs
@@ -437,7 +437,7 @@ agent teleports.
 ---
 
 # In use
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 - **RTS** — hundreds of units sharing a flow field, kept apart by separation and
   avoidance
@@ -452,7 +452,7 @@ steering behaviours say *how*, and neither works alone in a crowd.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `red3d.com/cwr/steer/gdc99/` — Craig Reynolds, the founding paper
 - `gamedevelopment.tutsplus.com/series/understanding-steering-behaviors--gamedev-12732` — behaviour by behaviour

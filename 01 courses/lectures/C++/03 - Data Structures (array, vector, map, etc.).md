@@ -14,7 +14,7 @@ manual_order: 13
 ---
 
 # Data Structures
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### array, vector, list, queue, stack, map, set
 
@@ -29,7 +29,7 @@ qui explique les avantages et les inconvénients.
 ---
 
 ## Source
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <div style="color:#fff;">
 
@@ -44,7 +44,7 @@ Exercices : [[Exercices - 03 - Data Structures]] · [[Exercices - 03 - Data Stru
 ---
 
 ## Stocker des valeurs
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - Enemies
 - Joueurs
@@ -53,12 +53,12 @@ Exercices : [[Exercices - 03 - Data Structures]] · [[Exercices - 03 - Data Stru
 ---
 
 # Séquences
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## std::array
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Avantages**
 
@@ -73,7 +73,7 @@ Exercices : [[Exercices - 03 - Data Structures]] · [[Exercices - 03 - Data Stru
 ---
 
 ## Mémoire de l'ordinateur (stack)
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 std::array<int, 6>
@@ -88,7 +88,7 @@ Un bloc contigu, de taille figée à la compilation, posé sur la **stack**.
 ---
 
 ## std::vector
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <vector>   // nouvelle include
@@ -110,7 +110,7 @@ for (int n : numbers) {
 ---
 
 ## Mémoire de l'ordinateur — vector
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 std::vector<int>(10);
@@ -132,7 +132,7 @@ amorti rapide — jusqu'à la réallocation.
 ---
 
 ## std::vector — opérations
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Affectation**
 
@@ -148,7 +148,7 @@ amorti rapide — jusqu'à la réallocation.
 ---
 
 ## std::vector — déclarations
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 vector<char> vc;               // empty
@@ -161,7 +161,7 @@ vector<int>  v4(v1);           // copy of v1
 ---
 
 ## std::vector — accès indexé
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 std::vector<int> numbers = std::vector<int>(6);
@@ -181,7 +181,7 @@ for (int i = 0; i < numbers.size(); i++) {
 ---
 
 ## std::vector — bilan
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Avantages**
 
@@ -198,7 +198,7 @@ for (int i = 0; i < numbers.size(); i++) {
 ---
 
 ## std::list
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <list>   // nouvelle include
@@ -222,7 +222,7 @@ for (auto value : numbers) {
 ---
 
 ## std::list — bilan
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Avantages**
 
@@ -237,7 +237,7 @@ for (auto value : numbers) {
 ---
 
 ## Mémoire de l'ordinateur — list
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 std::list<int>(3)
@@ -252,7 +252,7 @@ Chaque nœud est alloué séparément et pointe vers le suivant : on peut insér
 ---
 
 ## std::vector vs std::list
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **`std::vector`**
 
@@ -267,12 +267,12 @@ Chaque nœud est alloué séparément et pointe vers le suivant : on peut insér
 ---
 
 # Adaptateurs
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## std::queue
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <queue>   // nouvelle include
@@ -295,14 +295,14 @@ Affiche : `1 2 3 4`
 ---
 
 ## std::queue — FIFO
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **First-in, First-out**
 
 ---
 
 ## std::queue — bilan
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Avantages**
 
@@ -316,7 +316,7 @@ Affiche : `1 2 3 4`
 ---
 
 ## std::stack
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <stack>   // nouvelle include
@@ -339,14 +339,14 @@ Affiche : `4 3 2 1`
 ---
 
 ## std::stack — LIFO
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Last-in, First-out**
 
 ---
 
 ## std::stack — bilan
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Avantages**
 
@@ -360,7 +360,7 @@ Affiche : `4 3 2 1`
 ---
 
 ## std::queue vs std::stack
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **`std::queue`**
 
@@ -380,12 +380,12 @@ bien des cas d'usage de la stack.
 ---
 
 # Associatifs
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
 ## std::map
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <map>   // nouvelle include
@@ -422,7 +422,7 @@ d'insertion. La `map` est triée par clé, en permanence.
 ---
 
 ## std::set
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <set>   // nouvelle include
@@ -451,7 +451,7 @@ Table
 ---
 
 ## std::unordered_map & std::unordered_set
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 In case you have too many elements, you'd better use `unordered_map` and `unordered_set`.
 

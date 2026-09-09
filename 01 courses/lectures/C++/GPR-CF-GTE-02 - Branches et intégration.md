@@ -38,7 +38,7 @@ Créer et changer de branche, merge, rebase, ce que chacun réécrit, conflit et
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-GTE-01 - Principes et premier dépôt]]
+- Séance précédente : [[01 courses/lectures/C++/GPR-CF-GTE-01 - Principes et premier dépôt]]
 - Séance suivante : [[GPR-CF-GTE-03 - Travail à plusieurs et fichiers lourds]]
 
 ## Notes de préparation

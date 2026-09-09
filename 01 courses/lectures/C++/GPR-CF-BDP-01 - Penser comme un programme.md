@@ -2,7 +2,7 @@
 title: Penser comme un programme
 type: seance
 code: GPR-CF-BDP-01
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation
@@ -32,15 +32,13 @@ Ce qu'est la programmation, analogies Lego et recette de cuisine, pseudocode, di
 
 ## Matériel
 
-- Support : [[01.01 - Programming Basics - if, loops]] — `01 courses/lectures/C++/01.01 - Programming Basics - if, loops.md` (17,9 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1BWCyCFyfi5hxUMsSEnCvPpweoJpYSvnvFNRjcZIJTmU/edit
-    - Exercices : [[Exercices - 01 - Programming Basics]]
+- Support : [[01 courses/slides/C++/GPR-CF-BDP-01 - Penser comme un programme]]
+- Slides d'origine : https://docs.google.com/presentation/d/1BWCyCFyfi5hxUMsSEnCvPpweoJpYSvnvFNRjcZIJTmU/edit
+- Exercices : [[Exercices - 01 - Programming Basics]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Bases de la Programmation.md`, ligne `01`
 
 ## Liens
 
 - Séance précédente : —
-- Séance suivante : [[GPR-CF-BDP-02 - Premières lignes de C++]]
-
-## Notes de préparation
+- Séance suivante : [[01 courses/lectures/C++/GPR-CF-BDP-02 - Premières lignes de C++]]
 

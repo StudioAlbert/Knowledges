@@ -39,7 +39,7 @@ La fonction `main`, pourquoi découper en fonctions, pré-déclaration, syntaxe,
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-BDP-02 - Premières lignes de C++]]
+- Séance précédente : [[01 courses/lectures/C++/GPR-CF-BDP-02 - Premières lignes de C++]]
 - Séance suivante : [[GPR-CF-BDP-04 - Branches et boucles]]
 
 ## Notes de préparation

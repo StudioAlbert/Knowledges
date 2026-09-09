@@ -10,7 +10,7 @@ source_slides: https://docs.google.com/presentation/d/1B3tzViqqicNWe_oAYo197ClvV
 ---
 
 # PCG — Annexes
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>Deux fiches techniques sorties du cours principal : la formule de coupe
 BSP, et le masque de bits des voisins de tuile.</small>
@@ -23,7 +23,7 @@ de référence à projeter pendant le TP. Ils sont reconstruits ici à partir de
 ---
 
 # Coupe BSP — verticale
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Une région est décrite par `xMin, xMax, yMin, yMax`. La coupe **verticale** se
 place à :
@@ -49,7 +49,7 @@ d'une case de large. À rappeler à chaque TP BSP.
 ---
 
 # Coupe BSP — horizontale
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Même formule sur l'autre axe :
 
@@ -72,7 +72,7 @@ Cours de référence : [[pcg_introduction]], slide *Binary space partitioning*.
 ---
 
 # Masque de voisinage
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Quatre directions, quatre bits — un entier par tuile décrit tout son voisinage :
 
@@ -100,7 +100,7 @@ masque vaut `1111` est entourée de murs, donc invisible et sans collider.
 ---
 
 # Utilisation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```text
    mask = 0

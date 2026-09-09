@@ -10,7 +10,7 @@ source_slides: https://docs.google.com/presentation/d/1UdWkuQDiRLKUcL6KLw971Oaxb
 ---
 
 # Unity advanced
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Static classes
 
@@ -26,7 +26,7 @@ captures). Voir la note d'import dans `02 Notes/Historique`.
 ---
 
 # Singleton
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Ensure a class has one instance, and provide a global point of access to it.
 
@@ -41,7 +41,7 @@ qui pose problème.
 ---
 
 # Everyone can access
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Everyone can make mess happen
 
@@ -55,7 +55,7 @@ singleton est une variable globale à laquelle on a mis une cravate.
 ---
 
 # Singleton Player Object
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ### Only one? What if I need two…
 
@@ -70,7 +70,7 @@ contrainte de code.
 ---
 
 # Service Locator
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 L'alternative présentée dans le deck : au lieu que chaque classe expose sa
 propre instance, un **registre** rend un service à la demande.
@@ -92,7 +92,7 @@ l'injection de dépendances.
 ---
 
 # References
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `fr.wikipedia.org/wiki/Singleton_(patron_de_conception)`
 - `gamedevbeginner.com/singletons-in-unity-the-right-way/`

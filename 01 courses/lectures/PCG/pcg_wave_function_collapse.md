@@ -15,7 +15,7 @@ manual_order: 35
 ---
 
 # Procedural Content Generation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### WaveFunctionCollapse
 
@@ -49,7 +49,7 @@ once, then use the borrowed vocabulary anyway, because the whole literature does
 ---
 
 # How it works
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Two ingredients, and nothing else:
 
@@ -128,7 +128,7 @@ heuristic, discovered by hand.
 ---
 
 # The algorithm
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
@@ -254,7 +254,7 @@ worth it. Usually it is not — loosening the rule set is.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - `github.com/mxgmn/WaveFunctionCollapse` — the original implementation
 - `boristhebrave.com/2020/04/13/wave-function-collapse-explained/`

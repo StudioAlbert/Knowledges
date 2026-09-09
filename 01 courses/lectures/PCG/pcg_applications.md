@@ -15,7 +15,7 @@ manual_order: 32
 ---
 
 # Procedural Generation
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ### Applications
 
@@ -30,7 +30,7 @@ likely?
 ---
 
 ## Agenda
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. **Simple room placement** — the cheapest dungeon that works
 2. **Mazes** — what a maze must contain to be a level
@@ -42,7 +42,7 @@ likely?
 ---
 
 # Simple room placement
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 The whole algorithm:
 
@@ -66,7 +66,7 @@ Delaunay, then MST, exactly as in the previous lecture.
 ---
 
 # Mazes
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 A maze is not a level. A maze becomes a level once it has:
 
@@ -130,7 +130,7 @@ design intents.
 ---
 
 # Dijkstra maps
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Generate a map of the **distance from a starting point** — typically with BFS.
 
@@ -218,7 +218,7 @@ when it is done well.
 ---
 
 # Carving
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
@@ -262,7 +262,7 @@ blobby rooms. Different games.
 ---
 
 # Distributions
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---
 
@@ -347,7 +347,7 @@ frequency doubles.
 ---
 
 # From algorithm to geometry
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 All of this is nice to *watch*. A game needs **geometry** out of those abstract
 tiles and points.
@@ -366,7 +366,7 @@ first. Same level, twenty times the cost.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Terrain and meshes**
 
@@ -380,7 +380,7 @@ first. Same level, twenty times the cost.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 **Dungeons and mazes**
 

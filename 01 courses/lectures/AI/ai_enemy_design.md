@@ -15,7 +15,7 @@ manual_order: 2
 ---
 
 # Enemy Design
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>The design brief the AI programmer is implementing</small>
 
@@ -28,7 +28,7 @@ has learned half the subject.
 ---
 
 ## Who are the enemies?
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Entities that **mimic living characters** — plants, insects, mammals, humans —
 that can **hurt the player** and could be **killable**.
@@ -41,7 +41,7 @@ design decision.</small>
 ---
 
 ## Four principles
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 - **Form follows attributes** — the silhouette must announce the behaviour
 - **Fighting an enemy should be fun**
@@ -97,7 +97,7 @@ statement about the whole encounter, not just about one enemy.</small>
 ---
 
 ## Why fight them at all?
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 - they have the **loot**
 - they **block the path**
@@ -113,7 +113,7 @@ one. The last item is not a joke — taunting is a real and cheap motivator.
 ---
 
 # A taxonomy
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Note:
 Eleven archetypes. For each one, ask the class which decision structure from
@@ -239,7 +239,7 @@ unit of design, not the enemy.
 ---
 
 # Attacks
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 | Family | Examples |
 | --- | --- |
@@ -260,7 +260,7 @@ whole encounter without doing a single point of damage.
 ---
 
 # What good design looks like
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 Good enemy design makes behaviours **distinct**, **consistent** and
 **discernible** — which makes them **learnable**.
@@ -347,7 +347,7 @@ readability work is everything.
 ---
 
 # Conclusion
-<!-- .slide: data-background="00 images/01_slide_GP_GA_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 As in the level design course, **enemies are architectural elements** in your
 game. Placing them matters as much as placing platforms and walls.
@@ -363,7 +363,7 @@ implementation is downstream of this slide.
 ---
 
 # Resources
-<!-- .slide: data-background="00 images/01_slide_fond_GP_22_08_22.jpg" -->
+<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - **Game Maker's Toolkit** — `youtube.com/channel/UCqJ-Xo29CKyLTjn6z2XwYAw`
 - *Rules of the Game: Five techniques from quite inventive designers* —
