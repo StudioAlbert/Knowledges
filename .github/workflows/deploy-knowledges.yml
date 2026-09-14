@@ -49,10 +49,14 @@ jobs:
       # --delete : le VPS reflète exactement dist/. Tout fichier posé à la main
       # dans /var/www/knowledges sera effacé au déploiement suivant.
       # Si la clé est restreinte par `rrsync -wo /var/www`, la cible devient `knowledges/`.
+      # Permissions forcées en lecture pour tous (-p + --chmod) : `deploy` n'est pas
+      # membre de www-data, le setgid ne survit donc pas aux chmod de rsync et les
+      # fichiers finissent en deploy:deploy, illisibles par nginx en 750/640.
+      # L'accès web reste protégé par le Basic Auth.
       - name: Rsync
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
         run: |
-          rsync -rltz --delete --chmod=D750,F640 \
+          rsync -rlptz --delete --chmod=D755,F644 \
             -e "ssh -i ~/.ssh/id_ed25519" \
             dist/ "deploy@${VPS_HOST}:/var/www/knowledges/"
