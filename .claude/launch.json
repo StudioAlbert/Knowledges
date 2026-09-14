@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "knowledges-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "site-build/dist", "-l", "4173"],
+      "port": 4173
+    }
+  ]
+}

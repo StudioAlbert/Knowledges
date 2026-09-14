@@ -1,0 +1,19 @@
+{
+  "name": "knowledges-site",
+  "private": true,
+  "type": "module",
+  "description": "Génère le site statique des supports de cours (slides reveal.js + exercices) pour knowledges.studio-albert.com",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "npx --yes serve dist"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.10.0",
+    "markdown-it": "^14.1.0",
+    "reveal.js": "^5.1.0"
+  }
+}

@@ -9,6 +9,10 @@
 .DS_Store
 Thumbs.db
 
+# Générateur du site des supports (sortie reconstruite par la CI)
+site-build/node_modules/
+site-build/dist/
+
 # Worktrees temporaires des agents Claude (ne pas committer)
 .claude/worktrees/
 
