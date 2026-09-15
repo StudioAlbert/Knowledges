@@ -1,7 +1,13 @@
 // Génère le site statique des supports de cours à partir du vault Obsidian.
 //
-//   01 courses/slides/<catégorie>/*.md     → decks reveal.js (format Advanced Slides)
-//   01 courses/exercises/<catégorie>/*.md  → pages HTML
+//   01 courses/slides/<catégorie>/<CODE> - *.md  → deck reveal.js (format Advanced Slides)
+//   01 courses/exercises/<catégorie>/*.md        → onglet Exercices de la séance
+//   01 courses/resources/<catégorie>/*.md        → onglet Ressources de la séance
+//
+// Le site est organisé par séance (code GPR-CF-BDP-01…). Une séance n'est publiée
+// que si le frontmatter de ses slides porte `publish: true`. Un exercice ou une
+// ressource s'y rattache par `seances: [CODE, …]` ou par un nom commençant par le code.
+// Rien d'autre n'est publié.
 //
 // Tout dossier dont le nom commence par `_` est ignoré (_archives_to_cut, _drafts…).
 // Sortie : site-build/dist/, déployée telle quelle sur le VPS.
@@ -25,6 +31,7 @@ const DIST = path.join(HERE, 'dist');
 const KINDS = [
   { dir: 'slides', label: 'Slides', urlSegment: 'slides' },
   { dir: 'exercises', label: 'Exercices', urlSegment: 'exercices' },
+  { dir: 'resources', label: 'Ressources', urlSegment: 'ressources' },
 ];
 
 const IMAGE_EXT = /\.(png|jpe?g|gif|svg|webp|avif)$/i;
@@ -94,7 +101,6 @@ async function collect() {
         const { data, content } = matter(await fs.readFile(file, 'utf8'));
         const name = path.basename(file, '.md');
         const h1 = content.match(/^#\s+(.+)$/m)?.[1];
-        const slug = slugify(name);
         items.push({
           kind,
           category: cat.name,
@@ -105,8 +111,8 @@ async function collect() {
           title: data.title ?? h1 ?? name,
           fm: data,
           body: content,
-          url: `/${slugify(cat.name)}/${kind.urlSegment}/${slug}/`,
-          out: path.join(DIST, slugify(cat.name), kind.urlSegment, slug),
+          url: null, // fixés par buildSeances pour les documents publiés
+          out: null,
         });
       }
     }
@@ -114,12 +120,49 @@ async function collect() {
   return items;
 }
 
+// Regroupe les documents par séance active et fixe leurs URLs de sortie.
+function buildSeances(items) {
+  const seances = new Map();
+  for (const deck of items.filter((it) => it.kind.dir === 'slides' && it.code).sort(byName)) {
+    if (deck.fm.publish !== true) continue;
+    const slug = slugify(deck.code);
+    const url = `/${slugify(deck.category)}/${slug}/`;
+    const out = path.join(DIST, slugify(deck.category), slug);
+    Object.assign(deck, { url: url + 'slides/', out: path.join(out, 'slides') });
+    seances.set(deck.code, { code: deck.code, category: deck.category, title: deck.title, url, out, deck, exercises: [], resources: [] });
+  }
+
+  const known = new Set(items.map((it) => it.code).filter(Boolean));
+  for (const item of items.filter((it) => it.kind.dir !== 'slides').sort(byName)) {
+    const codes = new Set([...[item.fm.seances ?? []].flat().map(String), ...(item.code ? [item.code] : [])]);
+    for (const code of codes) {
+      const seance = seances.get(code);
+      if (!seance) {
+        if (!known.has(code)) console.warn(`  ⚠ ${item.name} : séance inconnue ${code}`);
+        continue;
+      }
+      (item.kind.dir === 'exercises' ? seance.exercises : seance.resources).push(item);
+      // Un document partagé entre séances est rendu dans chacune ; ses liens pointent vers la première.
+      if (!item.url) Object.assign(item, { url: `${seance.url}#${item.kind.urlSegment}`, out: seance.out });
+    }
+  }
+
+  for (const s of seances.values()) {
+    if (!s.exercises.length) console.warn(`  ⚠ ${s.code} : aucun exercice rattaché`);
+  }
+  return [...seances.values()];
+}
+
 // ---------------------------------------------------------------------------
 // Résolution des liens et images Obsidian
 
 class Resolver {
+  // `items` : documents publiés uniquement ; un lien vers autre chose devient du texte.
   constructor(items, imageIndex) {
     this.byName = new Map(items.map((it) => [it.name.toLowerCase(), it]));
+    // Chemin vault sans extension : départage un deck et un exercice de même nom.
+    const vaultPath = (it) => path.relative(ROOT, it.file).replace(/\\/g, '/').replace(/\.md$/, '').toLowerCase();
+    this.byPath = new Map(items.map((it) => [vaultPath(it), it]));
     this.imageIndex = imageIndex; // nom de fichier → chemin dans 00 images
     this.copies = new Map(); // destination → source
   }
@@ -132,7 +175,8 @@ class Resolver {
     if (existsSync(local) && !local.startsWith(IMAGES)) {
       const dest = path.join(item.out, clean);
       this.copies.set(dest, local);
-      return encodePath(clean.replace(/\\/g, '/'));
+      // Absolue : le document peut être rendu dans une autre page que son dossier de sortie.
+      return '/' + encodePath(path.relative(DIST, dest).replace(/\\/g, '/'));
     }
     if (this.imageIndex.has(base)) return '/assets/images/' + encodeURIComponent(base);
     console.warn(`  ⚠ image introuvable dans ${item.name} : ${ref}`);
@@ -154,8 +198,9 @@ class Resolver {
       })
       .replace(/\[\[([^\]]+)\]\]/g, (all, inner) => {
         const [target, alias] = inner.split('|');
-        const label = alias ?? target.split('#')[0];
-        const hit = this.byName.get(path.basename(target.split('#')[0]).trim().toLowerCase());
+        const label = alias ?? path.basename(target.split('#')[0]);
+        const key = target.split('#')[0].trim().toLowerCase();
+        const hit = this.byPath.get(key) ?? this.byName.get(path.basename(key));
         return hit ? `[${label}](${hit.url})` : label;
       });
   }
@@ -190,7 +235,8 @@ function splitSlides(body) {
   return slides.map((s) => s.join('\n').trim()).filter(Boolean);
 }
 
-async function renderDeck(item, resolver, themes) {
+async function renderDeck(seance, resolver, themes) {
+  const item = seance.deck;
   const theme = themes.has(item.fm.theme) ? item.fm.theme : 'white';
   const css = [item.fm.css ?? []].flat().map((c) => {
     const name = path.basename(c);
@@ -223,7 +269,8 @@ ${css.map((href) => `<link rel="stylesheet" href="${href}">`).join('\n')}
 <style>.deck-home{position:fixed;top:10px;left:12px;z-index:30;font:13px system-ui,sans-serif;color:#888;text-decoration:none}.deck-home:hover{color:#E30613}</style>
 </head>
 <body>
-<a class="deck-home" href="/">← Supports</a>
+<a class="deck-home" href="${seance.url}" target="_top">← ${escapeHtml(seance.code)}</a>
+<script>if (window.self !== window.top) document.querySelector('.deck-home').hidden = true;</script>
 <div class="reveal"><div class="slides">
 ${sections}
 </div></div>
@@ -293,32 +340,70 @@ ${body}
 `;
 }
 
-async function renderPage(item, resolver) {
-  const html = md.render(resolver.markdown(item, item.body));
-  const crumbs = ` <span>›</span> ${escapeHtml(item.category)} <span>›</span> ${item.kind.label}`;
-  await writeFile(path.join(item.out, 'index.html'), pageShell(item.title, `<article>\n${html}</article>`, { crumbs }));
+// ---------------------------------------------------------------------------
+// Page de séance : onglets Slides / Exercices / Ressources
+
+// Active l'onglet désigné par le hash (#slides par défaut). Sans JS, tout reste visible.
+const TABS_SCRIPT = `(() => {
+  const tabs = [...document.querySelectorAll('.tabs [data-tab]')];
+  const show = (name) => {
+    const tab = tabs.find((t) => t.dataset.tab === name && !t.disabled) ?? tabs[0];
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      document.getElementById('tab-' + t.dataset.tab).hidden = !on;
+    }
+  };
+  for (const t of tabs) t.addEventListener('click', () => { history.replaceState(null, '', '#' + t.dataset.tab); show(t.dataset.tab); });
+  addEventListener('hashchange', () => show(location.hash.slice(1)));
+  show(location.hash.slice(1));
+})();`;
+
+async function renderSeance(seance, resolver) {
+  const docs = (list) => list.map((it) => `<article>\n${md.render(resolver.markdown(it, it.body))}</article>`).join('\n');
+  const panels = [
+    {
+      id: 'slides',
+      label: 'Slides',
+      count: null,
+      html: `<iframe class="deck-frame" src="slides/" title="${escapeHtml(seance.title)}" allowfullscreen></iframe>
+<p class="deck-actions"><a href="slides/" target="_blank" rel="noopener">Plein écran ↗</a></p>`,
+    },
+    { id: 'exercices', label: 'Exercices', count: seance.exercises.length, html: docs(seance.exercises) },
+    { id: 'ressources', label: 'Ressources', count: seance.resources.length, html: docs(seance.resources) },
+  ];
+
+  const tabs = panels
+    .map((p) => {
+      const count = p.count === null ? '' : ` <small>${p.count}</small>`;
+      return `<button type="button" role="tab" data-tab="${p.id}"${p.count === 0 ? ' disabled' : ''}>${p.label}${count}</button>`;
+    })
+    .join('');
+  const sections = panels.map((p) => `<section class="tab-panel" id="tab-${p.id}" role="tabpanel">\n${p.html}\n</section>`).join('\n');
+
+  const crumbs = ` <span>›</span> ${escapeHtml(seance.category)} <span>›</span> ${escapeHtml(seance.code)}`;
+  const body = `<p class="code">${escapeHtml(seance.code)}</p>
+<h1>${escapeHtml(seance.title)}</h1>
+<nav class="tabs" role="tablist">${tabs}</nav>
+${sections}
+<script>${TABS_SCRIPT}</script>`;
+  await writeFile(path.join(seance.out, 'index.html'), pageShell(`${seance.code} - ${seance.title}`, body, { crumbs }));
 }
 
 // ---------------------------------------------------------------------------
 // Accueil
 
-async function renderIndex(items) {
-  const categories = [...new Set(items.map((it) => it.category))].sort((a, b) => a.localeCompare(b, 'fr'));
+async function renderIndex(seances) {
+  const categories = [...new Set(seances.map((s) => s.category))].sort((a, b) => a.localeCompare(b, 'fr'));
   const blocks = categories.map((cat) => {
-    const columns = KINDS.map((kind) => {
-      const list = items.filter((it) => it.category === cat && it.kind === kind).sort(byName);
-      if (!list.length) return '';
-      const lis = list
-        .map((it) => {
-          const code = it.code ? `<span class="code">${escapeHtml(it.code)}</span>` : '';
-          return `<li><a href="${it.url}">${code}${escapeHtml(it.title)}</a></li>`;
-        })
-        .join('\n');
-      return `<div class="column"><h3>${kind.label} <small>${list.length}</small></h3><ul>\n${lis}\n</ul></div>`;
-    }).join('\n');
-    return `<section class="category"><h2>${escapeHtml(cat)}</h2><div class="columns">${columns}</div></section>`;
+    const lis = seances
+      .filter((s) => s.category === cat)
+      .map((s) => `<li><a href="${s.url}"><span class="code">${escapeHtml(s.code)}</span>${escapeHtml(s.title)}</a></li>`)
+      .join('\n');
+    return `<section class="category"><h2>${escapeHtml(cat)}</h2><ul class="seance-list">\n${lis}\n</ul></section>`;
   });
-  const body = `<h1>Supports de cours</h1>\n<p class="lead">SAE Institute Genève — Games Programming</p>\n${blocks.join('\n')}`;
+  const empty = seances.length ? '' : '<p class="lead">Aucune séance publiée pour le moment.</p>';
+  const body = `<h1>Supports de cours</h1>\n<p class="lead">SAE Institute Genève — Games Programming</p>\n${empty}${blocks.join('\n')}`;
   await writeFile(path.join(DIST, 'index.html'), pageShell('Supports de cours', body));
 }
 
@@ -354,17 +439,20 @@ async function main() {
   const themes = new Set(
     (await fs.readdir(path.join(REVEAL, 'dist/theme'))).filter((f) => f.endsWith('.css')).map((f) => f.slice(0, -4)),
   );
-  const resolver = new Resolver(items, imageIndex);
+  const seances = buildSeances(items);
+  const published = items.filter((it) => it.url);
+  const resolver = new Resolver(published, imageIndex);
 
-  for (const item of items) {
-    console.log(`${item.kind.label.padEnd(9)} ${item.category} / ${item.name}`);
-    if (item.kind.dir === 'slides') await renderDeck(item, resolver, themes);
-    else await renderPage(item, resolver);
+  for (const seance of seances) {
+    console.log(`${seance.category} / ${seance.code} - ${seance.title}`);
+    for (const it of [...seance.exercises, ...seance.resources]) console.log(`  ${it.kind.label.padEnd(10)} ${it.name}`);
+    await renderDeck(seance, resolver, themes);
+    await renderSeance(seance, resolver);
   }
-  await renderIndex(items);
+  await renderIndex(seances);
   await copyAssets(resolver);
 
-  console.log(`\n${items.length} documents → ${path.relative(ROOT, DIST)}`);
+  console.log(`\n${seances.length} séance(s) active(s), ${published.length} documents → ${path.relative(ROOT, DIST)}`);
 }
 
 main().catch((err) => {

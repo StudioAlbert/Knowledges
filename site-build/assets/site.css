@@ -51,15 +51,35 @@ h1::after { content: ''; display: block; width: 48px; height: 3px; margin-top: 1
 /* ---- Accueil ---- */
 .category { margin-top: 40px; }
 .category h2 { font-size: 1.4rem; margin-bottom: 12px; }
-.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.column { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 18px; }
-.column h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 4px 0 8px; }
-.column h3 small { font-weight: 400; }
-.column ul { list-style: none; margin: 0; padding: 0; }
-.column li + li { border-top: 1px solid var(--line); }
-.column li a { display: block; padding: 8px 0; color: var(--ink); text-decoration: none; }
-.column li a:hover { color: var(--sae-red); }
-.code { display: block; font: 12px/1.4 ui-monospace, Consolas, monospace; color: var(--muted); }
+.seance-list { list-style: none; margin: 0; padding: 0 18px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
+.seance-list li + li { border-top: 1px solid var(--line); }
+.seance-list a { display: block; padding: 12px 0; color: var(--ink); text-decoration: none; font-weight: 500; }
+.seance-list a:hover { color: var(--sae-red); }
+.code { display: block; margin: 0; font: 12px/1.4 ui-monospace, Consolas, monospace; color: var(--muted); }
+
+/* ---- Séance : onglets ---- */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 28px 0 24px; border-bottom: 1px solid var(--line); }
+.tabs button {
+  margin-bottom: -1px;
+  padding: 10px 16px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tabs button:hover:not([disabled]) { color: var(--ink); }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--sae-red); }
+.tabs button[disabled] { opacity: 0.45; cursor: default; }
+.tabs small { font-weight: 400; color: var(--muted); }
+
+.deck-frame { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 6px; background: #000; }
+.deck-actions { text-align: right; font-size: 14px; }
+
+.tab-panel article + article { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.tab-panel article h1 { font-size: 1.6rem; }
 
 /* ---- Pages ---- */
 article { overflow-wrap: anywhere; }

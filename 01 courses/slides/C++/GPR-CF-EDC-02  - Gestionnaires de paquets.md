@@ -14,6 +14,7 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 7
+publish: true
 ---
 
 # Gestionnaires de paquets
