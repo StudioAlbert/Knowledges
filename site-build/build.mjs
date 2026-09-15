@@ -331,7 +331,7 @@ function pageShell(title, body, { crumbs = '' } = {}) {
 <link rel="stylesheet" href="${versioned('/assets/site.css', path.join(HERE, 'assets/site.css'))}">
 </head>
 <body>
-<header class="topbar"><a href="/">Supports de cours</a>${crumbs}</header>
+<header class="topbar"><a href="/">Games Programming</a>${crumbs}</header>
 <main>
 ${body}
 </main>
@@ -403,8 +403,8 @@ async function renderIndex(seances) {
     return `<section class="category"><h2>${escapeHtml(cat)}</h2><ul class="seance-list">\n${lis}\n</ul></section>`;
   });
   const empty = seances.length ? '' : '<p class="lead">Aucune séance publiée pour le moment.</p>';
-  const body = `<h1>Supports de cours</h1>\n<p class="lead">SAE Institute Genève — Games Programming</p>\n${empty}${blocks.join('\n')}`;
-  await writeFile(path.join(DIST, 'index.html'), pageShell('Supports de cours', body));
+  const body = `<h1>Games Programming</h1>\n<p class="lead">SAE Institute Genève</p>\n${empty}${blocks.join('\n')}`;
+  await writeFile(path.join(DIST, 'index.html'), pageShell('Games Programming', body));
 }
 
 // ---------------------------------------------------------------------------
