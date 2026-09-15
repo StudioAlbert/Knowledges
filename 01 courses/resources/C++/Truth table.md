@@ -1,7 +1,12 @@
+---
+seances:
+  - TC-FT-RNLB-04
+---
+
 # Truth table
 
 > Source : [Google Sheets](https://docs.google.com/spreadsheets/d/1m8pm8AT__nPt7bC67bGFnnhdso4ZAk2DjFetnMSOhYA/edit)
-> Cours associé : [[02 - Introduction to logic - non decimal arithmetic]] · [[Exercices - 02 - Introduction to Logic]]
+> Cours associé : [[01 courses/slides/Theory/TC-FT-RNLB-04 - Algèbre de Boole et opérations bit à bit|TC-FT-RNLB-04 - Algèbre de Boole et opérations bit à bit]] · Exercices : [[01 courses/exercises/Theory/TC-FT-RNLB-04 - Algèbre de Boole et opérations bit à bit|TC-FT-RNLB-04]]
 
 Tables de vérité de référence des opérateurs booléens du cours.
 
