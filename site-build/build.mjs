@@ -7,7 +7,8 @@
 // Sortie : site-build/dist/, déployée telle quelle sur le VPS.
 
 import fs from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import matter from 'gray-matter';
 import MarkdownIt from 'markdown-it';
@@ -191,7 +192,10 @@ function splitSlides(body) {
 
 async function renderDeck(item, resolver, themes) {
   const theme = themes.has(item.fm.theme) ? item.fm.theme : 'white';
-  const css = [item.fm.css ?? []].flat().map((c) => '/assets/css/' + encodeURIComponent(path.basename(c)));
+  const css = [item.fm.css ?? []].flat().map((c) => {
+    const name = path.basename(c);
+    return versioned('/assets/css/' + encodeURIComponent(name), path.join(CSS, name));
+  });
   const sections = splitSlides(resolver.markdown(item, item.body))
     .map((md) => `<section data-markdown><textarea data-template>\n${md.replace(/&/g, '&amp;').replace(/</g, '&lt;')}\n</textarea></section>`)
     .join('\n');
@@ -261,6 +265,14 @@ md.core.ruler.push('obsidian_callouts', (state) => {
   }
 });
 
+// `?v=<empreinte du contenu>` : l'URL change dès que le fichier change, ce qui
+// contourne le cache navigateur sans rien configurer côté nginx.
+const hashes = new Map();
+function versioned(url, file) {
+  if (!hashes.has(file)) hashes.set(file, createHash('sha256').update(readFileSync(file)).digest('hex').slice(0, 10));
+  return `${url}?v=${hashes.get(file)}`;
+}
+
 function pageShell(title, body, { crumbs = '' } = {}) {
   return `<!doctype html>
 <html lang="fr">
@@ -269,7 +281,7 @@ function pageShell(title, body, { crumbs = '' } = {}) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(title)}</title>
 <link rel="stylesheet" href="/assets/hljs.css">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="${versioned('/assets/site.css', path.join(HERE, 'assets/site.css'))}">
 </head>
 <body>
 <header class="topbar"><a href="/">Supports de cours</a>${crumbs}</header>
