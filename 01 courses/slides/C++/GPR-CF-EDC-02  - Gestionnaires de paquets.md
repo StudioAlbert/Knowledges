@@ -10,16 +10,18 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+width: 1280
+height: 720
+margin: 0
 manual_order: 7
 ---
 
 # Gestionnaires de paquets
-<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## vcpkg — pros
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - easy to get going (`git clone` then bootstrap it)
 - easy to use existing packages (`vcpkg install foo`, plus the integration is nice for Visual Studio)
@@ -30,7 +32,6 @@ manual_order: 7
 ---
 
 ## vcpkg — cons
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - builds everything from source. If you only want Boost as a header-only library, you still have to build it, which takes 30 min to 1 hour
 - no easy way to request a particular version of a package
@@ -38,7 +39,6 @@ manual_order: 7
 ---
 
 ## Conan — pros
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - easy to get going (not quite as easy as vcpkg or Hunter, but still easy, with `pip install conan`)
 - integrates into every build system
@@ -49,7 +49,6 @@ manual_order: 7
 ---
 
 ## Conan — cons
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - requires Python
 - non-intrusive CMake integration is still somewhat intrusive by default, because it came much later — existing packages weren't aware of how to be easily consumed non-intrusively from Conan
@@ -58,7 +57,6 @@ manual_order: 7
 ---
 
 ## Hunter — pros
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - easy to get going (just add the `HunterGate` command)
 - easy to use with CMake — the command to find dependencies mirrors `find_package`
@@ -67,7 +65,6 @@ manual_order: 7
 ---
 
 ## Hunter — cons
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - only supports CMake, and intrusive CMake integration
 - adding new packages requires submitting a PR
@@ -78,7 +75,6 @@ manual_order: 7
 ---
 
 ## Le package manager Windows
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - the package manager for Windows (and Linux and macOS)
 - a central place to store different open-source projects — think `/port` for Windows
@@ -93,12 +89,11 @@ maintenu par Microsoft, et c'est celui que l'on utilise dans le module.
 ---
 
 # Utiliser vcpkg
-<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## vcpkg — installation
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 <small>[vcpkg.io](https://vcpkg.io/en/index.html)</small>
 
@@ -116,7 +111,6 @@ Start PowerShell and build :
 ---
 
 ## vcpkg — intégration et paquets
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Install vcpkg for the current system (only needed by msbuild) :
 
@@ -134,7 +128,6 @@ Start installing the software needed :
 ---
 
 ## vcpkg — triplets
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 You can specify the **triplet** at the end of the install to get a specific version of the library :
 
@@ -150,7 +143,6 @@ You can have multiple versions of the same library installed with different trip
 ---
 
 ## vcpkg — commandes
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Commande | Effet |
 |---|---|
@@ -164,7 +156,6 @@ You can have multiple versions of the same library installed with different trip
 ---
 
 ## vcpkg — à vous
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Installez vcpkg, puis la bibliothèque **Protobuf**.
 
@@ -178,7 +169,6 @@ You can always install both ;P
 ---
 
 ## Pause
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Question time !
 

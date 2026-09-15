@@ -10,11 +10,14 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+width: 1280
+height: 720
+margin: 0
 manual_order: 7
 ---
 
 # Chaîne d'outils et prérequis
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
+<!-- .slide: class="title" -->
 
 ### Installation logicielle — CMake, Clion
 
@@ -38,7 +41,6 @@ manuellement aux propriétés du projet.
 ---
 
 ## Install Git
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Download on the Git website : [gitforwindows.org](https://gitforwindows.org/)
 
@@ -49,7 +51,6 @@ Launch the install, pick every default option, except those below :
 
 ---
 ## Install CMake
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Download on the CMake website : [cmake.org/download](https://cmake.org/download/)
 
@@ -82,6 +83,5 @@ Download Jetbrains toolbox : [Download Toolbox App](https://www.jetbrains.com/fr
 
 ---
 ## Questions ?
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Question time !

@@ -10,15 +10,17 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+width: 1280
+height: 720
+margin: 0
 manual_order: 9
 ---
 # Premières lignes de C++
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## C++ : la base
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 C++ est en fait **3 langages** :
 
@@ -31,7 +33,6 @@ Arrêtez de vous blâmer : c'est le langage le plus performant qui existe !
 ---
 
 ## C++ : l'historique
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Version   | Apport                                                                        |
 | --------- | ----------------------------------------------------------------------------- |
@@ -46,12 +47,11 @@ Arrêtez de vous blâmer : c'est le langage le plus performant qui existe !
 ---
 
 # Écrire du code
-<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## Comments
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 You can actually write whatever you want after `//`, or between `/*` and `*/`.
 
@@ -60,7 +60,6 @@ To be used when some code could be unclear or too complex.
 ---
 
 ## Hello World — cpp.sh
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -81,7 +80,6 @@ You can use :
 ---
 
 ## Variables
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Numbers, characters, arrays, complex numbers, creatures, …
 
@@ -92,7 +90,6 @@ Numbers, characters, arrays, complex numbers, creatures, …
 ---
 
 ## Basic types
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Type | Contenu |
 |---|---|
@@ -108,7 +105,6 @@ Numbers, characters, arrays, complex numbers, creatures, …
 ---
 
 ## Size in memory ⚠ on Windows ⚠
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 | Type | Octets | Plage | Équivalent |
 |---|:-:|---|---|
@@ -129,7 +125,6 @@ D'où l'existence des types `intNN_t`, qui, eux, sont garantis.
 ---
 
 ## Operations on integers
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 int a = 3;  int b = 2;  int c = 0;
@@ -145,7 +140,6 @@ c = a - c * b;  // using previous result, c = ??
 ---
 
 ## Priorité des opérateurs
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. `()`
 2. `*`, `/` et `%`
@@ -163,7 +157,6 @@ c = a - c * b;  // using previous result, c = ??
 ---
 
 ## Text output
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <iostream>
@@ -178,7 +171,6 @@ int main()
 ---
 
 ## Function — main
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cpp
 #include <iostream>

@@ -10,11 +10,14 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+width: 1280
+height: 720
+margin: 0
 manual_order: 9
 ---
 
 # Penser comme un programme
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
+<!-- .slide: class="title" -->
 
 ### C'est quoi programmer ?
 
@@ -28,7 +31,6 @@ vous avez de quoi écrire un petit jeu en console.
 
 ---
 ## Vous allez apprendre à…
-<!-- .slide" -->
 
 - les bases de la programmation C++
 - les maths : algèbre, booléenne
@@ -38,7 +40,6 @@ vous avez de quoi écrire un petit jeu en console.
 ---
 
 ## Rôle au sein d'une équipe
-<!-- .slide" -->
 
 - Responsable du bon fonctionnement du jeu
 - Responsable de la structure du projet de jeu
@@ -55,7 +56,6 @@ si l'équipe peut itérer sans vous.
 ---
 
 ## La documentation
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Documenter avec les sections :
 
@@ -69,7 +69,6 @@ Faites des schémas **avant** d'implémenter. Cela aide pour discuter avec nous,
 ---
 
 ## Pipeline de développement
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 1. Bière
 2. Idée de base
@@ -81,7 +80,6 @@ Faites des schémas **avant** d'implémenter. Cela aide pour discuter avec nous,
 ---
 
 ## Les sauvegardes de projet
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - Utiliser des outils de versioning comme **git**
 - Les projets sont à rendre sur GitHub, donc vous allez devoir vous y faire !
@@ -93,7 +91,6 @@ On n'accepte pas les excuses « j'ai oublié mon projet à la maison » ou « mo
 ---
 
 ## Faites des jeux hors cursus
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Faites des mini-jeux / prototypes régulièrement hors de l'école.
 
@@ -108,7 +105,6 @@ Faites des **Game Jams** !
 ---
 
 ## Veille technologique
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Raisons de faire de la veille :
 
@@ -123,7 +119,6 @@ Regarder les nouveautés au moins une fois par semaine.
 ---
 
 ## Veille créative
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Analyser la création des autres. Découvrir des idées qu'on n'aurait pas eues soi-même :
 
@@ -136,12 +131,11 @@ Faire de la veille sur les jeux — mais **pas que** sur les jeux : cinéma, BD,
 ---
 
 # Penser comme un programme
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## C'est quoi la programmation ?
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Contrôle sur un ordinateur.
 
@@ -149,7 +143,6 @@ Mais un ordinateur, c'est bête…
 
 ---
 ## Recette de cuisine
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 400 g de sucre
@@ -165,7 +158,6 @@ se laisse pas exécuter. Un ordinateur ne comble aucun trou tout seul.
 ---
 
 ## La programmation, c'est comme les Legos
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - Tout ce que vous apprenez en cours est utile
 - Chaque exercice vous fait avancer
@@ -175,7 +167,6 @@ se laisse pas exécuter. Un ordinateur ne comble aucun trou tout seul.
 ---
 
 ## Pseudocode
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 Import GameDevTools
@@ -193,7 +184,6 @@ Afficher le nouveau nombre sur la console
 ---
 
 ## Division des problèmes
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Créature A vs Créature B.
 
@@ -203,7 +193,6 @@ Créature A vs Créature B.
 ---
 
 ## Division des problèmes — pseudocode
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```
 If Creature A has a greater initiative than Creature B, then

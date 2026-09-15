@@ -1,11 +1,24 @@
 /* ===== PALETTE SAE ===== */
 :root {
     --sae-red: #E30613;
+    --sae-red-highlight: rgba(227, 6, 19, 0.25);
     --sae-black: #1a1a1a;
     --sae-white: #ffffff;
     --sae-gray: #888888;
     --sae-code-bg: #2d2d2d;
 }
+
+/* ===== DEUX STYLES DE SLIDE =====
+   Content : par défaut, rien à poser.
+   Title   : poser sous le titre de la slide
+             <!-- .slide: class="title" -->
+   reveal.js recopie la classe de la <section> sur son .slide-background,
+   ce qui permet de styler texte ET fond depuis cette seule balise.
+
+   Format : les fonds sont en 16:9 et affichés en `contain`. Pour qu'ils
+   épousent exactement le cadre de la slide, le deck doit être en 16:9 sans
+   marge (frontmatter : width: 1280 / height: 720 / margin: 0).
+   url() est résolu relativement à CE fichier (00 templates/css/). */
 
 /* ===== BASE ===== */
 .reveal {
@@ -13,57 +26,134 @@
     color: var(--sae-black);
 }
 
-/* ===== SLIDE BACKGROUNDS ===== */
-/* Default background for every regular (###) slide. Title and section
-   slides override this inline via a per-slide data-background comment.
-   url() is resolved relative to THIS file (00 templates/css/). */
+/* ===== FONDS ===== */
 .reveal .slide-background {
+    background-color: var(--sae-white);
+}
+
+.reveal .slide-background .slide-background-content {
     background-image: url('../../00 images/01_slide_fond_content.jpg');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* ===== TITRES ===== */
+.reveal .slide-background.title {
+    background-color: var(--sae-black);
+}
+
+.reveal .slide-background.title .slide-background-content {
+    background-image: url('../../00 images/01_slide_fond_titre.jpg');
+}
+
+/* ===== MISE EN PAGE ===== */
+/* Zone utile des fonds (slide 1280×720) : cadre de x 0→1189, y 97→622.
+   Bande noire de droite (~90px) → padding droit = 91 + 80, de sorte que le
+   contenu (80→1109) reste centré dans le cadre et n'y déborde pas. */
+.reveal .slides section {
+    padding: 50px 171px 50px 80px;
+    box-sizing: border-box;
+    font-size: 0.6em; /* also scale down text if content is dense */
+}
+
 .reveal h1 {
-    color: var(--sae-white);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -1px;
 }
 
 .reveal h2 {
-    color: var(--sae-white);
     font-weight: 400;
     border-bottom: 3px solid var(--sae-red);
     padding-bottom: 0.2em;
-}
-
-.reveal h3 {
-    color: var(--sae-red);
 }
 
 .reveal .slide-title {
     font-size: 2.5em;
 }
 
+/* ===== CONTENT : texte noir, accents rouges ===== */
 .reveal .slides section {
-    padding: 50px 80px;
-    max-height: 60%;
-    box-sizing: border-box;
-    font-size: 0.6em; /* also scale down text if content is dense */
+    --r-main-color: var(--sae-black);
+    --r-heading-color: var(--sae-black);
+    --r-link-color: var(--sae-red);
+    --r-link-color-hover: var(--sae-red);
+    --r-selection-color: var(--sae-white);
+    --r-selection-background-color: var(--sae-red);
+    color: var(--sae-black);
+}
+
+.reveal .slides section :is(h1, h2, h3, h4, h5, h6, p, li, td, th, small, blockquote) {
+    color: var(--sae-black);
+}
+
+.reveal .slides section li::marker {
+    color: var(--sae-red);
+}
+
+.reveal .slides section :is(strong, b, a) {
+    color: var(--sae-red);
+}
+
+.reveal .slides section mark {
+    background: var(--sae-red-highlight);
+    color: var(--sae-black);
+    padding: 0 0.15em;
+}
+
+.reveal .slides section blockquote {
+    border-left: 4px solid var(--sae-red);
+    background: transparent;
+    box-shadow: none;
+}
+
+/* ===== TITLE : texte blanc ou rouge uniquement ===== */
+.reveal .slides section.title {
+    padding: 50px 125px; /* cadre photo du fond titre centré (x ~85→1195) */
+    --r-main-color: var(--sae-white);
+    --r-heading-color: var(--sae-white);
+    color: var(--sae-white);
+}
+
+.reveal .slides section.title :is(h1, h2, h4, h5, h6, p, li, td, th, small, blockquote, em) {
+    color: var(--sae-white);
+}
+
+.reveal .slides section.title :is(h3, strong, b, a),
+.reveal .slides section.title li::marker {
+    color: var(--sae-red);
+}
+
+/* Ligne module / sous-sous-titre : même taille que le sous-titre ### */
+.reveal .slides section.title small {
+    font-size: var(--r-heading3-size, 1.55em);
+}
+
+.reveal .slides section.title mark {
+    background: transparent;
+    color: var(--sae-red);
+}
+
+/* ===== ELEMENTS ===== */
+/* Le cadre utile fait ~525px de haut : une image seule + titre + légende
+   doit y tenir. */
+.reveal .slides section img {
+    max-height: 280px;
+    width: auto;
+    object-fit: contain;
 }
 
 .reveal pre code {
     max-height: 200px; /* prevent code blocks from overflowing */
     font-size: 0.85em;
 }
-/* === ELEMENTS  === */
+
 .reveal blockquote {
     font-size: 0.6em;
     padding: 8px 16px;
     margin: 10px 0;
 }
+
 .reveal table {
     font-size: 0.65em;
     margin: 30px;

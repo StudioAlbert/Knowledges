@@ -199,8 +199,10 @@ async function renderDeck(item, resolver, themes) {
     hash: true,
     slideNumber: item.fm.slideNumber ?? true,
     transition: item.fm.transition ?? 'slide',
-    width: item.fm.width ?? 960,
-    height: item.fm.height ?? 700,
+    // 16:9 sans marge : les fonds 1920×1080 (contain) épousent le cadre de la slide.
+    width: item.fm.width ?? 1280,
+    height: item.fm.height ?? 720,
+    margin: item.fm.margin ?? 0,
   };
 
   const html = `<!doctype html>

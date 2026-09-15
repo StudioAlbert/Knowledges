@@ -10,18 +10,20 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+width: 1280
+height: 720
+margin: 0
 manual_order: 7
 ---
 
 ---
  
 # CMake
-<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## CMake-gui
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Les champs à renseigner dans l'interface :
 
@@ -38,7 +40,6 @@ Drive pour voir l'emplacement exact des champs.
 ---
 
 ## CMake-gui — configuration
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - **choix de l'IDE**
 - **choix du toolchain** : outil d'inclusion des librairies externes
@@ -46,7 +47,6 @@ Drive pour voir l'emplacement exact des champs.
 ---
 
 ## CMake — les instructions générées
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 À la fin du processus d'installation vcpkg, vous avez dû remarquer quelque chose comme :
 
@@ -60,7 +60,6 @@ These are instructions for CMake !
 ---
 
 ## So what is CMake?
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - CMake is an open-source, cross-platform family of tools designed to **build, test and package** software
 - it generates Visual Studio files, Xcode files and makefiles
@@ -70,7 +69,6 @@ These are instructions for CMake !
 ---
 
 ## CMake — comment l'utiliser
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - create a new file named `CMakeLists.txt` in the root of your project
 - edit this file
@@ -78,7 +76,6 @@ These are instructions for CMake !
 ---
 
 ## CMake — l'en-tête du fichier
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 A CMake file starts with the version of CMake you intend to use :
 
@@ -95,7 +92,6 @@ project(SoftwareGL)
 ---
 
 ## CMake — les dépendances
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Then you specify which outside libraries you want to use, and link them (remember vcpkg?) :
 
@@ -109,7 +105,6 @@ We are almost done !
 ---
 
 ## CMake — les bibliothèques
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Now we can specify what we need to build : libraries and executables (you can have multiple of each).
 
@@ -126,7 +121,6 @@ add_library(SoftwareGL STATIC
 ---
 
 ## CMake — les variables de chemin
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 `${PROJECT_SOURCE_DIR}` can be replaced by :
 
@@ -145,7 +139,6 @@ ${CMAKE_CURRENT_BINARY_DIR}
 ---
 
 ## CMake — lier la bibliothèque
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cmake
 target_link_libraries(SoftwareGL
@@ -158,7 +151,6 @@ target_link_libraries(SoftwareGL
 ---
 
 ## CMake — l'exécutable
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Same thing for the executable. The `WIN32` flag specifies that we want a Windows executable, not a command-line one.
 
@@ -173,7 +165,6 @@ add_executable(Game WIN32
 ---
 
 ## CMake — à propos de WIN32
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 You may or may not need the `WIN32` descriptor in your exe : it tells the linker to use `WinMain` and not `main` as an entry point.
 
@@ -182,7 +173,6 @@ As explained before, the `WIN32` descriptor specifies whether you want an execut
 ---
 
 ## CMake — lier l'exécutable
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```cmake
 target_link_libraries(Game
@@ -198,7 +188,6 @@ You may need `SDL2::SDL2main` too.
 ---
 
 ## CMake — le dossier build
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 Now save it !
 
@@ -212,7 +201,6 @@ cd build
 ---
 
 ## CMake — générer la solution
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 ```powershell
 cmake .. -DCMAKE_TOOLCHAIN_FILE="$Env:VCPKG_ROOT\vcpkg\scripts\buildsystems\vcpkg.cmake"
@@ -224,7 +212,6 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE="$Env:VCPKG_ROOT\vcpkg\scripts\buildsystems\vcpk
 ---
 
 ## CMake — et maintenant
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - vous savez utiliser CMake et vcpkg : vous pouvez convertir tous vos projets C++
 - ça demande un peu de temps pour s'y faire, mais ça vaut le temps passé

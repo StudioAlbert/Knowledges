@@ -10,16 +10,18 @@ css:
   - 00 templates/css/sae_styles.css
 slideNumber: true
 transition: slide
+width: 1280
+height: 720
+margin: 0
 manual_order: 9
 ---
 
 # Cadre de travail
-<!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
+<!-- .slide: class="title" -->
 
 ---
 
 ## Course philosophy
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - Prenez des notes !
 - Les mails sont officiels
@@ -37,7 +39,6 @@ résout déjà la moitié des questions.
 ---
 
 ## Règles en vigueur
-<!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
 - **Absence** — 3 absences non justifiées ⇒ module raté
 - **Retard** — 3 retards non justifiés ⇒ module raté
