@@ -2,7 +2,7 @@
 title: Fonctions
 type: seance
 code: GPR-CF-BDP-03
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation
@@ -32,9 +32,8 @@ La fonction `main`, pourquoi découper en fonctions, pré-déclaration, syntaxe,
 
 ## Matériel
 
-- Support : [[01.01 - Programming Basics - if, loops]] — `01 courses/lectures/C++/01.01 - Programming Basics - if, loops.md` (17,9 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1BWCyCFyfi5hxUMsSEnCvPpweoJpYSvnvFNRjcZIJTmU/edit
-    - Exercices : [[Exercices - 01 - Programming Basics]]
+- Support : [[01 courses/slides/C++/GPR-CF-BDP-03 - Fonctions|GPR-CF-BDP-03 - Fonctions]]
+- Exercices : [[01 courses/exercises/C++/GPR-CF-BDP-03 - Fonctions|GPR-CF-BDP-03 - Fonctions]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Bases de la Programmation.md`, ligne `03`
 
 ## Liens
