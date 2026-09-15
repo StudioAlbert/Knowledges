@@ -695,7 +695,7 @@ SOLID sert à **diagnostiquer** un code qui résiste au changement. Ce n'est pas
 - un exercice par principe, puis l'atelier complet
 - **bonus** : ajouter un ennemi, un sort ou un piège sans modifier une seule classe existante
 
-Énoncés : [[Exercices - GPR-UN-APU-01 - SOLID en Unity]]
+Énoncés : [[01 courses/exercises/Unity/GPR-UN-APU-01 - SOLID en Unity]]
 
 ---
 

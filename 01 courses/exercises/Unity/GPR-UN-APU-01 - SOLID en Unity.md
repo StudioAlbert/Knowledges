@@ -1,6 +1,6 @@
 # Exercices — GPR-UN-APU-01 — SOLID en Unity
 
-> Cours associé : [[GPR-UN-APU-01 - SOLID en Unity]]
+> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-01 - SOLID en Unity]]
 > Projet : [UnityCourse-SOLID-DungeonCrawler](https://github.com/StudioAlbert/UnityCourse-SOLID-DungeonCrawler)
 
 Unity 6, C#. Un script par classe, nommé comme la classe. Chaque exercice se fait dans sa propre scène.

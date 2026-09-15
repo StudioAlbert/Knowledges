@@ -30,7 +30,8 @@ Script fourre-tout et fil rouge Dungeon Crawler, responsabilité unique et déco
 
 ## Matériel
 
-- Support : [[solid_principles_in_unity]] — `01 courses/lectures/Unity/solid_principles_in_unity.md` (10,3 ko)
+- Support : [[01 courses/slides/Unity/GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01 - SOLID en Unity]]
+- Exercices : [[GPR-UN]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Architecture et Patterns Unity.md`, ligne `01`
 
 ## Liens
