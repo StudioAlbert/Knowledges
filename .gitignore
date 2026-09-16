@@ -16,6 +16,9 @@ site-build/dist/
 # Worktrees temporaires des agents Claude (ne pas committer)
 .claude/worktrees/
 
+# Notes d'infrastructure sensibles (IP, comptes) : jamais dans le dépôt public
+02 Notes/vps-ovh-hebergement-cours.md
+
 # Dépôts d'examens clonés (gérés dans leurs propres repos SAE-Geneve)
 01 courses/exams/C++/925-cpp-exam-draft/
 01 courses/exams/C++/cpp-exam-925/
