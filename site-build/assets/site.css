@@ -102,3 +102,17 @@ article blockquote { margin: 1em 0; padding: 4px 16px; border-left: 3px solid va
   text-transform: uppercase;
   color: var(--sae-red);
 }
+
+/* ---- Fiche GitHub (bloc ```github) ---- */
+.repo-card { margin: 1.5em 0; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
+.repo-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.repo-name { flex: 1; min-width: 0; font-size: 1.05rem; }
+.repo-link { font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.repo-meta { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+.repo-clone { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.repo-clone code { flex: 1; min-width: 0; padding: 8px 10px; overflow-x: auto; white-space: nowrap; user-select: all; }
+.repo-clone a { font-size: 14px; font-weight: 600; text-decoration: none; }
+.readme { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+.readme summary { cursor: pointer; color: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; }
+.readme h1::after { display: none; }
+.readme-missing { margin: 12px 0 0; color: var(--muted); font-style: italic; }
