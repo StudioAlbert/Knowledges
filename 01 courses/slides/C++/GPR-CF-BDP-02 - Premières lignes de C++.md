@@ -35,15 +35,15 @@ Arrêtez de vous blâmer : c'est le langage le plus performant qui existe !
 
 ## C++ : l'historique
 
-| Version   | Apport                                                                        |
-| --------- | ----------------------------------------------------------------------------- |
-| **C++98** | le standard ISO                                                               |
-| **C++11** | supporté quasiment partout — lambdas, `auto`, variadic templates, `constexpr` |
-| **C++14** | bugfix de C++11 (surtout)                                                     |
-| **C++17** | beaucoup de support côté bibliothèque, `auto` en paramètre                    |
-| **C++20** | modules, traits, …                                                            |
-| **C++23** |                                                                               |
-| C++26     |                                                                               |
+| Version   | Apport                                                                             |
+| --------- | ---------------------------------------------------------------------------------- |
+| **C++98** | le standard ISO                                                                    |
+| **C++11** | supporté quasiment partout — lambdas, `auto`, variadic templates, `constexpr`      |
+| **C++14** | bugfix de C++11 (surtout)                                                          |
+| **C++17** | beaucoup de support côté bibliothèque, `auto` en paramètre                         |
+| **C++20** | modules, traits, …                                                                 |
+| **C++23** | gestion d'erreur, print, format                                                    |
+| C++26     | Réflexion statique, Contrats, modèle standard pour l'asynchrone et le parallélisme |
 
 ---
 

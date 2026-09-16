@@ -2,7 +2,7 @@
 title: Premier projet CMake
 type: seance
 code: GPR-CF-EDC-03
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Environnement de Développement C++
@@ -32,8 +32,7 @@ CMake-gui et configuration, ce que CMake génère, en-tête du `CMakeLists.txt`,
 
 ## Matériel
 
-- Support : [[00 - Setup - vcpkg, cmake]] — `01 courses/lectures/C++/00 - Setup - vcpkg, cmake.md` (12,5 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1OVcZbS1UI66iGssrPsT8pxC9PYVNvyA1RSnN8WcpXuM/edit
+- Support : [[GPR-CF-EDC-03  - Premier projet CMake]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Environnement de Développement C++.md`, ligne `03`
 
 ## Liens

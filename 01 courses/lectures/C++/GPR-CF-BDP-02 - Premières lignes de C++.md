@@ -2,7 +2,7 @@
 title: Premières lignes de C++
 type: seance
 code: GPR-CF-BDP-02
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation
@@ -40,6 +40,6 @@ Historique et standards du langage, commentaires, hello world, variables, types 
 ## Liens
 
 - Séance précédente : [[01 courses/lectures/C++/GPR-CF-BDP-01 - Penser comme un programme]]
-- Séance suivante : [[GPR-CF-BDP-03 - Fonctions]]
+- Séance suivante : [[01 courses/lectures/C++/GPR-CF-BDP-03 - Fonctions]]
 
 

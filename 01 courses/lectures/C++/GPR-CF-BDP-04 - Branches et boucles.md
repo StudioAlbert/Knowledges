@@ -39,7 +39,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-BDP-03 - Fonctions]]
+- Séance précédente : [[01 courses/lectures/C++/GPR-CF-BDP-03 - Fonctions]]
 - Séance suivante : [[GPR-CF-BDP-05 - Énumérations et tableaux]]
 
 ## Notes de préparation

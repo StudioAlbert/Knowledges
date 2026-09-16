@@ -13,7 +13,7 @@ seances:
 
 ### « Le Cochon » (version ultra-courte)
 
-- Lance un dé plusieurs fois et additionne.
+- Lance un dé à 6 faces plusieurs fois et additionne.
 - Tu peux t'arrêter quand tu veux.
 - Mais si tu fais 1, tu perds tout et ton tour se termine.
 - Si on dépasse 20, le jeu s'arrête, le score est bloqué.

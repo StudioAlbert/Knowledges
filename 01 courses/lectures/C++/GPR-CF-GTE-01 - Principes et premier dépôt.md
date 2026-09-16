@@ -2,12 +2,14 @@
 title: Principes et premier dépôt
 type: seance
 code: GPR-CF-GTE-01
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Git et Travail en Équipe
 specialisation: "[[C++ Fondamentaux]]"
-classes: [GP-926, WEB-926]
+classes:
+  - GP-926
+  - WEB-926
 date_scheduled: 2026-09-09
 manual_order: 4
 estimate: 1h
