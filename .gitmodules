@@ -7,3 +7,6 @@
 [submodule "widgets"]
 	path = 00 widgets
 	url = https://github.com/StudioAlbert/widgets.git
+[submodule "01 courses/companion projects/Unity/Companion-Solid-DungeonCrawler"]
+	path = 01 courses/companion projects/Unity/Companion-Solid-DungeonCrawler
+	url = https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler.git

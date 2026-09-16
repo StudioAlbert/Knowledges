@@ -2,12 +2,13 @@
 title: SOLID en Unity — SRP et OCP, LSP et ISP, DIP et atelier
 type: seance
 code: GPR-UN-APU-01
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
-classes: [GP-925]
+classes:
+  - GP-925
 date_scheduled: 2026-09-17
 manual_order: 11
 estimate: 1h
@@ -31,7 +32,7 @@ Script fourre-tout et fil rouge Dungeon Crawler, responsabilité unique et déco
 ## Matériel
 
 - Support : [[01 courses/slides/Unity/GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01 - SOLID en Unity]]
-- Exercices : [[GPR-UN]]
+- Exercices : [[01 courses/exercises/Unity/GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01 - SOLID en Unity]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Architecture et Patterns Unity.md`, ligne `01`
 
 ## Liens

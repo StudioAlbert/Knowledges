@@ -1,336 +1,186 @@
-# Exercices — GPR-UN-APU-01 — SOLID en Unity
+# Exercices — GPR-UN-APU-01 — Atelier SOLID : Dungeon Crawler
 
 > Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-01 - SOLID en Unity]]
-> Projet : [UnityCourse-SOLID-DungeonCrawler](https://github.com/StudioAlbert/UnityCourse-SOLID-DungeonCrawler)
+> Projet : [Companion-Solid-DungeonCrawler](https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler)
 
-Unity 6, C#. Un script par classe, nommé comme la classe. Chaque exercice se fait dans sa propre scène.
+Un projet Unity 6 jouable, écrit volontairement **sans** SOLID. Vous le refactorez principe par principe. Chaque étape a sa branche de solution, qui est aussi le point de départ de l'étape suivante :
 
-## Exercice 1 — Responsabilité unique : démonter le `PlayerController`
+`main` → `01-srp` → `02-ocp` → `03-lsp` → `04-isp` → `05-dip`
 
-### Code de départ
+## Mise en place
 
-```csharp
-using TMPro;
-using UnityEngine;
+1. Cloner le dépôt, ouvrir le projet avec Unity **6000.4** (Unity 6.4), ouvrir la scène `01 - Scenes/Dungeon`.
+2. Jouer une partie. Contrôles : **WASD / flèches** pour se déplacer, **Espace** pour lancer une boule de feu, **E** pour interagir.
+3. Objectif : une plaque de pression ouvre la porte du fond ; sortir par la porte. Chaque passage sur une plaque l'active ou la désactive.
+4. Créer sa branche de travail : `git switch -c atelier main`.
 
-public class PlayerController : MonoBehaviour
-{
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private float fireballCooldown = 0.5f;
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private TMP_Text healthLabel;
-    [SerializeField] private AudioClip hurtSound;
+**Règle de l'atelier :** un refactor ne change pas le comportement. Après chaque étape, rejouez la partie, puis faites un commit.
 
-    private int health;
-    private float nextFireTime;
+## Tour du projet (branche `main`)
 
-    void Start()
-    {
-        health = maxHealth;
-        healthLabel.text = health.ToString();
-    }
+| Élément | Scripts | Défaut à corriger |
+|---|---|---|
+| Héros | `PlayerController` | S, O |
+| Araignées, archer, baril explosif | `Enemy`, `Spider`, `Archer`, `ExplodingBarrel`, `EnemyDirector` | L |
+| Marchand, potion | `IEntity`, `Merchant`, `Potion` | I |
+| Plaques, porte, fontaine | `PressurePlate`, `Door`, `WallFountain` | D |
 
-    void Update()
-    {
-        var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        transform.Translate(input * speed * Time.deltaTime);
+Tous les scripts sont dans `Assets/03 - Scripts`, les prefabs dans `Assets/02 - Prefabs`.
 
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
-        {
-            Instantiate(fireballPrefab, transform.position, transform.rotation);
-            nextFireTime = Time.time + fireballCooldown;
-        }
-    }
+## Étape 1 — Responsabilité unique : démonter `PlayerController`
 
-    public void TakeDamage(int amount)
-    {
-        health -= amount;
-        healthLabel.text = health.ToString();
-        AudioSource.PlayClipAtPoint(hurtSound, transform.position);
-        if (health <= 0) Destroy(gameObject);
-    }
-}
-```
+**Départ :** `main` · **Solution :** `01-srp`
+
+### Constat
+
+Lister les **raisons de changer** de `PlayerController` : une ligne par métier.
 
 ### Étapes
 
-1. Lister les **raisons de changer** de ce script : une ligne par métier.
-2. Créer un composant par métier : déplacement, combat, vie, affichage de la vie, son.
-3. Déplacer chaque champ et chaque ligne dans le bon composant.
-4. Supprimer `PlayerController`, poser les nouveaux composants sur le GameObject du héros.
-5. Ajouter `[RequireComponent]` là où un composant a besoin d'un autre.
+1. Créer un composant par métier :
+    - `PlayerMovement` : action `Move`, vitesse, retournement du sprite ; expose la dernière direction (`Facing`) ;
+    - `PlayerCombat` : action `Attack`, boule de feu dans la direction `Facing` ;
+    - `PlayerHealth` : PV, `TakeDamage`, `Heal`, mort, dégâts reçus ;
+    - `HealthBar` : affiche les PV, posé sur `HUD/HealthLabel` ;
+    - `PlayerInteractor` : action `Interact`.
+2. Déclarer les dépendances entre composants avec `[RequireComponent]`.
+3. Remplacer `PlayerController` par ces composants dans le prefab `Player`, puis brancher `HealthBar` dans la scène.
+4. Adapter les signatures qui attendaient un `PlayerController`.
 
 ### Critères de réussite
 
-- le héros se déplace, tire et meurt comme avant
-- aucun composant ne dépasse une trentaine de lignes
-- le composant de vie ne contient aucune référence à `TMP_Text` ni à `AudioClip`
-- on peut retirer le composant de son sans casser les autres
+- la partie se joue exactement comme avant
+- chaque composant lit au plus une action d'input
+- `HealthBar` ne connaît ni les dégâts ni les soins
+
+### Pièges Unity
+
+- Supprimer un script laisse un « Missing Script » sur le prefab : retirer ce composant, puis réassigner `fireballPrefab` et `healthBar`.
 
 ### Bonus
 
-Réutiliser le composant de vie sur un ennemi, sans le modifier.
+Réutiliser `PlayerHealth` sur un autre objet sans le modifier : qu'est-ce qui l'en empêche encore ?
 
-## Exercice 2 — Ouvert / fermé : les sorts du héros
+## Étape 2 — Ouvert / fermé : un `if` par danger
 
-### Code de départ
+**Départ :** `01-srp` · **Solution :** `02-ocp`
 
-```csharp
-using UnityEngine;
+### Constat
 
-public enum SpellType { Fireball, IceShard, Lightning }
-
-public class Spell : MonoBehaviour
-{
-    public SpellType type;
-}
-
-public class EnemyHealth : MonoBehaviour
-{
-    [SerializeField] private int health = 50;
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!other.TryGetComponent(out Spell spell)) return;
-
-        switch (spell.type)
-        {
-            case SpellType.Fireball:
-                health -= 20;
-                break;
-            case SpellType.IceShard:
-                health -= 10;
-                GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-                break;
-            case SpellType.Lightning:
-                health -= Random.Range(5, 31);
-                break;
-        }
-
-        Destroy(spell.gameObject);
-        if (health <= 0) Destroy(gameObject);
-    }
-}
-```
+Pour ajouter un nouveau danger (un chaudron brûlant, par exemple), combien de fichiers faut-il modifier ? Lesquels ?
 
 ### Étapes
 
-1. Repérer ce qu'il faut modifier pour ajouter un sort `PoisonCloud`.
-2. Remplacer l'`enum` par une classe abstraite `Spell : MonoBehaviour` avec une méthode `abstract void Apply(EnemyHealth target)`.
-3. Créer une classe par sort : `Fireball`, `IceShard`, `Lightning`.
-4. Réduire `EnemyHealth.OnTriggerEnter2D` à : récupérer le `Spell`, appeler `Apply`, détruire le sort. Exposer `public void TakeDamage(int amount)` pour les sorts.
-5. Ajouter `PoisonCloud` : 5 dégâts par seconde pendant 3 secondes. Le sort étant détruit à l'impact, lancer la coroutine sur la cible : `target.StartCoroutine(...)`.
+1. Créer la classe abstraite `DamageSource` avec `public abstract int GetDamage();`.
+2. En faire hériter `Arrow` (5 à 10) et `Explosion` (30).
+3. Créer `SpikeTrap` (25), à poser sur le prefab des pics.
+4. Créer `ContactDamage` (10), à poser sur la zone de morsure de l'araignée.
+5. Réduire `PlayerHealth.OnTriggerEnter2D` à un seul `TryGetComponent(out DamageSource source)`.
+6. Supprimer les tags de dégâts, devenus inutiles.
 
 ### Critères de réussite
 
-- plus aucun `enum` ni `switch` sur le type de sort
-- l'ajout de `PoisonCloud` ne modifie **aucun** fichier existant : `git diff` ne montre qu'un fichier nouveau
-- les trois sorts d'origine infligent les mêmes dégâts qu'avant
+- `PlayerHealth` ne contient plus aucun `CompareTag`
+- les dégâts restent identiques : morsure 10, flèche 5 à 10, pics 25, explosion 30
+
+### Pièges Unity
+
+- `Spider` hérite déjà d'`Enemy` : pas de second héritage possible. D'où le composant `ContactDamage` : de la composition plutôt que de l'héritage.
+- La boule de feu n'est pas une `DamageSource` : elle apparaît sur le héros et le blesserait.
 
 ### Bonus
 
-Rendre les dégâts de chaque sort réglables dans l'Inspector, sans toucher à `EnemyHealth`.
+Ajouter un nouveau danger. Le `git diff` du commit ne doit montrer qu'un fichier nouveau et un prefab.
 
-## Exercice 3 — Substitution de Liskov : l'inventaire qui ment
+## Étape 3 — Substitution de Liskov : le baril n'est pas un ennemi
 
-### Code de départ
+**Départ :** `02-ocp` · **Solution :** `03-lsp`
 
-```csharp
-using UnityEngine;
+### Constat
 
-public abstract class Item : MonoBehaviour
-{
-    public abstract void Use(PlayerHealth user);
-    public abstract void Equip(Transform hand);
-    public abstract void Drop(Vector3 position);
-}
-
-public class Potion : Item
-{
-    public override void Use(PlayerHealth user) => user.Heal(30);
-    public override void Equip(Transform hand) =>
-        throw new System.NotSupportedException("On n'équipe pas une potion");
-    public override void Drop(Vector3 position) => transform.position = position;
-}
-
-public class Sword : Item
-{
-    public override void Use(PlayerHealth user) { }   // rien à faire
-    public override void Equip(Transform hand) => transform.SetParent(hand, false);
-    public override void Drop(Vector3 position) => transform.SetParent(null);
-}
-
-public class QuestRelic : Item
-{
-    public override void Use(PlayerHealth user) { }
-    public override void Equip(Transform hand) { }
-    public override void Drop(Vector3 position) =>
-        Debug.LogWarning("Impossible de lâcher la relique");
-}
-
-public class Inventory : MonoBehaviour
-{
-    [SerializeField] private Item[] items;
-    [SerializeField] private Transform hand;
-
-    public void EquipAll()
-    {
-        foreach (Item item in items)
-            item.Equip(hand);   // exception dès qu'on tombe sur une potion
-    }
-}
-```
-
-`PlayerHealth.Heal(int)` est à ajouter au composant de vie de l'exercice 1.
+Repérer dans `Enemy`, `Archer`, `ExplodingBarrel` et `EnemyDirector` les trois symptômes d'une hiérarchie qui ment : une méthode vide, une exception, un test de type.
 
 ### Étapes
 
-1. Pour chaque sous-classe, marquer les méthodes vides, celles qui lèvent une exception et celles qui ne font pas ce que le nom promet.
-2. Écrire, pour chaque méthode d'`Item`, la promesse qu'elle fait au code client.
-3. Remplacer la hiérarchie par des interfaces de capacités : `IUsable`, `IEquipable`, `IDroppable`.
-4. Faire implémenter à chaque objet **uniquement** ce qu'il sait faire.
-5. Adapter `Inventory` pour qu'il ne manipule que des objets capables de l'action demandée.
+1. Créer les interfaces de capacités :
+    - `IMovable` : `Move(Vector3 target)` ;
+    - `IAttacker` : `AttackRange`, `AttackCooldown`, `Attack(PlayerHealth player)` ;
+    - `IDamageable` : `TakeDamage(int amount)`.
+2. Faire implémenter à chaque ennemi **uniquement** ce qu'il sait faire : `Spider` les trois, `Archer` `IAttacker` et `IDamageable`, `ExplodingBarrel` `IDamageable`.
+3. Supprimer `Enemy`. `EnemyDirector` parcourt une liste de `IMovable` et une liste de `IAttacker`.
+4. `Fireball`, `Explosion` et `Arrow` visent `IDamageable`.
+5. Retirer `IEntity` des ennemis : sinon le baril retrouve un `Move` et un `Attack` impossibles.
 
 ### Critères de réussite
 
-- plus aucune méthode vide, aucune `NotSupportedException`
-- `Inventory` ne contient aucun test de type (`is Potion`, `as Sword`)
-- `EquipAll()` n'échoue jamais, quel que soit le contenu de l'inventaire
+- plus de méthode vide, de `NotSupportedException` ni de `is ExplodingBarrel`
+- une explosion de baril tue toujours l'archer voisin
+
+### Pièges Unity
+
+- Un ennemi détruit reste dans une liste d'interfaces : le tester avec `(Object)ennemi == null`, pas `ennemi == null`.
+- Une interface n'a pas de `transform` : `((Component)attacker).transform.position`.
 
 ### Bonus
 
-Ajouter un `Shield`, équipable et lâchable, et vérifier que `Inventory` n'a pas besoin d'être modifié.
+Ajouter une chauve-souris (tuile 120) qui se déplace sans attaquer, sans modifier `EnemyDirector`.
 
-## Exercice 4 — Ségrégation des interfaces : les habitants du donjon
+## Étape 4 — Ségrégation des interfaces : l'interface « tout-en-un »
 
-### Code de départ
+**Départ :** `03-lsp` · **Solution :** `04-isp`
 
-```csharp
-using UnityEngine;
+### Constat
 
-public interface IDungeonEntity
-{
-    void Move(Vector3 target);
-    void Attack(PlayerHealth player);
-    void TakeDamage(int amount);
-    void CastSpell(Vector3 target);
-    void Talk();
-    void Open();
-}
-
-public class SkeletonArcher : MonoBehaviour, IDungeonEntity { /* à compléter */ }
-public class SpikeTrap      : MonoBehaviour, IDungeonEntity { /* à compléter */ }
-public class Merchant       : MonoBehaviour, IDungeonEntity { /* à compléter */ }
-public class Chest          : MonoBehaviour, IDungeonEntity { /* à compléter */ }
-public class Hero           : MonoBehaviour, IDungeonEntity { /* à compléter */ }
-```
-
-Ce code ne compile pas tel quel : c'est l'étape 1.
+Compter les méthodes vides que `IEntity` impose à `Merchant`, `Potion` et `PlayerHealth`.
 
 ### Étapes
 
-1. Implémenter `IDungeonEntity` dans les cinq classes, et compter les méthodes laissées vides.
-2. Remplir ce tableau : une ligne par classe, une colonne par méthode, ✔ si la méthode a un vrai sens.
-3. Regrouper les colonnes en interfaces fines, d'**une ou deux méthodes** chacune.
-4. Supprimer `IDungeonEntity`, faire implémenter à chaque classe ses seules interfaces.
-5. Écrire un composant `Interactor` sur le héros : touche `E`, il appelle `Talk()` ou `Open()` sur l'objet devant lui s'il en est capable.
+1. Créer `ITalkable` (`Talk()`) et `IUsable` (`Use(PlayerHealth user)`).
+2. `Merchant` implémente `ITalkable`, `Potion` implémente `IUsable`, `PlayerHealth` n'implémente plus rien.
+3. Supprimer `IEntity`.
+4. `PlayerInteractor` interroge chaque capacité avec `TryGetComponent`.
 
 ### Critères de réussite
 
-- aucune méthode vide dans les cinq classes
-- aucune interface de plus de deux méthodes
-- `Interactor` utilise `TryGetComponent` avec des interfaces, sans connaître les classes concrètes
+- aucune méthode vide imposée par une interface
+- E près du marchand joue son jingle ; E sur la potion rend 30 PV
 
 ### Bonus
 
-Comparer avec l'exercice 3 : écrire en deux phrases pourquoi on aboutit à la même forme de solution, et ce qui distingue le problème de départ.
+Comparer les étapes 3 et 4 en deux phrases : pourquoi le remède est-il le même, et qu'est-ce qui distingue les deux problèmes ?
 
-## Exercice 5 — Inversion de dépendance : leviers, portes et herses
+## Étape 5 — Inversion de dépendance : la plaque connaît chaque mécanisme
 
-### Code de départ
+**Départ :** `04-isp` · **Solution :** `05-dip`
 
-```csharp
-using UnityEngine;
+### Constat
 
-public class Door : MonoBehaviour
-{
-    public void Open()  => gameObject.SetActive(false);
-    public void Close() => gameObject.SetActive(true);
-}
-
-public class Portcullis : MonoBehaviour
-{
-    [SerializeField] private float liftHeight = 3f;
-    public void Raise() => transform.position += Vector3.up * liftHeight;
-    public void Lower() => transform.position -= Vector3.up * liftHeight;
-}
-
-public class Lever : MonoBehaviour
-{
-    [SerializeField] private Door door;
-    [SerializeField] private Portcullis portcullis;
-    private bool isOn;
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!other.CompareTag("Player")) return;
-        isOn = !isOn;
-
-        if (door != null)
-        {
-            if (isOn) door.Open(); else door.Close();
-        }
-        if (portcullis != null)
-        {
-            if (isOn) portcullis.Raise(); else portcullis.Lower();
-        }
-    }
-}
-```
+Que faut-il modifier dans `PressurePlate` pour qu'une plaque abaisse une herse ?
 
 ### Étapes
 
-1. Dessiner le schéma de dépendances actuel : qui connaît qui ?
-2. Créer le contrat `ISwitchable` avec `Activate()` et `Deactivate()`.
-3. Faire implémenter `ISwitchable` à `Door` et `Portcullis`.
-4. Réécrire `Lever` pour qu'il ne connaisse **que** `ISwitchable`, avec une liste de cibles réglable dans l'Inspector.
-5. Choisir et justifier la solution Inspector : champ `GameObject` + `GetComponent<ISwitchable>()`, ou classe abstraite `Switchable : MonoBehaviour`.
-6. Ajouter une `PressurePlate` : active tant que le héros est dessus, désactive quand il en sort.
-7. Construire la scène : une plaque ouvre deux portes, un levier lève une herse.
+1. Créer le contrat `ISwitchable` : `Activate()` et `Deactivate()`.
+2. `Door` et `WallFountain` l'implémentent.
+3. `PressurePlate` ne garde qu'un champ `GameObject target`, résolu en `ISwitchable` dans `Awake`.
+4. `OnValidate` avertit dès l'éditeur quand la cible n'implémente pas `ISwitchable`.
+5. Régler la cible de chaque plaque dans la scène.
 
 ### Critères de réussite
 
-- `Lever` et `PressurePlate` ne contiennent aucun nom de mécanisme concret (`Door`, `Portcullis`)
-- une cible qui n'implémente pas `ISwitchable` est signalée dans l'éditeur, pas au lancement (`OnValidate`)
-- ajouter une `Torch` ne modifie ni `Lever` ni `PressurePlate`
+- `PressurePlate` ne nomme plus ni `Door` ni `WallFountain`
+- une cible invalide est signalée dans l'éditeur, pas pendant la partie
+- échanger les cibles des deux plaques ne demande aucune modification de code
+
+### Pièges Unity
+
+- Un champ de type interface n'apparaît pas dans l'Inspector : d'où le champ `GameObject` et `GetComponent<ISwitchable>()`.
 
 ### Bonus
 
-Un mécanisme qui implémente `ISwitchable` et commande lui-même d'autres `ISwitchable` : un relais qui ouvre toutes les grilles d'une salle.
+Ajouter une herse (barrière, tuiles 76 à 78) qui bloque un passage et implémente `ISwitchable`, sans modifier `PressurePlate`.
 
-## Atelier — Dungeon Crawler modulaire
+## Pour finir
 
-Dépôt : [UnityCourse-SOLID-DungeonCrawler](https://github.com/StudioAlbert/UnityCourse-SOLID-DungeonCrawler)
-
-### Point de départ
-
-Une scène jouable, volontairement non SOLID : héros, ennemis, pièges, portes.
-
-### Étapes
-
-1. Jouer la scène, lister les comportements à conserver.
-2. Lire le code et noter, pour chaque script, le principe qu'il enfreint et le symptôme observé.
-3. Prioriser : commencer par ce qui bloque le plus l'ajout de contenu.
-4. Refactorer par petites étapes, en rejouant la scène après chacune. Un commit par étape.
-5. Relire le résultat avec la slide « Quand ne pas appliquer SOLID » : supprimer les abstractions qui n'ont qu'une implémentation et aucune raison d'en avoir une seconde.
-
-### Critères de réussite
-
-- la scène se joue exactement comme avant
-- l'historique Git montre des commits courts, chacun rattaché à un principe
-- un fichier `NOTES.md` liste les problèmes trouvés et la correction retenue pour chacun
-
-### Bonus
-
-Ajouter un ennemi, un sort **ou** un piège sans modifier une seule classe existante. Le `git diff` du commit ne doit montrer que des fichiers nouveaux, des prefabs et la scène.
+- Relire votre code avec la slide « Quand ne pas appliquer SOLID » : supprimer les abstractions qui n'ont qu'une implémentation et aucune raison d'en avoir une seconde.
+- **Bonus final :** ajouter un ennemi, un piège ou un mécanisme sans modifier une seule classe existante. Le `git diff` du commit ne doit montrer que des fichiers nouveaux, des prefabs et la scène.
+- Comparer votre travail avec la solution : `git diff 05-dip atelier -- "Assets/03 - Scripts"`.

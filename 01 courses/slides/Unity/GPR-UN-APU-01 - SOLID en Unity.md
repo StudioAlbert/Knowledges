@@ -25,7 +25,7 @@ publish: true
 
 Note:
 Une heure, cinq principes, un seul exemple : un dungeon crawler.
-Les exercices sont dans la note « Exercices - GPR-UN-APU-01 ».
+Tous les extraits viennent du projet de l'atelier, une branche par principe.
 
 ---
 
@@ -70,12 +70,13 @@ Tout le monde lève la main.
 
 ## Fil rouge : le Dungeon Crawler
 
-- un **héros** : se déplace, lance des sorts, prend des dégâts
-- des **ennemis** : araignée (corps à corps), squelette archer (distance)
+- un **héros** magicien : se déplace, lance des boules de feu, interagit
+- des **ennemis** : araignées (corps à corps), archer (distance)
 - des **pièges** : pics, baril explosif
-- des **mécanismes** : plaques de pression, portes, herses, torches
+- un **marchand** et une **potion**
+- des **mécanismes** : plaques de pression, porte de sortie, fontaine murale
 
-<small>Code en C# Unity 6. Les corps notés `/* … */` sont laissés vides.</small>
+<small>Projet Unity 6 : [Companion-Solid-DungeonCrawler](https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler). Les corps notés `/* … */` sont omis.</small>
 
 ---
 
@@ -119,20 +120,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private TMP_Text healthLabel;
+    private InputAction moveAction, attackAction;
     private int health = 100;
+
+    void Awake()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+        attackAction = InputSystem.actions.FindAction("Attack");
+    }
 
     void Update()
     {
-        var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        transform.Translate(input * speed * Time.deltaTime);
-        if (Input.GetButtonDown("Fire1"))
-            Instantiate(fireballPrefab, transform.position, transform.rotation);
+        GetComponent<Rigidbody2D>().linearVelocity = moveAction.ReadValue<Vector2>() * speed;
+        if (attackAction.WasPressedThisFrame())
+            Instantiate(fireballPrefab, transform.position, Quaternion.identity);
     }
 
     public void TakeDamage(int amount)
     {
         health -= amount;
-        healthLabel.text = health.ToString();
+        healthLabel.text = "PV : " + health;
         if (health <= 0) Destroy(gameObject);
     }
 }
@@ -141,38 +148,58 @@ public class PlayerController : MonoBehaviour
 ➡️ Déplacement, combat, vie et UI dans une seule classe.
 
 Note:
-`TMP_Text` demande `using TMPro;`. Quatre raisons de changer :
-les contrôles, les sorts, les règles de vie, la maquette de l'UI.
+`TMP_Text` demande `using TMPro;`, `InputAction` demande `using UnityEngine.InputSystem;`.
+Quatre raisons de changer : les contrôles, les sorts, les règles de vie, la maquette de l'UI.
+Dans le projet (branche `main`), le même script gère aussi la touche E et les dégâts reçus.
 
 ---
 
-## Après : un composant par responsabilité
+## Après : se déplacer, attaquer
 
 ```csharp
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
+    private InputAction moveAction;
+    public Vector2 Facing { get; private set; } = Vector2.right;
+
+    void Awake() => moveAction = InputSystem.actions.FindAction("Move");
+
     void Update()
     {
-        var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        transform.Translate(input * speed * Time.deltaTime);
+        Vector2 input = moveAction.ReadValue<Vector2>();
+        GetComponent<Rigidbody2D>().linearVelocity = input * speed;
+        if (input != Vector2.zero) Facing = input.normalized;
     }
 }
 
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private float fireballSpeed = 8f;
+    /* Awake : action Attack, composant PlayerMovement */
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-            Instantiate(fireballPrefab, transform.position, transform.rotation);
+        if (!attackAction.WasPressedThisFrame()) return;
+        GameObject fireball = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
+        fireball.GetComponent<Rigidbody2D>().linearVelocity = movement.Facing * fireballSpeed;
     }
 }
+```
 
+➡️ Le combat lit la direction dans `PlayerMovement` : il ne lit pas l'input de déplacement.
+
+---
+
+## Après : la vie et son affichage
+
+```csharp
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private HealthBar healthBar;
     private int health = 100;
+
     public void TakeDamage(int amount)
     {
         health -= amount;
@@ -180,24 +207,37 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0) Destroy(gameObject);
     }
 }
+
+public class HealthBar : MonoBehaviour
+{
+    [SerializeField] private TMP_Text label;
+
+    public void Show(int health) => label.text = "PV : " + health;
+}
 ```
 
+➡️ Refaire la maquette de l'UI ne touche plus aux règles de vie.
+
+<small>Projet : branche `01-srp`, avec aussi `PlayerInteractor` pour la touche E.</small>
+
 Note:
-`HealthBar` est un quatrième composant, côté UI, qui se contente
-d'afficher. Le lien direct `PlayerHealth → HealthBar` reste un couplage :
-on le supprimera avec un événement en APU-09.
+Le lien direct `PlayerHealth → HealthBar` reste un couplage : on le
+supprimera avec un événement en APU-09.
 
 ---
 
 ## SRP dans Unity
 
 - un composant = un métier, un nom qui le dit
-- `[RequireComponent(typeof(PlayerHealth))]` pour déclarer une dépendance entre composants
+- `[RequireComponent]` pour déclarer une dépendance entre composants
 - signal d'alerte : un nom en `Manager`, `Controller` ou `Handler` qui grossit
 
 ```csharp
-[RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerCombat : MonoBehaviour { /* … */ }
+
+[RequireComponent(typeof(PlayerHealth))]
+public class PlayerInteractor : MonoBehaviour { /* … */ }
 ```
 
 ---
@@ -248,6 +288,8 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(Random.Range(5, 11));
         else if (other.CompareTag("SpikeTrap"))
             TakeDamage(25);
+        else if (other.CompareTag("Explosion"))
+            TakeDamage(30);
         // nouveau danger ? on revient modifier ce fichier
     }
 
@@ -292,6 +334,13 @@ public class PlayerHealth : MonoBehaviour
 
 ➡️ Nouveau danger = **nouveau fichier**. `PlayerHealth` ne bouge plus.
 
+<small>Projet : branche `02-ocp`, avec aussi `Explosion` et `ContactDamage` (la morsure de l'araignée).</small>
+
+Note:
+L'araignée hérite déjà d'une autre classe : ses dégâts passent par un
+composant `ContactDamage` posé sur sa zone de morsure. De la composition
+plutôt qu'un second héritage, impossible en C#.
+
 ---
 
 # L — Liskov Substitution
@@ -307,7 +356,7 @@ Symptômes d'une hiérarchie qui ment :
 
 - une méthode `override` **vide**
 - une méthode qui lève `NotSupportedException`
-- un `if (enemy is Barrel)` dans le code client
+- un `if (enemy is ExplodingBarrel)` dans le code client
 
 <small>[Principe de substitution de Liskov — Wikipédia](https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov)</small>
 
@@ -347,9 +396,13 @@ public class ExplodingBarrel : Enemy
     public override void TakeDamage(int amount) { /* explose */ }
 }
 
-// Ailleurs, le code client :
+// EnemyDirector, le code client :
 foreach (Enemy enemy in enemies)
-    enemy.Attack(player);   // exception sur le baril
+{
+    enemy.Move(player.transform.position);
+    if (enemy is ExplodingBarrel) continue;   // sinon : exception
+    enemy.Attack(player);
+}
 ```
 
 ➡️ `ExplodingBarrel` hérite de promesses qu'il **ne peut pas tenir**.
@@ -360,26 +413,33 @@ foreach (Enemy enemy in enemies)
 
 ```csharp
 public interface IMovable    { void Move(Vector3 target); }
-public interface IAttacker   { void Attack(PlayerHealth player); }
 public interface IDamageable { void TakeDamage(int amount); }
-
-public class Spider : MonoBehaviour, IMovable, IAttacker, IDamageable
+public interface IAttacker
 {
-    [SerializeField] private float speed = 3f;
-    public void Move(Vector3 target) => transform.position =
-        Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-    public void Attack(PlayerHealth player) => player.TakeDamage(10);
-    public void TakeDamage(int amount) => Destroy(gameObject);
+    float AttackRange { get; }
+    void Attack(PlayerHealth player);
 }
+
+public class Spider : MonoBehaviour, IMovable, IAttacker, IDamageable { /* … */ }
+public class Archer : MonoBehaviour, IAttacker, IDamageable { /* … */ }   // ne bouge pas
 
 public class ExplodingBarrel : MonoBehaviour, IDamageable
 {
-    public void TakeDamage(int amount) { /* explose */ }
+    [SerializeField] private GameObject explosionPrefab;
+
+    public void TakeDamage(int amount)
+    {
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }
 
-foreach (IAttacker attacker in attackers)
-    attacker.Attack(player);   // le baril n'est pas dans la liste
+// EnemyDirector : plus aucun test de type
+foreach (IMovable mover in movers) mover.Move(player.transform.position);
+foreach (IAttacker attacker in attackers) attacker.Attack(player);
 ```
+
+<small>Projet : branche `03-lsp` (`IAttacker` y porte aussi `AttackCooldown`).</small>
 
 ---
 
@@ -464,7 +524,8 @@ Note:
 `[SerializeReference]` sérialise un champ de type interface, mais
 uniquement pour des classes C# simples, pas pour des composants de scène.
 Pour la première solution, un `OnValidate` qui vérifie l'interface
-rattrape l'erreur dès l'éditeur.
+rattrape l'erreur dès l'éditeur : c'est le choix du projet pour les
+plaques de pression (branche `05-dip`).
 
 ---
 
@@ -501,20 +562,25 @@ public interface IEntity
     void Attack(PlayerHealth player);
     void TakeDamage(int amount);
     void Talk();
-    void Use();
+    void Use(PlayerHealth user);
 }
 
 public class Merchant : MonoBehaviour, IEntity
 {
+    public void Talk() { /* joue un jingle */ }
+
     public void Move(Vector3 target) { }
     public void Attack(PlayerHealth player) { }   // un marchand n'attaque pas
     public void TakeDamage(int amount) { }        // invulnérable
-    public void Talk() { /* ouvre la boutique */ }
-    public void Use() { }
+    public void Use(PlayerHealth user) { }
 }
 ```
 
 ➡️ Quatre méthodes vides sur cinq. Chaque ajout à `IEntity` casse **toutes** les classes.
+
+Note:
+Dans le projet, la potion et le héros implémentent aussi `IEntity` :
+douze méthodes vides au total.
 
 ---
 
@@ -526,17 +592,23 @@ public interface IUsable   { void Use(PlayerHealth user); }
 
 public class Merchant : MonoBehaviour, ITalkable
 {
-    public void Talk() { /* ouvre la boutique */ }
+    public void Talk() { /* joue un jingle */ }
 }
+
+// PlayerInteractor, touche E : chaque capacité est interrogée séparément
+if (hit.TryGetComponent(out ITalkable talkable)) talkable.Talk();
+if (hit.TryGetComponent(out IUsable usable)) usable.Use(health);
 ```
 
 | | `IMovable` | `IAttacker` | `IDamageable` | `ITalkable` | `IUsable` |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Héros | ✔ | ✔ | ✔ | | |
 | Araignée | ✔ | ✔ | ✔ | | |
+| Archer | | ✔ | ✔ | | |
 | Baril explosif | | | ✔ | | |
 | Marchand | | | | ✔ | |
 | Potion | | | | | ✔ |
+
+<small>Projet : branche `04-isp`.</small>
 
 ---
 
@@ -572,7 +644,7 @@ Les deux aboutissent souvent au **même remède** : des interfaces séparées.
 
 ![[solid_principles_in_unity_08.png]]
 
-<small>`Switch` (haut niveau) dépend directement de `Door` (bas niveau).</small>
+<small>`Switch` (haut niveau) dépend directement de `Door` (bas niveau). Dans le projet, la plaque de pression joue le rôle de `Switch`.</small>
 
 ---
 
@@ -584,29 +656,40 @@ Les deux aboutissent souvent au **même remède** : des interfaces séparées.
 
 ---
 
-## Avant : l'interrupteur connaît la porte
+## Avant : la plaque connaît chaque mécanisme
 
 ```csharp
-public class Door : MonoBehaviour
-{
-    public void Open()  => gameObject.SetActive(false);
-    public void Close() => gameObject.SetActive(true);
-}
-
-public class Switch : MonoBehaviour
+public class PressurePlate : MonoBehaviour
 {
     [SerializeField] private Door door;
+    [SerializeField] private WallFountain fountain;
+    private bool isOn;
 
-    void OnTriggerEnter2D(Collider2D other) => door.Open();
-    void OnTriggerExit2D(Collider2D other)  => door.Close();
+    // Chaque passage sur la plaque inverse son état
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+        isOn = !isOn;
+
+        if (door != null)
+        {
+            if (isOn) door.Open();
+            else door.Close();
+        }
+        if (fountain != null)
+        {
+            if (isOn) fountain.TurnOn();
+            else fountain.TurnOff();
+        }
+    }
 }
 ```
 
-➡️ Demain la même plaque doit baisser une herse ou allumer une torche : il faut **réécrire** `Switch`.
+➡️ Demain la plaque doit baisser une herse : un champ et un `if` de plus dans `PressurePlate`.
 
 ---
 
-## Après : l'interrupteur connaît un contrat
+## Après : la plaque connaît un contrat
 
 ```csharp
 public interface ISwitchable
@@ -617,42 +700,45 @@ public interface ISwitchable
 
 public class Door : MonoBehaviour, ISwitchable
 {
-    public void Activate()   => gameObject.SetActive(false);
-    public void Deactivate() => gameObject.SetActive(true);
+    public void Activate()   { /* sprite ouvert, collider coupé */ }
+    public void Deactivate() { /* sprite fermé, collider actif */ }
 }
 
-public class Torch : MonoBehaviour, ISwitchable
+public class PressurePlate : MonoBehaviour
 {
-    [SerializeField] private GameObject flame;
-    public void Activate()   => flame.SetActive(true);
-    public void Deactivate() => flame.SetActive(false);
-}
+    [SerializeField] private GameObject target;   // doit porter un ISwitchable
+    private ISwitchable switchable;
+    private bool isOn;
 
-public class Switch : MonoBehaviour
-{
-    [SerializeField] private GameObject target;
-    private ISwitchable client;
+    void Awake() => switchable = target.GetComponent<ISwitchable>();
 
-    void Awake() => client = target.GetComponent<ISwitchable>();
-    void OnTriggerEnter2D(Collider2D other) => client.Activate();
-    void OnTriggerExit2D(Collider2D other)  => client.Deactivate();
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+        isOn = !isOn;
+        if (isOn) switchable.Activate();
+        else switchable.Deactivate();
+    }
 }
 ```
+
+<small>Projet : branche `05-dip`. `WallFountain` implémente aussi `ISwitchable`.</small>
 
 Note:
 `GetComponent` accepte une interface. Le champ reste un `GameObject`
 parce que l'Inspector n'affiche pas un champ de type interface :
-voir « Les interfaces dans Unity ». Une classe abstraite `Switchable`
-permettrait un champ typé `Switchable[] targets`.
+voir « Les interfaces dans Unity ». Dans le projet, `OnValidate` signale
+dès l'éditeur une cible qui n'implémente pas `ISwitchable`. Une classe
+abstraite `Switchable` permettrait un champ typé `Switchable[] targets`.
 
 ---
 
 ## Inversion ≠ injection
 
 - **Inversion de dépendance** : un principe de conception. *Qui dépend de quoi ?*
-  `Switch → ISwitchable ← Door`
+  `PressurePlate → ISwitchable ← Door`
 - **Injection de dépendance** : une technique. *Qui fournit l'objet ?*
-  - l'Inspector : glisser la porte dans le champ, c'est déjà de l'injection
+  - l'Inspector : glisser la porte dans le champ `target`, c'est déjà de l'injection
   - une méthode `Init(ISwitchable client)` : un `MonoBehaviour` n'a **pas de constructeur**
   - un framework : VContainer, Zenject / Extenject
 
@@ -684,17 +770,18 @@ SOLID sert à **diagnostiquer** un code qui résiste au changement. Ce n'est pas
 | **O** | `switch` / `if` sur un type | classe abstraite ou interface + `TryGetComponent` |
 | **L** | `override` vide, exception | interfaces de capacités |
 | **I** | méthodes vides imposées | interfaces fines |
-| **D** | champ d'un type concret | contrat + injection par l'Inspector |
+| **D** | un champ par type concret | contrat + cible réglée dans l'Inspector |
 
 ---
 
 ## Atelier : Dungeon Crawler modulaire
 
-[github.com/StudioAlbert/UnityCourse-SOLID-DungeonCrawler](https://github.com/StudioAlbert/UnityCourse-SOLID-DungeonCrawler)
+[github.com/StudioAlbert/Companion-Solid-DungeonCrawler](https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler)
 
-- refactorer une scène fournie, qui n'est pas SOLID
-- un exercice par principe, puis l'atelier complet
-- **bonus** : ajouter un ennemi, un sort ou un piège sans modifier une seule classe existante
+- un donjon jouable, écrit volontairement **sans** SOLID : branche `main`
+- une étape par principe : `01-srp` → `02-ocp` → `03-lsp` → `04-isp` → `05-dip`
+- chaque branche est la solution d'une étape et le départ de la suivante
+- **bonus** : ajouter un ennemi, un piège ou un mécanisme sans modifier une seule classe existante
 
 Énoncés : [[01 courses/exercises/Unity/GPR-UN-APU-01 - SOLID en Unity]]
 
