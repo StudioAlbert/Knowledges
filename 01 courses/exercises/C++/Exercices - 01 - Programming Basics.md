@@ -7,9 +7,6 @@ seances:
 
 # Exercices — 01 — Programming Basics
 
-> Source : [Google Docs](https://docs.google.com/document/d/1Rs7TPHEBmtbobBekCGwzW9WOclGp0Vn3HQBm3-Q70-g/edit)
-> Cours associé : [[01.01 - Programming Basics - if, loops]]
-
 ## Jeux de dé
 
 ### « Le Cochon » (version ultra-courte)
