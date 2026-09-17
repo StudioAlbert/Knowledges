@@ -5,8 +5,6 @@ seances:
 
 # Exercices — GPR-CF-BDP-03 — Fonctions
 
-> Cours associé : [[01 courses/slides/C++/GPR-CF-BDP-03 - Fonctions]]
-
 Un seul fichier `main.cpp` par exercice. Pas de `if`, pas de boucle : uniquement des fonctions, des variables et des calculs.
 
 ## Exercice 1 — La calculette
