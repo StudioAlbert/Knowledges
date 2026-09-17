@@ -1,8 +1,5 @@
 # Exercices — GPR-UN-APU-01 — Atelier SOLID : Dungeon Crawler
 
-> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-01 - SOLID en Unity]]
-> Projet : [Companion-Solid-DungeonCrawler](https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler)
-
 Un projet Unity 6 jouable, écrit volontairement **sans** SOLID. Vous le refactorez principe par principe. Chaque étape a sa branche de solution, qui est aussi le point de départ de l'étape suivante :
 
 `main` → `01-srp` → `02-ocp` → `03-lsp` → `04-isp` → `05-dip`
