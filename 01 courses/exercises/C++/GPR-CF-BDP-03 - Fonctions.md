@@ -1,3 +1,8 @@
+---
+seances:
+  - GPR-CF-BDP-03
+---
+
 # Exercices — GPR-CF-BDP-03 — Fonctions
 
 > Cours associé : [[01 courses/slides/C++/GPR-CF-BDP-03 - Fonctions]]
