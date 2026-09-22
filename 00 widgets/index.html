@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widgets pédagogiques — Sébastien Albert</title>
+<style>
+  :root {
+    --bg: #ffffff; --text: #1a1a1a; --text2: #6b6b6b;
+    --border: rgba(0,0,0,0.12); --accent: #8a4423;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1e1e1e; --text: #e5e5e5; --text2: #aaa; --border: rgba(255,255,255,0.14); --accent: #c89761; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); max-width: 640px; margin: 0 auto; padding: 2.5rem 1.5rem; line-height: 1.6; }
+  h1 { font-size: 1.6rem; margin-bottom: .35rem; }
+  .sub { color: var(--text2); margin-bottom: 2rem; }
+  a.card { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; margin-bottom: 14px; text-decoration: none; color: inherit; transition: border-color .15s; }
+  a.card:hover { border-color: var(--accent); }
+  .card h2 { font-size: 1.05rem; color: var(--accent); margin-bottom: .25rem; }
+  .card p { font-size: .9rem; color: var(--text2); }
+  footer { margin-top: 2rem; font-size: .8rem; color: var(--text2); }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <h1>Widgets pédagogiques</h1>
+  <p class="sub">Démos interactives utilisées en cours par Sébastien Albert (programmation de jeux, IA).</p>
+
+  <a class="card" href="_widgets/astar_widgets.html">
+    <h2>A* — Recherche de chemin</h2>
+    <p>Pathfinding interactif : pas-à-pas, heuristique, comparaison avec Dijkstra.</p>
+  </a>
+  <a class="card" href="_widgets/utility_ai.html">
+    <h2>Utility AI — Courbes de réponse</h2>
+    <p>Visualisation des courbes de réponse pour la prise de décision des NPCs.</p>
+  </a>
+
+  <footer>
+    Source : <a href="https://github.com/StudioAlbert/widgets">github.com/StudioAlbert/widgets</a> ·
+    Portfolio : <a href="https://studioalbert.github.io/Portfolio/">Sébastien Albert</a>
+  </footer>
+</body>
+</html>

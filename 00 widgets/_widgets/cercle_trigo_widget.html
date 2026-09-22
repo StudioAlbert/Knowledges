@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cercle trigonométrique</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 24px; }
+input[type=range] { accent-color: var(--sae-red); width: 120px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(66vh, 620px); touch-action: none; user-select: none; }
+.board svg [data-handle] { cursor: grab; }
+.board svg.dragging, .board svg.dragging [data-handle] { cursor: grabbing; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.eq { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.9; }
+.eq .v { font-weight: 700; }
+.eq .na { color: var(--muted); }
+.eq .nc { color: var(--sae-red); }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint code, .steps code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.legend { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.legend div { display: flex; align-items: center; gap: 8px; }
+.sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; border: 1px solid rgba(0,0,0,.12); }
+pre.code {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 10px; overflow-x: auto; color: var(--text);
+}
+
+/* étapes du raisonnement (réciproque) */
+ol.steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 7px; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 26px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 1px;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--sae-black); color: #fff;
+    font-size: 11px; font-weight: 700; display: grid; place-items: center;
+}
+ol.steps li b { color: var(--text); }
+ol.steps li.concl::before { background: var(--sae-red); }
+ol.steps .mono { font-family: "JetBrains Mono", monospace; color: var(--text); }
+
+.logic { display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.logic div { border-left: 3px solid var(--line); padding: 2px 0 2px 9px; }
+.logic div.on { border-left-color: var(--sae-red); color: var(--text); }
+.logic .mono { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); white-space: nowrap; }
+
+.bars { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.bar { display: flex; align-items: center; gap: 8px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+.bar .lbl { width: 58px; flex: 0 0 auto; color: var(--muted); }
+.bar .track { flex: 1; height: 16px; display: flex; background: var(--panel2); border-radius: 3px; overflow: hidden; }
+.bar .seg { height: 100%; transition: width .15s; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 14px 18px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1><span class="hl">Cercle</span> trigonométrique</h1>
+    <p class="sub">Un point qui tourne sur un cercle de rayon 1 : son abscisse est le <strong>cosinus</strong>, son ordonnée le <strong>sinus</strong>. Tout le reste — unités, valeurs remarquables, symétries, ondes — se lit sur ce dessin.</p>
+  </div>
+  <div class="formula">M = (cos θ, <b>sin θ</b>)</div>
+</header>
+
+<div class="tabs" role="tablist">
+  <button class="on" data-tab="p1">1 · Le cercle unité</button>
+  <button data-tab="p2">2 · Symétries</button>
+  <button data-tab="p3">3 · Du cercle à l'onde</button>
+</div>
+
+<section class="panel on" id="p1">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Angle</span>
+      <label class="rng">θ <input type="range" id="p1-deg" min="0" max="359" step="1" value="30"><output id="p1-degv">30°</output></label>
+      <button id="p1-play" class="primary">▶ Tourner</button>
+    </div>
+    <div class="group">
+      <span class="group-label">Graduations</span>
+      <button id="p1-u-deg">degrés</button>
+      <button id="p1-u-rad">radians</button>
+      <button id="p1-u-turn">tours</button>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p1-snap" checked> Aimanter aux valeurs remarquables</label>
+      <label class="chk"><input type="checkbox" id="p1-tan"> Tangente</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board"><svg id="svg1" role="img" aria-label="Cercle unité avec un point M, ses projections cosinus et sinus"></svg></div>
+    <div class="side">
+      <div class="card">
+        <h3>Angle θ</h3>
+        <div class="eq" id="p1-ang"></div>
+      </div>
+      <div class="card">
+        <h3>Coordonnées de M</h3>
+        <div class="eq" id="p1-eq"></div>
+        <div id="p1-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Et en code</h3>
+        <pre class="code">// std::sin et std::cos attendent
+// des RADIANS
+float rad = deg * std::numbers::pi_v&lt;float&gt; / 180.f;
+float x = std::cos(rad);
+float y = std::sin(rad);</pre>
+        <p class="hint">Faites glisser <code>M</code> sur le cercle. Unity : <code>Mathf.Deg2Rad</code>, et <code>transform.eulerAngles</code> est en <strong>degrés</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p2">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Angle</span>
+      <label class="rng">θ <input type="range" id="p2-deg" min="0" max="359" step="1" value="30"><output id="p2-degv">30°</output></label>
+    </div>
+    <div class="group">
+      <span class="group-label">Afficher</span>
+      <label class="chk"><input type="checkbox" id="p2-neg" checked> −θ</label>
+      <label class="chk"><input type="checkbox" id="p2-supp" checked> π − θ</label>
+      <label class="chk"><input type="checkbox" id="p2-opp"> π + θ</label>
+      <label class="chk"><input type="checkbox" id="p2-comp"> π/2 − θ</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board"><svg id="svg2" role="img" aria-label="Points symétriques de M sur le cercle unité"></svg></div>
+    <div class="side">
+      <div class="card">
+        <h3>Ce qui change, ce qui reste</h3>
+        <div id="p2-eq"></div>
+      </div>
+      <div class="card">
+        <h3>Pour mémoire</h3>
+        <p class="hint" style="margin-top:0">Une symétrie du dessin est une identité trigonométrique. Plutôt que d'apprendre les formules, <strong>tracer le cercle</strong> et lire les signes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p3">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Onde</span>
+      <label class="rng">A <input type="range" id="p3-a" min="0.25" max="2" step="0.25" value="1"><output id="p3-av">1</output></label>
+      <label class="rng">ω <input type="range" id="p3-w" min="0.5" max="3" step="0.5" value="1"><output id="p3-wv">1</output></label>
+      <label class="rng">φ <input type="range" id="p3-phi" min="-180" max="180" step="15" value="0"><output id="p3-phiv">0°</output></label>
+    </div>
+    <div class="group">
+      <span class="group-label">Temps</span>
+      <input type="range" id="p3-t" min="0" max="6.2832" step="0.01" value="0">
+      <button id="p3-play" class="primary">▶ Animer</button>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p3-cos"> Superposer cos</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board"><svg id="svg3" role="img" aria-label="Un point qui tourne sur un cercle et la sinusoïde tracée par sa hauteur"></svg></div>
+    <div class="side">
+      <div class="card">
+        <h3>Équation</h3>
+        <div class="eq" id="p3-eq"></div>
+      </div>
+      <div class="card">
+        <h3>En jeu</h3>
+        <pre class="code">// un bonus qui flotte
+float y = A * Mathf.Sin(w * Time.time + phi);
+transform.position = basePos
+                   + Vector3.up * y;</pre>
+        <p class="hint"><code>A</code> règle la hauteur, <code>ω</code> la vitesse, <code>φ</code> décale l'onde : deux bonus avec des <code>φ</code> différents ne flottent pas à l'unisson.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TC-FT-TRG-02 — Cercle trigonométrique et unités · SAE Institute Genève · <a href="https://studioalbert.github.io/widgets/">widgets pédagogiques</a>
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const RED = "#E30613", INK = "#1a1a1a", G1 = "#6e6e6e", G2 = "#a8a8a8", AX = "#c9c9c9";
+const REM = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function txt(parent, x, y, s, attrs){
+  const a = {x: x, y: y, "font-size": 14, "font-weight": 700, fill: INK,
+             stroke: "#fff", "stroke-width": 4, "paint-order": "stroke"};
+  for (const k in attrs) a[k] = attrs[k];
+  el("text", a, parent).textContent = s;
+}
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function toSvg(svg, evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  const m = svg.getScreenCTM();
+  return m ? pt.matrixTransform(m.inverse()) : null;
+}
+function gcd(a, b){ while (b){ const t = a % b; a = b; b = t; } return a; }
+function rad(deg){ return deg * Math.PI / 180; }
+function mod360(d){ return ((d % 360) + 360) % 360; }
+
+/* ---------- formats ---------- */
+function num(v, d){
+  if (d === undefined) d = 3;
+  if (Math.abs(v) < 0.5 * Math.pow(10, -d)) v = 0;
+  return v.toFixed(d).replace("-", "−");
+}
+function radStr(deg){
+  if (deg === 0) return "0";
+  const g = gcd(deg, 180), p = deg / g, q = 180 / g;
+  const n = (p === 1 ? "" : p) + "π";
+  return q === 1 ? n : n + "/" + q;
+}
+function turnStr(deg){
+  if (deg === 0) return "0";
+  const g = gcd(deg, 360), p = deg / g, q = 360 / g;
+  return q === 1 ? String(p) : p + "/" + q;
+}
+function isRem(deg){ return REM.indexOf(deg) >= 0; }
+function exact(v){
+  if (Math.abs(v) < 1e-9) return "0";
+  const a = Math.abs(v), s = v < 0 ? "−" : "";
+  const T = [[0.5, "1/2"], [Math.SQRT2 / 2, "√2/2"], [Math.sqrt(3) / 2, "√3/2"], [1, "1"],
+             [Math.sqrt(3) / 3, "√3/3"], [Math.sqrt(3), "√3"]];
+  for (const t of T) if (Math.abs(a - t[0]) < 1e-9) return s + t[1];
+  return null;
+}
+function valStr(v, deg){
+  const e = isRem(deg) ? exact(v) : null;
+  if (e !== null && e.indexOf("/") < 0 && e.indexOf("√") < 0) return e;
+  return e !== null ? e + ' <span class="na">≈ ' + num(v) + '</span>' : num(v);
+}
+function quadrant(deg){
+  if (deg % 90 === 0) return null;
+  return Math.floor(deg / 90) + 1;
+}
+
+/* ---------- common drawing: axes + unit circle ---------- */
+function frame(svg, R, box, ticks, unit){
+  el("line", {x1: box[0], y1: 0, x2: box[0] + box[2], y2: 0, stroke: AX, "stroke-width": 1.5}, svg);
+  el("line", {x1: 0, y1: box[1], x2: 0, y2: box[1] + box[3], stroke: AX, "stroke-width": 1.5}, svg);
+  el("circle", {cx: 0, cy: 0, r: R, fill: "none", stroke: INK, "stroke-width": 2}, svg);
+  if (ticks){
+    for (const d of REM){
+      const c = Math.cos(rad(d)), s = Math.sin(rad(d));
+      el("line", {x1: 0.96 * R * c, y1: -0.96 * R * s, x2: 1.04 * R * c, y2: -1.04 * R * s,
+                  stroke: "#888", "stroke-width": 1.5}, svg);
+      const lab = unit === "rad" ? radStr(d) : unit === "turn" ? turnStr(d) : d + "°";
+      el("text", {x: 1.14 * R * c, y: -1.14 * R * s + 4, "text-anchor": "middle", "font-size": 12,
+                  "font-weight": 600, fill: "#888"}, svg).textContent = lab;
+    }
+  }
+  txt(svg, 8, 18, "O", {"font-size": 13, fill: "#888"});
+  txt(svg, R + 6, 18, "1", {"font-size": 13, fill: "#888"});
+  txt(svg, 8, -R - 6, "1", {"font-size": 13, fill: "#888"});
+}
+function wedge(svg, r, deg, color, opacity){
+  if (deg === 0) return;
+  const t = rad(deg);
+  el("path", {d: "M0,0 L" + r + ",0 A" + r + " " + r + " 0 " + (deg > 180 ? 1 : 0) + " 0 " +
+                 (r * Math.cos(t)).toFixed(2) + "," + (-r * Math.sin(t)).toFixed(2) + " Z",
+              fill: color, "fill-opacity": opacity, stroke: color, "stroke-width": 1.5}, svg);
+}
+function dragAngle(svg, onAngle){
+  svg.style.cursor = "pointer";
+  svg.addEventListener("pointerdown", function(e){
+    e.preventDefault();
+    svg.setPointerCapture(e.pointerId);
+    function pick(ev){
+      const p = toSvg(svg, ev);
+      if (p && Math.hypot(p.x, p.y) > 5) onAngle(Math.atan2(-p.y, p.x) * 180 / Math.PI);
+    }
+    function up(ev){
+      svg.releasePointerCapture(ev.pointerId);
+      svg.removeEventListener("pointermove", pick);
+      svg.removeEventListener("pointerup", up);
+    }
+    pick(e);
+    svg.addEventListener("pointermove", pick);
+    svg.addEventListener("pointerup", up);
+  });
+}
+
+/* ================= PANEL 1 — le cercle unité ================= */
+const svg1 = document.getElementById("svg1");
+const R1 = 190;
+const BOX1 = [-260, -250, 590, 500];
+let S1 = {deg: 30, unit: "deg", playing: false, raf: 0, acc: 0};
+
+function draw1(){
+  const deg = S1.deg, t = rad(deg), c = Math.cos(t), s = Math.sin(t);
+  const showTan = document.getElementById("p1-tan").checked;
+  const M = {x: R1 * c, y: -R1 * s};
+
+  clear(svg1);
+  svg1.setAttribute("viewBox", BOX1.join(" "));
+  frame(svg1, R1, BOX1, true, S1.unit);
+  wedge(svg1, 44, deg, RED, .12);
+
+  if (showTan && Math.abs(c) > 1e-9){
+    const T = {x: R1, y: -R1 * s / c};
+    el("line", {x1: R1, y1: BOX1[1], x2: R1, y2: BOX1[1] + BOX1[3], stroke: G2, "stroke-width": 1.5,
+                "stroke-dasharray": "4 4"}, svg1);
+    el("line", {x1: M.x, y1: M.y, x2: T.x, y2: T.y, stroke: INK, "stroke-width": 1.5,
+                "stroke-dasharray": "2 4"}, svg1);
+    el("line", {x1: R1, y1: 0, x2: T.x, y2: T.y, stroke: INK, "stroke-width": 5}, svg1);
+    if (Math.abs(T.y) < 235)
+      txt(svg1, R1 + 10, Math.max(-230, Math.min(235, T.y / 2 + 5)), "tan θ", {"font-size": 14});
+  }
+
+  /* projections */
+  el("line", {x1: M.x, y1: M.y, x2: 0, y2: M.y, stroke: G2, "stroke-width": 1.5, "stroke-dasharray": "5 4"}, svg1);
+  el("line", {x1: 0, y1: 0, x2: M.x, y2: 0, stroke: G1, "stroke-width": 7, "stroke-linecap": "butt"}, svg1);
+  el("line", {x1: M.x, y1: 0, x2: M.x, y2: M.y, stroke: RED, "stroke-width": 7, "stroke-linecap": "butt"}, svg1);
+  el("line", {x1: 0, y1: 0, x2: M.x, y2: M.y, stroke: INK, "stroke-width": 2.5}, svg1);
+
+  if (Math.abs(c) > .08)
+    txt(svg1, M.x / 2, s >= 0 ? 24 : -12, "cos θ", {"text-anchor": "middle", fill: G1});
+  if (Math.abs(s) > .08)
+    txt(svg1, M.x + (c >= 0 ? 10 : -10), M.y / 2 + 5, "sin θ", {"text-anchor": c >= 0 ? "start" : "end", fill: RED});
+  const lt = rad(deg / 2);
+  if (deg >= 20) txt(svg1, 64 * Math.cos(lt) - 5, -64 * Math.sin(lt) + 5, "θ", {fill: RED, "font-size": 15});
+
+  el("circle", {cx: M.x, cy: M.y, r: 9, fill: "#fff", stroke: INK, "stroke-width": 2.5}, svg1);
+  txt(svg1, M.x + (c >= 0 ? 14 : -14), M.y + (s >= 0 ? -12 : 24), "M",
+      {"text-anchor": c >= 0 ? "start" : "end", "font-size": 16});
+
+  /* side */
+  document.getElementById("p1-degv").value = deg + "°";
+  document.getElementById("p1-deg").value = deg;
+  document.getElementById("p1-ang").innerHTML =
+    '<div><span class="na">degrés</span> = <span class="v">' + deg + '°</span></div>' +
+    '<div><span class="na">radians</span> = <span class="v">' + (isRem(deg) ? radStr(deg) + '</span> <span class="na">≈ ' + num(t) + '</span>' : num(t) + '</span>') + '</div>' +
+    '<div><span class="na">tours</span> = <span class="v">' + (isRem(deg) ? turnStr(deg) + '</span> <span class="na">= ' + num(deg / 360) + '</span>' : num(deg / 360) + '</span>') + '</div>';
+
+  const tanS = Math.abs(c) < 1e-9 ? '<span class="na">indéfinie</span>' : valStr(s / c, deg);
+  document.getElementById("p1-eq").innerHTML =
+    '<div><span class="na">cos θ</span> = <span class="v">' + valStr(c, deg) + '</span></div>' +
+    '<div><span class="nc">sin θ</span> = <span class="v">' + valStr(s, deg) + '</span></div>' +
+    '<div><span class="na">tan θ</span> = <span class="v">' + tanS + '</span></div>' +
+    '<div><span class="na">cos² + sin²</span> = <span class="v">' + num(c * c + s * s) + '</span></div>';
+
+  const q = quadrant(deg);
+  const sg = function(v){ return v > 0 ? "&gt; 0" : "&lt; 0"; };
+  document.getElementById("p1-badge").innerHTML = q === null
+    ? '<span class="badge ok">Sur un axe — une coordonnée est nulle</span>'
+    : '<span class="badge' + (q === 1 ? ' ok' : '') + '">Quadrant ' + ["I", "II", "III", "IV"][q - 1] +
+      ' — cos ' + sg(c) + ', sin ' + sg(s) + '</span>';
+
+  ["deg", "rad", "turn"].forEach(function(u){
+    document.getElementById("p1-u-" + u).classList.toggle("primary", S1.unit === u);
+  });
+}
+function setDeg1(d){
+  d = mod360(Math.round(d));
+  if (document.getElementById("p1-snap").checked){
+    for (const r of REM.concat([360])){
+      if (Math.abs(d - r) <= 5){ d = r % 360; break; }
+    }
+  }
+  S1.deg = d;
+  draw1();
+}
+function stop1(){
+  S1.playing = false;
+  cancelAnimationFrame(S1.raf);
+  document.getElementById("p1-play").textContent = "▶ Tourner";
+}
+dragAngle(svg1, function(a){ stop1(); setDeg1(a); });
+document.getElementById("p1-deg").addEventListener("input", function(e){ stop1(); setDeg1(+e.target.value); });
+document.getElementById("p1-tan").addEventListener("change", draw1);
+document.getElementById("p1-snap").addEventListener("change", function(){ setDeg1(S1.deg); });
+["deg", "rad", "turn"].forEach(function(u){
+  document.getElementById("p1-u-" + u).addEventListener("click", function(){ S1.unit = u; draw1(); });
+});
+document.getElementById("p1-play").addEventListener("click", function(){
+  if (S1.playing){ stop1(); return; }
+  S1.playing = true;
+  S1.acc = S1.deg;
+  this.textContent = "❚❚ Pause";
+  let last = performance.now();
+  (function loop(now){
+    if (!S1.playing) return;
+    S1.acc = (S1.acc + (now - last) / 1000 * 40) % 360;
+    last = now;
+    S1.deg = Math.floor(S1.acc);
+    draw1();
+    S1.raf = requestAnimationFrame(loop);
+  })(last);
+});
+
+/* ================= PANEL 2 — symétries ================= */
+const svg2 = document.getElementById("svg2");
+const R2 = 190;
+const BOX2 = [-255, -245, 510, 490];
+let S2 = {deg: 30};
+
+const SYM = [
+  {id: "neg",  name: "−θ",     f: function(d){ return -d; },      color: INK, dash: "",
+   rel: "cos(−θ) = cos θ<br>sin(−θ) = −sin θ", what: "symétrie par rapport à l'axe (Ox)"},
+  {id: "supp", name: "π − θ",  f: function(d){ return 180 - d; }, color: G1, dash: "",
+   rel: "cos(π − θ) = −cos θ<br>sin(π − θ) = sin θ", what: "symétrie par rapport à l'axe (Oy)"},
+  {id: "opp",  name: "π + θ",  f: function(d){ return 180 + d; }, color: G2, dash: "",
+   rel: "cos(π + θ) = −cos θ<br>sin(π + θ) = −sin θ", what: "symétrie par rapport à O — un demi-tour"},
+  {id: "comp", name: "π/2 − θ", f: function(d){ return 90 - d; }, color: RED, dash: "6 4",
+   rel: "cos(π/2 − θ) = sin θ<br>sin(π/2 − θ) = cos θ", what: "symétrie par rapport à y = x — cos et sin s'échangent"}
+];
+
+function draw2(){
+  const deg = S2.deg, t = rad(deg);
+  const M = {x: R2 * Math.cos(t), y: -R2 * Math.sin(t)};
+  clear(svg2);
+  svg2.setAttribute("viewBox", BOX2.join(" "));
+  frame(svg2, R2, BOX2, false);
+
+  let html = '<div class="eq" style="margin-bottom:8px"><span class="nc">θ = ' + deg + '°</span> : cos <span class="v">' +
+             num(Math.cos(t)) + '</span> · sin <span class="v">' + num(Math.sin(t)) + '</span></div>';
+
+  if (document.getElementById("p2-comp").checked)
+    el("line", {x1: -R2 * 1.15, y1: R2 * 1.15, x2: R2 * 1.15, y2: -R2 * 1.15, stroke: RED, "stroke-width": 1,
+                "stroke-dasharray": "3 5", "stroke-opacity": .6}, svg2);
+
+  const pts = [];
+  for (const sy of SYM){
+    if (!document.getElementById("p2-" + sy.id).checked) continue;
+    const d = mod360(sy.f(deg)), u = rad(d);
+    const P = {x: R2 * Math.cos(u), y: -R2 * Math.sin(u)};
+    el("line", {x1: M.x, y1: M.y, x2: P.x, y2: P.y, stroke: sy.color, "stroke-width": 1.5, "stroke-dasharray": "5 4"}, svg2);
+    el("line", {x1: 0, y1: 0, x2: P.x, y2: P.y, stroke: sy.color, "stroke-width": 2, "stroke-dasharray": sy.dash}, svg2);
+    pts.push({P: P, sy: sy});
+    html += '<div class="eq" style="line-height:1.6;margin-top:10px"><b style="color:' + sy.color + '">' + sy.name +
+            '</b> <span class="na">= ' + d + '°</span> : cos <span class="v">' + num(Math.cos(u)) +
+            '</span> · sin <span class="v">' + num(Math.sin(u)) + '</span></div>' +
+            '<div class="hint" style="margin-top:2px">' + sy.what + '<br><code>' + sy.rel.replace("<br>", "</code><br><code>") + '</code></div>';
+  }
+
+  wedge(svg2, 40, deg, RED, .12);
+  el("line", {x1: 0, y1: 0, x2: M.x, y2: M.y, stroke: RED, "stroke-width": 3}, svg2);
+
+  for (const o of pts){
+    const P = o.P;
+    el("circle", {cx: P.x, cy: P.y, r: 8, fill: o.sy.color, stroke: "#fff", "stroke-width": 2.5}, svg2);
+    txt(svg2, P.x * 1.12, P.y * 1.12 + 5, o.sy.name, {"text-anchor": "middle", fill: o.sy.color === G2 ? "#777" : o.sy.color});
+  }
+  el("circle", {cx: M.x, cy: M.y, r: 9, fill: RED, stroke: "#fff", "stroke-width": 2.5}, svg2);
+  txt(svg2, M.x * 1.12, M.y * 1.12 + 5, "θ", {"text-anchor": "middle", fill: RED, "font-size": 16});
+
+  document.getElementById("p2-eq").innerHTML = html;
+  document.getElementById("p2-degv").value = deg + "°";
+  document.getElementById("p2-deg").value = deg;
+}
+dragAngle(svg2, function(a){ S2.deg = mod360(Math.round(a)); draw2(); });
+document.getElementById("p2-deg").addEventListener("input", function(e){ S2.deg = +e.target.value; draw2(); });
+SYM.forEach(function(sy){ document.getElementById("p2-" + sy.id).addEventListener("change", draw2); });
+
+/* ================= PANEL 3 — du cercle à l'onde ================= */
+const svg3 = document.getElementById("svg3");
+const U3 = 70, GX = 185, K = 62;
+const BOX3 = [-160, -170, 760, 340];
+let S3 = {A: 1, w: 1, phi: 0, t: 0, playing: false, raf: 0};
+
+function wave(fn, t0, t1, A, w, ph){
+  let d = "";
+  const n = 240;
+  for (let i = 0; i <= n; i++){
+    const x = t0 + (t1 - t0) * i / n;
+    d += (i ? "L" : "M") + (GX + K * x).toFixed(2) + "," + (-U3 * A * fn(w * x + ph)).toFixed(2);
+  }
+  return d;
+}
+
+function draw3(){
+  const A = S3.A, w = S3.w, ph = rad(S3.phi), t = S3.t;
+  const ang = w * t + ph;
+  const showCos = document.getElementById("p3-cos").checked;
+  const P = {x: U3 * A * Math.cos(ang), y: -U3 * A * Math.sin(ang)};
+  const Q = {x: GX + K * t, y: -U3 * A * Math.sin(ang)};
+  const TMAX = 2 * Math.PI;
+
+  clear(svg3);
+  svg3.setAttribute("viewBox", BOX3.join(" "));
+
+  /* circle side */
+  el("line", {x1: -150, y1: 0, x2: 150, y2: 0, stroke: AX, "stroke-width": 1.5}, svg3);
+  el("line", {x1: 0, y1: -160, x2: 0, y2: 160, stroke: AX, "stroke-width": 1.5}, svg3);
+  el("circle", {cx: 0, cy: 0, r: U3, fill: "none", stroke: AX, "stroke-width": 1.5, "stroke-dasharray": "3 4"}, svg3);
+  el("circle", {cx: 0, cy: 0, r: U3 * A, fill: "none", stroke: INK, "stroke-width": 2}, svg3);
+
+  /* graph side */
+  el("line", {x1: GX, y1: 0, x2: GX + K * TMAX + 20, y2: 0, stroke: AX, "stroke-width": 1.5}, svg3);
+  el("line", {x1: GX, y1: -160, x2: GX, y2: 160, stroke: AX, "stroke-width": 1.5}, svg3);
+  txt(svg3, GX + K * TMAX + 24, 5, "t", {fill: "#888", "font-size": 13});
+  const tl = [[Math.PI / 2, "π/2"], [Math.PI, "π"], [3 * Math.PI / 2, "3π/2"], [2 * Math.PI, "2π"]];
+  for (const k of tl){
+    el("line", {x1: GX + K * k[0], y1: -5, x2: GX + K * k[0], y2: 5, stroke: "#888", "stroke-width": 1.5}, svg3);
+    txt(svg3, GX + K * k[0], 22, k[1], {"text-anchor": "middle", fill: "#888", "font-size": 12});
+  }
+  for (const v of [-2, -1, 1, 2]){
+    el("line", {x1: GX - 4, y1: -U3 * v, x2: GX + K * TMAX, y2: -U3 * v, stroke: "#f0f0f0", "stroke-width": 1}, svg3);
+    txt(svg3, GX - 8, -U3 * v + 4, String(v), {"text-anchor": "end", fill: "#888", "font-size": 12});
+  }
+
+  if (showCos){
+    el("path", {d: wave(Math.cos, 0, TMAX, A, w, ph), fill: "none", stroke: G1, "stroke-width": 2,
+                "stroke-dasharray": "6 4"}, svg3);
+    const Qc = {x: GX + K * t, y: -U3 * A * Math.cos(ang)};
+    el("line", {x1: P.x, y1: 0, x2: P.x, y2: P.y, stroke: G1, "stroke-width": 1.5, "stroke-dasharray": "3 3"}, svg3);
+    el("circle", {cx: Qc.x, cy: Qc.y, r: 6, fill: G1, stroke: "#fff", "stroke-width": 2}, svg3);
+    txt(svg3, GX + K * TMAX - 4, -U3 * A * Math.cos(w * TMAX + ph) - 10, "cos", {"text-anchor": "end", fill: G1, "font-size": 13});
+  }
+  el("path", {d: wave(Math.sin, 0, TMAX, A, w, ph), fill: "none", stroke: "#e4c4c6", "stroke-width": 2}, svg3);
+  if (t > 0) el("path", {d: wave(Math.sin, 0, t, A, w, ph), fill: "none", stroke: RED, "stroke-width": 3.5}, svg3);
+
+  el("line", {x1: P.x, y1: P.y, x2: Q.x, y2: Q.y, stroke: RED, "stroke-width": 1.5, "stroke-dasharray": "5 4"}, svg3);
+  el("line", {x1: 0, y1: 0, x2: P.x, y2: P.y, stroke: INK, "stroke-width": 2.5}, svg3);
+  el("line", {x1: Q.x, y1: 0, x2: Q.x, y2: Q.y, stroke: RED, "stroke-width": 5}, svg3);
+  el("circle", {cx: P.x, cy: P.y, r: 8, fill: "#fff", stroke: INK, "stroke-width": 2.5}, svg3);
+  el("circle", {cx: Q.x, cy: Q.y, r: 7, fill: RED, stroke: "#fff", "stroke-width": 2}, svg3);
+  txt(svg3, GX + K * TMAX - 4, -U3 * A * Math.sin(w * TMAX + ph) + 20, "sin", {"text-anchor": "end", fill: RED, "font-size": 13});
+
+  const phS = S3.phi === 0 ? "0" : (S3.phi < 0 ? "−" : "") + radStr(Math.abs(S3.phi));
+  document.getElementById("p3-eq").innerHTML =
+    '<div>y = <span class="v">' + A + '</span> · sin(<span class="v">' + w + '</span>·t ' +
+    (S3.phi < 0 ? '−' : '+') + ' <span class="v">' + (S3.phi === 0 ? '0' : radStr(Math.abs(S3.phi))) + '</span>)</div>' +
+    '<div><span class="na">t</span> = <span class="v">' + num(t, 2) + '</span></div>' +
+    '<div><span class="nc">y</span> = <span class="v">' + num(A * Math.sin(ang)) + '</span></div>' +
+    '<div><span class="na">période</span> 2π/ω = <span class="v">' + num(2 * Math.PI / w, 2) + '</span></div>' +
+    '<div><span class="na">déphasage</span> φ = <span class="v">' + phS + '</span> <span class="na">(' + S3.phi + '°)</span></div>';
+  document.getElementById("p3-t").value = t;
+}
+function stop3(){
+  S3.playing = false;
+  cancelAnimationFrame(S3.raf);
+  document.getElementById("p3-play").textContent = "▶ Animer";
+}
+document.getElementById("p3-a").addEventListener("input", function(e){ S3.A = +e.target.value; document.getElementById("p3-av").value = S3.A; draw3(); });
+document.getElementById("p3-w").addEventListener("input", function(e){ S3.w = +e.target.value; document.getElementById("p3-wv").value = S3.w; draw3(); });
+document.getElementById("p3-phi").addEventListener("input", function(e){ S3.phi = +e.target.value; document.getElementById("p3-phiv").value = S3.phi + "°"; draw3(); });
+document.getElementById("p3-t").addEventListener("input", function(e){ stop3(); S3.t = +e.target.value; draw3(); });
+document.getElementById("p3-cos").addEventListener("change", draw3);
+document.getElementById("p3-play").addEventListener("click", function(){
+  if (S3.playing){ stop3(); return; }
+  S3.playing = true;
+  this.textContent = "❚❚ Pause";
+  let last = performance.now();
+  (function loop(now){
+    if (!S3.playing) return;
+    S3.t += (now - last) / 1000 * 1.2;
+    last = now;
+    if (S3.t > 2 * Math.PI) S3.t = 0;
+    draw3();
+    S3.raf = requestAnimationFrame(loop);
+  })(last);
+});
+
+/* ================= onglets ================= */
+const tabBtns = document.querySelectorAll(".tabs button");
+tabBtns.forEach(function(btn){
+  btn.addEventListener("click", function(){
+    tabBtns.forEach(function(b){ b.classList.remove("on"); });
+    btn.classList.add("on");
+    document.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("on"); });
+    document.getElementById(btn.dataset.tab).classList.add("on");
+  });
+});
+
+draw1(); draw2(); draw3();
+})();
+</script>
+</body>
+</html>

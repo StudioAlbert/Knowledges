@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-Frame-Options" content="ALLOWALL">
+<meta name="description" content="Widget interactif : courbes de réponse pour Utility AI">
+<meta property="og:title" content="Courbes de réponse — Utility AI">
+<meta property="og:description" content="Widget interactif des courbes de réponse pour programmer l'IA de NPC">
+<meta property="og:type" content="website">
+<title>Courbes de réponse — Utility AI</title>
+<style>
+  :root {
+    --bg: #ffffff; --bg2: #f7f7f5; --bg3: #f0f0ec;
+    --text: #1a1a1a; --text2: #6b6b6b; --text3: #999;
+    --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.15);
+    --green: #639922; --orange: #D85A30; --purple: #7F77DD;
+    --blue: #378ADD; --red: #E24B4A; --amber: #EF9F27;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1e; --bg2: #2a2a2a; --bg3: #333;
+      --text: #e5e5e5; --text2: #aaa; --text3: #777;
+      --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.15);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); padding: 1.5rem; max-width: 720px; margin: 0 auto; line-height: 1.6; }
+  .tab-bar { display: flex; gap: 0; border-bottom: 1px solid var(--border2); margin-bottom: 1.5rem; }
+  .tab-btn { background: none; border: none; padding: 10px 18px; font-size: 14px; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; font-family: var(--font); transition: all 0.15s; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--text); font-weight: 600; border-bottom-color: var(--text); }
+  .tab-panel { display: none; } .tab-panel.active { display: block; }
+  .card { background: var(--bg); border: 1px solid var(--border2); border-radius: 10px; padding: 1.25rem; margin-bottom: 16px; }
+  .card-title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .card-desc { font-size: 13px; color: var(--text2); line-height: 1.5; margin-bottom: 14px; }
+  .curve-row { display: flex; gap: 16px; align-items: flex-start; }
+  .curve-canvas-wrap { flex: 0 0 200px; height: 200px; }
+  .curve-controls { flex: 1; min-width: 0; }
+  .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .slider-row label { font-size: 13px; color: var(--text2); min-width: 80px; }
+  .slider-row input[type=range] { flex: 1; height: 6px; -webkit-appearance: none; appearance: none; background: var(--bg3); border-radius: 3px; outline: none; }
+  .slider-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--text); cursor: pointer; }
+  .slider-row span { font-size: 13px; font-weight: 600; min-width: 36px; text-align: right; }
+  .example-box { background: var(--bg2); border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--text2); }
+  .compare-wrap { display: flex; gap: 12px; margin-top: 14px; }
+  .compare-card { flex: 1; background: var(--bg2); border-radius: 8px; padding: 10px 14px; }
+  .compare-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .compare-card .val { font-size: 20px; font-weight: 600; }
+  .info { font-size: 13px; color: var(--text2); margin-bottom: 14px; line-height: 1.6; }
+  canvas { image-rendering: auto; display: block; }
+  @media (max-width: 600px) {
+    .curve-row { flex-direction: column; }
+    .curve-canvas-wrap { flex: none; width: 100%; height: 180px; }
+    canvas { width: 100% !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('basics',this)">Les 4 courbes</button>
+  <button class="tab-btn" onclick="showTab('compare',this)">Comparer</button>
+  <button class="tab-btn" onclick="showTab('personality',this)">Personnalité</button>
+</div>
+
+<!-- TAB 1 -->
+<div id="tab-basics" class="tab-panel active">
+  <div class="card">
+    <div class="card-title">Linéaire : y = mx + b</div>
+    <div class="card-desc">Réponse proportionnelle. Chaque unité d'input produit le même changement d'output.</div>
+    <div class="curve-row">
+      <div class="curve-canvas-wrap"><canvas id="c-linear" width="200" height="200"></canvas></div>
+      <div class="curve-controls">
+        <div class="slider-row"><label>Pente (m)</label><input type="range" min="0.1" max="3" step="0.1" value="1" oninput="drawLinear()" id="sl-m"><span id="sl-m-out">1.0</span></div>
+        <div class="slider-row"><label>Offset (b)</label><input type="range" min="-0.5" max="0.5" step="0.05" value="0" oninput="drawLinear()" id="sl-b"><span id="sl-b-out">0.0</span></div>
+        <div class="example-box">Distance d'un objet de quête. Plus on est proche, plus l'intérêt monte régulièrement.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Quadratique : y = x<sup>n</sup></div>
+    <div class="card-desc">Accéléré (n&gt;1) ou décéléré (n&lt;1). La courbe préférée de Dave Mark.</div>
+    <div class="curve-row">
+      <div class="curve-canvas-wrap"><canvas id="c-quad" width="200" height="200"></canvas></div>
+      <div class="curve-controls">
+        <div class="slider-row"><label>Exposant (n)</label><input type="range" min="0.2" max="4" step="0.1" value="2" oninput="drawQuad()" id="sl-n"><span id="sl-n-out">2.0</span></div>
+        <div class="example-box">n=2 : urgence de soin. À 80% de vie → score 0.04. À 20% → score 0.64. Le NPC ne panique pas pour une égratignure.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Logistique (sigmoïde) : y = 1/(1+e<sup>-k(x-m)</sup>)</div>
+    <div class="card-desc">Courbe en S avec seuil de basculement. Transition douce ou brutale selon la raideur.</div>
+    <div class="curve-row">
+      <div class="curve-canvas-wrap"><canvas id="c-logistic" width="200" height="200"></canvas></div>
+      <div class="curve-controls">
+        <div class="slider-row"><label>Raideur (k)</label><input type="range" min="2" max="20" step="0.5" value="10" oninput="drawLogistic()" id="sl-k"><span id="sl-k-out">10</span></div>
+        <div class="slider-row"><label>Seuil (m)</label><input type="range" min="0.1" max="0.9" step="0.05" value="0.5" oninput="drawLogistic()" id="sl-mid"><span id="sl-mid-out">0.50</span></div>
+        <div class="example-box">Fuir quand la vie passe sous un seuil. Avec m=0.3, le NPC bascule rapidement en mode fuite sous 40% de vie.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Exponentielle inverse : y = 1 - e<sup>-kx</sup></div>
+    <div class="card-desc">Montée rapide puis saturation. Rendements décroissants.</div>
+    <div class="curve-row">
+      <div class="curve-canvas-wrap"><canvas id="c-expo" width="200" height="200"></canvas></div>
+      <div class="curve-controls">
+        <div class="slider-row"><label>Vitesse (k)</label><input type="range" min="0.5" max="8" step="0.5" value="3" oninput="drawExpo()" id="sl-ek"><span id="sl-ek-out">3.0</span></div>
+        <div class="example-box">Manger quand on a faim. Le premier repas est crucial, au-delà d'un certain point, manger davantage n'apporte presque rien.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div id="tab-compare" class="tab-panel">
+  <div class="info">Toutes les courbes superposées pour un même input. Observez comment chaque forme donne un score très différent pour la même valeur d'entrée.</div>
+  <div style="height:280px;position:relative;margin-bottom:14px;"><canvas id="c-compare" width="680" height="280"></canvas></div>
+  <div class="slider-row"><label>Input (x)</label><input type="range" min="0" max="1" step="0.01" value="0.35" oninput="drawCompare()" id="sl-cx"><span id="sl-cx-out">0.35</span></div>
+  <div class="compare-wrap" id="compare-vals"></div>
+</div>
+
+<!-- TAB 3 -->
+<div id="tab-personality" class="tab-panel">
+  <div class="info">Même action « Fuir », deux personnalités. Le NPC lâche fuit beaucoup plus tôt que le brave — on change juste la courbe.</div>
+  <div style="height:280px;position:relative;margin-bottom:14px;"><canvas id="c-persona" width="680" height="280"></canvas></div>
+  <div class="slider-row"><label>Vie du NPC</label><input type="range" min="0" max="100" step="1" value="50" oninput="drawPersona()" id="sl-php"><span id="sl-php-out">50%</span></div>
+  <div class="compare-wrap">
+    <div class="compare-card"><div class="label">NPC Lâche</div><div class="val" id="coward-val" style="color:var(--red)">—</div></div>
+    <div class="compare-card"><div class="label">NPC Brave</div><div class="val" id="brave-val" style="color:var(--blue)">—</div></div>
+  </div>
+  <div class="example-box" style="margin-top:14px">Le lâche utilise une sigmoïde avec seuil à 60% de vie (il panique tôt). Le brave utilise une courbe cubique x³ (il ne fuit qu'en danger extrême).</div>
+</div>
+
+<script>
+const isDark = matchMedia('(prefers-color-scheme:dark)').matches;
+const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+const axisColor = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.18)';
+const textColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.35)';
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'compare') drawCompare();
+  if (id === 'personality') drawPersona();
+}
+
+function setupCanvas(canvas, w, h) {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr); return ctx;
+}
+
+function drawGrid(ctx, w, h, pad) {
+  ctx.clearRect(0, 0, w, h);
+  const gw = w - pad * 2, gh = h - pad * 2;
+  ctx.strokeStyle = gridColor; ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 4; i++) {
+    const x = pad + gw * i / 4, y = pad + gh * i / 4;
+    ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, pad + gh); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(pad + gw, y); ctx.stroke();
+  }
+  ctx.strokeStyle = axisColor; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad, pad + gh); ctx.lineTo(pad + gw, pad + gh); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, pad + gh); ctx.stroke();
+  ctx.fillStyle = textColor; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('0', pad, pad + gh + 13); ctx.fillText('1', pad + gw, pad + gh + 13);
+  ctx.textAlign = 'right'; ctx.fillText('0', pad - 5, pad + gh + 4); ctx.fillText('1', pad - 5, pad + 5);
+}
+
+function plotCurve(ctx, fn, w, h, pad, color, lw) {
+  const gw = w - pad * 2, gh = h - pad * 2;
+  ctx.strokeStyle = color; ctx.lineWidth = lw || 2.5; ctx.beginPath();
+  for (let px = 0; px <= gw; px++) {
+    const x = px / gw, y = Math.max(0, Math.min(1, fn(x)));
+    if (px === 0) ctx.moveTo(pad + px, pad + gh - y * gh); else ctx.lineTo(pad + px, pad + gh - y * gh);
+  }
+  ctx.stroke();
+}
+
+function drawLinear() {
+  const m = +document.getElementById('sl-m').value, b = +document.getElementById('sl-b').value;
+  document.getElementById('sl-m-out').textContent = m.toFixed(1);
+  document.getElementById('sl-b-out').textContent = b.toFixed(2);
+  const ctx = setupCanvas(document.getElementById('c-linear'), 200, 200);
+  drawGrid(ctx, 200, 200, 26); plotCurve(ctx, x => m * x + b, 200, 200, 26, 'var(--green)' in ctx ? '#639922' : '#639922');
+}
+
+function drawQuad() {
+  const n = +document.getElementById('sl-n').value;
+  document.getElementById('sl-n-out').textContent = n.toFixed(1);
+  const ctx = setupCanvas(document.getElementById('c-quad'), 200, 200);
+  drawGrid(ctx, 200, 200, 26); plotCurve(ctx, x => Math.pow(x, n), 200, 200, 26, '#D85A30');
+}
+
+function drawLogistic() {
+  const k = +document.getElementById('sl-k').value, mid = +document.getElementById('sl-mid').value;
+  document.getElementById('sl-k-out').textContent = Math.round(k);
+  document.getElementById('sl-mid-out').textContent = mid.toFixed(2);
+  const ctx = setupCanvas(document.getElementById('c-logistic'), 200, 200);
+  drawGrid(ctx, 200, 200, 26); plotCurve(ctx, x => 1 / (1 + Math.exp(-k * (x - mid))), 200, 200, 26, '#7F77DD');
+}
+
+function drawExpo() {
+  const ek = +document.getElementById('sl-ek').value;
+  document.getElementById('sl-ek-out').textContent = ek.toFixed(1);
+  const ctx = setupCanvas(document.getElementById('c-expo'), 200, 200);
+  drawGrid(ctx, 200, 200, 26); plotCurve(ctx, x => 1 - Math.exp(-ek * x), 200, 200, 26, '#378ADD');
+}
+
+function drawCompare() {
+  const cx = +document.getElementById('sl-cx').value;
+  document.getElementById('sl-cx-out').textContent = cx.toFixed(2);
+  const c = document.getElementById('c-compare');
+  const cw = c.parentElement.offsetWidth || 680, ch = 280;
+  const ctx = setupCanvas(c, cw, ch); const pad = 34;
+  drawGrid(ctx, cw, ch, pad);
+  const gw = cw - pad * 2, gh = ch - pad * 2;
+  const fns = [
+    { fn: x => x, color: '#639922', name: 'Linéaire' },
+    { fn: x => x * x, color: '#D85A30', name: 'Quadratique' },
+    { fn: x => 1 / (1 + Math.exp(-10 * (x - 0.5))), color: '#7F77DD', name: 'Logistique' },
+    { fn: x => 1 - Math.exp(-3 * x), color: '#378ADD', name: 'Exponentielle' },
+  ];
+  fns.forEach(f => plotCurve(ctx, f.fn, cw, ch, pad, f.color, 2.5));
+  ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)';
+  ctx.lineWidth = 1; ctx.setLineDash([5, 5]);
+  const px = pad + cx * gw;
+  ctx.beginPath(); ctx.moveTo(px, pad); ctx.lineTo(px, pad + gh); ctx.stroke(); ctx.setLineDash([]);
+  let html = '';
+  fns.forEach(f => {
+    const val = Math.round(Math.max(0, Math.min(1, f.fn(cx))) * 100);
+    html += `<div class="compare-card"><div class="label">${f.name}</div><div class="val" style="color:${f.color}">${val}%</div></div>`;
+    const y = Math.max(0, Math.min(1, f.fn(cx))), cy = pad + gh - y * gh;
+    ctx.fillStyle = f.color; ctx.beginPath(); ctx.arc(px, cy, 5, 0, Math.PI * 2); ctx.fill();
+  });
+  document.getElementById('compare-vals').innerHTML = html;
+}
+
+function drawPersona() {
+  const hp = +document.getElementById('sl-php').value;
+  document.getElementById('sl-php-out').textContent = hp + '%';
+  const c = document.getElementById('c-persona');
+  const cw = c.parentElement.offsetWidth || 680, ch = 280;
+  const ctx = setupCanvas(c, cw, ch); const pad = 34;
+  drawGrid(ctx, cw, ch, pad);
+  const gw = cw - pad * 2, gh = ch - pad * 2;
+  const cowardFn = x => 1 / (1 + Math.exp(-12 * ((1 - x) - 0.4)));
+  const braveFn = x => Math.pow(1 - x, 3);
+  plotCurve(ctx, cowardFn, cw, ch, pad, '#E24B4A', 2.5);
+  plotCurve(ctx, braveFn, cw, ch, pad, '#378ADD', 2.5);
+  ctx.font = '13px sans-serif';
+  ctx.fillStyle = '#E24B4A'; ctx.textAlign = 'left'; ctx.fillText('Lâche (sigmoïde)', pad + 8, pad + 18);
+  ctx.fillStyle = '#378ADD'; ctx.fillText('Brave (cubique)', pad + 8, pad + 36);
+  const x = hp / 100;
+  const cowardVal = Math.round(Math.max(0, Math.min(1, cowardFn(x))) * 100);
+  const braveVal = Math.round(Math.max(0, Math.min(1, braveFn(x))) * 100);
+  ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)';
+  ctx.lineWidth = 1; ctx.setLineDash([5, 5]);
+  const px = pad + x * gw;
+  ctx.beginPath(); ctx.moveTo(px, pad); ctx.lineTo(px, pad + gh); ctx.stroke(); ctx.setLineDash([]);
+  const cy1 = pad + gh - cowardFn(x) * gh, cy2 = pad + gh - braveFn(x) * gh;
+  ctx.fillStyle = '#E24B4A'; ctx.beginPath(); ctx.arc(px, cy1, 6, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#378ADD'; ctx.beginPath(); ctx.arc(px, cy2, 6, 0, Math.PI * 2); ctx.fill();
+  document.getElementById('coward-val').textContent = cowardVal + '%';
+  document.getElementById('brave-val').textContent = braveVal + '%';
+}
+
+drawLinear(); drawQuad(); drawLogistic(); drawExpo();
+</script>
+</body>
+</html>

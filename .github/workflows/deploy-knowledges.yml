@@ -7,6 +7,7 @@ on:
       - "01 courses/slides/**"
       - "01 courses/exercises/**"
       - "00 images/**"
+      - "00 widgets/**"
       - "00 templates/css/**"
       - "site-build/**"
       - ".github/workflows/deploy-knowledges.yml"

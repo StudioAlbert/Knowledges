@@ -6,7 +6,8 @@
     "jsx",
     "py",
     "css",
-    "yml"
+    "yml",
+    "html"
   ],
   "folding": true,
   "lineNumbers": true,

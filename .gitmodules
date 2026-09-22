@@ -4,9 +4,6 @@
 [submodule "C++ Advanced/companions/cpp_builder_pattern_course_companion"]
 	path = 01 courses/companion projects/C++/cpp_builder_pattern_course_companion
 	url = https://github.com/StudioAlbert/cpp_builder_pattern_course_companion.git
-[submodule "widgets"]
-	path = 00 widgets
-	url = https://github.com/StudioAlbert/widgets.git
 [submodule "01 courses/companion projects/Unity/Companion-Solid-DungeonCrawler"]
 	path = 01 courses/companion projects/Unity/Companion-Solid-DungeonCrawler
 	url = https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler.git

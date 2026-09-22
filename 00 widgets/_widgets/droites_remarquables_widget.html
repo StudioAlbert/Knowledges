@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droites remarquables du triangle</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 24px; }
+input[type=range] { accent-color: var(--sae-red); width: 120px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(66vh, 620px); touch-action: none; user-select: none; }
+.board svg [data-handle] { cursor: grab; }
+.board svg.dragging, .board svg.dragging [data-handle] { cursor: grabbing; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.eq { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.9; }
+.eq .v { font-weight: 700; }
+.eq .na { color: var(--muted); }
+.eq .nc { color: var(--sae-red); }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint code, .steps code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.legend { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.legend div { display: flex; align-items: center; gap: 8px; }
+.sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; border: 1px solid rgba(0,0,0,.12); }
+pre.code {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 10px; overflow-x: auto; color: var(--text);
+}
+
+/* étapes du raisonnement (réciproque) */
+ol.steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 7px; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 26px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 1px;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--sae-black); color: #fff;
+    font-size: 11px; font-weight: 700; display: grid; place-items: center;
+}
+ol.steps li b { color: var(--text); }
+ol.steps li.concl::before { background: var(--sae-red); }
+ol.steps .mono { font-family: "JetBrains Mono", monospace; color: var(--text); }
+
+.logic { display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.logic div { border-left: 3px solid var(--line); padding: 2px 0 2px 9px; }
+.logic div.on { border-left-color: var(--sae-red); color: var(--text); }
+.logic .mono { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); white-space: nowrap; }
+
+.bars { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.bar { display: flex; align-items: center; gap: 8px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+.bar .lbl { width: 58px; flex: 0 0 auto; color: var(--muted); }
+.bar .track { flex: 1; height: 16px; display: flex; background: var(--panel2); border-radius: 3px; overflow: hidden; }
+.bar .seg { height: 100%; transition: width .15s; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 28px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+/* iframe étroite (portrait, fenêtre réduite) : une seule colonne */
+@media (max-width: 900px) {
+    html.embed .panel.on { overflow-y: auto; }
+    html.embed .stage { grid-template-columns: 1fr; grid-template-rows: minmax(240px, 1fr) auto; }
+    html.embed .board svg { min-height: 240px; }
+    html.embed .side { overflow: visible; }
+}
+/* quatre familles de droites : une couleur chacune */
+.fam { display: flex; flex-direction: column; gap: 7px; }
+.fam label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.fam input { accent-color: currentColor; }
+.fam .key { width: 22px; height: 0; border-top-width: 3px; border-top-style: solid; flex: 0 0 auto; }
+.fam b { color: var(--text); }
+.centers { font-family: "JetBrains Mono", monospace; font-size: 13px; line-height: 1.85; }
+.centers .pt { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1><span class="hl">Droites</span> remarquables</h1>
+    <p class="sub">Médiane, hauteur, médiatrice, bissectrice : dans chaque famille, les trois droites sont <strong>concourantes</strong>. Déformez le triangle, les quatre points de concours suivent.</p>
+  </div>
+  <div class="formula">G · H · O · <b>I</b></div>
+</header>
+
+<section class="panel on" id="droites">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Triangle</span>
+      <button data-preset="quelconque">quelconque</button>
+      <button data-preset="isocele">isocèle</button>
+      <button data-preset="equilateral">équilatéral</button>
+      <button data-preset="rectangle">rectangle</button>
+      <button data-preset="obtus">obtusangle</button>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="opt-grid" checked> Grille</label>
+      <label class="chk"><input type="checkbox" id="opt-snap" checked> Aimanter</label>
+      <label class="chk"><input type="checkbox" id="opt-euler"> Droite d'Euler</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg" role="img" aria-label="Triangle et ses droites remarquables"></svg>
+      <p class="tip">Glissez A, B ou C à la souris. Cochez une famille pour l'afficher.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Les quatre familles</h3>
+        <div class="fam" id="fam"></div>
+      </div>
+      <div class="card">
+        <h3>Points de concours</h3>
+        <div class="centers" id="centers"></div>
+        <div id="badge"></div>
+      </div>
+      <div class="card" id="focus"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TC-FT-TRG-01 — Géométrie du triangle · SAE Institute Genève
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const U = 40;                     // pixels SVG par unité
+const RED = "#E30613", INK = "#1a1a1a", GREY_A = "#9a9a9a", GREY_B = "#c7c7c7";
+
+/* ---------------------------------------------------------------- outils */
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function label(parent, x, y, s, attrs){
+  const a = Object.assign({x: x, y: y, "font-size": 14, "font-weight": 700, fill: INK,
+                           stroke: "#fff", "stroke-width": 4, "paint-order": "stroke", "stroke-linejoin": "round"}, attrs || {});
+  el("text", a, parent).textContent = s;
+}
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function poly(pts){ return pts.map(p => p.x.toFixed(2) + "," + p.y.toFixed(2)).join(" "); }
+function sub(p, q){ return {x: p.x - q.x, y: p.y - q.y}; }
+function add(p, q){ return {x: p.x + q.x, y: p.y + q.y}; }
+function mul(p, k){ return {x: p.x * k, y: p.y * k}; }
+function len(v){ return Math.hypot(v.x, v.y); }
+function unit(v){ const l = len(v) || 1; return {x: v.x / l, y: v.y / l}; }
+function mid(p, q){ return {x: (p.x + q.x) / 2, y: (p.y + q.y) / 2}; }
+function dot(u, v){ return u.x * v.x + u.y * v.y; }
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function fr(n, d){
+  const k = Math.pow(10, d === undefined ? 2 : d);
+  return String(Math.round(n * k) / k).replace(".", ",");
+}
+function fitBox(pts, pad){
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const p of pts){
+    x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x);
+    y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y);
+  }
+  return {x0: x0 - pad, y0: y0 - pad, x1: x1 + pad, y1: y1 + pad};
+}
+function setView(svg, b){
+  svg.setAttribute("viewBox", b.x0 + " " + b.y0 + " " + (b.x1 - b.x0) + " " + (b.y1 - b.y0));
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+}
+/* zone réellement visible (meet : la viewBox est complétée sur un axe) */
+function visibleBox(svg, b){
+  const r = svg.getBoundingClientRect();
+  if (!r.width || !r.height) return b;
+  const w = b.x1 - b.x0, h = b.y1 - b.y0;
+  const s = Math.min(r.width / w, r.height / h);
+  const W = r.width / s, H = r.height / s;
+  return {x0: b.x0 - (W - w) / 2, x1: b.x1 + (W - w) / 2, y0: b.y0 - (H - h) / 2, y1: b.y1 + (H - h) / 2};
+}
+function grid(svg, b, step){
+  const g = el("g", {}, svg);
+  for (let x = Math.floor(b.x0 / step) * step; x <= b.x1; x += step)
+    el("line", {x1: x, y1: b.y0, x2: x, y2: b.y1, stroke: "#ececec", "stroke-width": 1}, g);
+  for (let y = Math.floor(b.y0 / step) * step; y <= b.y1; y += step)
+    el("line", {x1: b.x0, y1: y, x2: b.x1, y2: y, stroke: "#ececec", "stroke-width": 1}, g);
+}
+function toSvg(svg, evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  const m = svg.getScreenCTM();
+  return m ? pt.matrixTransform(m.inverse()) : null;
+}
+function handle(parent, p, key, fill, stroke){
+  const g = el("g", {"data-handle": key}, parent);
+  el("circle", {cx: p.x, cy: p.y, r: 20, fill: "transparent"}, g);          // zone de prise
+  el("circle", {cx: p.x, cy: p.y, r: 9, fill: fill || "#fff", stroke: stroke || INK, "stroke-width": 2.5}, g);
+  return g;
+}
+/* marque d'angle : carré si droit, arc + valeur sinon (points en pixels SVG) */
+function angleMark(svg, V, P, Q, right, deg, color){
+  const u = unit(sub(P, V)), w = unit(sub(Q, V));
+  if (right){
+    const L = 15;
+    el("polyline", {points: poly([add(V, mul(u, L)), add(V, add(mul(u, L), mul(w, L))), add(V, mul(w, L))]),
+                    fill: "none", stroke: color, "stroke-width": 2}, svg);
+    return;
+  }
+  const R = 26;
+  const p1 = add(V, mul(u, R)), p2 = add(V, mul(w, R));
+  const cross = u.x * w.y - u.y * w.x;
+  el("path", {d: "M" + p1.x + "," + p1.y + " A" + R + "," + R + " 0 0," + (cross > 0 ? 1 : 0) + " " + p2.x + "," + p2.y,
+              fill: "none", stroke: color, "stroke-width": 2}, svg);
+  const bis = unit(add(u, w));
+  const t = add(V, mul(bis, R + 18));
+  label(svg, t.x, t.y + 5, fr(deg, 1) + "°", {"text-anchor": "middle", "font-size": 13, fill: color});
+}
+
+/* Glisser-déposer : capture sur le <svg> lui-même (il survit aux redessins,
+   contrairement aux poignées). Pendant un glissement la viewBox est figée,
+   sinon le repère bougerait sous la souris. */
+function dragger(svg, onMove, onEnd){
+  let active = null;
+  svg.addEventListener("pointerdown", function(e){
+    const h = e.target.closest("[data-handle]");
+    if (!h) return;
+    e.preventDefault();
+    active = h.getAttribute("data-handle");
+    svg.setPointerCapture(e.pointerId);
+    svg.classList.add("dragging");
+  });
+  svg.addEventListener("pointermove", function(e){
+    if (!active) return;
+    const p = toSvg(svg, e);
+    if (p) onMove(active, p);
+  });
+  function end(){
+    if (!active) return;
+    active = null;
+    svg.classList.remove("dragging");
+    if (onEnd) onEnd();
+  }
+  svg.addEventListener("pointerup", end);
+  svg.addEventListener("pointercancel", end);
+  svg.addEventListener("lostpointercapture", end);
+  return function(){ return active !== null; };
+}
+
+const px = v => ({x: v.x * U, y: -v.y * U});
+const BLUE = "#1f6feb", GREEN = "#1a7f37";
+
+/* famille : clé, libellé, définition, point de concours, couleur */
+const FAMS = [
+  {k: "med", on: true,  name: "Médiane",    def: "sommet → milieu du côté opposé", pt: "G", ptName: "centre de gravité", color: RED, dash: "solid"},
+  {k: "haut", on: false, name: "Hauteur",    def: "sommet ⊥ côté opposé",           pt: "H", ptName: "orthocentre",       color: INK, dash: "dashed"},
+  {k: "mtc", on: false, name: "Médiatrice", def: "⊥ au milieu d'un côté",          pt: "O", ptName: "centre du cercle circonscrit", color: BLUE, dash: "dashed"},
+  {k: "bis", on: false, name: "Bissectrice", def: "coupe un angle en deux",         pt: "I", ptName: "centre du cercle inscrit",     color: GREEN, dash: "dotted"}
+];
+const famDiv = document.getElementById("fam");
+famDiv.innerHTML = FAMS.map(f =>
+  '<label style="color:' + f.color + '"><input type="checkbox" data-fam="' + f.k + '"' + (f.on ? " checked" : "") +
+  '><span class="key" style="border-top-color:' + f.color + ';border-top-style:' + f.dash + '"></span><span style="color:var(--muted)"><b>' + f.name + 's</b> — ' +
+  f.def + ' → <b>' + f.pt + '</b></span></label>').join("");
+const shown = {};
+FAMS.forEach(f => shown[f.k] = f.on);
+famDiv.querySelectorAll("[data-fam]").forEach(cb => cb.addEventListener("change", function(){
+  shown[this.dataset.fam] = this.checked;
+  draw();
+}));
+
+const PRESETS = {
+  quelconque:  {A: {x: 0, y: 5},  B: {x: -3, y: 0}, C: {x: 6, y: 0}},
+  isocele:     {A: {x: 0, y: 6},  B: {x: -3, y: 0}, C: {x: 3, y: 0}},
+  equilateral: {A: {x: 0, y: 3 * Math.sqrt(3)}, B: {x: -3, y: 0}, C: {x: 3, y: 0}},
+  rectangle:   {A: {x: 0, y: 4},  B: {x: 5, y: 0}, C: {x: 0, y: 0}},
+  obtus:       {A: {x: 0, y: 3},  B: {x: 1, y: 0},  C: {x: 8, y: 0}}
+};
+const S = {V: Object.assign({}, PRESETS.quelconque), box: null, preset: "quelconque"};
+
+/* ------------------------------------------------------------ géométrie */
+function foot(P, Q, R){                       // projeté de R sur (PQ)
+  const d = sub(Q, P);
+  return add(P, mul(d, dot(sub(R, P), d) / dot(d, d)));
+}
+function inter(P, u, Q, v){                   // intersection de deux droites (point + direction)
+  const den = u.x * v.y - u.y * v.x;
+  if (Math.abs(den) < 1e-9) return null;
+  const t = ((Q.x - P.x) * v.y - (Q.y - P.y) * v.x) / den;
+  return add(P, mul(u, t));
+}
+function circumcenter(A, B, C){
+  const d = 2 * (A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
+  const A2 = A.x * A.x + A.y * A.y, B2 = B.x * B.x + B.y * B.y, C2 = C.x * C.x + C.y * C.y;
+  return {x: (A2 * (B.y - C.y) + B2 * (C.y - A.y) + C2 * (A.y - B.y)) / d,
+          y: (A2 * (C.x - B.x) + B2 * (A.x - C.x) + C2 * (B.x - A.x)) / d};
+}
+
+const dragging = dragger(document.getElementById("svg"), function(key, p){
+  const svg = document.getElementById("svg");
+  const vb = visibleBox(svg, S.box);
+  const old = S.V[key];
+  let x = p.x / U, y = -p.y / U;
+  if (document.getElementById("opt-snap").checked){ x = Math.round(x); y = Math.round(y); }
+  S.V[key] = {x: clamp(x, vb.x0 / U + .3, vb.x1 / U - .3), y: clamp(y, -vb.y1 / U + .3, -vb.y0 / U - .3)};
+  const V = S.V;
+  const cross = (V.B.x - V.A.x) * (V.C.y - V.A.y) - (V.B.y - V.A.y) * (V.C.x - V.A.x);
+  if (Math.abs(cross) < .5) S.V[key] = old;
+  S.preset = null;
+  draw();
+}, function(){ S.box = null; draw(); });
+
+function draw(){
+  const svg = document.getElementById("svg");
+  const A = px(S.V.A), B = px(S.V.B), C = px(S.V.C);
+  const T = [A, B, C];
+  const a = len(sub(C, B)), b = len(sub(A, C)), c = len(sub(B, A));   // côtés opposés à A, B, C
+  const G = mul(add(add(A, B), C), 1 / 3);
+  const O = circumcenter(A, B, C);
+  const H = add(add(A, B), sub(C, mul(O, 2)));                        // H = A + B + C − 2·O (relation d'Euler)
+  const I = mul(add(add(mul(A, a), mul(B, b)), mul(C, c)), 1 / (a + b + c));
+  const R = len(sub(A, O));
+  const area = Math.abs((B.x - A.x) * (C.y - A.y) - (B.y - A.y) * (C.x - A.x)) / 2;
+  const r = 2 * area / (a + b + c);
+  const mids = [mid(B, C), mid(C, A), mid(A, B)];
+  const feet = [foot(B, C, A), foot(C, A, B), foot(A, B, C)];
+  const bisFeet = T.map((P, i) => {                                   // pied de la bissectrice issue de P
+    const Q = T[(i + 1) % 3], Z = T[(i + 2) % 3];
+    const lq = len(sub(P, Q)), lz = len(sub(P, Z));
+    return mul(add(mul(Q, lz), mul(Z, lq)), 1 / (lq + lz));
+  });
+
+  clear(svg);
+  if (!dragging() || !S.box){
+    const pts = T.slice();
+    if (shown.mtc) pts.push(O, {x: O.x - R, y: O.y - R}, {x: O.x + R, y: O.y + R});
+    if (shown.haut) pts.push(H);
+    S.box = fitBox(pts, 46);
+  }
+  setView(svg, S.box);
+  const vb = visibleBox(svg, S.box);
+  if (document.getElementById("opt-grid").checked) grid(svg, vb, U);
+
+  /* cercles circonscrit et inscrit */
+  if (shown.mtc) el("circle", {cx: O.x, cy: O.y, r: R, fill: BLUE, "fill-opacity": .04, stroke: BLUE,
+                               "stroke-opacity": .5, "stroke-width": 1.5, "stroke-dasharray": "6 5"}, svg);
+  if (shown.bis) el("circle", {cx: I.x, cy: I.y, r: r, fill: GREEN, "fill-opacity": .07, stroke: GREEN,
+                               "stroke-opacity": .5, "stroke-width": 1.5, "stroke-dasharray": "6 5"}, svg);
+
+  el("polygon", {points: poly(T), fill: INK, "fill-opacity": .06, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg);
+
+  /* droites, famille par famille */
+  /* Un trait différent par famille : quand les droites se superposent (isocèle,
+     équilatéral), on voit qu'il y en a bien quatre, et pas une seule. */
+  const seg = (P, Q, color, dash) => el("line", {x1: P.x, y1: P.y, x2: Q.x, y2: Q.y, stroke: color, "stroke-linecap": "round",
+                                                 "stroke-width": 2, "stroke-dasharray": dash || "none", "stroke-opacity": .95}, svg);
+  const fullLine = (P, Q, color) => {
+    const u = unit(sub(Q, P)), L = 4 * Math.max(vb.x1 - vb.x0, vb.y1 - vb.y0);
+    seg(sub(P, mul(u, L)), add(P, mul(u, L)), color, "7 6");
+  };
+  for (let i = 0; i < 3; i++){
+    const P = T[i];
+    if (shown.med) seg(P, mids[i], RED);                                // trait plein
+    if (shown.haut){
+      seg(P, feet[i], INK, "11 7");
+      const on = dot(sub(feet[i], T[(i + 1) % 3]), sub(feet[i], T[(i + 2) % 3])) < 0;
+      if (!on) seg(T[(i + 1) % 3], feet[i], INK, "3 6");             // prolongement hors du triangle
+    }
+    if (shown.mtc){
+      const d = sub(T[(i + 2) % 3], T[(i + 1) % 3]);
+      fullLine(mids[i], add(mids[i], {x: -d.y, y: d.x}), BLUE);
+      el("polyline", {points: poly([add(mids[i], mul(unit(d), 7)), add(add(mids[i], mul(unit(d), 7)), mul(unit({x: -d.y, y: d.x}), 7)),
+                                    add(mids[i], mul(unit({x: -d.y, y: d.x}), 7))]), fill: "none", stroke: BLUE, "stroke-width": 1.5}, svg);
+    }
+    if (shown.bis) seg(P, bisFeet[i], GREEN, "2 7");                    // pointillé
+    if (shown.med) el("circle", {cx: mids[i].x, cy: mids[i].y, r: 3.5, fill: RED}, svg);
+  }
+
+  if (document.getElementById("opt-euler").checked){
+    const u = unit(sub(H, O)), L = 4 * Math.max(vb.x1 - vb.x0, vb.y1 - vb.y0);
+    if (len(sub(H, O)) > 1)
+      el("line", {x1: O.x - u.x * L, y1: O.y - u.y * L, x2: O.x + u.x * L, y2: O.y + u.y * L,
+                  stroke: "#b06f00", "stroke-width": 2, "stroke-dasharray": "2 6"}, svg);
+  }
+
+  /* points de concours */
+  const centers = [];
+  if (shown.med)  centers.push([G, "G", RED]);
+  if (shown.haut) centers.push([H, "H", INK]);
+  if (shown.mtc)  centers.push([O, "O", BLUE]);
+  if (shown.bis)  centers.push([I, "I", GREEN]);
+  /* points confondus (équilatéral, isocèle…) : un seul marqueur, une étiquette groupée */
+  const merged = [];
+  for (const ct of centers){
+    const near = merged.find(m => len(sub(m.p, ct[0])) < 9);
+    if (near) near.names.push(ct[1]);
+    else merged.push({p: ct[0], names: [ct[1]], color: ct[2]});
+  }
+  for (const m of merged){
+    el("circle", {cx: m.p.x, cy: m.p.y, r: 7, fill: m.names.length > 1 ? INK : m.color, stroke: "#fff", "stroke-width": 2.5}, svg);
+    label(svg, m.p.x + 15, m.p.y - 11, m.names.join(" = "), {"font-size": 16, "font-weight": 800, fill: m.names.length > 1 ? INK : m.color});
+  }
+
+  for (const k of ["A", "B", "C"]){
+    const p = px(S.V[k]);
+    const o = add(p, mul(unit(sub(p, G)), 24));
+    label(svg, o.x, o.y + 6, k, {"text-anchor": "middle", "font-size": 17, "font-weight": 800});
+    handle(svg, p, k);
+  }
+
+  /* panneau : le barycentre, en toutes lettres */
+  const V = S.V;
+  const g = {x: (V.A.x + V.B.x + V.C.x) / 3, y: (V.A.y + V.B.y + V.C.y) / 3};
+  const dist = (P, Q) => len(sub(P, Q)) / U;
+  document.getElementById("centers").innerHTML =
+    '<div><span class="pt" style="color:' + RED + '">G</span> = ((' + fr(V.A.x) + ' + ' + fr(V.B.x) + ' + ' + fr(V.C.x) + ')/3 , (' +
+      fr(V.A.y) + ' + ' + fr(V.B.y) + ' + ' + fr(V.C.y) + ')/3)</div>' +
+    '<div>&nbsp;&nbsp;= (<b>' + fr(g.x) + '</b> , <b>' + fr(g.y) + '</b>) — le <b>barycentre</b></div>' +
+    '<div><span class="pt" style="color:' + BLUE + '">O</span> : rayon circonscrit R = ' + fr(R / U) + '</div>' +
+    '<div><span class="pt" style="color:' + GREEN + '">I</span> : rayon inscrit r = ' + fr(r / U) + '</div>';
+
+  const eq = len(sub(H, O)) / Math.max(len(sub(A, B)), 1) < .01;
+  document.getElementById("badge").innerHTML = eq
+    ? '<span class="badge ok">G = H = O = I — triangle équilatéral</span>'
+    : '<span class="badge">G est aux 2/3 de chaque médiane · G, H et O sont alignés</span>';
+
+  /* commentaire contextuel selon la forme du triangle */
+  const sides = [a, b, c].map(x => x / U).sort((x, y) => x - y);
+  const eqTri = Math.abs(sides[2] - sides[0]) < .02;
+  const iso = !eqTri && (Math.abs(sides[0] - sides[1]) < .02 || Math.abs(sides[1] - sides[2]) < .02);
+  const right = Math.abs(sides[0] * sides[0] + sides[1] * sides[1] - sides[2] * sides[2]) < .02 * sides[2] * sides[2];
+  const obtuse = sides[0] * sides[0] + sides[1] * sides[1] < sides[2] * sides[2];
+  let txt;
+  if (eqTri) txt = "<b>Équilatéral</b> : les quatre points n'en font qu'un. Chaque droite est à la fois médiane, hauteur, médiatrice et bissectrice.";
+  else if (iso) txt = "<b>Isocèle</b> : du sommet principal, la médiane, la hauteur, la médiatrice et la bissectrice sont <b>confondues</b> — c'est l'axe de symétrie.";
+  else if (right) txt = "<b>Rectangle</b> : l'orthocentre H est <b>sur</b> le sommet de l'angle droit, et O est le <b>milieu de l'hypoténuse</b> — le cercle circonscrit a l'hypoténuse pour diamètre.";
+  else if (obtuse) txt = "<b>Obtusangle</b> : H et O <b>sortent</b> du triangle. Deux hauteurs tombent sur le prolongement des côtés.";
+  else txt = "<b>Quelconque</b> : quatre points distincts. G est toujours à l'intérieur, entre O et H — et aux <b>2/3</b> de chaque médiane depuis le sommet.";
+  document.getElementById("focus").innerHTML = '<h3>Ce qu’on voit</h3><p class="hint">' + txt + '</p>';
+}
+
+/* Familles allumées par défaut avec chaque triangle — ce que le préréglage veut montrer. */
+const PRESET_FAMS = {
+  quelconque:  ["med"],
+  isocele:     ["med", "haut", "mtc", "bis"],   // les quatre droites confondues depuis le sommet principal
+  equilateral: ["med", "haut", "mtc", "bis"],   // G = H = O = I
+  rectangle:   ["haut", "mtc"],                 // H sur l'angle droit, O au milieu de l'hypoténuse
+  obtus:       ["haut", "mtc"]                  // H et O sortent du triangle
+};
+function setFams(keys){
+  FAMS.forEach(f => shown[f.k] = keys.indexOf(f.k) >= 0);
+  famDiv.querySelectorAll("[data-fam]").forEach(cb => cb.checked = shown[cb.dataset.fam]);
+}
+function applyPreset(name, fams){
+  if (!PRESETS[name]) return false;
+  S.V = Object.assign({}, PRESETS[name]);
+  S.preset = name;
+  S.box = null;
+  setFams(fams || PRESET_FAMS[name] || ["med"]);
+  draw();
+  return true;
+}
+document.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", function(){
+  applyPreset(this.dataset.preset);
+  history.replaceState(null, "", "#" + this.dataset.preset);
+}));
+
+/* Une slide choisit son préréglage par l'URL : …/droites_remarquables_widget.html#isocele
+   et, si besoin, les familles affichées : ?fams=med,haut  (ou ?fams=all). */
+function fromUrl(){
+  const q = new URLSearchParams(location.search).get("fams");
+  const fams = !q ? null : q === "all" ? FAMS.map(f => f.k) : q.split(",").map(x => x.trim());
+  applyPreset(location.hash.slice(1), fams);
+}
+addEventListener("hashchange", fromUrl);
+["opt-grid", "opt-euler"].forEach(id => document.getElementById(id).addEventListener("change", function(){ S.box = null; draw(); }));
+document.getElementById("opt-snap").addEventListener("change", draw);
+addEventListener("resize", draw);
+fromUrl();
+
+/* Dans une slide reveal.js, les flèches doivent continuer à changer de slide. */
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+
+draw();
+})();
+</script>
+</body>
+</html>

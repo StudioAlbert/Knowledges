@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résolution de triangles — loi des sinus, loi des cosinus, atan2</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 30px; }
+input[type=range] { accent-color: var(--sae-red); width: 120px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(66vh, 620px); touch-action: none; user-select: none; }
+.board svg [data-handle] { cursor: grab; }
+.board svg.dragging, .board svg.dragging [data-handle] { cursor: grabbing; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.eq { font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.85; }
+.eq .v { font-weight: 700; }
+.eq .na { color: var(--muted); }
+.eq .nc { color: var(--sae-red); }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint code, pre.code code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+pre.code {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 10px; overflow-x: auto; color: var(--text); margin-top: 8px;
+}
+table.quad { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 4px; }
+table.quad th, table.quad td { padding: 5px 6px; text-align: center; border-bottom: 1px solid var(--line-soft); }
+table.quad th { color: var(--muted2); font-weight: 700; font-size: 11px; text-transform: uppercase; }
+table.quad tr.on td { background: rgba(227, 6, 19, .08); font-weight: 700; color: var(--text); }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 28px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Résoudre un <span class="hl">triangle</span></h1>
+    <p class="sub">À partir de trois mesures bien choisies, retrouvez les trois autres — et visez une cible sans jamais perdre le quadrant. Glissez les curseurs et les points rouges.</p>
+  </div>
+  <div class="formula">a/sin A = b/sin B = c/sin <b>C</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="sinus">1 · Loi des sinus</button>
+  <button data-tab="cosinus">2 · Loi des cosinus</button>
+  <button data-tab="atan2">3 · atan2 — viser une cible</button>
+</nav>
+
+<!-- =============================== 1 · LOI DES SINUS (ACA) =============================== -->
+<section class="panel on" id="sinus">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Donnée (ACA)</span>
+      <label class="rng">côté c <input type="range" id="s-c" min="2" max="10" step=".5" value="6"><output id="s-cv">6</output></label>
+      <label class="rng">angle A <input type="range" id="s-A" min="10" max="150" step="1" value="50"><output id="s-Av">50°</output></label>
+      <label class="rng">angle B <input type="range" id="s-B" min="10" max="150" step="1" value="60"><output id="s-Bv">60°</output></label>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="s-circ" checked> Cercle circonscrit</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg1" role="img" aria-label="Triangle construit à partir d'un côté et de deux angles (ACA)"></svg>
+      <p class="tip">On connaît un côté et les deux angles à ses extrémités (cas ACA, TRG-01) : le triangle est entièrement déterminé.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Résoudre par la loi des sinus</h3>
+        <div class="eq" id="s-eq"></div>
+      </div>
+      <div class="card">
+        <h3>Pourquoi c'est toujours égal</h3>
+        <p class="hint">Les trois rapports valent le <strong>diamètre du cercle circonscrit</strong> : a/sin A = 2R. Un angle inscrit ne dépend que de l'arc qu'il intercepte (TRG-02), pas de la position du sommet sur le cercle.</p>
+        <div id="s-badge"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 2 · LOI DES COSINUS (CAC) =============================== -->
+<section class="panel" id="cosinus">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Donnée (CAC)</span>
+      <label class="rng">côté a <input type="range" id="c-a" min="2" max="10" step=".5" value="5"><output id="c-av">5</output></label>
+      <label class="rng">côté b <input type="range" id="c-b" min="2" max="10" step=".5" value="7"><output id="c-bv">7</output></label>
+      <label class="rng">angle C <input type="range" id="c-C" min="5" max="175" step="1" value="60"><output id="c-Cv">60°</output></label>
+    </div>
+    <div class="group">
+      <button data-preset="pyth">90° · Pythagore (3-4-5)</button>
+      <button data-preset="equi">60° · équilatéral</button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg2" role="img" aria-label="Triangle construit à partir de deux côtés et de l'angle compris (CAC)"></svg>
+      <p class="tip">On connaît deux côtés et l'angle <strong>compris</strong> entre eux (cas CAC) : Pythagore ne suffit plus, il manque le terme croisé.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>c² = a² + b² − 2ab·cos C</h3>
+        <div class="eq" id="c-eq"></div>
+        <div id="c-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Vérification inverse (cas CCC)</h3>
+        <p class="hint">À partir des trois côtés, la même identité redonne l'angle — c'est comme ça qu'on classe un triangle sans rapporteur, comme la réciproque de Pythagore à TRG-01.</p>
+        <div class="eq" id="c-eq2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 3 · ATAN2 =============================== -->
+<section class="panel" id="atan2">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Cible</span>
+      <span class="hint" style="margin:0">glissez le point rouge <strong>T</strong></span>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="a-t2" checked> Deuxième direction (angle entre deux vecteurs)</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg3" role="img" aria-label="Plan avec un point O à l'origine, une cible T et une direction de référence"></svg>
+      <p class="tip">O est le tireur (ou la caméra), à l'origine. Glissez T : la ligne pointillée grise est ce que donnerait atan(dy/dx) — regardez ce qui se passe quand elle passe à gauche.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>atan(dy/dx) vs atan2(dy, dx)</h3>
+        <div class="eq" id="a-eq"></div>
+        <div id="a-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Un angle par quadrant</h3>
+        <table class="quad" id="a-table">
+          <tr><th>Quadrant</th><th>dx</th><th>dy</th><th>atan2</th></tr>
+          <tr data-q="I"><td>I</td><td>+</td><td>+</td><td>0° → 90°</td></tr>
+          <tr data-q="II"><td>II</td><td>−</td><td>+</td><td>90° → 180°</td></tr>
+          <tr data-q="III"><td>III</td><td>−</td><td>−</td><td>−180° → −90°</td></tr>
+          <tr data-q="IV"><td>IV</td><td>+</td><td>−</td><td>−90° → 0°</td></tr>
+        </table>
+      </div>
+      <div class="card" id="a-between" style="display:none">
+        <h3>Angle entre deux directions</h3>
+        <div class="eq" id="a-eq2"></div>
+        <pre class="code">float turn = std::atan2(dy2, dx2)
+           - std::atan2(dy1, dx1);   // signé : sens de rotation
+float open = std::acos(dot / (len1*len2)); // 0..180°, sans le sens</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TC-FT-TRG-03 — Résolution de triangles et applications · SAE Institute Genève
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const U = 40;                     // pixels SVG par unité
+const RED = "#E30613", INK = "#1a1a1a", BLUE = "#1a63c9", GREY_A = "#9a9a9a", GREY_B = "#c7c7c7";
+const D2R = Math.PI / 180, R2D = 180 / Math.PI;
+
+/* ---------------------------------------------------------------- outils */
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function label(parent, x, y, s, attrs){
+  const a = Object.assign({x: x, y: y, "font-size": 14, "font-weight": 700, fill: INK,
+                           stroke: "#fff", "stroke-width": 4, "paint-order": "stroke", "stroke-linejoin": "round"}, attrs || {});
+  el("text", a, parent).textContent = s;
+}
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function poly(pts){ return pts.map(p => p.x.toFixed(2) + "," + p.y.toFixed(2)).join(" "); }
+function sub(p, q){ return {x: p.x - q.x, y: p.y - q.y}; }
+function add(p, q){ return {x: p.x + q.x, y: p.y + q.y}; }
+function mul(p, k){ return {x: p.x * k, y: p.y * k}; }
+function len(v){ return Math.hypot(v.x, v.y); }
+function unit(v){ const l = len(v) || 1; return {x: v.x / l, y: v.y / l}; }
+function mid(p, q){ return {x: (p.x + q.x) / 2, y: (p.y + q.y) / 2}; }
+function dot(u, v){ return u.x * v.x + u.y * v.y; }
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function fr(n, d){
+  const k = Math.pow(10, d === undefined ? 2 : d);
+  return String(Math.round(n * k) / k).replace(".", ",");
+}
+function fitBox(pts, pad){
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const p of pts){
+    x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x);
+    y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y);
+  }
+  return {x0: x0 - pad, y0: y0 - pad, x1: x1 + pad, y1: y1 + pad};
+}
+function setView(svg, b){
+  svg.setAttribute("viewBox", b.x0 + " " + b.y0 + " " + (b.x1 - b.x0) + " " + (b.y1 - b.y0));
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+}
+function visibleBox(svg, b){
+  const r = svg.getBoundingClientRect();
+  if (!r.width || !r.height) return b;
+  const w = b.x1 - b.x0, h = b.y1 - b.y0;
+  const s = Math.min(r.width / w, r.height / h);
+  const W = r.width / s, H = r.height / s;
+  return {x0: b.x0 - (W - w) / 2, x1: b.x1 + (W - w) / 2, y0: b.y0 - (H - h) / 2, y1: b.y1 + (H - h) / 2};
+}
+function toSvg(svg, evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  const m = svg.getScreenCTM();
+  return m ? pt.matrixTransform(m.inverse()) : null;
+}
+function handle(parent, p, key, fill, stroke){
+  const g = el("g", {"data-handle": key}, parent);
+  el("circle", {cx: p.x, cy: p.y, r: 20, fill: "transparent"}, g);
+  el("circle", {cx: p.x, cy: p.y, r: 9, fill: fill || "#fff", stroke: stroke || INK, "stroke-width": 2.5}, g);
+  return g;
+}
+function angleMark(svg, V, P, Q, right, deg, color){
+  const u = unit(sub(P, V)), w = unit(sub(Q, V));
+  if (right){
+    const L = 15;
+    el("polyline", {points: poly([add(V, mul(u, L)), add(V, add(mul(u, L), mul(w, L))), add(V, mul(w, L))]),
+                    fill: "none", stroke: color, "stroke-width": 2}, svg);
+    return;
+  }
+  const R = 26;
+  const p1 = add(V, mul(u, R)), p2 = add(V, mul(w, R));
+  const cross = u.x * w.y - u.y * w.x;
+  el("path", {d: "M" + p1.x + "," + p1.y + " A" + R + "," + R + " 0 0," + (cross > 0 ? 1 : 0) + " " + p2.x + "," + p2.y,
+              fill: "none", stroke: color, "stroke-width": 2}, svg);
+  const bis = unit(add(u, w));
+  const t = add(V, mul(bis, R + 18));
+  label(svg, t.x, t.y + 5, fr(deg, 1) + "°", {"text-anchor": "middle", "font-size": 13, fill: color});
+}
+function dragger(svg, onMove, onEnd){
+  let active = null;
+  svg.addEventListener("pointerdown", function(e){
+    const h = e.target.closest("[data-handle]");
+    if (!h) return;
+    e.preventDefault();
+    active = h.getAttribute("data-handle");
+    svg.setPointerCapture(e.pointerId);
+    svg.classList.add("dragging");
+  });
+  svg.addEventListener("pointermove", function(e){
+    if (!active) return;
+    const p = toSvg(svg, e);
+    if (p) onMove(active, p);
+  });
+  function end(){
+    if (!active) return;
+    active = null;
+    svg.classList.remove("dragging");
+    if (onEnd) onEnd();
+  }
+  svg.addEventListener("pointerup", end);
+  svg.addEventListener("pointercancel", end);
+  svg.addEventListener("lostpointercapture", end);
+  return function(){ return active !== null; };
+}
+const px = v => ({x: v.x * U, y: -v.y * U});
+function fullLine(svg, P, Q, b, attrs){
+  const d = sub(Q, P), L = 4 * Math.max(b.x1 - b.x0, b.y1 - b.y0);
+  const u = unit(d);
+  el("line", Object.assign({x1: P.x - u.x * L, y1: P.y - u.y * L, x2: P.x + u.x * L, y2: P.y + u.y * L}, attrs), svg);
+}
+function arrow(svg, from, to, color, w){
+  el("line", {x1: from.x, y1: from.y, x2: to.x, y2: to.y, stroke: color, "stroke-width": w || 3}, svg);
+  const u = unit(sub(to, from)), n = {x: -u.y, y: u.x}, s = (w || 3) * 3.2;
+  el("polygon", {points: poly([to, sub(to, add(mul(u, s), mul(n, s * .55))), sub(to, add(mul(u, s), mul(n, -s * .55)))]),
+                 fill: color}, svg);
+}
+function grid(svg, b, step){
+  const g = el("g", {}, svg);
+  for (let x = Math.floor(b.x0 / step) * step; x <= b.x1; x += step)
+    el("line", {x1: x, y1: b.y0, x2: x, y2: b.y1, stroke: "#ececec", "stroke-width": 1}, g);
+  for (let y = Math.floor(b.y0 / step) * step; y <= b.y1; y += step)
+    el("line", {x1: b.x0, y1: y, x2: b.x1, y2: y, stroke: "#ececec", "stroke-width": 1}, g);
+}
+function vlabel(svg, P, G, text, attrs){
+  const o = add(P, mul(unit(sub(P, G)), 22));
+  label(svg, o.x, o.y + 6, text, Object.assign({"text-anchor": "middle", "font-size": 16, "font-weight": 800}, attrs || {}));
+}
+function sideLabel(svg, P, Q, text, color, ref){
+  const m = mid(P, Q), n = unit({x: -(Q.y - P.y), y: Q.x - P.x});
+  const s = dot(n, sub(ref, m)) > 0 ? -1 : 1;
+  const o = add(m, mul(n, s * 16));
+  label(svg, o.x, o.y + 5, text, {"text-anchor": "middle", "font-size": 13, fill: color});
+}
+
+/* ================================================================
+   1 · LOI DES SINUS — cas ACA : côté c, angles A et B
+   ================================================================ */
+const svg1 = document.getElementById("svg1");
+const P1 = {c: 6, A: 50, B: 60};
+
+function solveSinus(){
+  const A = P1.A, B = P1.B, C = 180 - A - B;
+  const Ar = A * D2R, Br = B * D2R, Cr = C * D2R;
+  const c = P1.c;
+  const b = c * Math.sin(Br) / Math.sin(Cr);   // AC, opposé à B
+  const a = c * Math.sin(Ar) / Math.sin(Cr);   // BC, opposé à A
+  const Am = {x: 0, y: 0}, Bm = {x: c, y: 0};
+  const Cm = {x: b * Math.cos(Ar), y: b * Math.sin(Ar)};
+  return {A, B, C, Ar, Br, Cr, a, b, c, Am, Bm, Cm};
+}
+function circumcenter(Am, Bm, Cm){
+  const D = 2 * (Am.x * (Bm.y - Cm.y) + Bm.x * (Cm.y - Am.y) + Cm.x * (Am.y - Bm.y));
+  const sq = p => p.x * p.x + p.y * p.y;
+  const Ux = (sq(Am) * (Bm.y - Cm.y) + sq(Bm) * (Cm.y - Am.y) + sq(Cm) * (Am.y - Bm.y)) / D;
+  const Uy = (sq(Am) * (Cm.x - Bm.x) + sq(Bm) * (Am.x - Cm.x) + sq(Cm) * (Bm.x - Am.x)) / D;
+  return {x: Ux, y: Uy};
+}
+function draw1(){
+  const s = solveSinus();
+  const Am = px(s.Am), Bm = px(s.Bm), Cm = px(s.Cm);
+  clear(svg1);
+  const box = fitBox([Am, Bm, Cm], 55);
+  setView(svg1, box);
+
+  el("polygon", {points: poly([Am, Bm, Cm]), fill: INK, "fill-opacity": .07, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg1);
+
+  if (document.getElementById("s-circ").checked){
+    const Oc = circumcenter(s.Am, s.Bm, s.Cm);
+    const R = len(sub(s.Am, Oc));
+    const Ocp = px(Oc);
+    el("circle", {cx: Ocp.x, cy: Ocp.y, r: R * U, fill: "none", stroke: GREY_A, "stroke-width": 1.5, "stroke-dasharray": "6 5"}, svg1);
+    el("circle", {cx: Ocp.x, cy: Ocp.y, r: 3.5, fill: GREY_A}, svg1);
+    label(svg1, Ocp.x, Ocp.y - 12, "O · R=" + fr(R), {"text-anchor": "middle", "font-size": 11, fill: GREY_A, "font-weight": 600});
+  }
+
+  angleMark(svg1, Am, Bm, Cm, false, s.A, RED);
+  angleMark(svg1, Bm, Am, Cm, false, s.B, RED);
+  angleMark(svg1, Cm, Am, Bm, false, s.C, INK);
+
+  sideLabel(svg1, Bm, Cm, "a = " + fr(s.a), INK, Am);
+  sideLabel(svg1, Am, Cm, "b = " + fr(s.b), INK, Bm);
+  sideLabel(svg1, Am, Bm, "c = " + fr(s.c), INK, Cm);
+
+  const G = mul(add(add(Am, Bm), Cm), 1 / 3);
+  vlabel(svg1, Am, G, "A"); vlabel(svg1, Bm, G, "B"); vlabel(svg1, Cm, G, "C");
+
+  const k = s.c / Math.sin(s.Cr);
+  const row = (num, den, val) => '<div><span class="na">' + num + '</span> / <span class="na">sin ' + den + '</span> = <span class="v">' + fr(val) + '</span></div>';
+  document.getElementById("s-eq").innerHTML =
+    '<div>C = 180° − A − B = <span class="v">' + fr(s.C, 0) + '°</span></div>' +
+    row("a=" + fr(s.a), fr(s.A, 0) + "°", s.a / Math.sin(s.Ar)) +
+    row("b=" + fr(s.b), fr(s.B, 0) + "°", s.b / Math.sin(s.Br)) +
+    row("c=" + fr(s.c), fr(s.C, 0) + "°", s.c / Math.sin(s.Cr)) +
+    '<div><span class="nc">= 2R</span></div>';
+  document.getElementById("s-badge").innerHTML =
+    '<span class="badge ok">b = c·sinB/sinC = ' + fr(s.b) + ' · a = c·sinA/sinC = ' + fr(s.a) + '</span>';
+}
+function syncSinus(){
+  if (+document.getElementById("s-A").value + +document.getElementById("s-B").value > 170)
+    document.getElementById("s-B").value = 170 - (+document.getElementById("s-A").value);
+  P1.c = +document.getElementById("s-c").value;
+  P1.A = +document.getElementById("s-A").value;
+  P1.B = +document.getElementById("s-B").value;
+  document.getElementById("s-cv").textContent = fr(P1.c, 1);
+  document.getElementById("s-Av").textContent = P1.A + "°";
+  document.getElementById("s-Bv").textContent = P1.B + "°";
+  draw1();
+}
+["s-c", "s-A", "s-B", "s-circ"].forEach(id => document.getElementById(id).addEventListener("input", syncSinus));
+
+/* ================================================================
+   2 · LOI DES COSINUS — cas CAC : côtés a, b, angle C
+   ================================================================ */
+const svg2 = document.getElementById("svg2");
+const P2 = {a: 5, b: 7, C: 60};
+
+function solveCosinus(){
+  const a = P2.a, b = P2.b, C = P2.C, Cr = C * D2R;
+  const c = Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(Cr));
+  const Cm = {x: 0, y: 0}, Am = {x: b, y: 0}, Bm = {x: a * Math.cos(Cr), y: a * Math.sin(Cr)};
+  return {a, b, C, Cr, c, Am, Bm, Cm};
+}
+function draw2(){
+  const s = solveCosinus();
+  const Am = px(s.Am), Bm = px(s.Bm), Cm = px(s.Cm);
+  clear(svg2);
+  const box = fitBox([Am, Bm, Cm], 55);
+  setView(svg2, box);
+
+  el("polygon", {points: poly([Am, Bm, Cm]), fill: RED, "fill-opacity": .12, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg2);
+  const isRight = Math.abs(s.C - 90) < .5;
+  angleMark(svg2, Cm, Am, Bm, isRight, s.C, RED);
+
+  sideLabel(svg2, Bm, Cm, "a = " + fr(s.a), INK, Am);
+  sideLabel(svg2, Am, Cm, "b = " + fr(s.b), INK, Bm);
+  sideLabel(svg2, Am, Bm, "c = " + fr(s.c), RED, Cm);
+
+  const G = mul(add(add(Am, Bm), Cm), 1 / 3);
+  vlabel(svg2, Am, G, "A"); vlabel(svg2, Bm, G, "B"); vlabel(svg2, Cm, G, "C", {fill: RED});
+
+  const a = s.a, b = s.b, cosC = Math.cos(s.Cr), c2 = a * a + b * b - 2 * a * b * cosC;
+  document.getElementById("c-eq").innerHTML =
+    '<div>c² = ' + fr(a * a) + ' + ' + fr(b * b) + ' − 2·' + fr(a) + '·' + fr(b) + '·cos ' + fr(s.C, 0) + '°</div>' +
+    '<div>c² = ' + fr(a * a) + ' + ' + fr(b * b) + ' − <span class="nc">' + fr(2 * a * b * cosC) + '</span> = ' + fr(c2) + '</div>' +
+    '<div>c = √' + fr(c2) + ' = <span class="v">' + fr(s.c) + '</span></div>';
+  document.getElementById("c-badge").innerHTML = isRight
+    ? '<span class="badge ok">cos 90° = 0 → le terme croisé disparaît : c² = a² + b² (Pythagore)</span>'
+    : '<span class="badge">C ≠ 90° : le terme −2ab·cosC corrige Pythagore</span>';
+
+  const cosBack = (a * a + b * b - s.c * s.c) / (2 * a * b);
+  const Cback = Math.acos(clamp(cosBack, -1, 1)) * R2D;
+  document.getElementById("c-eq2").innerHTML =
+    '<div>cos C = (a² + b² − c²) / (2ab)</div>' +
+    '<div>cos C = <span class="v">' + fr(cosBack, 4) + '</span></div>' +
+    '<div>C = acos(' + fr(cosBack, 4) + ') = <span class="v">' + fr(Cback, 1) + '°</span> ✓</div>';
+}
+function syncCosinus(){
+  P2.a = +document.getElementById("c-a").value;
+  P2.b = +document.getElementById("c-b").value;
+  P2.C = +document.getElementById("c-C").value;
+  document.getElementById("c-av").textContent = fr(P2.a, 1);
+  document.getElementById("c-bv").textContent = fr(P2.b, 1);
+  document.getElementById("c-Cv").textContent = P2.C + "°";
+  draw2();
+}
+["c-a", "c-b", "c-C"].forEach(id => document.getElementById(id).addEventListener("input", syncCosinus));
+document.querySelectorAll("#cosinus [data-preset]").forEach(btn => btn.addEventListener("click", function(){
+  if (this.dataset.preset === "pyth"){ P2.a = 3; P2.b = 4; P2.C = 90; }
+  else { P2.a = 5; P2.b = 5; P2.C = 60; }
+  document.getElementById("c-a").value = P2.a;
+  document.getElementById("c-b").value = P2.b;
+  document.getElementById("c-C").value = P2.C;
+  syncCosinus();
+}));
+
+/* ================================================================
+   3 · ATAN2 — viser une cible
+   ================================================================ */
+const svg3 = document.getElementById("svg3");
+const P3 = {T: {x: 4, y: 3}, T2: {x: -3, y: 2}};
+const BOX3 = {x0: -7 * U, y0: -7 * U, x1: 7 * U, y1: 7 * U};
+
+const dragging3 = dragger(svg3, function(key, p){
+  const v = {x: clamp(Math.round(p.x / U * 4) / 4, -6.8, 6.8), y: clamp(Math.round(-p.y / U * 4) / 4, -6.8, 6.8)};
+  if (Math.abs(v.x) < .3 && Math.abs(v.y) < .3) return; // évite O
+  if (key === "T") P3.T = v; else P3.T2 = v;
+  draw3();
+}, null);
+
+function draw3(){
+  const showT2 = document.getElementById("a-t2").checked;
+  document.getElementById("a-between").style.display = showT2 ? "" : "none";
+  clear(svg3);
+  setView(svg3, BOX3);
+  const vb = visibleBox(svg3, BOX3);
+  const O = {x: 0, y: 0};
+
+  /* quadrants teintés */
+  const tint = (x0, y0, x1, y1, c) => el("rect", {x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: c, "fill-opacity": .05}, svg3);
+  tint(0, vb.y0, vb.x1, 0, RED);    tint(vb.x0, vb.y0, 0, 0, INK);
+  tint(vb.x0, 0, 0, vb.y1, RED);    tint(0, 0, vb.x1, vb.y1, INK);
+  grid(svg3, vb, U);
+  el("line", {x1: vb.x0, y1: 0, x2: vb.x1, y2: 0, stroke: "#bbb", "stroke-width": 1.5}, svg3);
+  el("line", {x1: 0, y1: vb.y0, x2: 0, y2: vb.y1, stroke: "#bbb", "stroke-width": 1.5}, svg3);
+  label(svg3, vb.x1 - 18, -vb.y1 + 18, "I", {"font-size": 13, fill: GREY_A, "text-anchor": "middle"});
+  label(svg3, vb.x0 + 18, -vb.y1 + 18, "II", {"font-size": 13, fill: GREY_A, "text-anchor": "middle"});
+  label(svg3, vb.x0 + 18, -vb.y0 - 10, "III", {"font-size": 13, fill: GREY_A, "text-anchor": "middle"});
+  label(svg3, vb.x1 - 18, -vb.y0 - 10, "IV", {"font-size": 13, fill: GREY_A, "text-anchor": "middle"});
+
+  const T = P3.T, Tm = px(T);
+  const dx = T.x, dy = T.y;
+  const atan2Deg = Math.atan2(dy, dx) * R2D;
+  const hasNaive = Math.abs(dx) > 1e-6;
+  const naiveDeg = hasNaive ? Math.atan(dy / dx) * R2D : null;
+
+  if (hasNaive){
+    const nu = {x: Math.cos(naiveDeg * D2R), y: Math.sin(naiveDeg * D2R)};
+    fullLine(svg3, O, px(nu), vb, {stroke: GREY_A, "stroke-width": 1.4, "stroke-dasharray": "6 5"});
+  }
+
+  const refP = {x: O.x + 60, y: O.y};
+  angleMark(svg3, O, refP, Tm, false, atan2Deg, RED);
+  arrow(svg3, O, Tm, RED, 3);
+  el("circle", {cx: O.x, cy: O.y, r: 4.5, fill: INK}, svg3);
+  label(svg3, O.x - 10, O.y + 18, "O", {"font-size": 14, "font-weight": 800});
+  label(svg3, Tm.x + 12, Tm.y - 8, "T (" + fr(dx, 1) + ", " + fr(dy, 1) + ")", {"font-size": 12.5, fill: RED, "font-weight": 700});
+  handle(svg3, Tm, "T", RED, "#fff");
+
+  let betweenSigned = null;
+  if (showT2){
+    const T2 = P3.T2, T2m = px(T2);
+    arrow(svg3, O, T2m, BLUE, 3);
+    label(svg3, T2m.x + 12, T2m.y - 8, "T2 (" + fr(T2.x, 1) + ", " + fr(T2.y, 1) + ")", {"font-size": 12.5, fill: BLUE, "font-weight": 700});
+    handle(svg3, T2m, "T2", BLUE, "#fff");
+    const atan2Deg2 = Math.atan2(T2.y, T2.x) * R2D;
+    let diff = atan2Deg2 - atan2Deg;
+    while (diff > 180) diff -= 360;
+    while (diff <= -180) diff += 360;
+    betweenSigned = diff;
+    angleMark(svg3, O, Tm, T2m, false, Math.abs(diff), "#6a3fb5");
+  }
+
+  const q = dx >= 0 ? (dy >= 0 ? "I" : "IV") : (dy >= 0 ? "II" : "III");
+  document.querySelectorAll("#a-table tr[data-q]").forEach(tr => tr.classList.toggle("on", tr.dataset.q === q));
+
+  document.getElementById("a-eq").innerHTML =
+    '<div>dx = ' + fr(dx, 1) + '  dy = ' + fr(dy, 1) + '</div>' +
+    '<div><span class="na">atan(dy/dx)</span> = ' + (hasNaive ? fr(naiveDeg, 1) + '°' : '<span class="nc">indéfini (dx = 0)</span>') + '</div>' +
+    '<div><span class="v">atan2(dy, dx)</span> = <span class="v">' + fr(atan2Deg, 1) + '°</span></div>';
+  document.getElementById("a-badge").innerHTML = !hasNaive
+    ? '<span class="badge ko">dx = 0 → atan(dy/dx) plante ; atan2 répond quand même</span>'
+    : (dx < 0
+      ? '<span class="badge ko">dx &lt; 0 : atan se trompe de 180° — regardez la droite grise</span>'
+      : '<span class="badge ok">dx &gt; 0 : atan et atan2 s\'accordent ici</span>');
+
+  if (showT2 && betweenSigned !== null){
+    const T2 = P3.T2;
+    const dot12 = dx * T2.x + dy * T2.y, l1 = len(T), l2 = len(T2);
+    const openDeg = Math.acos(clamp(dot12 / (l1 * l2), -1, 1)) * R2D;
+    document.getElementById("a-eq2").innerHTML =
+      '<div><span class="v">atan2 diff</span> = <span class="v">' + fr(betweenSigned, 1) + '°</span> (' + (betweenSigned >= 0 ? "vers la gauche" : "vers la droite") + ')</div>' +
+      '<div><span class="na">acos(dot)</span> = ' + fr(openDeg, 1) + '° (toujours positif)</div>';
+  }
+}
+document.getElementById("a-t2").addEventListener("change", draw3);
+
+/* ================================================================
+   onglets + intégration reveal.js
+   ================================================================ */
+const draws = {sinus: draw1, cosinus: draw2, atan2: draw3};
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!draws[name]) name = Object.keys(draws)[0];
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === name));
+  draws[name]();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+addEventListener("resize", () => show(document.querySelector(".tabs button.on").dataset.tab));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+
+syncSinus(); syncCosinus();
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

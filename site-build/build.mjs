@@ -3,6 +3,7 @@
 //   01 courses/slides/<catégorie>/<CODE> - *.md  → deck reveal.js (format Advanced Slides)
 //   01 courses/exercises/<catégorie>/*.md        → onglet Exercices de la séance
 //   01 courses/resources/<catégorie>/*.md        → onglet Ressources de la séance
+//   00 widgets/                                  → /widgets/ (pages HTML interactives, copiées telles quelles)
 //
 // Le site est organisé par séance (code GPR-CF-BDP-01…). Une séance n'est publiée
 // que si le frontmatter de ses slides porte `publish: true`. Un exercice ou une
@@ -15,7 +16,11 @@
 // ou des lignes `repo:` / `ref:` (branche ou tag) / `readme: false`.
 // GITHUB_TOKEN facultatif (limite de 60 requêtes/h sans jeton).
 //
-// Tout dossier dont le nom commence par `_` est ignoré (_archives_to_cut, _drafts…).
+// Tout dossier dont le nom commence par `_` est ignoré (_archives_to_cut, _drafts…),
+// sauf sous `00 widgets/`, recopié en entier.
+//
+// Widgets : une slide les référence par leur chemin dans le vault
+// (`00 widgets/_widgets/x.html`, ce que sert aussi Obsidian), réécrit en `/widgets/…`.
 // Sortie : site-build/dist/, déployée telle quelle sur le VPS.
 
 import fs from 'node:fs/promises';
@@ -32,6 +37,7 @@ const ROOT = path.resolve(HERE, '..');
 const COURSES = path.join(ROOT, '01 courses');
 const IMAGES = path.join(ROOT, '00 images');
 const CSS = path.join(ROOT, '00 templates', 'css');
+const WIDGETS = path.join(ROOT, '00 widgets');
 const REVEAL = path.join(HERE, 'node_modules', 'reveal.js');
 const DIST = path.join(HERE, 'dist');
 const COMPANIONS = path.join(COURSES, 'companion projects');
@@ -194,7 +200,8 @@ class Resolver {
   // Réécrit la syntaxe Obsidian d'une ligne en Markdown standard.
   line(item, line) {
     return line
-      .replace(/(["'(])00 images\//g, '$1/assets/images/')
+      .replace(/(["'(<])00 images\//g, '$1/assets/images/')
+      .replace(/(["'(<])00 widgets\//g, '$1/widgets/')
       .replace(/!\[\[([^\]]+)\]\]/g, (all, ref) => {
         if (!IMAGE_EXT.test(ref.split('|')[0])) return '';
         const url = this.image(item, ref);
@@ -554,6 +561,10 @@ async function copyAssets(resolver) {
   await fs.cp(path.join(REVEAL, 'dist'), path.join(DIST, 'assets/reveal/dist'), { recursive: true });
   await fs.cp(path.join(REVEAL, 'plugin'), path.join(DIST, 'assets/reveal/plugin'), { recursive: true });
   await fs.cp(IMAGES, path.join(DIST, 'assets/images'), { recursive: true });
+  await fs.cp(WIDGETS, path.join(DIST, 'widgets'), {
+    recursive: true,
+    filter: (src) => !['.git', '.nojekyll', 'README.md'].includes(path.basename(src)),
+  });
   await fs.copyFile(path.join(HERE, 'assets/site.css'), path.join(DIST, 'assets/site.css'));
   await fs.copyFile(path.join(HERE, 'node_modules/highlight.js/styles/github.min.css'), path.join(DIST, 'assets/hljs.css'));
 
