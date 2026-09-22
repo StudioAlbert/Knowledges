@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="520" fill="#ffffff"/>
+<text x="40.0" y="42.0" text-anchor="start" font-size="17" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">On donne :</text>
+<line x1="40.0" y1="104.0" x2="160.0" y2="104.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="40.0" y1="97.0" x2="40.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="160.0" y1="97.0" x2="160.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<text x="100.0" y="92.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">a = 3</text>
+<line x1="270.0" y1="104.0" x2="430.0" y2="104.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="270.0" y1="97.0" x2="270.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="430.0" y1="97.0" x2="430.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<text x="350.0" y="92.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">b = 4</text>
+<line x1="500.0" y1="104.0" x2="700.0" y2="104.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="500.0" y1="97.0" x2="500.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="700.0" y1="97.0" x2="700.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<text x="600.0" y="92.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">c = 5</text>
+<polygon points="250.0,260.0 370.0,420.0 250.0,420.0" fill="#1a1a1a" fill-opacity="0.07"/>
+<polyline points="180.4,275.9 183.7,274.4 187.0,272.9 190.3,271.6 193.6,270.3 197.0,269.0 200.4,267.9 203.9,266.8 207.3,265.8 210.8,264.9 214.3,264.0 217.8,263.3 221.4,262.6 224.9,262.0 228.5,261.5 232.0,261.0 235.6,260.6 239.2,260.4 242.8,260.2 246.4,260.0 250.0,260.0 253.6,260.0 257.2,260.2 260.8,260.4 264.4,260.6 268.0,261.0 271.5,261.5 275.1,262.0 278.6,262.6 282.2,263.3 285.7,264.0 289.2,264.9 292.7,265.8 296.1,266.8 299.6,267.9 303.0,269.0 306.4,270.3 309.7,271.6 313.0,272.9 316.3,274.4 319.6,275.9" fill="none" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="6 5"/>
+<polyline points="192.4,328.1 194.5,324.2 196.7,320.2 199.0,316.4 201.3,312.5 203.8,308.8 206.3,305.1 209.0,301.4 211.7,297.8 214.5,294.3 217.3,290.8 220.3,287.4 223.3,284.1 226.4,280.8 229.6,277.6 232.8,274.5 236.1,271.4 239.5,268.5 242.9,265.6 246.4,262.7 250.0,260.0 253.6,257.3 257.3,254.8 261.1,252.3 264.9,249.9 268.7,247.5 272.6,245.3 276.6,243.2 280.6,241.1 284.6,239.1 288.7,237.3 292.9,235.5 297.0,233.8 301.2,232.2 305.5,230.7 309.8,229.3 314.1,228.0 318.4,226.8 322.8,225.7 327.1,224.6 331.5,223.7" fill="none" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="6 5"/>
+<line x1="250.0" y1="420.0" x2="370.0" y2="420.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="250.0" y1="420.0" x2="250.0" y2="260.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="250.0" y1="260.0" x2="370.0" y2="420.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<text x="310.0" y="448.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">a = 3</text>
+<text x="234.0" y="340.0" text-anchor="end" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">b = 4</text>
+<text x="340.0" y="332.0" text-anchor="start" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">c = 5</text>
+<circle cx="250.0" cy="260.0" r="5" fill="#1a1a1a"/>
+<circle cx="370.0" cy="420.0" r="5" fill="#1a1a1a"/>
+<circle cx="250.0" cy="420.0" r="5" fill="#1a1a1a"/>
+<text x="228.0" y="248.0" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="392.0" y="446.0" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="226.0" y="446.0" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">C</text>
+<text x="620.0" y="250.0" text-anchor="start" font-size="18" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Deux coups de compas :</text>
+<text x="620.0" y="280.0" text-anchor="start" font-size="18" font-weight="400" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A est à 4 de C et à 5 de B.</text>
+<text x="620.0" y="318.0" text-anchor="start" font-size="19" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Un seul triangle possible.</text>
+<line x1="40.0" y1="486.0" x2="74.0" y2="486.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<text x="82.0" y="492.0" text-anchor="start" font-size="16" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">donné</text>
+<line x1="145.0" y1="486.0" x2="179.0" y2="486.0" stroke="#8a8a8a" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1" stroke-dasharray="6 5"/>
+<text x="187.0" y="492.0" text-anchor="start" font-size="16" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">tracé au compas</text>
+</svg>

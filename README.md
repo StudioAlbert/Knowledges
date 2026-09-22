@@ -23,7 +23,7 @@ Released under the [MIT License](LICENSE).
 
 ## Clone
 
-`00 widgets` and the two C++ companion projects are git submodules
+The Unity and C++ companion projects are git submodules
 (see [`.gitmodules`](.gitmodules)), so clone recursively:
 
 ```bash
@@ -40,7 +40,7 @@ when needed.
 | --- | --- |
 | `00 images` | Slide backgrounds and screenshots referenced by the decks |
 | `00 templates/css` | `sae_styles.css` (the deck theme), `temps_travail_perso.css` |
-| `00 widgets` | Submodule → [StudioAlbert/widgets](https://github.com/StudioAlbert/widgets) — interactive HTML widgets published on GitHub Pages |
+| `00 widgets` | Interactive HTML widgets, embedded in the decks and published by the site under `/widgets/` |
 | `01 courses` | The teaching material, organised by category — see below |
 | `02 Notes` | Personal notes (bio, work-time logs) — not teaching material |
 

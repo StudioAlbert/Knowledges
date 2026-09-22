@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<rect width="900" height="520" fill="#ffffff"/>
+<text x="40.0" y="42.0" text-anchor="start" font-size="17" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">On donne :</text>
+<line x1="40.0" y1="104.0" x2="160.0" y2="104.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="40.0" y1="97.0" x2="40.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="160.0" y1="97.0" x2="160.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<text x="100.0" y="92.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">a = 3</text>
+<line x1="250.0" y1="104.0" x2="410.0" y2="104.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="250.0" y1="97.0" x2="250.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="410.0" y1="97.0" x2="410.0" y2="111.0" stroke="#E30613" stroke-width="2" stroke-linecap="round" stroke-opacity="1"/>
+<text x="330.0" y="92.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">b = 4</text>
+<line x1="540.0" y1="132.0" x2="660.0" y2="132.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="540.0" y1="132.0" x2="540.0" y2="28.0" stroke="#E30613" stroke-width="4" stroke-linecap="round" stroke-opacity="1"/>
+<polyline points="570.0,132.0 569.9,130.0 569.7,128.1 569.4,126.1 569.0,124.2 568.4,122.4 567.7,120.5 566.9,118.7 566.0,117.0 564.9,115.3 563.8,113.7 562.6,112.2 561.2,110.8 559.8,109.4 558.3,108.2 556.7,107.1 555.0,106.0 553.3,105.1 551.5,104.3 549.6,103.6 547.8,103.0 545.9,102.6 543.9,102.3 542.0,102.1 540.0,102.0" fill="none" stroke="#E30613" stroke-width="2.5"/>
+<text x="592.3" y="85.7" text-anchor="middle" font-size="18" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Ĉ = 90°</text>
+<polygon points="250.0,260.0 370.0,420.0 250.0,420.0" fill="#1a1a1a" fill-opacity="0.07"/>
+<line x1="250.0" y1="420.0" x2="370.0" y2="420.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="250.0" y1="420.0" x2="250.0" y2="260.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<line x1="250.0" y1="260.0" x2="370.0" y2="420.0" stroke="#8a8a8a" stroke-width="3" stroke-linecap="round" stroke-opacity="1" stroke-dasharray="7 6"/>
+<polyline points="284.0,420.0 283.9,417.8 283.7,415.6 283.3,413.4 282.8,411.2 282.2,409.1 281.4,407.0 280.5,405.0 279.4,403.0 278.3,401.1 277.0,399.3 275.6,397.6 274.0,396.0 272.4,394.4 270.7,393.0 268.9,391.7 267.0,390.6 265.0,389.5 263.0,388.6 260.9,387.8 258.8,387.2 256.6,386.7 254.4,386.3 252.2,386.1 250.0,386.0" fill="none" stroke="#E30613" stroke-width="2.5"/>
+<text x="305.2" y="370.8" text-anchor="middle" font-size="18" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">90°</text>
+<text x="310.0" y="448.0" text-anchor="middle" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">a = 3</text>
+<text x="234.0" y="340.0" text-anchor="end" font-size="19" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">b = 4</text>
+<text x="344.0" y="332.0" text-anchor="start" font-size="19" font-weight="700" fill="#8a8a8a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">c se déduit</text>
+<circle cx="250.0" cy="260.0" r="5" fill="#1a1a1a"/>
+<circle cx="370.0" cy="420.0" r="5" fill="#1a1a1a"/>
+<circle cx="250.0" cy="420.0" r="5" fill="#1a1a1a"/>
+<text x="228.0" y="248.0" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="392.0" y="446.0" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="226.0" y="446.0" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">C</text>
+<text x="620.0" y="250.0" text-anchor="start" font-size="18" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">L'angle est entre les</text>
+<text x="620.0" y="278.0" text-anchor="start" font-size="18" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">deux côtés donnés :</text>
+<text x="620.0" y="316.0" text-anchor="start" font-size="19" font-weight="400" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">il n'y a qu'une façon</text>
+<text x="620.0" y="344.0" text-anchor="start" font-size="19" font-weight="400" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">de refermer le triangle.</text>
+<line x1="40.0" y1="486.0" x2="74.0" y2="486.0" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1"/>
+<text x="82.0" y="492.0" text-anchor="start" font-size="16" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">donné</text>
+<line x1="145.0" y1="486.0" x2="179.0" y2="486.0" stroke="#8a8a8a" stroke-width="3.5" stroke-linecap="round" stroke-opacity="1" stroke-dasharray="7 6"/>
+<text x="187.0" y="492.0" text-anchor="start" font-size="16" font-weight="600" fill="#555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">obtenu</text>
+</svg>

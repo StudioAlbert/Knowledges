@@ -159,3 +159,13 @@
     margin: 30px;
     padding: 0;
 }
+
+/* ===== WIDGET : page HTML interactive en fond plein écran =====
+   La slide ne porte que le commentaire, sans titre : le widget affiche le sien.
+   <!-- .slide: data-background-iframe="00 widgets/_widgets/<fichier>.html#<onglet>" data-background-interactive -->
+
+   ===== SCHEMA : une figure sous le titre =====
+   <!-- .slide: class="schema" --> — laisse au dessin la hauteur du cadre. */
+.reveal .slides section.schema img {
+    max-height: 420px;
+}
