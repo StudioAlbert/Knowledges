@@ -32,9 +32,8 @@ Angles et droites remarquables, théorème de Pythagore et sa réciproque, théo
 
 ## Matériel
 
-- Support : [[08 - Theorical Notions of graphics programming - Maths]] — `01 courses/lectures/C++/08 - Theorical Notions of graphics programming - Maths.md` (20,0 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1MyyUSkqldoEikta8TUQdn0hG3AnSXnd81yfQcC0hGMc/edit
-    - Exercices : [[Exercices - 08 - Introduction to Maths]]
+- Support : [[01 courses/slides/Theory/TC-FT-TRG-01 - Géométrie du triangle|TC-FT-TRG-01 - Géométrie du triangle]]
+- Exercices : [[Exercices - 08 - Introduction to Maths]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Trigonométrie.md`, ligne `01`
 
 ## Liens

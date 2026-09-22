@@ -193,12 +193,12 @@ html.embed .side { overflow-y: auto; min-height: 0; }
 </header>
 
 <div class="tabs" role="tablist">
-  <button class="on" data-tab="p1">1 · Le cercle unité</button>
-  <button data-tab="p2">2 · Symétries</button>
-  <button data-tab="p3">3 · Du cercle à l'onde</button>
+  <button class="on" data-tab="cercle">1 · Le cercle unité</button>
+  <button data-tab="symetries">2 · Symétries</button>
+  <button data-tab="onde">3 · Du cercle à l'onde</button>
 </div>
 
-<section class="panel on" id="p1">
+<section class="panel on" id="cercle">
   <div class="toolbar">
     <div class="group">
       <span class="group-label">Angle</span>
@@ -241,7 +241,7 @@ float y = std::sin(rad);</pre>
   </div>
 </section>
 
-<section class="panel" id="p2">
+<section class="panel" id="symetries">
   <div class="toolbar">
     <div class="group">
       <span class="group-label">Angle</span>
@@ -253,6 +253,9 @@ float y = std::sin(rad);</pre>
       <label class="chk"><input type="checkbox" id="p2-supp" checked> π − θ</label>
       <label class="chk"><input type="checkbox" id="p2-opp"> π + θ</label>
       <label class="chk"><input type="checkbox" id="p2-comp"> π/2 − θ</label>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p2-proj" checked> Projections cos / sin</label>
     </div>
   </div>
   <div class="stage">
@@ -270,7 +273,7 @@ float y = std::sin(rad);</pre>
   </div>
 </section>
 
-<section class="panel" id="p3">
+<section class="panel" id="onde">
   <div class="toolbar">
     <div class="group">
       <span class="group-label">Onde</span>
@@ -580,6 +583,19 @@ function draw2(){
   wedge(svg2, 40, deg, RED, .12);
   el("line", {x1: 0, y1: 0, x2: M.x, y2: M.y, stroke: RED, "stroke-width": 3}, svg2);
 
+  if (document.getElementById("p2-proj").checked){
+    for (const o of pts.concat([{P: M, sy: {color: RED}}])){
+      const P = o.P, c = o.sy.color;
+      el("line", {x1: P.x, y1: P.y, x2: P.x, y2: 0, stroke: c, "stroke-width": 1,
+                  "stroke-dasharray": "3 4", "stroke-opacity": .8}, svg2);
+      el("line", {x1: P.x, y1: P.y, x2: 0, y2: P.y, stroke: c, "stroke-width": 1,
+                  "stroke-dasharray": "3 4", "stroke-opacity": .8}, svg2);
+      el("circle", {cx: P.x, cy: 0, r: 4, fill: c}, svg2);
+      el("circle", {cx: 0, cy: P.y, r: 4, fill: c}, svg2);
+    }
+    txt(svg2, 0, 232, "cos : abscisse — sin : ordonnée", {"text-anchor": "middle", fill: "#888", "font-size": 13, "font-weight": 600});
+  }
+
   for (const o of pts){
     const P = o.P;
     el("circle", {cx: P.x, cy: P.y, r: 8, fill: o.sy.color, stroke: "#fff", "stroke-width": 2.5}, svg2);
@@ -595,6 +611,7 @@ function draw2(){
 dragAngle(svg2, function(a){ S2.deg = mod360(Math.round(a)); draw2(); });
 document.getElementById("p2-deg").addEventListener("input", function(e){ S2.deg = +e.target.value; draw2(); });
 SYM.forEach(function(sy){ document.getElementById("p2-" + sy.id).addEventListener("change", draw2); });
+document.getElementById("p2-proj").addEventListener("change", draw2);
 
 /* ================= PANEL 3 — du cercle à l'onde ================= */
 const svg3 = document.getElementById("svg3");
@@ -696,18 +713,39 @@ document.getElementById("p3-play").addEventListener("click", function(){
   })(last);
 });
 
-/* ================= onglets ================= */
+/* ==========================================================
+   onglets (#cercle, #symetries, #onde) + intégration reveal
+   ========================================================== */
+const draws = {cercle: draw1, symetries: draw2, onde: draw3};
 const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!draws[name]) name = Object.keys(draws)[0];
+  tabBtns.forEach(function(b){ b.classList.toggle("on", b.dataset.tab === name); });
+  document.querySelectorAll(".panel").forEach(function(p){ p.classList.toggle("on", p.id === name); });
+  draws[name]();
+}
 tabBtns.forEach(function(btn){
   btn.addEventListener("click", function(){
-    tabBtns.forEach(function(b){ b.classList.remove("on"); });
-    btn.classList.add("on");
-    document.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("on"); });
-    document.getElementById(btn.dataset.tab).classList.add("on");
+    history.replaceState(null, "", "#" + btn.dataset.tab);
+    show(btn.dataset.tab);
   });
 });
+addEventListener("hashchange", function(){ show(location.hash.slice(1)); });
+addEventListener("resize", function(){ show(document.querySelector(".tabs button.on").dataset.tab); });
 
-draw1(); draw2(); draw3();
+/* Dans une slide reveal.js, les flèches doivent continuer à changer de slide. */
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+
+draw2(); draw3();
+show(location.hash.slice(1));
 })();
 </script>
 </body>

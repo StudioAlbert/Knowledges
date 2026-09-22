@@ -292,7 +292,12 @@ ${sections}
 <script src="/assets/reveal/dist/reveal.js"></script>
 <script src="/assets/reveal/plugin/markdown/markdown.js"></script>
 <script src="/assets/reveal/plugin/highlight/highlight.js"></script>
-<script>Reveal.initialize(Object.assign(${JSON.stringify(options)}, { plugins: [RevealMarkdown, RevealHighlight] }));</script>
+<script>Reveal.initialize(Object.assign(${JSON.stringify(options)}, {
+  plugins: [RevealMarkdown, RevealHighlight],
+  // Un bloc sans langage (formule, pseudo-code) reste en texte brut : sans cette
+  // ligne, highlight.js devine une langue au hasard et colorie les formules.
+  highlight: { beforeHighlight: (hljs) => hljs.configure({ languages: [] }) },
+}));</script>
 </body>
 </html>
 `;

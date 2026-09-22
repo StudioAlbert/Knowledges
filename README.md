@@ -43,6 +43,9 @@ when needed.
 | `00 widgets` | Interactive HTML widgets, embedded in the decks and published by the site under `/widgets/` |
 | `01 courses` | The teaching material, organised by category — see below |
 | `02 Notes` | Personal notes (bio, work-time logs) — not teaching material |
+| `Excalidraw` | Editable sources of the hand-drawn schemas whose SVG lives in `00 images` |
+| `site-build` | The static site generator — see [Building the site](#building-the-site) |
+| `tools` | Scripts run by hand, outside any build — see [Schema generators](#schema-generators) |
 
 ## How `01 courses` is organised
 
@@ -130,3 +133,53 @@ See [`01 courses/Séances GSDA 2026-2027.md`](01%20courses/S%C3%A9ances%20GSDA%2
 view of the vault. It picks up every note in `lectures/` except the `type: section` sub-notes, columns
 them by `status` (*Backlog*, *To prepare*, *Ready*, *Done*), groups them by `projet` and
 lays out lanes by `bloc_gsda`.
+
+## Building the site
+
+Part of the vault is published as a static site (reveal.js decks + exercise pages) at
+knowledges.studio-albert.com. **One script does everything:**
+[`site-build/build.mjs`](site-build/build.mjs) — plain Node, no framework, no
+intermediate step. Its header comment is the reference; the short version:
+
+| | |
+| --- | --- |
+| **Reads** | `01 courses/slides/`, `exercises/`, `resources/`, plus `00 images`, `00 templates/css`, `00 widgets` (copied verbatim to `/widgets/`) and reveal.js from `node_modules` |
+| **Writes** | `site-build/dist/` — gitignored, deployed as is |
+| **Publishes** | one page per teaching session; a session appears **only** if its deck frontmatter carries `publish: true`. An exercise or resource attaches to it through `seances: [CODE, …]` or a filename starting with the session code. Any folder whose name starts with `_` is skipped, except under `00 widgets` |
+
+```bash
+cd site-build
+npm ci          # Node >= 24, first time only
+npm run build   # → site-build/dist/
+npm run serve   # local preview of dist/
+```
+
+A deck references a widget by its vault path (`00 widgets/_widgets/x.html#tab`), which is
+what Obsidian serves too; the build rewrites it to `/widgets/…`. An exercise can embed a
+GitHub repository header and README through a fenced `github` block, fetched at build time
+(`GITHUB_TOKEN` optional — 60 requests/h without it).
+
+**Deployment** is [`.github/workflows/deploy-knowledges.yml`](.github/workflows/deploy-knowledges.yml):
+every push to `main` touching the slides, exercises, images, widgets, deck CSS or
+`site-build/` rebuilds the site and rsyncs `dist/` to the VPS, mirror-style (`--delete`,
+so anything dropped into `/var/www/knowledges` by hand is wiped on the next deploy). It can
+also be run from the Actions tab. Host and SSH key come from the `VPS_*` repository secrets.
+
+## Schema generators
+
+The figures drawn for the decks are **generated**, not drawn by hand, so that the SVG shown
+in the slide and the Excalidraw file kept for later edits cannot drift apart. One script per
+schema, under `tools/schemas/`, run by hand with Python 3:
+
+```bash
+python "tools/schemas/trg02_rapports_trigo.py"
+```
+
+Each script holds a single description of the figure and emits both outputs: the SVG into
+`00 images/`, embedded by the slide as `![[name.svg]]` under
+`<!-- .slide: class="schema" -->`, and the `.excalidraw.md` into `Excalidraw/`, which opens
+in the Excalidraw plugin. Editing the Excalidraw copy does **not** update the SVG, and
+re-running the script overwrites both — treat the script as the source.
+
+Only the TRG-02 generator is kept so far; the `trg01_cas_*.svg` schemas were produced the
+same way, but their script was not saved.

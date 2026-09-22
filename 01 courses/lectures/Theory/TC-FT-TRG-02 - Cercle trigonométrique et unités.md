@@ -30,7 +30,10 @@ Triangle rectangle, sinus, cosinus, tangente, cercle unité, degrés, radians et
 
 ## Matériel
 
-- Support : [[08 - Theorical Notions of graphics programming - Maths]] — `01 courses/lectures/C++/08 - Theorical Notions of graphics programming - Maths.md` (20,0 ko)
+- Support : [[01 courses/slides/Theory/TC-FT-TRG-02 - Cercle trigonométrique et unités|TC-FT-TRG-02 - Cercle trigonométrique et unités]]
+- Widget : `00 widgets/_widgets/cercle_trigo_widget.html` — onglets `#cercle`, `#symetries`, `#onde`
+- Schéma : `00 images/trg02_rapports_trigo.svg`, source `Excalidraw/TRG-02 - Rapports trigonométriques.excalidraw.md`
+- Source découpée : [[08 - Theorical Notions of graphics programming - Maths]] — `01 courses/lectures/C++/08 - Theorical Notions of graphics programming - Maths.md` (20,0 ko)
     - Slides d'origine : https://docs.google.com/presentation/d/1MyyUSkqldoEikta8TUQdn0hG3AnSXnd81yfQcC0hGMc/edit
     - Exercices : [[Exercices - 08 - Introduction to Maths]]
 - Références livres : M3D Annexe B §B.1-B.3, Seb · 08 - Introduction to maths
