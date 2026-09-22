@@ -2,7 +2,7 @@
 title: Résolution de triangles et applications
 type: seance
 code: TC-FT-TRG-03
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Trigonométrie
@@ -28,11 +28,12 @@ Identités d'addition et de duplication, fonctions inverses `asin`, `acos`, `ata
 
 ## Ce qu'il y a à faire
 
-**Écrire le support depuis les livres.** Aucun deck n'existe dans ce vault : la fiche GSDA renvoie aux sections listées plus bas, à rédiger en un deck d'1 h.
+**Support écrit depuis les livres** (aucun deck GSDA n'existait pour cette séance) : à relire avant la séance.
 
 ## Matériel
 
-- Support : **aucun** dans ce vault.
+- Support : [[01 courses/slides/Theory/TC-FT-TRG-03 - Résolution de triangles et applications|TC-FT-TRG-03 - Résolution de triangles et applications]]
+- Widget : `00 widgets/_widgets/resolution_triangles_widget.html` — [en ligne](https://studioalbert.github.io/widgets/_widgets/resolution_triangles_widget.html)
 - Références livres : M3D Annexe B §B.4-B.6
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Trigonométrie.md`, ligne `03`
 
