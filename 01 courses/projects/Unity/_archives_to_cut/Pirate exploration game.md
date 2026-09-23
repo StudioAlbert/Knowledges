@@ -69,19 +69,19 @@ Scriptable object for a loot system
 
 ### Street of rage
 
-![Untitled](2D%20Beat%20Them%20All/Untitled.jpeg)
+![Untitled](01%20courses/slides/_archives_to_cut/2D%20Beat%20Them%20All/Untitled.jpeg)
 
 ### Sifu
 
-![Untitled](2D%20Beat%20Them%20All/Untitled%201.jpeg)
+![Untitled](01%20courses/slides/_archives_to_cut/2D%20Beat%20Them%20All/Untitled%201.jpeg)
 
-![Untitled](2D%20Beat%20Them%20All/Untitled.webp)
+![Untitled](01%20courses/slides/_archives_to_cut/2D%20Beat%20Them%20All/Untitled.webp)
 
-![Untitled](2D%20Beat%20Them%20All/Untitled%201.webp)
+![Untitled](Untitled%201.webp)
 
 ### Double dragon
 
-![Untitled](2D%20Beat%20Them%20All/Untitled.png)
+![Untitled](01%20courses/slides/_archives_to_cut/2D%20Beat%20Them%20All/Untitled.png)
 
 ### Ressources / Assets
 

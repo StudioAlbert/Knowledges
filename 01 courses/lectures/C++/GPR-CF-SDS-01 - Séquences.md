@@ -10,7 +10,7 @@ specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
   - WEB-926
-date_scheduled: 2026-11-04
+date_scheduled: 2026-09-23
 manual_order: 27
 estimate: 1h
 tache: découper

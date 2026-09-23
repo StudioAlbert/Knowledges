@@ -18,7 +18,7 @@
 
 ## C++ Coroutines: Wide Overview
 
-![source : **C++20’s Coroutines for Beginners - Andreas Fertig - CppCon 2022 ([link](image.png)
+![source : **C++20’s Coroutines for Beginners - Andreas Fertig - CppCon 2022 ([link](01%20courses/resources/C++/C++20%20-%20Coroutines/image.png)
 
 source : **C++20’s Coroutines for Beginners - Andreas Fertig - CppCon 2022 ([link](https://youtu.be/8sEe-4tig_A?si=VJGXa43KI_q8k2yN))**
 

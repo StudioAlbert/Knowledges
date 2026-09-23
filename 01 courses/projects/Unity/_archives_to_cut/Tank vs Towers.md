@@ -25,9 +25,9 @@ Exemple de controle “Twin stick shooter”
     - la trajectoire peut tenir compte de l’inclinaison verticale de la tourelle.
     - la trajectoire est rectiligne
 
-![images.jpg](Tank%20vs%20Towers/images.jpg)
+![images.jpg](images.jpg)
 
-![images.png](Tank%20vs%20Towers/images.png)
+![images.png](images.png)
 
 - Le tir est déclenché en continu à cadence régulière (Coroutine)
     - Instantiation

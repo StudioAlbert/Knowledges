@@ -14,7 +14,7 @@ manual_order: 40
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
-date_scheduled: 2026-09-23
+date_scheduled:
 ---
 
 # Gestionnaires de paquets

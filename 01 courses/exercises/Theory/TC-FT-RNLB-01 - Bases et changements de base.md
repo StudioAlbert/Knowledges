@@ -2,6 +2,17 @@
 
 Sans calculatrice. Écrivez la méthode, pas seulement le résultat.
 
+## Changements de base
+
+17 en base 5
+23 en base 8
+31 en base 7
+20 en base 16
+35 en base 16
+
+13(4) en base 10
+21(3) en base 10
+14(5) en base 10
 ## Exercice 1 — Vers le décimal
 
 1. Quel nombre est `10011011` ?

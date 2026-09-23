@@ -107,7 +107,7 @@ You are required to build the foundational mechanics of the game, including two 
 - Damage handling for health reduction and object destruction.
 - A UI manager to track and display points, health and more …
 
-![image.png](2%205D%20Isometric%20Space%20Shooter/image.png)
+![image.png](01%20courses/projects/Unity/_archives_to_cut/2%205D%20Isometric%20Space%20Shooter/image.png)
 
 ---
 

@@ -39,7 +39,7 @@ Le problème que résout l'`enum`, déclaration, `enum` simple contre `enum clas
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-BDP-04 - Branches et boucles]]
+- Séance précédente : [[01 courses/lectures/C++/GPR-CF-BDP-04 - Branches et boucles]]
 - Séance suivante : [[GPR-CF-BDP-06 - Chaînes de caractères]]
 
 ## Notes de préparation

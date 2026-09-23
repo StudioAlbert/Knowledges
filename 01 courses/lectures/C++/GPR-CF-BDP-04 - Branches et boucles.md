@@ -2,7 +2,7 @@
 title: Branches et boucles
 type: seance
 code: GPR-CF-BDP-04
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation
@@ -10,7 +10,7 @@ specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
   - WEB-926
-date_scheduled: 2026-10-01
+date_scheduled: 2026-09-23
 manual_order: 8
 estimate: 1h
 tache: découper
@@ -32,14 +32,12 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 
 ## Matériel
 
-- Support : [[01.01 - Programming Basics - if, loops]] — `01 courses/lectures/C++/01.01 - Programming Basics - if, loops.md` (17,9 ko)
-    - Slides d'origine : https://docs.google.com/presentation/d/1BWCyCFyfi5hxUMsSEnCvPpweoJpYSvnvFNRjcZIJTmU/edit
-    - Exercices : [[Exercices - 01 - Programming Basics]]
+- Support : [[01 courses/slides/C++/GPR-CF-BDP-04 - Branches et boucles|GPR-CF-BDP-04 - Branches et boucles]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Bases de la Programmation.md`, ligne `04`
 
 ## Liens
 
-- Séance précédente : [[01 courses/lectures/C++/GPR-CF-BDP-03 - Fonctions]]
+- Séance précédente : [[GPR-CF-BDP-03 - Fonctions]]
 - Séance suivante : [[GPR-CF-BDP-05 - Énumérations et tableaux]]
 
 ## Notes de préparation
