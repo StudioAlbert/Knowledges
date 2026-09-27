@@ -19,7 +19,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # SOLID en Unity — SRP et OCP, LSP et ISP, DIP et atelier
 
 > [!abstract] Séance d'1 h — `GPR-UN-APU-01` · bloc GSDA *Architecture et Patterns Unity*
-> GP-925 · salle Leman · **2026-09-17** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 · salle Leman · **2026-09-17** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

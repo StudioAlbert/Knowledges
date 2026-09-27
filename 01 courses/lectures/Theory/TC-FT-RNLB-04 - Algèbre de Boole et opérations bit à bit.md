@@ -21,7 +21,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Algèbre de Boole et opérations bit à bit
 
 > [!abstract] Séance d'1 h — `TC-FT-RNLB-04` · bloc GSDA *Représentation des Nombres et Logique Binaire*
-> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-23** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-17** · 15:10–16:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

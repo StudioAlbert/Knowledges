@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Adaptateurs et conteneurs associatifs
 
 > [!abstract] Séance d'1 h — `GPR-CF-SDS-02` · bloc GSDA *Structures de Données et STL*
-> GP-926 + WEB-926 · salle Arve · **2026-10-08** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-11-05** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

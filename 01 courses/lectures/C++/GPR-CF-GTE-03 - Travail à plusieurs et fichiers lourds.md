@@ -21,7 +21,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Travail à plusieurs et fichiers lourds
 
 > [!abstract] Séance d'1 h — `GPR-CF-GTE-03` · bloc GSDA *Git et Travail en Équipe*
-> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-16** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-10-28** · 15:10–16:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

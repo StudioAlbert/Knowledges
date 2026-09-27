@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Séquences
 
 > [!abstract] Séance d'1 h — `GPR-CF-SDS-01` · bloc GSDA *Structures de Données et STL*
-> GP-926 + WEB-926 · salle Arve · **2026-10-08** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-09-23** · 15:10–16:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

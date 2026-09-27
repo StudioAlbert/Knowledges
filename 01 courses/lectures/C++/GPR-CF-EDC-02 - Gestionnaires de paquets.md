@@ -14,13 +14,13 @@ manual_order: 40
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
-date_scheduled:
+date_scheduled: 2026-11-04
 ---
 
 # Gestionnaires de paquets
 
 > [!abstract] Séance d'1 h — `GPR-CF-EDC-02` · bloc GSDA *Environnement de Développement C++*
-> GP-926 + WEB-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-11-04** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

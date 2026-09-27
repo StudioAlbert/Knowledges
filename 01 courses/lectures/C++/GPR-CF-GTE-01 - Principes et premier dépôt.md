@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Principes et premier dépôt
 
 > [!abstract] Séance d'1 h — `GPR-CF-GTE-01` · bloc GSDA *Git et Travail en Équipe*
-> GP-926 + WEB-926 · salle Arve · **2026-09-09** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-09-09** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

@@ -19,7 +19,7 @@ date_scheduled: 2026-10-28
 # Boucle de jeu et fenêtre
 
 > [!abstract] Séance d'1 h — `GPR-CF-SBD-01` · bloc GSDA *SFML et Box2D*
-> GP-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 · salle Arve · **2026-10-28** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

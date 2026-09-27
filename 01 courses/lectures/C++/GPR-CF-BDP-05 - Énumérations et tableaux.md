@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Énumérations et tableaux
 
 > [!abstract] Séance d'1 h — `GPR-CF-BDP-05` · bloc GSDA *Bases de la Programmation*
-> GP-926 + WEB-926 · salle Arve · **2026-09-23** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-10-07** · 11:10–12:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

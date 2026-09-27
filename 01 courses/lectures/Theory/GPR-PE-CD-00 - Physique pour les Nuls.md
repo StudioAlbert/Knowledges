@@ -9,7 +9,6 @@ bloc_gsda: Cinématique et Dynamique
 specialisation: "[[Physics & Engine]]"
 classes:
   - GP-926
-  - GP-925
 manual_order: 38
 estimate: 1h
 tache: créer de zéro
@@ -20,7 +19,7 @@ date_scheduled: 2026-11-04
 # Physique pour les Nuls
 
 > [!abstract] Séance d'1 h — `GPR-PE-CD-00` · bloc GSDA *Cinématique et Dynamique*
-> GP-926 + GP-925 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 · salle Arve · **2026-11-04** · 11:10–12:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

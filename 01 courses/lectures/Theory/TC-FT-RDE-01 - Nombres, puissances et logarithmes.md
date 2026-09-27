@@ -10,7 +10,7 @@ specialisation: "[[Fondamentaux Théoriques]]"
 classes:
   - GP-925
   - WEB-926
-date_scheduled: 2026-10-15
+date_scheduled: 2026-10-14
 manual_order: 23
 estimate: 1h
 tache: créer de zéro
@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Nombres, puissances et logarithmes
 
 > [!abstract] Séance d'1 h — `TC-FT-RDE-01` · bloc GSDA *Résolution d'Équation*
-> GP-925 + WEB-926 · salle Arve · **2026-10-07** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 + WEB-926 · salle Arve · **2026-10-14** · 15:10–16:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

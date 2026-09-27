@@ -21,7 +21,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Bases et changements de base
 
 > [!abstract] Séance d'1 h — `TC-FT-RNLB-01` · bloc GSDA *Représentation des Nombres et Logique Binaire*
-> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-09** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-16** · 15:10–16:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

@@ -8,7 +8,7 @@ subject: Theory
 bloc_gsda: Trigonométrie
 specialisation: "[[Fondamentaux Théoriques]]"
 classes: [GP-926, WEB-926]
-date_scheduled: 2026-09-30
+date_scheduled: 2026-09-23
 manual_order: 18
 estimate: 1h
 tache: découper
@@ -18,7 +18,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Cercle trigonométrique et unités
 
 > [!abstract] Séance d'1 h — `TC-FT-TRG-02` · bloc GSDA *Trigonométrie*
-> GP-926 + WEB-926 · salle Arve · **2026-09-30** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-09-23** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

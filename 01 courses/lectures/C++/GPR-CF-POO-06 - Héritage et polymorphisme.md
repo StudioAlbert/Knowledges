@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Héritage et polymorphisme
 
 > [!abstract] Séance d'1 h — `GPR-CF-POO-06` · bloc GSDA *Programmation Orientée Objet*
-> GP-926 + WEB-926 · salle Arve · **2026-10-07** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-10-14** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

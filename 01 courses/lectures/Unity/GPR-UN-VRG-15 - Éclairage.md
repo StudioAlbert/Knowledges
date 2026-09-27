@@ -18,7 +18,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Éclairage
 
 > [!abstract] Séance d'1 h — `GPR-UN-VRG-15` · bloc GSDA *VFX, Rendu et Game Feel*
-> GP-925 · salle Leman · **2026-10-29** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 · salle Leman · **2026-10-29** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

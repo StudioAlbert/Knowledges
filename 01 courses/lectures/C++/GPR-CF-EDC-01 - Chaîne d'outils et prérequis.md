@@ -20,7 +20,7 @@ date_scheduled: 2026-09-09
 # Chaîne d'outils et prérequis
 
 > [!abstract] Séance d'1 h — `GPR-CF-EDC-01` · bloc GSDA *Environnement de Développement C++*
-> GP-926 + WEB-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 · salle Arve · **2026-09-09** · 11:10–12:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

@@ -20,7 +20,7 @@ date_scheduled: 2026-10-07
 # Vecteurs et repères
 
 > [!abstract] Séance d'1 h — `TC-FT-GVM-01` · bloc GSDA *Géométrie Vectorielle et Matricielle*
-> GP-925 + GP-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 + GP-926 · salle Arve · **2026-10-07** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

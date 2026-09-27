@@ -11,9 +11,9 @@ de travail qui relie le planning du département au matériel de ce vault.
 
 | | |
 |---|---|
-| Module 1 | 7 sept. → 13 nov. 2026 — **55 séances** |
-| Module 2 | 23 nov. 2026 → 12 févr. 2027 — **14 séances** |
-| Datées | 37 · les 32 autres attendent que le département pose leur créneau |
+| Module 1 | 7 sept. → 13 nov. 2026 — **54 séances** |
+| Module 2 | 23 nov. 2026 → 12 févr. 2027 — **15 séances** |
+| Datées | 49 — les créneaux posés par Aurora, du 9 sept. au 26 nov. 2026 |
 
 ## Où elles vivent
 
@@ -31,6 +31,31 @@ doit pas entrer dans les totaux d'heures.
 
 Leur `bloc_gsda` nomme le bloc du vault GSDA qu'elles découpent ; `source_gsda` pointe sur
 le dépôt où ce bloc est tenu.
+
+## Les dates viennent d'Aurora
+
+**La référence de planification est Aurora**, https://aurora.eliasfarhan.ch — pas les
+`date_scheduled` du vault GSDA, qui sont en retard. Ses leçons se lisent sur
+`/api/lessons/?year=2026-2027&from=…&to=…` (ou, côté admin,
+`/admin/schedule/lesson/?teacher__id__exact=4`) et portent exactement le `code` de ces
+notes.
+
+Une journée compte **quatre créneaux de 1 h 20** — 09:30, 11:10, 13:30, 15:10 — soit **1 h
+de cours et 20 min d'échanges**. C'est pourquoi les notes restent des séances d'1 h avec
+`estimate: 1h`, tandis que l'encadré du corps annonce l'horaire réel du créneau.
+
+`date_scheduled` et l'encadré portent donc tous deux la date Aurora. Dernier alignement le
+**2026-09-27** : les 49 leçons planifiées sont conformes sur les quatre champs (date,
+horaire, salle, classes).
+
+Les 20 notes sans créneau à moi :
+
+- **planifiées, mais pour Elias Farhan** : `TC-FT-GVM-03` (30.09), `TC-FT-PS-00` (04.11),
+  `GPR-CF-SDS-05` et `GPR-CF-SDS-06` (05.11) ;
+- **pas encore planifiées** : `TC-FT-GVM-04`, `GPR-UN-APU-04` à `07`, `GPR-UN-VRG-07` à
+  `14`, `GPR-UN-VRG-17` et `GPR-UN-VRG-18` ;
+- **manquante dans Aurora** : `GPR-CF-SDS-04`. Le cours est bien à moi et garde sa date du
+  14.10 — c'est la leçon qui manque au planning, pas la date à la note.
 
 ## Le nom d'une note
 
@@ -68,5 +93,6 @@ change dans le vault GSDA ne redescend plus tout seul — c'est à reporter à l
 ## Liens
 
 - Programme : `_GSDA_Tech_Vault/Classes/GP-925.md` § 5-1 et 5-2, `GP-926.md` § 4-1 et 4-2
-- Dates : `_GSDA_Tech_Vault/Plan/Créneaux fixes 2026-2027.md`, `Calendrier académique 2026-2027.md`
+- Dates : Aurora, https://aurora.eliasfarhan.ch/calendar — puis, pour mémoire,
+  `_GSDA_Tech_Vault/Plan/Créneaux fixes 2026-2027.md` et `Calendrier académique 2026-2027.md`
 - Catalogue : `_GSDA_Tech_Vault/Bloc/`

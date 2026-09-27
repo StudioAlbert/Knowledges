@@ -21,7 +21,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Flottants IEEE 754
 
 > [!abstract] Séance d'1 h — `TC-FT-RNLB-03` · bloc GSDA *Représentation des Nombres et Logique Binaire*
-> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-17** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-926 + WEB-925 · salle Arve · **2026-09-17** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

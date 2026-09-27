@@ -20,7 +20,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Équations et inéquations
 
 > [!abstract] Séance d'1 h — `TC-FT-RDE-02` · bloc GSDA *Résolution d'Équation*
-> GP-925 + WEB-926 · salle Arve · **2026-10-08** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 + WEB-926 · salle Arve · **2026-10-21** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

@@ -20,7 +20,7 @@ date_scheduled: 2026-10-08
 # Produits scalaire et vectoriel
 
 > [!abstract] Séance d'1 h — `TC-FT-GVM-02` · bloc GSDA *Géométrie Vectorielle et Matricielle*
-> GP-925 + GP-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 + GP-926 · salle Arve · **2026-10-08** · 11:10–12:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

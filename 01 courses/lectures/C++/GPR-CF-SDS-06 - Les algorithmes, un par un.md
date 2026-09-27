@@ -8,7 +8,7 @@ subject: C++
 bloc_gsda: Structures de Données et STL
 specialisation: "[[C++ Fondamentaux]]"
 classes: [GP-926, WEB-926]
-date_scheduled: 2026-10-21
+date_scheduled:
 manual_order: 35
 estimate: 1h
 tache: découper

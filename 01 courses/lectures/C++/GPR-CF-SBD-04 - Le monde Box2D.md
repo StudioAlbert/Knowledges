@@ -19,7 +19,7 @@ date_scheduled: 2026-10-29
 # Le monde Box2D
 
 > [!abstract] Séance d'1 h — `GPR-CF-SBD-04` · bloc GSDA *SFML et Box2D*
-> GP-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 · salle Arve · **2026-10-29** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

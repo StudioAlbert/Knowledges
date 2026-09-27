@@ -8,7 +8,7 @@ subject: Theory
 bloc_gsda: Probabilités et Statistiques
 specialisation: "[[Fondamentaux Théoriques]]"
 classes: [GP-926, GP-925, WEB-926]
-date_scheduled: 2026-10-21
+date_scheduled:
 manual_order: 33
 estimate: 1h
 tache: créer de zéro

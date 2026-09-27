@@ -3,12 +3,12 @@ title: Shader Graph — composer un matériau
 type: seance
 code: GPR-UN-VRG-16
 status: To prepare
-projet: Module 1 — 7 sept. → 13 nov. 2026
+projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: VFX, Rendu et Game Feel
 specialisation: "[[Unity]]"
 classes: [GP-925]
-date_scheduled: 2026-11-12
+date_scheduled: 2026-11-26
 manual_order: 37
 estimate: 1h
 tache: créer de zéro
@@ -18,7 +18,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 # Shader Graph — composer un matériau
 
 > [!abstract] Séance d'1 h — `GPR-UN-VRG-16` · bloc GSDA *VFX, Rendu et Game Feel*
-> GP-925 · salle Leman · **2026-11-12** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-925 · salle Leman · **2026-11-26** · 09:30–10:50 (Module 2 — 23 nov. 2026 → 12 févr. 2027)
 
 ## À couvrir
 

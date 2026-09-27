@@ -20,7 +20,7 @@ date_scheduled: 2026-10-22
 # Taxonomie des patterns
 
 > [!abstract] Séance d'1 h — `TC-FT-PCL-03` · bloc GSDA *Principes de Conception Logicielle*
-> GP-926 + WEB-925 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 + WEB-925 · salle Arve · **2026-10-22** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 

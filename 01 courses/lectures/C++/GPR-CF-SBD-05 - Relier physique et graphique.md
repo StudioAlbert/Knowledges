@@ -19,7 +19,7 @@ date_scheduled: 2026-10-29
 # Relier physique et graphique
 
 > [!abstract] Séance d'1 h — `GPR-CF-SBD-05` · bloc GSDA *SFML et Box2D*
-> GP-926 · salle Arve · **non datée** (Module 1 — 7 sept. → 13 nov. 2026)
+> GP-926 · salle Arve · **2026-10-29** · 15:10–16:30 (Module 1 — 7 sept. → 13 nov. 2026)
 
 ## À couvrir
 
