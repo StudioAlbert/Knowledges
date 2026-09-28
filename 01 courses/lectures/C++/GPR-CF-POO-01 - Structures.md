@@ -30,6 +30,15 @@ Regrouper des valeurs qui vont ensemble, déclaration d'une structure, déclarat
 
 **Découper un deck existant.** `01.03 - Basics OOP` (12,6 ko) porte 4 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-POO-02`, `GPR-CF-POO-03`, `GPR-CF-POO-04` — les découper en une seule passe évite de rouvrir le deck 4 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-POO-01 - Structures|GPR-CF-POO-01 - Structures]] — 14 slides, `publish: false` · widgets proposés : `struct_memoire_widget.html` ; 1 schéma à dessiner.
+> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-POO-01 - Structures|GPR-CF-POO-01 - Structures]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[01.03 - Basics OOP]] — `01 courses/lectures/C++/01.03 - Basics OOP.md` (12,6 ko)

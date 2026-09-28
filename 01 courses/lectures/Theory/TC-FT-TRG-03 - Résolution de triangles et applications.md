@@ -30,6 +30,15 @@ Identités d'addition et de duplication, fonctions inverses `asin`, `acos`, `ata
 
 **Support écrit depuis les livres** (aucun deck GSDA n'existait pour cette séance) : à relire avant la séance.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Deck** : [[01 courses/slides/Theory/TC-FT-TRG-03 - Résolution de triangles et applications|TC-FT-TRG-03 - Résolution de triangles et applications]] — déjà écrit, rien à replanifier.
+> - **Overview des exercices** : [[01 courses/exercises/_overviews/TC-FT-TRG-03 - Résolution de triangles et applications|TC-FT-TRG-03 - Résolution de triangles et applications]] — 4 courts, 1 complet, 1 difficile — en attente dans `_overviews/`, la séance étant déjà publiée.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[01 courses/slides/Theory/TC-FT-TRG-03 - Résolution de triangles et applications|TC-FT-TRG-03 - Résolution de triangles et applications]]

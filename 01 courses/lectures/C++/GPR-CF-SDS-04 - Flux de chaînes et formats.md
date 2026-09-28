@@ -28,6 +28,15 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 
 **Découper un deck existant.** `07 - Deeper dive into STD 1-2 - iofile, stringstream, algorithms` (18,8 ko) porte 4 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-SDS-03`, `GPR-CF-SDS-05`, `GPR-CF-SDS-06` — les découper en une seule passe évite de rouvrir le deck 4 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SDS-04 - Flux de chaînes et formats|GPR-CF-SDS-04 - Flux de chaînes et formats]] — 15 slides, `publish: false` · widgets proposés : `json_schema_widget.html`.
+> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SDS-04 - Flux de chaînes et formats|GPR-CF-SDS-04 - Flux de chaînes et formats]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[07 - Deeper dive into STD 1-2 - iofile, stringstream, algorithms]] — `01 courses/lectures/C++/07 - Deeper dive into STD 1-2 - iofile, stringstream, algorithms.md` (18,8 ko)

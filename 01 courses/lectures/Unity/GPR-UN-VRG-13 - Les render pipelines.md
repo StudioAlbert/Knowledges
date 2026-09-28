@@ -27,6 +27,15 @@ Built-in, URP, HDRP, SRP, ce que chacun apporte et impose, choix selon la cible,
 
 **Découper un deck existant.** `particle_systems` (2,2 ko) porte 2 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-UN-VRG-18` — les découper en une seule passe évite de rouvrir le deck 2 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/Unity/GPR-UN-VRG-13 - Les render pipelines|GPR-UN-VRG-13 - Les render pipelines]] — 15 slides, `publish: false` · widgets proposés : `pipelines_widget.html`.
+> - **Overview des exercices** : [[01 courses/exercises/Unity/GPR-UN-VRG-13 - Les render pipelines|GPR-UN-VRG-13 - Les render pipelines]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[particle_systems]] — `01 courses/lectures/Unity/particle_systems.md` (2,2 ko)

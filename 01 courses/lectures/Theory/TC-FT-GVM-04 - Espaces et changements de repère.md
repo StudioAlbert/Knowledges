@@ -27,6 +27,15 @@ Objet, monde, vue, écran, hiérarchie de transformations, matrices élémentair
 
 **Écrire le support depuis les livres.** Aucun deck n'existe dans ce vault : la fiche GSDA renvoie aux sections listées plus bas, à rédiger en un deck d'1 h.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-GVM-04 - Espaces et changements de repère|TC-FT-GVM-04 - Espaces et changements de repère]] — 15 slides, `publish: false` · widgets proposés : `espaces_widget.html` ; 1 schéma à dessiner.
+> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-04 - Espaces et changements de repère|TC-FT-GVM-04 - Espaces et changements de repère]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : **aucun** dans ce vault.

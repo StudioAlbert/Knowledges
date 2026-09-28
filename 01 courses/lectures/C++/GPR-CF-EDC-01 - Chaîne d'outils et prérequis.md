@@ -30,6 +30,15 @@ Ce qu'il faut installer et pourquoi, compilateur et IDE, installation de Git et 
 
 **Découper un deck existant.** `00 - Setup - vcpkg, cmake` (12,5 ko) porte 3 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-EDC-02`, `GPR-CF-EDC-03` — les découper en une seule passe évite de rouvrir le deck 3 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-EDC-01 - Chaîne d'outils et prérequis|GPR-CF-EDC-01 - Chaîne d'outils et prérequis]] — déjà écrit, rien à replanifier.
+> - **Overview des exercices** : [[01 courses/exercises/_overviews/GPR-CF-EDC-01 - Chaîne d'outils et prérequis|GPR-CF-EDC-01 - Chaîne d'outils et prérequis]] — 4 courts, 1 complet, 1 difficile — en attente dans `_overviews/`, la séance étant déjà publiée.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - [[01 courses/slides/C++/GPR-CF-EDC-01 - Chaîne d'outils et prérequis|Support]]

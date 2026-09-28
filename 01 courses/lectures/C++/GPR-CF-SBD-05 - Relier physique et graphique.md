@@ -29,6 +29,15 @@ Copier les valeurs du monde physique vers le monde graphique, déplacer le perso
 
 **Découper un deck existant.** `11 - Box 2D` (9,5 ko) porte 3 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-SBD-04`, `GPR-CF-SBD-06` — les découper en une seule passe évite de rouvrir le deck 3 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05 - Relier physique et graphique]] — 13 slides, `publish: false` · widgets proposés : `forces_widget.html` ; 1 schéma à dessiner.
+> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05 - Relier physique et graphique]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[11 - Box 2D]] — `01 courses/lectures/C++/11 - Box 2D.md` (9,5 ko)

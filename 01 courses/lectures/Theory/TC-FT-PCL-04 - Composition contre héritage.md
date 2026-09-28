@@ -30,6 +30,15 @@ Hiérarchie profonde et ses impasses, modèle composant, orientation données, p
 
 **Deux sources, une seule utilisable.** `solid_principles_in_unity` (10,3 ko) couvre une partie du contenu ci-dessus et porte 4 heures de ce lot — les autres tranches vont à `TC-FT-PCL-01`, `GPR-UN-APU-01`, `GPR-UN-APU-09`. `Entity Component System` ne fait que 160 o : c'est un squelette, et ce qu'il devait apporter est à écrire. Prévoir les deux temps.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage|TC-FT-PCL-04 - Composition contre héritage]] — 14 slides, `publish: false` · widgets proposés : `composition_widget.html` ; 1 schéma à dessiner.
+> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-PCL-04 - Composition contre héritage|TC-FT-PCL-04 - Composition contre héritage]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[solid_principles_in_unity]] — `01 courses/lectures/Unity/solid_principles_in_unity.md` (10,3 ko)

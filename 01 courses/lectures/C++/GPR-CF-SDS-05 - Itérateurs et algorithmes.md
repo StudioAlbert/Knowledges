@@ -28,6 +28,15 @@ Notion d'itérateur, déplacer un itérateur, notion d'intervalle, fonction unai
 
 **Découper un deck existant.** `07 - Deeper dive into STD 1-2 - iofile, stringstream, algorithms` (18,8 ko) porte 4 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-SDS-03`, `GPR-CF-SDS-04`, `GPR-CF-SDS-06` — les découper en une seule passe évite de rouvrir le deck 4 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SDS-05 - Itérateurs et algorithmes|GPR-CF-SDS-05 - Itérateurs et algorithmes]] — 15 slides, `publish: false` · widgets proposés : `iterateur_widget.html`.
+> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SDS-05 - Itérateurs et algorithmes|GPR-CF-SDS-05 - Itérateurs et algorithmes]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[07 - Deeper dive into STD 1-2 - iofile, stringstream, algorithms]] — `01 courses/lectures/C++/07 - Deeper dive into STD 1-2 - iofile, stringstream, algorithms.md` (18,8 ko)

@@ -29,6 +29,15 @@ date_scheduled: 2026-10-28
 
 **Découper un deck existant.** `10 - SFML` (10,3 ko) porte 3 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-SBD-01`, `GPR-CF-SBD-03` — les découper en une seule passe évite de rouvrir le deck 3 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02 - Afficher]] — 15 slides, `publish: false` · widgets proposés : `vue_camera_widget.html`, `spritesheet_widget.html`.
+> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02 - Afficher]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[10 - SFML]] — `01 courses/lectures/C++/10 - SFML.md` (10,3 ko)

@@ -30,6 +30,15 @@ Familles création, structure et comportement, carte des patterns, vocabulaire G
 
 **Deux sources, une seule utilisable.** `cpp_builder_lecture` (16,0 ko) couvre une partie du contenu ci-dessus, mais pas tout — c'est un support d'appoint, pas le cours. `strategy_pattern` ne fait que 314 o : c'est un squelette, et ce qu'il devait apporter est à écrire. Prévoir les deux temps.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-PCL-03 - Taxonomie des patterns|TC-FT-PCL-03 - Taxonomie des patterns]] — 15 slides, `publish: false` · widgets proposés : `patterns_map_widget.html`.
+> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-PCL-03 - Taxonomie des patterns|TC-FT-PCL-03 - Taxonomie des patterns]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[cpp_builder_lecture]] — `01 courses/lectures/C++/cpp_builder_lecture.md` (16,0 ko)

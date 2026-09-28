@@ -30,6 +30,15 @@ Dépendances et leur direction, responsabilité unique, portée d'un changement,
 
 **Découper un deck existant.** `solid_principles_in_unity` (10,3 ko) porte 4 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `TC-FT-PCL-04`, `GPR-UN-APU-01`, `GPR-UN-APU-09` — les découper en une seule passe évite de rouvrir le deck 4 fois.
 
+## Plan et exercices — overview à valider
+
+> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
+> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-PCL-01 - Couplage et cohésion|TC-FT-PCL-01 - Couplage et cohésion]] — 14 slides, `publish: false` · widgets proposés : `couplage_widget.html`.
+> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-PCL-01 - Couplage et cohésion|TC-FT-PCL-01 - Couplage et cohésion]] — 4 courts, 1 complet, 1 difficile.
+>
+> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
+> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+
 ## Matériel
 
 - Support : [[solid_principles_in_unity]] — `01 courses/lectures/Unity/solid_principles_in_unity.md` (10,3 ko)
