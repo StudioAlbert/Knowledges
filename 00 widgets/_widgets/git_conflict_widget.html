@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conflit Git — lire les marqueurs et résoudre</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+.toolbar button:disabled { opacity: .4; cursor: default; }
+.toolbar select, .toolbar input[type=text] {
+    font: inherit; font-size: 13px; font-family: "JetBrains Mono", monospace;
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 8px; background: #fff; color: var(--text);
+}
+.toolbar input[type=text] { width: 140px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(52vh, 460px); user-select: none; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.duo .col h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; padding: 4px 6px 0;
+}
+.duo svg { height: min(46vh, 400px); }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint strong { color: var(--text); }
+.hint code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.state { font-family: "JetBrains Mono", monospace; font-size: 13px; line-height: 1.8; }
+.state .r { color: var(--sae-red); font-weight: 700; }
+.term {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.55;
+    background: var(--sae-black); color: #eaeaea; border-radius: var(--radius);
+    padding: 9px 10px; max-height: 190px; overflow-y: auto; white-space: pre-wrap;
+}
+.term .cmd { color: #fff; font-weight: 700; }
+.term .cmd::before { content: "$ "; color: var(--sae-red); }
+.term .out { color: #b5b5b5; }
+.term .err { color: #ff8a8a; }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+text.mono { font-family: "JetBrains Mono", monospace; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 28px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .duo { flex: 1; min-height: 0; }
+html.embed .duo .col { display: flex; flex-direction: column; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+.panes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+@media (max-width: 900px) { .panes { grid-template-columns: 1fr; } }
+.pane h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted2); font-weight: 700; margin: 0 0 6px 2px; }
+pre.file, textarea.file {
+    font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.7;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 10px 12px; margin: 0; width: 100%; min-height: 250px; white-space: pre; overflow-x: auto; color: var(--text);
+}
+textarea.file { resize: vertical; outline: none; }
+textarea.file:focus { border-color: var(--sae-black); }
+pre.file .l { display: block; padding: 0 6px; border-left: 4px solid transparent; }
+pre.file .mk { color: var(--sae-red); font-weight: 700; }
+pre.file .ours { background: #f1f1f1; border-left-color: var(--sae-black); }
+pre.file .theirs { background: #fdeaea; border-left-color: var(--sae-red); }
+.legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.legend b.o { color: var(--sae-black); } .legend b.t { color: var(--sae-red); }
+.checks { font-size: 13px; line-height: 1.9; }
+.checks .ok::before { content: "✔  "; color: var(--sae-red); font-weight: 800; }
+.checks .ko::before { content: "✘  "; color: var(--muted2); font-weight: 800; }
+.checks .ko { color: var(--muted); }
+html.embed pre.file, html.embed textarea.file { min-height: 0; height: 100%; }
+html.embed .panes { flex: 1; min-height: 0; }
+html.embed .pane { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board { overflow: hidden; }
+.quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.quiz button { font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--panel2);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 7px 8px; color: var(--text); }
+.quiz button:hover { border-color: var(--sae-black); }
+.quiz button.good { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.quiz button.bad { background: var(--sae-black); border-color: var(--sae-black); color: #fff; opacity: .55; }
+#verdict { margin-top: 8px; }
+.tabs button { padding: 8px 12px; font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Résoudre un <span class="hl">conflit</span></h1>
+    <p class="sub">Git a mis les deux versions dans le fichier, entre des marqueurs. À vous de composer la version finale : Git refuse tant qu'un marqueur subsiste.</p>
+  </div>
+  <div class="formula"><b>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</b> ma version <b>=======</b> la leur <b>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="choisir">1 · Équilibrage</button>
+  <button data-tab="garder">2 · Deux ajouts</button>
+  <button data-tab="doublon">3 · Même bug, deux fix</button>
+  <button data-tab="include">4 · Deux includes</button>
+  <button data-tab="condition">5 · Deux conditions</button>
+  <button data-tab="renommer">6 · Renommer + modifier</button>
+  <button data-tab="texte">7 · Un texte</button>
+</nav>
+
+<div class="toolbar">
+  <div class="group">
+    <span class="group-label">Résoudre</span>
+    <button data-act="ours">garder HEAD</button>
+    <button data-act="theirs">garder la branche</button>
+    <button data-act="both">garder les deux</button>
+    <button data-act="reset">recommencer</button>
+  </div>
+  <div class="group">
+    <button class="primary" data-act="commit" id="commit">git add + git commit</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="board">
+    <div class="panes">
+      <div class="pane">
+        <h4 id="fname">Le fichier en conflit</h4>
+        <pre class="file" id="conflict"></pre>
+        <p class="legend"><b class="o">HEAD</b> : ce qui est déjà sur votre branche · <b class="t" id="tname"></b> : ce qui arrive</p>
+      </div>
+      <div class="pane">
+        <h4>Votre résolution — modifiable</h4>
+        <textarea class="file" id="res" spellcheck="false" aria-label="Contenu résolu du fichier"></textarea>
+        <p class="legend">Éditez librement, ou partez d'un bouton.</p>
+      </div>
+    </div>
+  </div>
+  <div class="side">
+    <div class="card">
+      <h3>Quiz — que faut-il garder ?</h3>
+      <div class="quiz">
+        <button data-q="ours">HEAD</button>
+        <button data-q="theirs">la branche</button>
+        <button data-q="both">les deux</button>
+        <button data-q="rewrite">réécrire</button>
+      </div>
+      <div id="verdict" class="hint">Votez avant de toucher au fichier.</div>
+    </div>
+    <div class="card"><h3>Vérifications</h3><div class="checks" id="checks"></div></div>
+    <div class="card"><h3>Terminal</h3><div class="term" id="term"></div></div>
+    <div class="card"><h3>La situation</h3><p class="hint" id="story"></p></div>
+  </div>
+</div>
+
+<footer>SAE Institute Genève · GPR-CF-GTE-02 Branches et intégration · onglets <code>#choisir</code> <code>#garder</code> <code>#doublon</code> <code>#include</code> <code>#condition</code> <code>#renommer</code> <code>#texte</code></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $ = id => document.getElementById(id);
+
+const count = (s, re) => (s.match(re) || []).length;
+const CASES = {
+  choisir: {
+    file: "src/GameConfig.hpp", branch: "equilibrage-a", answer: ["ours", "theirs"],
+    story: "L'élève 2 a fusionné <code>MAX_ATTEMPTS = 6</code> dans <code>main</code> ; vous fusionnez votre branche qui met 10.",
+    why: "Une seule valeur peut survivre : HEAD <strong>ou</strong> la branche. C'est une décision d'équilibrage — on en discute, on choisit, on teste. Les deux ne compilent pas.",
+    before: ["// Taille de la plage : colonnes et lignes vont de 1 à GRID_SIZE.", "const int GRID_SIZE = 5;", "", "// Nombre d'essais avant que la marée ne recouvre la plage."],
+    ours: ["const int MAX_ATTEMPTS = 6;"],
+    theirs: ["const int MAX_ATTEMPTS = 10;"],
+    after: [],
+    rules: [
+      [s => count(s, /^\s*const int MAX_ATTEMPTS\s*=\s*\d+\s*;/gm) === 1,
+       "une seule définition de MAX_ATTEMPTS", "deux définitions : « redefinition of MAX_ATTEMPTS », ça ne compile pas"],
+      [s => /GRID_SIZE\s*=\s*5/.test(s), "GRID_SIZE est intact", "GRID_SIZE a disparu"]
+    ]
+  },
+  garder: {
+    file: "src/Messages.hpp", branch: "feature/detecteur", answer: ["both"],
+    story: "Deux fonctionnalités ont chacune ajouté une déclaration à la fin du même fichier.",
+    why: "Les deux ajouts sont <strong>indépendants</strong> : Git ne le sait pas, vous oui. Choisir un côté casserait l'autre fonctionnalité.",
+    before: ["void printVictory(int attempts);", "void printGiveUp(int treasureColumn, int treasureRow);", "void printDefeat(int treasureColumn, int treasureRow);"],
+    ours: ["void printAttemptsLeft(int attemptsLeft);"],
+    theirs: ["void printDetectorResult(bool sameRow, bool sameColumn);"],
+    after: [],
+    rules: [
+      [s => /printAttemptsLeft/.test(s), "printAttemptsLeft est conservée", "printAttemptsLeft a été perdue : le code de HEAD ne compilera plus"],
+      [s => /printDetectorResult/.test(s), "printDetectorResult est conservée", "printDetectorResult a été perdue : le détecteur ne compilera plus"]
+    ]
+  },
+  doublon: {
+    file: "src/Treasure.cpp", branch: "fix/tresor-hors-plage", answer: ["ours", "theirs"],
+    story: "Les deux élèves ont corrigé le même bug du trésor hors de la plage, chacun à sa façon.",
+    why: "Les deux corrections font <strong>la même chose</strong> : on en garde une, peu importe laquelle. Les deux ensemble laissent un <code>return</code> mort — ça compile, mais c'est du bruit.",
+    before: ["int randomCoordinate()", "{"],
+    ours: ["    return std::rand() % GRID_SIZE + 1;"],
+    theirs: ["    return 1 + std::rand() % GRID_SIZE;"],
+    after: ["}"],
+    rules: [
+      [s => count(s, /^\s*return\b/gm) === 1, "un seul return", "deux return : le second n'est jamais exécuté"],
+      [s => !/GRID_SIZE \+ 1\)/.test(s), "le bug (GRID_SIZE + 1) n'est pas revenu", "le bug d'origine est revenu"]
+    ]
+  },
+  include: {
+    file: "src/Game.cpp", branch: "feature/detecteur", answer: ["both"],
+    story: "Chaque branche a ajouté un <code>#include</code> sur la même ligne, en haut de <code>Game.cpp</code>.",
+    why: "Chaque fonctionnalité a besoin de son en-tête : on garde <strong>les deux</strong>. Le conflit ne vient que de la position, pas du sens.",
+    before: ["#include \"Game.hpp\"", "", "#include \"Messages.hpp\"", "#include \"Treasure.hpp\""],
+    ours: ["#include \"GameConfig.hpp\""],
+    theirs: ["#include \"Detector.hpp\""],
+    after: ["", "void playGame()"],
+    rules: [
+      [s => /#include "GameConfig.hpp"/.test(s), "GameConfig.hpp est inclus (MAX_ATTEMPTS)", "GameConfig.hpp manque : MAX_ATTEMPTS inconnu"],
+      [s => /#include "Detector.hpp"/.test(s), "Detector.hpp est inclus", "Detector.hpp manque : le détecteur ne compile plus"]
+    ]
+  },
+  condition: {
+    file: "src/Game.cpp", branch: "feature/sables-mouvants", answer: ["rewrite"],
+    story: "HEAD limite le nombre d'essais ; la branche arrête la partie si le joueur tombe dans les sables mouvants. Les deux ont modifié la condition de la boucle.",
+    why: "Ni HEAD ni la branche seule : il faut <strong>réécrire</strong> une condition qui contient les deux règles. « Les deux » donnerait deux <code>while</code> à la suite — faux.",
+    hint: "while (!found && !gaveUp && attempts < MAX_ATTEMPTS && !stuckInSand)",
+    before: ["    int attempts = 0;", "    bool found = false;", "    bool gaveUp = false;", ""],
+    ours: ["    while (!found && !gaveUp && attempts < MAX_ATTEMPTS)"],
+    theirs: ["    while (!found && !gaveUp && !stuckInSand)"],
+    after: ["    {"],
+    rules: [
+      [s => count(s, /^\s*while\s*\(/gm) === 1, "une seule boucle while", "deux while : la structure du programme est cassée"],
+      [s => /while\s*\([^)]*MAX_ATTEMPTS/.test(s) && /while\s*\([^)]*stuckInSand/.test(s),
+       "la condition contient les deux règles", "une des deux règles a disparu de la condition"]
+    ]
+  },
+  renommer: {
+    file: "src/Messages.hpp", branch: "feature/essais-affiches", answer: ["rewrite"],
+    story: "HEAD a renommé <code>printHint</code> en <code>printClue</code> ; la branche lui a ajouté un paramètre <code>attempts</code>.",
+    why: "Chaque côté a fait <strong>une moitié</strong> du travail : on réécrit la ligne avec le nouveau nom <strong>et</strong> le nouveau paramètre. Puis on vérifie tous les appels.",
+    hint: "void printClue(int distance, int attempts);",
+    before: ["void printWelcome();", "int askColumn();", "int askRow();", ""],
+    ours: ["void printClue(int distance);"],
+    theirs: ["void printHint(int distance, int attempts);"],
+    after: ["void printVictory(int attempts);"],
+    rules: [
+      [s => !/printHint/.test(s), "l'ancien nom printHint a disparu", "printHint est encore là : le renommage est perdu"],
+      [s => /void printClue\s*\(\s*int distance\s*,\s*int attempts\s*\)/.test(s), "printClue(int distance, int attempts)", "il faut le nouveau nom ET le nouveau paramètre"]
+    ]
+  },
+  texte: {
+    file: "src/Messages.cpp", branch: "ton-du-jeu", answer: ["ours", "theirs"],
+    story: "Deux élèves ont reformulé le même message d'indice, chacun avec son ton.",
+    why: "C'est une décision de <strong>game design</strong>, pas de code : on choisit un des deux textes (ou on en écrit un troisième ensemble). Garder les deux afficherait deux lignes.",
+    before: ["    if (distance == 1)", "    {"],
+    ours: ["        std::println(\"  >> Tu brules !\");"],
+    theirs: ["        std::println(\"  >> BRULANT !!!\");"],
+    after: ["    }"],
+    rules: [
+      [s => count(s, /std::println/g) === 1, "un seul message affiché", "deux println : le joueur verrait deux messages"]
+    ]
+  }
+};
+let tab = "choisir", done = false;
+
+function conflictLines(c){
+  return [].concat(c.before, ["<<<<<<< HEAD"], c.ours, ["======="], c.theirs, [">>>>>>> " + c.branch], c.after);
+}
+function esc(s){ return String(s).replace(/[&<>]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[ch])); }
+
+function renderConflict(){
+  const c = CASES[tab];
+  $("fname").textContent = c.file + " — après git merge";
+  $("tname").textContent = c.branch;
+  let zone = "";
+  $("conflict").innerHTML = conflictLines(c).map(l => {
+    let cls = "l";
+    if (/^<<<<<<< /.test(l)) { zone = "ours"; cls += " mk"; }
+    else if (/^=======$/.test(l)) { zone = "theirs"; cls += " mk"; }
+    else if (/^>>>>>>> /.test(l)) { zone = ""; cls += " mk"; }
+    else if (zone) cls += " " + zone;
+    return '<span class="' + cls + '">' + (esc(l) || " ") + '</span>';
+  }).join("");
+  $("story").innerHTML = c.story;
+}
+
+function check(){
+  const c = CASES[tab], s = $("res").value;
+  const markers = /^(<<<<<<<|=======|>>>>>>>)/m.test(s);
+  const items = [[!markers, "plus aucun marqueur de conflit", "des marqueurs <<<<<<< ======= >>>>>>> restent"]]
+    .concat(c.rules.map(([f, ok, ko]) => [f(s), ok, ko]));
+  $("checks").innerHTML = items.map(([ok, a, b]) => '<div class="' + (ok ? "ok" : "ko") + '">' + esc(ok ? a : b) + '</div>').join("");
+  return items.every(i => i[0]);
+}
+
+const log = [];
+function term(cmd, out, err){
+  log.push('<div class="cmd">' + esc(cmd) + '</div><div class="' + (err ? "err" : "out") + '">' + esc(out) + '</div>');
+  $("term").innerHTML = log.join("");
+  $("term").scrollTop = $("term").scrollHeight;
+}
+
+function reset(){
+  const c = CASES[tab];
+  done = false;
+  document.querySelectorAll(".quiz button").forEach(b => b.className = "");
+  $("verdict").innerHTML = "Votez avant de toucher au fichier.";
+  log.length = 0;
+  $("res").value = conflictLines(c).join("\n");
+  renderConflict();
+  term("git merge " + c.branch, "Auto-merging " + c.file + "\nCONFLICT (content): Merge conflict in " + c.file + "\nAutomatic merge failed; fix conflicts and then commit the result.", true);
+  term("git status", "Unmerged paths:\n  both modified:   " + c.file, false);
+  check();
+}
+
+function apply(which){
+  const c = CASES[tab];
+  const body = which === "ours" ? c.ours : which === "theirs" ? c.theirs : c.ours.concat(c.theirs);
+  $("res").value = [].concat(c.before, body, c.after).join("\n");
+  check();
+}
+
+document.querySelectorAll("[data-act]").forEach(b => b.addEventListener("click", () => {
+  const a = b.dataset.act;
+  if (a === "reset") return reset();
+  if (a === "commit"){
+    const c = CASES[tab];
+    if (done){ term("git commit", "nothing to commit, working tree clean", false); return; }
+    if (!check()){
+      const s = $("res").value;
+      if (/^(<<<<<<<|=======|>>>>>>>)/m.test(s)) term("git commit", "error: Committing is not possible because you have unmerged files.", true);
+      else term("cmake --build build", "error: la résolution ne compile pas — relisez les vérifications", true);
+      return;
+    }
+    term("git add " + c.file, "", false);
+    term('git commit -m "Résout le conflit de ' + c.file.split("/").pop() + '"', "[main 7e1c4a2] Résout le conflit de " + c.file.split("/").pop(), false);
+    done = true;
+    return;
+  }
+  apply(a);
+}));
+$("res").addEventListener("input", check);
+
+const LABEL = {ours: "HEAD", theirs: "la branche", both: "les deux", rewrite: "réécrire"};
+document.querySelectorAll(".quiz button").forEach(b => b.addEventListener("click", () => {
+  const c = CASES[tab], good = c.answer.includes(b.dataset.q);
+  document.querySelectorAll(".quiz button").forEach(x => x.className = c.answer.includes(x.dataset.q) ? "good" : (x === b ? "bad" : ""));
+  $("verdict").innerHTML = (good ? "<strong>Oui.</strong> " : "<strong>Non</strong> — réponse : " + c.answer.map(a => LABEL[a]).join(" ou ") + ". ") +
+    c.why + (c.hint ? '<br><code>' + esc(c.hint) + '</code>' : "");
+}));
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!CASES[name]) name = "choisir";
+  tab = name;
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  reset();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

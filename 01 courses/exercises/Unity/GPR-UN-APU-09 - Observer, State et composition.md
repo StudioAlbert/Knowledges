@@ -1,33 +1,69 @@
-# Exercices — GPR-UN-APU-09 — Observer, State et composition
+# Exercices — GPR-UN-APU-09 — State, un pattern de gameplay
 
-> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|GPR-UN-APU-09 - Observer, State et composition]]
+> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|GPR-UN-APU-09 - State, un pattern de gameplay]]
+
+Terrain de jeu : le **Dungeon Crawler** de [[GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01]], branche `main`.
+
+## Atelier — 20 min en classe
+
+### 1 — L'araignée a quatre états
+
+Aujourd'hui, le comportement de l'araignée est éclaté entre `Spider.Move` (poursuivre si le
+héros est à moins de `detectionRadius`) et `EnemyDirector.Update` (mordre si le héros est à
+portée et que le délai `AttackCooldown` est écoulé). Ses états existent, mais aucun ne porte
+de nom.
+
+1. **Au papier, 5 min.** Dessiner la machine de l'araignée avec quatre états — **Repos**,
+   **Poursuite**, **Morsure**, **Récupération** — et nommer chaque transition par sa
+   condition (distance, portée, fin de morsure, délai écoulé).
+2. **En code, 15 min.** Depuis la branche `main`, créer sa branche :
+   ```bash
+   git switch -c apu09-araignee main
+   ```
+   Dans `Spider`, déclarer `enum SpiderState { Idle, Chase, Bite, Recover }` et un champ
+   `state`, puis écrire un `Update` en `switch` qui applique **exactement** votre dessin.
+   Retirer l'araignée de `EnemyDirector` (`if (enemy is Spider) continue;`) : elle se pilote
+   seule désormais, et retrouve le héros par `FindAnyObjectByType<PlayerController>()` dans
+   `Start`. Vérifier en jeu que le comportement n'a pas changé.
+3. **À la maison.** Remplacer le `switch` par une classe `IState` par état et la
+   `StateMachine` du cours. Le rendu : le dessin, et le lien vers la branche poussée.
+
+> [!tip] Pour vérifier son dessin
+> Chaque flèche du dessin doit correspondre à exactement un `state = …` dans le code, et
+> réciproquement. S'il y a un `state = …` sans flèche, c'est le dessin qui est faux.
+
+---
+
+## Pour aller plus loin — à la maison
 
 > [!todo] Overview à valider
-> Chaque exercice est décrit en deux ou trois lignes. Les énoncés complets, la scène de
-> départ et les corrigés viendront après validation de ces pistes.
+> Pistes en deux ou trois lignes. Énoncés complets, scènes de départ et corrigés à venir.
 
-Terrain de jeu commun : le **Dungeon Crawler** du bloc, déjà utilisé en `GPR-UN-APU-01`.
+### Courts — valider la compréhension
 
-## Courts — valider la compréhension
+#### 2 — Le héros du cours
+Coder la machine du héros de platformer (Idle, Course, Saut, Chute) sur un cube, avec un
+`Debug.Log` dans chaque `Enter` et `Exit`, puis ajouter la transition manquante Idle → Saut.
 
-### 1 — Le HUD qui n'appelle personne
-`PlayerHealth` expose un `event Action<int, int>` et ne connaît plus le HUD. Brancher la barre de vie dessus, vérifier qu'aucun des deux scripts ne cite l'autre, et que retirer le HUD de la scène ne casse rien.
+#### 3 — Le menu en états
+Quatre panneaux d'UI (Titre, Menu, Options, Pause) : un état par panneau, `Enter` l'affiche,
+`Exit` le cache. Aucun `SetActive` ailleurs que dans les états.
 
-### 2 — L'abonné fantôme
-Un script s'abonne dans `OnEnable` mais ne se désabonne jamais. Reproduire l'erreur, lire l'exception au rechargement de scène, puis la corriger. Expliquer en une phrase ce que Unity gardait en mémoire.
+#### 4 — Un QTE
+Une invite qui demande une touche tirée au sort en 1,5 s ; réussite et échec sont deux
+états. Enchaîner trois invites.
 
-### 3 — Deux états valent mieux qu'un `if`
-Le garde a un `Update` avec quatre `if` imbriqués. Le découper en `PatrolState` et `ChaseState` sans changer le comportement observable.
+### Complet — reprendre toute la séance
 
-### 4 — Une capacité qui s'ajoute
-Rendre l'ennemi volant en ajoutant un composant `Hover`, sans créer de classe `FlyingEnemy` ni toucher à `Enemy`.
+#### 5 — Le duel au tour par tour
+Deux camps de trois unités sur une grille. La partie est une machine (début de manche, tour
+du joueur, tour ennemi, fin de manche, fin de partie) ; chaque unité a la sienne (en attente,
+active, a joué). Le tour ennemi joue au hasard. Le rendu : la scène jouable et le schéma des
+deux machines.
 
-## Complet — reprendre toute la séance
+### Difficile — se projeter
 
-### 5 — Le garde du donjon
-Un garde complet : machine à états à quatre états (patrouille, alerte, poursuite, retour), des capacités en composants (vue, ouïe, sprint), et toutes ses annonces passant par des événements — le HUD, le son et le journal de quête réagissent sans que le garde les connaisse. Le rendu est la scène jouable plus un schéma d'une page de la machine à états.
-
-## Difficile — se projeter
-
-### 6 — Le boss qui change de phase
-Un boss à trois phases, chacune étant elle-même une machine à états, avec des transitions déclenchées par des événements du jeu (seuil de PV, minuterie, mort d'un sbire). Contrainte : ajouter une quatrième phase ne doit demander aucune modification des trois autres ni du code qui les pilote, et deux boss différents doivent pouvoir partager des phases.
+#### 6 — Le boss qui change de phase
+Un boss à trois phases, chacune étant elle-même une machine à états (machine hiérarchique),
+avec des transitions déclenchées par un seuil de PV, un chrono et la mort d'un sbire.
+Contrainte : ajouter une quatrième phase ne demande aucune modification des trois autres.

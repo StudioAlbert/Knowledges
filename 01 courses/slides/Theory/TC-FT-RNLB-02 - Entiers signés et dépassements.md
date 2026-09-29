@@ -151,7 +151,7 @@ complément à deux pour les entiers signés.
 
 Signé sur *n* bits : de **−2ⁿ⁻¹** à **2ⁿ⁻¹ − 1** — un négatif de plus que de positifs.
 
-<small>`std::numeric_limits<T>::min()` et `max()`, dans `<limits>`</small>
+En code : `std::numeric_limits<T>::min()` et `max()`, dans `<limits>`.
 
 ---
 
@@ -196,7 +196,7 @@ qui n'existe pas en `int`.
 
 ## Dépassement non signé : ça tourne
 
-Un entier non signé calcule **modulo 2ⁿ**. C'est défini par la norme.
+Un entier non signé sur *n* bits ne déborde pas : il **fait le tour**.
 
 ```cpp
 std::uint8_t vie = 255;
@@ -206,7 +206,15 @@ unsigned int stock = 0;
 --stock;                 // 4 294 967 295
 ```
 
-Comme un compteur kilométrique : après 999 999, on repasse à 000 000.
+Note:
+Deux exemples, deux sens : +1 depuis le maximum retombe sur 0, −1 depuis 0
+retombe sur le maximum. Faire deviner la valeur de `stock` avant de la
+montrer. Companion : `EntiersSignes.h`, fonction `nonSigneTourne`.
+Si la question vient : « modulo 2ⁿ » veut dire qu'on garde les n bits du bas
+du vrai résultat (256 = 1 0000 0000 → 0000 0000). La norme le garantit
+([basic.fundamental] : « arithmetic for the unsigned type is performed
+modulo 2ᴺ ») : contrairement au signé, ce n'est jamais un comportement
+indéfini.
 
 ---
 
@@ -276,21 +284,66 @@ Avant un calcul, tout type plus petit qu'`int` est **promu** en `int`. Le dépas
 
 ---
 
-## Détecter avant de déborder
+## `std::numeric_limits` : la fiche d'identité d'un type
+
+- `#include <limits>` : une fiche par type — `min()`, `max()`, `digits`, `is_signed`
+- les valeurs viennent du **compilateur** : justes sur toutes les plateformes
+- plus de nombre magique : `2147483647` s'écrit `std::numeric_limits<int>::max()`
+- c'est l'outil pour **tester avant** de déborder
+
+Note:
+Lien avec « Selon la plateforme » : `std::numeric_limits<long>::max()` vaut
+2 147 483 647 sous Windows et 9 223 372 036 854 775 807 sous Linux — le code
+qui l'utilise reste juste partout, alors qu'un nombre écrit en dur serait faux
+sur l'une des deux. Autres champs utiles plus tard : `lowest()`, `epsilon()`
+pour les flottants (RNLB-03).
+
+---
+
+## `std::numeric_limits`, en code
+
+Chaque type répond pour lui-même : ses bornes, son nombre de bits, son signe.
+
+```cpp
+#include <limits>
+
+std::numeric_limits<int>::min();              // -2147483648
+std::numeric_limits<int>::max();              //  2147483647
+std::numeric_limits<std::uint8_t>::max();     //  255
+std::numeric_limits<long>::max();             //  dépend de la plateforme
+std::numeric_limits<int>::digits;             //  31 : bits de valeur, sans le signe
+std::numeric_limits<unsigned int>::is_signed; //  false
+```
+
+Note:
+Sorties vérifiées (GCC 14, Linux 64 bits) — companion, fonction
+`numericLimits`. Piège d'affichage : `max()` d'un `uint8_t` est un
+`unsigned char` ; avec `std::cout`, écrire `+std::numeric_limits<std::uint8_t>::max()`
+pour voir 255 et pas un caractère.
+
+---
+
+## Tester avant de déborder
+
+On compare à la borne **avant** de calculer : après, le dépassement a déjà eu lieu.
 
 ```cpp
 #include <limits>
 
 bool addition_sure(int a, int b)
 {
-    if (b > 0 && a > std::numeric_limits<int>::max() - b) return false;
-    if (b < 0 && a < std::numeric_limits<int>::min() - b) return false;
+    if (b > 0 && a > std::numeric_limits<int>::max() - b) return false;  // par le haut
+    if (b < 0 && a < std::numeric_limits<int>::min() - b) return false;  // par le bas
     return true;
 }
 ```
 
-- on teste **avant** l'opération : après, il est trop tard
-- ou on calcule dans un type plus large, par exemple `std::int64_t`
+Note:
+Pourquoi `max() - b` et pas `a + b > max()` : `a + b` déborderait justement,
+et le test serait lui-même un comportement indéfini. `max() - b` ne déborde
+jamais quand `b > 0`. Autre parade : calculer dans un type plus large
+(`std::int64_t`) puis comparer. Companion : `testerAvantDeDeborder` —
+`(1, 2)` → true, `(INT_MAX, 1)` → false, `(INT_MIN, -1)` → false.
 
 ---
 
@@ -337,6 +390,41 @@ Windows suit le modèle LLP64, Linux et macOS le modèle LP64. Le `char`
 lui-même est signé ou non selon la plateforme : signé sur x86, non signé
 sur ARM Linux et Android. D'où `int8_t` et `uint8_t` quand on veut un
 octet.
+
+---
+
+## À vous : mesurer sa plateforme
+
+Même programme, machines différentes : comparez vos résultats avec votre voisin.
+
+```cpp
+#include <cstddef>
+#include <print>
+
+int main()
+{
+    std::println("char {}  short {}  int {}  long {}  long long {}",
+                 sizeof(char), sizeof(short), sizeof(int), sizeof(long), sizeof(long long));
+    std::println("wchar_t {}  size_t {}  pointeur {}",
+                 sizeof(wchar_t), sizeof(std::size_t), sizeof(void*));
+}
+```
+
+<small>Sans deuxième machine : [la même mesure sur Compiler Explorer](https://godbolt.org/clientstate/eyJzZXNzaW9ucyI6IFt7ImlkIjogMSwgImxhbmd1YWdlIjogImMrKyIsICJzb3VyY2UiOiAiLy8gVEMtRlQtUk5MQi0wMiDigJQgU2Vsb24gbGEgcGxhdGVmb3JtZVxuLy8gQ2hhcXVlIGZvbmN0aW9uIHJlbnZvaWUgdW5lIHRhaWxsZSBlbiBvY3RldHMgOiBsaXNleiBsYSB2YWxldXIgZGFucyBsJ2Fzc2VtYmxldXJcbi8vICjCqyBtb3YgZWF4LCA4IMK7IHZldXQgZGlyZSA4KSwgcHVpcyBham91dGV6IGQnYXV0cmVzIGNvbXBpbGF0ZXVycyA6XG4vLyDCqyArIEFkZCBuZXfigKYg4oaSIENvbXBpbGVyIMK7IDogeDY0IG1zdmMsIEFSTTY0IGdjYywgQVZSIGdjYyAoQXJkdWlubynigKZcbiNpbmNsdWRlIDxjc3RkZGVmPlxuXG5pbnQgdGFpbGxlX2NoYXIoKSAgICAgIHsgcmV0dXJuIHNpemVvZihjaGFyKTsgfVxuaW50IHRhaWxsZV9zaG9ydCgpICAgICB7IHJldHVybiBzaXplb2Yoc2hvcnQpOyB9XG5pbnQgdGFpbGxlX2ludCgpICAgICAgIHsgcmV0dXJuIHNpemVvZihpbnQpOyB9XG5pbnQgdGFpbGxlX2xvbmcoKSAgICAgIHsgcmV0dXJuIHNpemVvZihsb25nKTsgfVxuaW50IHRhaWxsZV9sb25nX2xvbmcoKSB7IHJldHVybiBzaXplb2YobG9uZyBsb25nKTsgfVxuaW50IHRhaWxsZV93Y2hhcl90KCkgICB7IHJldHVybiBzaXplb2Yod2NoYXJfdCk7IH1cbmludCB0YWlsbGVfc2l6ZV90KCkgICAgeyByZXR1cm4gc2l6ZW9mKHN0ZDo6c2l6ZV90KTsgfVxuaW50IHRhaWxsZV9wb2ludGV1cigpICB7IHJldHVybiBzaXplb2Yodm9pZCopOyB9XG5pbnQgY2hhcl9lc3Rfc2lnbmUoKSAgIHsgcmV0dXJuIGNoYXIoLTEpIDwgMDsgfSAgIC8vIDEgOiBzaWduw6ksIDAgOiBub24gc2lnbsOpXG4iLCAiY29tcGlsZXJzIjogW3siaWQiOiAiZzE0MiIsICJvcHRpb25zIjogIi1PMSJ9LCB7ImlkIjogImcxNDIiLCAib3B0aW9ucyI6ICItTzEgLW0zMiJ9XX1dfQ)</small>
+
+Note:
+Résultats à obtenir (octets : char short int long long long | wchar_t size_t pointeur) :
+- **Linux / macOS 64 bits**, GCC ou Clang x86-64 : 1 2 4 **8** 8 | **4** 8 8 (vérifié)
+- **Windows 64 bits**, MSVC x64 : 1 2 4 **4** 8 | **2** 8 8
+- **32 bits** (GCC `-m32`, vieux PC, certaines consoles) : 1 2 4 4 8 | 4 **4 4**
+- **ARM64** Linux / Android (GCC ARM64) : comme Linux 64 bits, mais `char` **non signé**
+- **AVR** (Arduino Uno, GCC AVR) : 1 2 **2** 4 8 | 2 **2 2** (vérifié) — `int` sur 16 bits !
+Lien Compiler Explorer : page préparée avec le programme en version « lisible dans
+l'assembleur » (chaque fonction renvoie une taille : `mov eax, 8` = 8 octets) et deux
+compilateurs, GCC x86-64 et GCC x86-64 `-m32`. Ajouter en direct les autres avec
+**+ Add new… → Compiler** : « x64 msvc », « ARM64 gcc », « AVR gcc ».
+Le lien n'a pas pu être testé depuis ma session (Compiler Explorer injoignable) : le
+vérifier avant la séance.
 
 ---
 
@@ -392,8 +480,8 @@ un peu plus de 248 jours.
 ## Exercices
 
 - coder et décoder en complément à deux
-- prévoir des dépassements, trouver un bug de boucle
-- additionner sans déborder
+- prévoir des dépassements
+- trouver un bug de boucle
 
 Énoncés : [[01 courses/exercises/Theory/TC-FT-RNLB-02 - Entiers signés et dépassements]]
 
@@ -405,3 +493,5 @@ un peu plus de 248 jours.
 - [Complément à deux — Wikipédia](https://fr.wikipedia.org/wiki/Compl%C3%A9ment_%C3%A0_deux)
 - [Fixed width integer types — cppreference](https://en.cppreference.com/w/cpp/types/integer)
 - [Arithmetic operators — cppreference](https://en.cppreference.com/w/cpp/language/operator_arithmetic) : section *Overflows*
+- [Types fondamentaux — norme C++, [basic.fundamental]](https://eel.is/c++draft/basic.fundamental) : l'arithmétique non signée modulo 2ⁿ
+- Projet companion : tous les exemples du cours, une fonction par slide — `StudioAlbert/TC_FT_RNLB_02_EntiersSignes`

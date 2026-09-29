@@ -47,9 +47,6 @@
         "archiveFolder": "",
         "triggerStatuses": []
       },
-      "wipLimits": {},
-      "enumProperties": {},
-      "automations": [],
       "relationships": [
         {
           "role": "parent",
@@ -76,7 +73,18 @@
         "dateFormat": "YYYY-MM-DD",
         "defaultRange": "month",
         "tabSort": "manual_order"
-      }
+      },
+      "wipLimits": {},
+      "enumProperties": {
+        "status": [
+          "Backlog",
+          "To do",
+          "To check",
+          "Ready",
+          "Done"
+        ]
+      },
+      "automations": []
     }
   ]
 }

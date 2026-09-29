@@ -49,18 +49,6 @@ void afficher_a_l_envers(const std::vector<int>& v)
 1. Que se passe-t-il avec un vecteur vide ? Et avec `{1, 2, 3}` ?
 2. Corriger la fonction.
 
-## Exercice 5 — Additionner sans déborder
-
-Écrire `bool addition_sure(std::int32_t a, std::int32_t b, std::int32_t& resultat)`. Si `a + b` tient dans un `std::int32_t`, la fonction range la somme dans `resultat` et renvoie `true`. Sinon, elle renvoie `false` **sans calculer** la somme.
-
-Tester avec : `(1, 2)`, `(INT32_MAX, 1)`, `(INT32_MIN, -1)`, `(INT32_MAX, INT32_MIN)`.
-
 ### Bonus
 
 Même chose pour la multiplication.
-
-## Exercice 6 — Selon la plateforme
-
-Écrire un programme qui affiche le `sizeof` de `char`, `short`, `int`, `long`, `long long`, `wchar_t`, `std::size_t` et d'un pointeur.
-
-Comparer avec les résultats d'un camarade sur un autre système, ou sur [Compiler Explorer](https://godbolt.org/) avec un compilateur GCC pour Linux.

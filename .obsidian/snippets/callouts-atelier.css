@@ -1,0 +1,12 @@
+/* Ateliers à rôles (GPR-CF-GTE-02…) — même rendu que le site, dans Obsidian.
+   À activer : Réglages → Apparence → Extraits CSS → callouts-atelier. */
+.callout[data-callout="columns"] { background: none; border: 0; padding: 0; }
+.callout[data-callout="columns"] > .callout-title { display: none; }
+.callout[data-callout="columns"] > .callout-content {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0;
+}
+.callout[data-callout="columns"] > .callout-content > .callout { margin: 0; min-width: 0; }
+.callout[data-callout="tous"]   { --callout-color: 110, 110, 110; --callout-icon: lucide-users; }
+.callout[data-callout="owner"]  { --callout-color: 26, 26, 26;    --callout-icon: lucide-crown; }
+.callout[data-callout="worker"] { --callout-color: 227, 6, 19;    --callout-icon: lucide-hammer; }
+.callout[data-callout="fork"]   { --callout-color: 227, 6, 19;    --callout-icon: lucide-eye; }

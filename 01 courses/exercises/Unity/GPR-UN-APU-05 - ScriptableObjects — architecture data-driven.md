@@ -1,33 +1,65 @@
-# Exercices — GPR-UN-APU-05 — ScriptableObjects, architecture data-driven
+# Exercices — GPR-UN-APU-05 — Observer, prévenir sans connaître
 
-> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - ScriptableObjects — architecture data-driven]]
+> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - Observer, prévenir sans connaître]]
+
+Terrain de jeu : le **Dungeon Crawler** de [[GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01]], branche `01-srp`, où `PlayerHealth` appelle directement `HealthBar`.
+
+## Atelier — 20 min en classe
+
+### 1 — La barre de vie qui n'est appelée par personne
+
+```bash
+git switch -c apu05-observer 01-srp
+```
+
+1. Dans `PlayerHealth`, supprimer le champ `healthBar` et déclarer
+   `public event Action<int, int> Damaged;` (PV restants, PV max). `TakeDamage` le
+   déclenche.
+2. Dans `HealthBar`, ajouter une référence à `PlayerHealth`, s'abonner dans `OnEnable`,
+   se désabonner dans `OnDisable`, avec une **méthode nommée**.
+3. Ajouter un composant `HurtSound` qui joue un son à chaque dégât — **sans modifier**
+   `PlayerHealth`.
+4. En jeu, désactiver l'objet de la barre de vie, prendre un coup, le réactiver.
+
+> [!check] Réussi si
+> - `PlayerHealth` ne cite plus aucune classe d'interface ni d'audio ;
+> - désactiver la barre de vie ne provoque aucune erreur dans la console ;
+> - le son a été ajouté sans ouvrir `PlayerHealth.cs`.
+
+---
+
+## Pour aller plus loin — à la maison
 
 > [!todo] Overview à valider
-> Chaque exercice est décrit en deux ou trois lignes. Les énoncés complets, les scènes de
-> départ et les corrigés viendront après validation de ces pistes.
+> Pistes en deux ou trois lignes. Énoncés complets, scènes de départ et corrigés à venir.
 
-Projet fourni : une scène de jeu et une scène d'interface, chargées ensemble, qui ne peuvent pas se référencer.
+### Courts — valider la compréhension
 
-## Courts — valider la compréhension
+#### 2 — L'abonné fantôme
+S'abonner avec une lambda dans `OnEnable` et tenter de se désabonner avec la même lambda
+dans `OnDisable`. Recharger la scène, lire l'erreur, corriger avec une méthode nommée, et
+expliquer en une phrase pourquoi la première version ne retirait rien.
 
-### 1 — La vie en asset
-Mettre les points de vie du joueur dans une variable partagée en asset, l'afficher depuis la scène d'interface, et vérifier qu'aucun des deux scripts ne cite l'autre.
+#### 3 — Sans le mot-clé `event`
+Retirer `event` devant `Damaged` et écrire, dans un autre script, la ligne qui efface tous
+les abonnés. Remettre `event` et lire l'erreur de compilation.
 
-### 2 — Le canal d'événement
-Créer un canal en asset pour l'événement « ennemi vaincu », l'émettre depuis le gameplay, et y abonner un compteur de score dans l'autre scène.
+#### 4 — La plaque en `UnityEvent`
+Transformer `PressurePlate` pour qu'elle expose un `UnityEvent` : la porte et une lumière
+s'y branchent dans l'Inspector, sans code.
 
-### 3 — La valeur qui traîne
-Terminer une partie, en relancer une, et constater que la variable partagée a gardé l'état précédent. Décider qui la réinitialise et l'implémenter.
+### Complet — reprendre toute la séance
 
-### 4 — Couper un abonné
-Désactiver le récepteur d'interface pendant le jeu, montrer que le gameplay continue sans erreur, puis le réactiver et vérifier qu'il se resynchronise.
+#### 5 — L'alarme du donjon
+Un canal `EventChannelFloatSO` « Bruit » : les pièges et le baril y publient une intensité.
+Une jauge d'alerte, une musique qui change et les ennemis qui passent en alerte s'y
+abonnent, chacun dans son propre script. Le rendu : la scène jouable, la liste des assets
+de canal, et un schéma d'une page de qui publie et qui écoute.
 
-## Complet — reprendre toute la séance
+### Difficile — se projeter
 
-### 5 — Deux scènes vraiment indépendantes
-Le jeu complet en deux scènes qui ne se connaissent pas : gameplay et interface communiquent uniquement par des canaux et des variables en assets. Chaque scène doit pouvoir être lancée seule sans erreur, l'interface affichant alors des valeurs par défaut. Le rendu montre les deux scènes séparément, puis ensemble, et la liste des assets de liaison.
-
-## Difficile — se projeter
-
-### 6 — Traçable et réinitialisable
-Ajouter à l'architecture un journal qui indique, pour chaque canal, qui a émis et qui a reçu, avec l'horodatage, activable sans recompiler. Ajouter une remise à zéro fiable de tout l'état partagé au démarrage d'une partie. Provoquer ensuite deux pannes typiques — abonné détruit qui écoute encore, valeur écrite par deux sources — et montrer que le journal permet de les trouver en moins d'une minute. Conclure sur la limite : à partir de combien de canaux cette architecture devient-elle plus obscure que le couplage direct ?
+#### 6 — Traçable
+Ajouter au canal générique un mode verbeux (activable dans l'Inspector) qui journalise
+chaque annonce avec son émetteur et la liste de ses abonnés. Provoquer deux pannes — un
+abonné détruit qui écoute encore, une annonce qui en déclenche une autre en boucle — et
+montrer que le journal les trouve en moins d'une minute.

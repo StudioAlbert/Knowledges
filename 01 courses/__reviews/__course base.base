@@ -3,6 +3,8 @@ filters:
     - file.inFolder("01 courses/lectures")
     - file.ext == "md"
     - type != "section"
+formulas:
+  semaine: if(date_scheduled, date(date_scheduled).format("GGGG-[S]WW"), "")
 views:
   - type: kanban-action-planner
     name: Kanban
@@ -34,12 +36,16 @@ views:
       - Backlog
     cardSort: property
     laneGrouping: property
-    laneGroupingProperty: note.date_scheduled
+    laneGroupingProperty: formula.semaine
     cardSortProperty: note.date_scheduled
     collapsedLanes:
       - 2026-09-09
       - 2026-09-16
       - 2026-09-17
+      - 2026-09-23
+      - 2026-S37
+      - 2026-S38
+      - 2026-S39
   - type: table
     name: Liste
     order:

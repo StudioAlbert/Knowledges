@@ -222,7 +222,7 @@ public class HealthBar : MonoBehaviour
 
 Note:
 Le lien direct `PlayerHealth → HealthBar` reste un couplage : on le
-supprimera avec un événement en APU-09.
+supprimera avec un événement en APU-05 (Observer).
 
 ---
 
@@ -790,7 +790,8 @@ SOLID sert à **diagnostiquer** un code qui résiste au changement. Ce n'est pas
 ## Pour aller plus loin
 
 - Strategy (styles d'attaque, IA) : [[GPR-UN-APU-08 - Strategy pattern en Unity]]
-- Observer, State, composition : [[GPR-UN-APU-09 - Observer, State et composition]]
+- Observer : [[GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - Observer]]
+- State : [[GPR-UN-APU-09 - Observer, State et composition|GPR-UN-APU-09 - State, un pattern de gameplay]]
 - Couplage et cohésion : [[TC-FT-PCL-01 - Couplage et cohésion]]
 - Composition contre héritage : [[TC-FT-PCL-04 - Composition contre héritage]]
 

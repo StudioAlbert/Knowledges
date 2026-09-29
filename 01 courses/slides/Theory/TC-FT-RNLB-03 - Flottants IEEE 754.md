@@ -87,16 +87,16 @@ la plupart des ARM. L'ordre des bits dans un octet, lui, ne change pas.
 
 ## Les nombres de 0 à 15 en binaire
 
-| Déc | Bin | Déc | Bin |
-|:-:|:-:|:-:|:-:|
-| 0 | 0 | 8 | 1000 |
-| 1 | 1 | 9 | 1001 |
-| 2 | 10 | 10 | 1010 |
-| 3 | 11 | 11 | 1011 |
-| 4 | 100 | 12 | 1100 |
-| 5 | 101 | 13 | 1101 |
-| 6 | 110 | 14 | 1110 |
-| 7 | 111 | 15 | 1111 |
+| Déc | Bin | \| \| | Déc | Bin  |
+| :-: | :-: | :---: | :-: | :--: |
+|  0  |  0  | \| \| |  8  | 1000 |
+|  1  |  1  | \| \| |  9  | 1001 |
+|  2  | 10  | \| \| | 10  | 1010 |
+|  3  | 11  | \| \| | 11  | 1011 |
+|  4  | 100 | \| \| | 12  | 1100 |
+|  5  | 101 | \| \| | 13  | 1101 |
+|  6  | 110 | \| \| | 14  | 1110 |
+|  7  | 111 | \| \| | 15  | 1111 |
 
 ---
 
@@ -140,9 +140,26 @@ La virgule se déplace — elle « flotte » — et l'exposant dit de combien : 
 
 ---
 
+## Après la virgule : des poids négatifs
+<!-- .slide: class="schema" -->
+
+Même lecture qu'en RNLB-01 : on additionne les poids des bits à 1 — ils continuent simplement après 2⁰.
+
+![[rnlb03_poids_negatifs.svg]]
+
+Note:
+Chaque rang vers la droite divise le poids par 2 : 2⁻¹ = ½, 2⁻² = ¼, 2⁻³ = ⅛…
+Dans l'autre sens, on retire les poids comme pour les entiers :
+6,5 − 4 = 2,5 ; − 2 = 0,5 ; − 0,5 = 0 → bits à 1 sous 4, 2 et 0,5.
+Question à la salle : que vaut 0000,1100₂ ? (0,75). Et 0,1 ? On ne tombe
+jamais sur 0 en retirant ces poids — c'est la slide « 0,1 n'existe pas
+en binaire ».
+
+---
+
 ## La même idée en binaire
 
-Après la virgule, les poids sont 2⁻¹, 2⁻², 2⁻³… soit ½, ¼, ⅛…
+Avec ces poids, on écrit un nombre à virgule, puis on le normalise comme en décimal.
 
 ```
  6,5   = 110,1₂    = 1,101₂  × 2²
@@ -230,25 +247,32 @@ conversion par l'avertissement C4305 « troncation de double à float ».
 
 ## Lire un `float` en hexadécimal
 
-`0x41480000`
+`0xC0D00000` : on découpe les 32 bits en signe, exposant, mantisse.
 
 ```
-hexa       4    1    4    8    0    0    0    0
-binaire    0100 0001 0100 1000 0000 0000 0000 0000
+hexa       C    0    D    0    0    0    0    0
+binaire    1100 0000 1101 0000 0000 0000 0000 0000
 
-signe      0                             → positif
-exposant   1000 0010 = 130               → 130 - 127 = 3
-mantisse   1001 0000 0000 0000 0000 000  → 1,1001₂ = 1,5625
+signe      1                             → négatif
+exposant   1000 0001 = 129               → 129 - 127 = 2
+mantisse   101 0000 0000 0000 0000 0000  → 1,101₂ = 1,625
 ```
 
-valeur = +1,5625 × 2³ = **12,5**
+valeur = −1,625 × 2² = **−6,5**
+
+Note:
+Valeur unique pour les trois slides (lire, coder, vérifier) : −6,5. Elle
+montre à la fois le **bit de signe** à 1 et un **exposant** différent du
+biais : la virgule a été déplacée de 2 rangs, stockés 2 + 127 = 129.
 
 ---
 
 ## Dans l'autre sens : −6,5
 
+On repart du nombre et on retrouve `0xC0D00000` : signe, puis virgule déplacée, puis mantisse.
+
 ```
-6,5 = 110,1₂ = 1,101₂ × 2²
+6,5 = 110,1₂ = 1,101₂ × 2²      la virgule recule de 2 rangs
 
 signe      1              (négatif)
 exposant   2 + 127 = 129 = 1000 0001
@@ -260,7 +284,26 @@ mantisse   101, puis 20 zéros
 
 ---
 
+## −6,5 en mémoire
+<!-- .slide: class="schema" -->
+
+Le signe tient en un bit ; le déplacement de la virgule devient l'exposant.
+
+![[rnlb03_moins_6_5.svg]]
+
+Note:
+Lire le schéma de haut en bas : on normalise (−110,1₂ → −1,101₂ × 2²), le
+nombre de rangs dont la virgule a reculé devient l'exposant (2, stocké
+129), les chiffres après la virgule deviennent la mantisse. Puis les 32
+bits se regroupent par 4 : C0D00000.
+Faire varier à l'oral : −13 = −1,101₂ × 2³ → même mantisse, exposant 130,
+soit 0xC1500000. Seul l'exposant change quand on double le nombre.
+
+---
+
 ## Le vérifier en C++
+
+`std::bit_cast` relit les mêmes 32 bits dans l'autre type : −6,5 ↔ `0xC0D00000`.
 
 ```cpp
 #include <bit>
@@ -270,13 +313,13 @@ mantisse   101, puis 20 zéros
 
 int main()
 {
-    auto bits = std::bit_cast<std::uint32_t>(12.5f);
-    std::cout << std::format("{:08X}\n", bits);                            // 41480000
+    auto bits = std::bit_cast<std::uint32_t>(-6.5f);
+    std::cout << std::format("{:08X}\n", bits);                            // C0D00000
     std::cout << std::bit_cast<float>(std::uint32_t{0xC0D00000}) << '\n';  // -6.5
 }
 ```
 
-<small>`std::bit_cast` : C++20, dans `<bit>`. Pour jouer avec les bits : [h-schmidt.net/FloatConverter](https://www.h-schmidt.net/FloatConverter/IEEE754.html)</small>
+`std::bit_cast` : C++20, dans `<bit>`. Pour jouer avec les bits : [h-schmidt.net/FloatConverter](https://www.h-schmidt.net/FloatConverter/IEEE754.html)
 
 ---
 
@@ -334,6 +377,30 @@ même plus représenter tous les entiers.
 
 ---
 
+## L'imprécision en action : le chrono de partie
+
+Un chrono qui additionne la durée de chaque image perd presque 3 secondes en une heure.
+
+```cpp
+float temps = 0.0f;
+for (int frame = 0; frame < 60 * 60 * 60; ++frame)   // 1 h de jeu à 60 images/s
+{
+    temps += 1.0f / 60.0f;                            // 0,016666… arrondi à chaque ajout
+}
+std::println("{}", temps);   // 3597.2068 au lieu de 3600
+```
+
+Note:
+Sortie vérifiée (GCC 14, C++23) : 3597.2068. Deux causes cumulées :
+1/60 n'est pas représentable exactement, et plus `temps` grandit, plus
+l'écart entre flottants voisins grandit (slide précédente) : chaque
+petit ajout est arrondi plus grossièrement. En `double`, on obtient
+3600.0000000182 — l'erreur existe toujours, mais 10⁸ fois plus petite.
+Parade en jeu : compter les images en entier, ou relire une horloge
+absolue plutôt que d'accumuler.
+
+---
+
 ## Dans un moteur de jeu
 
 - les positions sont souvent des `float`
@@ -359,6 +426,27 @@ même plus représenter tous les entiers.
 
 ---
 
+## NaN : ce que c'est, à quoi ça sert
+
+- *Not a Number* : le résultat d'une opération **sans réponse** — 0 ÷ 0, √−1, ∞ − ∞
+- il sert à **ne pas planter** : le calcul continue, l'erreur voyage jusqu'au résultat
+- il sert aussi de valeur « **absente** » : `std::numeric_limits<float>::quiet_NaN()`
+- il ne se teste qu'avec `std::isnan(x)`, jamais avec `==`
+
+Note:
+Choix de la norme IEEE 754 : plutôt que d'interrompre le programme au
+milieu d'un calcul, on produit une valeur qui dit « ici, ça n'a pas de
+sens » et on laisse le programme décider plus tard. En binaire :
+exposant tout à 1, mantisse non nulle — il existe donc des millions de
+NaN différents (la mantisse peut même transporter un code d'erreur).
+Usage « valeur absente » : une mesure de capteur manquante, une case de
+tableau de données non remplie (les bibliothèques d'analyse de données
+s'en servent ainsi).
+En jeu : une position NaN fait disparaître l'objet ; Unity le signale
+souvent par des erreurs de bounding box invalide.
+
+---
+
 ## NaN contamine tout
 
 ```cpp
@@ -381,15 +469,20 @@ bool e = std::isnan(nan); // true : la seule façon fiable de tester
 
 ---
 
-## Pourquoi `==` ment
+## Pourquoi l'égalité ment
 
 ```cpp
-bool a = (0.1 + 0.2 == 0.3);   // false : 0.1 + 0.2 = 0.30000000000000004
+if(0.1 + 0.2 == 0.3){
+	std::println("Vrai ou faux ?"); 
+}   // false : 0.1 + 0.2 = 0.30000000000000004
 
 float t = 0.0f;
 for (int i = 0; i < 10; ++i)
     t += 0.1f;
-bool b = (t == 1.0f);          // false : t = 1.0000001
+    
+if(t == 1.0f){
+	std::println("Vrai ou faux ?"); 
+}          // false : t = 1.0000001
 ```
 
 - chaque valeur a été **arrondie**, et les erreurs s'accumulent

@@ -38,6 +38,8 @@ Complément à deux, plages représentables, dépassement signé et non signé, 
 - Slides d'origine : https://docs.google.com/presentation/d/1n-YUpykKSHexQ1hc6MRz3oKSkXam_iX5HYEDIY1dvSc/edit (02 - Introduction to logic)
 - Exercices : [[01 courses/exercises/Theory/TC-FT-RNLB-02 - Entiers signés et dépassements|TC-FT-RNLB-02 - Entiers signés et dépassements]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Représentation des Nombres et Logique Binaire.md`, ligne `02`
+- Companion : `01 courses/companion projects/C++/TC-FT-RNLB-02 - Entiers signés et dépassements` → `StudioAlbert/TC_FT_RNLB_02_EntiersSignes` — `src/EntiersSignes.h` : une fonction par slide, titre affiché en dur ; `Affichage.h/.cpp` pour l'affichage
+- Schéma : `00 images/rnlb02_modulo_roue.svg` — généré par `tools/schemas/rnlb02_modulo_roue.py`
 
 ## Liens
 
@@ -59,3 +61,20 @@ Complément à deux, plages représentables, dépassement signé et non signé, 
 > **Ex. 5** — `(1, 2)` → vrai, 3 ; `(INT32_MAX, 1)` → faux ; `(INT32_MIN, -1)` → faux ; `(INT32_MAX, INT32_MIN)` → vrai, −1. Tester `b > 0 && a > max - b`, puis `b < 0 && a < min - b`.
 > **Ex. 6** — Windows 64 bits : 1, 2, 4, 4, 8, 2, 8, 8. Linux 64 bits : 1, 2, 4, 8, 8, 4, 8, 8.
 
+### Révision du 28.09
+
+- **Modulo 2ⁿ clarifié** : la slide unique est devenue trois slides — le code (ça tourne), le cercle sur 3 bits (schéma), la table « vrai résultat → n bits gardés = reste de la division par 2ⁿ » — plus une slide « Défini par la norme : pourquoi ça compte ». Notes de slide avec la subtilité promotion / conversion pour `uint8_t` et les sources ([basic.fundamental], [conv.integral], cppreference *Overflows*).
+- **Companion** : compilé et exécuté (GCC 14, Clang 18, CMake) ; les deux avertissements de compilation sont voulus. `-DSANITIZE=ON` signale bien le `INT_MAX + 1`.
+
+> [!warning] À publier
+> Dépôt public `StudioAlbert/TC_FT_RNLB_02_EntiersSignes` — même procédure que pour GTE-02 : `git init -b main`, `git add .`, `git commit -m "Companion RNLB-02"`, `git remote add origin …`, `git push -u origin main`.
+
+### Révision du 28.09 — 2ᵉ passe
+
+- **Modulo 2ⁿ** : les 3 slides ajoutées (cercle, « concrètement », « défini par la norme ») sont retirées ; l'explication et la source restent dans la note de la slide *Dépassement non signé : ça tourne*. Le schéma `00 images/rnlb02_modulo_roue.svg` n'est plus utilisé.
+- ***Détecter avant de déborder*** remplacée par 3 slides : *std::numeric_limits : la fiche d'identité d'un type*, *std::numeric_limits, en code*, *Tester avant de déborder*.
+- **Exercice 6 → slide** *À vous : mesurer sa plateforme*, avec en note les résultats par plateforme (Linux 64, Windows MSVC, 32 bits, ARM64, AVR) et un lien Compiler Explorer préparé (GCC x86-64 et `-m32`, programme lisible dans l'assembleur) — lien non testé, Compiler Explorer injoignable depuis ma session.
+- **Companion refait** : `src/EntiersSignes.h` (toutes les démos, dans l'ordre du deck), `src/Affichage.h/.cpp`, `src/main.cpp`. Compilé et exécuté (GCC 14, Clang 18).
+
+> [!warning] Fichiers à supprimer à la main dans le companion
+> `src/01_NonSignes.cpp`, `src/02_ComplementADeux.cpp`, `src/03_Depassements.cpp`, `src/04_TailleDesTypes.cpp`, `src/Affichage.hpp`, `src/Demos.hpp` — remplacés, plus référencés par le `CMakeLists.txt`.

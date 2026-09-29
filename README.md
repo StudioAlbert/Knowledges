@@ -129,7 +129,7 @@ See [`01 courses/Séances GSDA 2026-2027.md`](01%20courses/S%C3%A9ances%20GSDA%2
 
 ## The kanban
 
-[`01 courses/__course base.base`](01%20courses/__course%20base.base) is the one Obsidian
+[`01 courses/__reviews/__course base.base`](01%20courses/__reviews/__course%20base.base) is the one Obsidian
 view of the vault. It picks up every note in `lectures/` except the `type: section` sub-notes, columns
 them by `status` (*Backlog*, *To prepare*, *Ready*, *Done*), groups them by `projet` and
 lays out lanes by `bloc_gsda`.

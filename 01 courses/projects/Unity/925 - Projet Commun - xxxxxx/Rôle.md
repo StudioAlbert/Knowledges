@@ -11,13 +11,13 @@ tags: [confluence, projet-commun, équipe]
 
 # Rôle
 
-| **Nom** | **Rôle** | **Push Git** |
-| --- | --- | --- |
-| Sebastien / Jira | Superviseur | Good |
-| Anthony | Coordinateur | Good |
-| Jemoel | Lead Programmer | Good |
-| Yanis | Game Designer | Good |
-| Hugo | Gameplay Programmer | Good |
-| Benjamin | Gameplay Programmer / QA / Integration Programmer | Good |
-| Maximilien | UI/UX Programmer | Good |
-| Matteo | Systemes Programmer | Good |
+| **Nom**          | **Rôle**                                          | **Push Git** |
+| ---------------- | ------------------------------------------------- | ------------ |
+| Sebastien / Jira | Superviseur                                       | Good         |
+| Anthony          | Coordinateur                                      | Good         |
+| Jemoel           | Lead Programmer                                   | Good         |
+| Yanis            | Game Designer                                     | Good         |
+| Hugo             | Gameplay Programmer                               | Good         |
+| Benjamin         | Gameplay Programmer / QA / Integration Programmer | Good         |
+| Maximilien       | UI/UX Programmer                                  | Good         |
+| Matteo           | Systemes Programmer                               | Good         |

@@ -53,3 +53,9 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 
 ## Notes de préparation
 
+### Révision du 28.09
+
+- **Chaîne à la C** : schéma `00 images/bdp06_chaine_c.svg` (« Sebastien », codes ASCII, `'\0'`, pointeur) + snippet de lecture caractère par caractère.
+- **std::string comme objet** : 3 fonctionnalités (mémoire gérée, taille connue, sémantique de valeur) + schéma `bdp06_std_string.svg` (pointeur, taille, capacité, `c_str()`) + snippet « en action ».
+- **Un snippet par slide de fonctionnalité** (concaténer, nombre ↔ texte, longueur, accès, saisie, comparer, chercher, découper), tous compilés et exécutés (GCC 14, C++23).
+- **Schéma** `bdp06_to_string_stoi.svg` et **widget** `00 widgets/_widgets/string_index_widget.html` (`#index`, `#substr`, `#find`) : slide visuel + slide code, qui se complètent.

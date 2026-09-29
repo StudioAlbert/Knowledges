@@ -17,6 +17,9 @@ Ce dossier fait partie du vault `Knowledges` ; il en était un sous-module, il n
 | `_widgets/thales_widget.html` | Thalès, sa réciproque, le calcul par les ombres | `#thales` `#reciproque` `#ombre` | TC-FT-TRG-01 |
 | `_widgets/cercle_trigo_widget.html` | Cercle unité et unités d'angle, symétries, du cercle à l'onde | `#cercle` `#symetries` `#onde` | TC-FT-TRG-02 |
 | `_widgets/resolution_triangles_widget.html` | Loi des sinus, loi des cosinus, rôle d'`atan2` | `#sinus` `#cosinus` `#atan2` | TC-FT-TRG-03 |
+| `_widgets/git_graph_widget.html` | Graphe de commits : bac à sable (commit, branche, `HEAD`, merge, rebase) et comparaison statique merge / rebase avec les commandes | `#libre` `#compare` | GPR-CF-GTE-02 |
+| `_widgets/git_conflict_widget.html` | Quiz de résolution de conflits en 7 situations : voter (HEAD, branche, les deux, réécrire), puis résoudre — commit refusé tant que ça ne compile pas | `#choisir` `#garder` `#doublon` `#include` `#condition` `#renommer` `#texte` | GPR-CF-GTE-02 |
+| `_widgets/string_index_widget.html` | Une `std::string` case par case : `[]` contre `at()` hors des bornes, `substr`, `find` et `npos` | `#index` `#substr` `#find` | GPR-CF-BDP-06 |
 | `_widgets/utility_ai.html` | Courbes de réponse pour la décision des PNJ | — | portfolio uniquement |
 
 ## Dans une slide
@@ -35,7 +38,7 @@ Une séance peut aussi lister ses widgets dans l'onglet *Ressources* du site, vi
 
 ## Conventions d'un widget
 
-Ce que les cinq widgets du bloc Trigonométrie respectent, et que reprendra le prochain.
+Ce que les cinq widgets du bloc Trigonométrie, `git_graph_widget.html`, `git_conflict_widget.html` et `string_index_widget.html` respectent, et que reprendra le prochain.
 `astar_widgets.html` et `utility_ai.html` sont antérieurs et n'en suivent aucune — ils
 fonctionnent, mais en iframe ils avalent les flèches du clavier.
 

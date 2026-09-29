@@ -62,7 +62,24 @@ for (float x = 0.0f; x != 2.0f; x += 0.2f)
 
 Écrire `bool presque_egaux(float a, float b)`, qui combine une tolérance absolue de `1e-6f` et une tolérance relative de `1e-5f`.
 
-Tester avec : `(0.1f + 0.2f, 0.3f)`, `(1e-8f, 0.0f)`, `(100000.0f, 100000.01f)`, `(1.0f, 1.1f)`, puis avec deux NaN. Justifier chaque résultat.
+> [!info] Deux façons de dire « assez proche »
+> - **Tolérance absolue** : un écart **fixe**. `a` et `b` sont égaux si `|a − b| ≤ 1e-6`, quelle que soit leur taille.
+> - **Tolérance relative** : un écart **proportionnel**. `a` et `b` sont égaux si `|a − b| ≤ 1e-5 × max(|a|, |b|)`, soit 0,001 % du plus grand des deux.
+>
+> | Ordre de grandeur de `a` et `b` | Écart accepté — absolu | Écart accepté — relatif |
+> |--:|--:|--:|
+> | 0 | 0,000 001 | 0 |
+> | 1 | 0,000 001 | 0,000 01 |
+> | 1 000 | 0,000 001 | 0,01 |
+> | 100 000 | 0,000 001 | 1 |
+>
+> - L'absolue seule est **trop sévère pour les grands nombres** : à 100 000, deux `float` voisins sont déjà séparés de 0,0078.
+> - La relative seule est **trop sévère près de zéro** : 1e-5 × 0 = 0, il faudrait l'égalité exacte.
+> - D'où la combinaison : égaux si **l'une ou l'autre** est satisfaite.
+
+Étapes : calculer l'écart `|a − b|` avec `std::abs` ; s'il passe la tolérance absolue, renvoyer `true` ; sinon, renvoyer le résultat du test relatif (`std::max` dans `<algorithm>`).
+
+Tester avec : `(0.1f + 0.2f, 0.3f)`, `(1e-8f, 0.0f)`, `(100000.0f, 100000.01f)`, `(1.0f, 1.1f)`, puis avec deux NaN. Pour chaque paire, dire **quelle tolérance** l'accepte, ou pourquoi aucune ne l'accepte.
 
 ## Exercice 7 — Loin de l'origine
 

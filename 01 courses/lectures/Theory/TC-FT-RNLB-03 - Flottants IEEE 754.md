@@ -11,7 +11,7 @@ classes:
   - GP-926
   - WEB-926
   - WEB-925
-date_scheduled: 2026-09-17
+date_scheduled: 2026-09-30
 manual_order: 10
 estimate: 1h
 tache: découper

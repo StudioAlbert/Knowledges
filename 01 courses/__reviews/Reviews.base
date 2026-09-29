@@ -1,0 +1,35 @@
+filters:
+  and:
+    - file.inFolder("01 courses/__reviews")
+    - file.ext == "md"
+properties:
+  note.slides:
+    displayName: Slides
+  note.exercices:
+    displayName: Exercices
+views:
+  - type: kanban-action-planner
+    name: Kanban
+    statuses:
+      - To do
+      - To check
+      - Ready
+    collapsedColumns: []
+  - type: list
+    name: Tableau
+    order:
+      - file.name
+      - status
+      - slides
+      - exercices
+  - type: kanban-action-planner
+    name: Sous-tâches
+    wbsMode: true
+    statuses:
+      - To do
+      - To check
+      - Ready
+    calendarMode: false
+    triageMode: false
+    timelineMode: false
+    agendaMode: false
