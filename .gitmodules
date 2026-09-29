@@ -19,3 +19,6 @@
 [submodule "01 courses/companion projects/C++/TC-FT-RNLB-03 - Flottants IEEE 754"]
 	path = 01 courses/companion projects/C++/TC-FT-RNLB-03 - Flottants IEEE 754
 	url = https://github.com/StudioAlbert/TC_FT_RNLB_03_FlottantsIEEE754.git
+[submodule "01 courses/companion projects/Unity/GPR-UN-APU-04 - ScriptableObjects"]
+	path = 01 courses/companion projects/Unity/GPR-UN-APU-04 - ScriptableObjects
+	url = https://github.com/StudioAlbert/GPR_UN_APU_04_ScriptableObjects.git
