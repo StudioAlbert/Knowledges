@@ -6,7 +6,8 @@ space: PC — Projet Commun
 version: 4
 updated: 2025-09-16
 author: Sébastien Albert
-tags: [confluence, projet-commun, pédagogie]
+tags:
+  - projet-commun
 ---
 
 # Objectifs
@@ -26,6 +27,3 @@ tags: [confluence, projet-commun, pédagogie]
     - Performance : Unity profiler, Addressables
     - Fiabilité : Unity unit testing, CI/CD
     - Qualité de vie : Saves, Controles configurables, Lobby, Multi-local avancé
-    - Version Switch
-
-![[metal-gear-solid-v-the-phantom-pain-map.jpg]]
