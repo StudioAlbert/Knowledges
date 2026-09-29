@@ -4,6 +4,7 @@ type: slides
 status: To check
 subject: Generic
 duration_h: 0.25
+bloc_gsda: Généralités
 theme: white
 css:
   - 00 templates/css/sae_styles.css
@@ -12,6 +13,7 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
+publish: true
 ---
 
 # Presenting your work

@@ -4,7 +4,7 @@ type: slides
 status: Backlog
 subject: Generic
 duration_h: 1
-bloc_gsda: Bases de la Programmation
+bloc_gsda: Généralités
 theme: white
 css:
   - 00 templates/css/sae_styles.css
@@ -14,6 +14,7 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 9
+publish: true
 ---
 
 # Cadre de travail
