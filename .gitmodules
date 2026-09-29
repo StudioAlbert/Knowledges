@@ -7,3 +7,15 @@
 [submodule "01 courses/companion projects/Unity/Companion-Solid-DungeonCrawler"]
 	path = 01 courses/companion projects/Unity/Companion-Solid-DungeonCrawler
 	url = https://github.com/StudioAlbert/Companion-Solid-DungeonCrawler.git
+[submodule "01 courses/companion projects/C++/GPR-CF-BDP-04 - Branches et boucles"]
+	path = 01 courses/companion projects/C++/GPR-CF-BDP-04 - Branches et boucles
+	url = https://github.com/StudioAlbert/GPR_CF_BDP_04_BranchesEtBoucles.git
+[submodule "01 courses/companion projects/C++/GPR-CF-GTE-02 - Chasse au trésor"]
+	path = 01 courses/companion projects/C++/GPR-CF-GTE-02 - Chasse au trésor
+	url = https://github.com/StudioAlbert/GPR_CF_GTE_02_ChasseAuTresor.git
+[submodule "01 courses/companion projects/C++/TC-FT-RNLB-02 - Entiers signés et dépassements"]
+	path = 01 courses/companion projects/C++/TC-FT-RNLB-02 - Entiers signés et dépassements
+	url = https://github.com/StudioAlbert/TC_FT_RNLB_02_EntiersSignes.git
+[submodule "01 courses/companion projects/C++/TC-FT-RNLB-03 - Flottants IEEE 754"]
+	path = 01 courses/companion projects/C++/TC-FT-RNLB-03 - Flottants IEEE 754
+	url = https://github.com/StudioAlbert/TC_FT_RNLB_03_FlottantsIEEE754.git
