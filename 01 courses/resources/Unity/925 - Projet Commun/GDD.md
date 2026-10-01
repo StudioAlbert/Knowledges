@@ -8,6 +8,9 @@ updated: 2025-12-02
 author:
 tags:
   - projet-commun
+seances:
+  - GPR-UN-PCO-925
+type: resource
 ---
 
 # GDD

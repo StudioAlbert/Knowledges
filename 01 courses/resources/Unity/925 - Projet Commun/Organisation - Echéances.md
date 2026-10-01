@@ -8,6 +8,9 @@ updated: 2025-09-16
 author: Sébastien Albert
 tags:
   - projet-commun
+seances:
+  - GPR-UN-PCO-925
+type: resource
 ---
 
 # Organisation / Echéances

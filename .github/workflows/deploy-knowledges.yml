@@ -6,6 +6,7 @@ on:
     paths:
       - "01 courses/slides/**"
       - "01 courses/exercises/**"
+      - "01 courses/resources/**"
       - "00 images/**"
       - "00 widgets/**"
       - "00 templates/css/**"
