@@ -9,6 +9,9 @@ author:
 tags:
   - projet-commun
   - équipe
+seances:
+  - GPR-UN-PCO-925
+type: resource
 ---
 
 # Rôles

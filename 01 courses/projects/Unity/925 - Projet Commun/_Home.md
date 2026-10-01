@@ -14,7 +14,8 @@ tags:
 
 ### Préparation
 
-- [[01 courses/projects/Unity/925 - Projet Commun/Organisation - Echéances|Organisation - Echéances]]
-- [[Overview]]
-- [[01 courses/projects/Unity/925 - Projet Commun/Objectifs|Objectifs]]
-- [[01 courses/projects/Unity/925 - Projet Commun/Rôle|Rôles]]
+- [[01 courses/resources/Unity/925 - Projet Commun/Organisation - Echéances|Organisation - Echéances]]
+- [[01 courses/resources/Unity/925 - Projet Commun/Overview|Overview]]
+- [[01 courses/resources/Unity/925 - Projet Commun/Objectifs|Objectifs]]
+- [[01 courses/resources/Unity/925 - Projet Commun/Rôle|Rôles]]
+- [[01 courses/resources/Unity/925 - Projet Commun/GDD|GDD]]
