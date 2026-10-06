@@ -4,6 +4,13 @@
 
 Terrain de jeu : le **Dungeon Crawler** de [[GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01]], branche `main`.
 
+> [!tip] La machine du cours est dans le companion
+> `01 courses/companion projects/Unity/GPR-UN-APU-09 - State machine`
+> ([dépôt](https://github.com/StudioAlbert/GPR_UN_APU_09_StateMachine)) : la `StateMachine`
+> générique, et quatre scènes qui la mettent en œuvre. Les exercices **2**, **3** et **4**
+> ci-dessous y ont chacun leur démo (`01 - Hero`, `03 - QTE`) — à lire **après** avoir
+> cherché, pas avant.
+
 ## Atelier — 20 min en classe
 
 ### 1 — L'araignée a quatre états

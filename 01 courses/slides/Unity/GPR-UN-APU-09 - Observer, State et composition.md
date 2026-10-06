@@ -196,6 +196,88 @@ La machine ne connaît aucun état en particulier : DIP, encore.
 
 ---
 
+# Une machine réutilisable
+<!-- .slide: class="title" -->
+
+### Celle du companion, tirée d'un projet de jeu
+
+---
+
+## Déclarer les transitions plutôt que les écrire
+<!-- .slide: class="schema" -->
+
+![[apu09_machine_generique.svg]]
+
+Note:
+Version du companion. La différence avec le slide précédent : les
+transitions ne sont plus des `ChangeState` dispersés dans les états, elles
+sont **déclarées une fois** à côté du graphe. Le dessin et le code se
+relisent ligne pour ligne — c'est tout l'intérêt.
+Attention au vocabulaire : cette machine nomme `OnEnter` / `OnExit` ce que
+nos slides appellent `Enter` / `Exit`, et son `Tick` reçoit le `deltaTime`.
+
+---
+
+## Les deux méthodes à connaître
+
+Une transition, c'est un état d'arrivée et une condition — une fonction qui rend `true` ou `false`.
+
+```csharp
+// depuis un état précis
+machine.AddTransition(IState from, IState to, Func<bool> condition);
+
+// depuis n'importe quel état, testée en priorité
+machine.AddAnyTransition(IState to, Func<bool> condition);
+```
+
+Note:
+`Func<bool>` : une méthode sans paramètre qui rend un booléen, passée en
+argument — `() => Keyboard.current.spaceKey.wasPressedThisFrame`, ou un nom
+de méthode comme `JoueurVu`. C'est ce qui permet de nommer la condition.
+`AddAnyTransition` sert à la mort, à la pause, à l'alarme : ce qui peut
+arriver quoi qu'on soit en train de faire. Une par machine, rarement plus.
+
+---
+
+## Ce que fait `Tick`
+
+Chaque frame, dans l'ordre : les transitions globales, celles de l'état courant, puis l'état agit.
+
+```csharp
+public void Tick(float deltaTime)
+{
+    IState newState = CheckTransition(_currentState);
+    if (newState != _currentState) ChangeState(newState);
+
+    _currentState.Tick(deltaTime);
+}
+```
+
+Note:
+`CheckTransition` regarde d'abord les transitions « any », puis le
+dictionnaire `Type -> transitions` de l'état courant, et prend **la
+première** condition vraie. L'ordre de déclaration est donc l'ordre de
+priorité : à déclarer du plus urgent au moins urgent.
+Le `MonoBehaviour` n'a plus qu'une ligne dans son `Update` :
+`_machine.Tick(Time.deltaTime);`.
+
+---
+
+## Quatre démos dans le companion
+
+- **Héros** : Grounded, Jumping, Landing — saut à la barre d'espace, atterrissage temporisé
+- **Garde** : Idle, Patrouille, Alarme — l'alarme en `AddAnyTransition`
+- **QTE** : Invite, Confirmation, Échec, Succès — un état = un panneau d'UI
+- **Tour par tour** : deux tourelles, le joueur passe la main, l'IA tire jusqu'à vide
+
+Note:
+Ce sont des démos techniques, pas des jeux : des primitives, un panneau de
+debug qui affiche l'état courant, rien de plus. Une scène par cas, à ouvrir
+et à lire dans l'ordre. Le garde et le QTE sont les deux à montrer en
+direct ; le tour par tour se lit mieux à la maison.
+
+---
+
 # Le tour par tour
 <!-- .slide: class="title" -->
 
@@ -361,6 +443,8 @@ Note:
 Machine hiérarchique : le boss de l'exercice 6 — chaque phase est une
 machine. Arbres de comportement : vus dans le bloc IA
 ([[cpp_behaviour_tree_lecture]]).
+
+---
 
 ## À retenir
 

@@ -25,3 +25,6 @@
 [submodule "01 courses/companion projects/Unity/TC-FT-GVM-05 - Interpolation et courbes"]
 	path = 01 courses/companion projects/Unity/TC-FT-GVM-05 - Interpolation et courbes
 	url = https://github.com/StudioAlbert/TC-FT-GVM-05---Interpolation-et-courbes.git
+[submodule "01 courses/companion projects/Unity/GPR-UN-APU-09 - State machine"]
+	path = 01 courses/companion projects/Unity/GPR-UN-APU-09 - State machine
+	url = https://github.com/StudioAlbert/GPR_UN_APU_09_StateMachine.git
