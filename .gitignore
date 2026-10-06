@@ -16,6 +16,9 @@ site-build/dist/
 # Worktrees temporaires des agents Claude (ne pas committer)
 .claude/worktrees/
 
+# Brouillons produits par Claude, recopies dans le vault une fois valides
+Claude outputs/
+
 # Notes d'infrastructure sensibles (IP, comptes) : jamais dans le dépôt public
 02 Notes/vps-ovh-hebergement-cours.md
 

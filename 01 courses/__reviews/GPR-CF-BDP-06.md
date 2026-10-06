@@ -24,7 +24,7 @@ exercices:
 
 ## Traité le 28.09 — à vérifier (séance du 01.10)
 
-- **Historique** : slide schéma `bdp06_chaine_c.svg` + slide *Lire une chaîne caractère par caractère* — désormais **dans le deck**. Le fichier `Claude outputs/BDP-06 - slides chaîne C (à coller).md` est obsolète, à supprimer.
+- **Historique** : slide schéma `bdp06_chaine_c.svg` + slide *Lire une chaîne caractère par caractère* — désormais **dans le deck**. Le brouillon `Claude outputs/BDP-06 - slides chaîne C (à coller).md` est supprimé.
 - **std::string comme objet** : 4 puces (mémoire gérée, taille connue, s'utilise comme une valeur, encapsule un `char*`), puis slide schéma *Ce qu'il y a dans une std::string* (`bdp06_std_string.svg`), puis snippet *std::string en action*.
 - **Snippets** ajoutés sur : concaténer, nombre ↔ texte, longueur, `[]`/`at()`, saisie, comparer, `find`, `substr` — tous compilés et exécutés.
 - **Visuel + code, en complément** : *Passer d'un nombre à du texte* devient une slide schéma (`bdp06_to_string_stoi.svg`) suivie de *Nombre ↔ texte, en code* ; `[]`/`at()`, `find` et `substr` sont chacune suivies d'une slide widget `string_index_widget.html` (`#index`, `#find`, `#substr`).
