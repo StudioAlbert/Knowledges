@@ -13,7 +13,7 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: true
+publish: online
 ---
 
 # Fonctions

@@ -14,7 +14,7 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 9
-publish: true
+publish: online
 ---
 # Premières lignes de C++
 <!-- .slide: class="title" -->

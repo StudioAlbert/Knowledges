@@ -5,10 +5,25 @@
 //   01 courses/resources/<catégorie>/*.md        → onglet Ressources de la séance
 //   00 widgets/                                  → /widgets/ (pages HTML interactives, copiées telles quelles)
 //
-// Le site est organisé par séance (code GPR-CF-BDP-01…). Une séance n'est publiée
-// que si le frontmatter de ses slides porte `publish: true`. Un exercice ou une
-// ressource s'y rattache par `seances: [CODE, …]` ou par un nom commençant par le code.
-// Rien d'autre n'est publié.
+// Le site est organisé par séance (code GPR-CF-BDP-01…). La publication est pilotée
+// par le seul champ `publish` du frontmatter des slides, qui a trois états :
+//
+//   false / (absent)  → non publié : la séance n'existe pas sur le site
+//   draft             → brouillon : rendu avec un bandeau « brouillon » et noindex,
+//                       et UNIQUEMENT si le build est lancé avec `--drafts`
+//                       (`npm run build:draft`, ou `npm run preview` pour enchaîner
+//                       build brouillons + serveur de test)
+//   online            → en ligne, visible des étudiants
+//                       (`true` reste accepté comme alias historique d'`online`)
+//
+// Toute autre valeur est refusée avec un avertissement et traitée comme non publiée :
+// une faute de frappe ne met rien en ligne par accident.
+//
+// Le build par défaut (`npm run build`, celui que lance la CI de déploiement) ignore
+// les drafts : un brouillon ne peut donc pas atteindre le site en ligne, même oublié
+// en l'état. Un exercice ou une ressource se rattache à une séance par
+// `seances: [CODE, …]` ou par un nom commençant par le code, et suit le sort de sa
+// séance. Rien d'autre n'est publié.
 //
 // Fiche GitHub : dans un exercice ou une ressource, un bloc délimité `github`
 // insère l'en-tête du dépôt et son README, récupérés au build (repli sur un clone
@@ -49,6 +64,24 @@ const KINDS = [
 ];
 
 const IMAGE_EXT = /\.(png|jpe?g|gif|svg|webp|avif)$/i;
+
+// Inclure les séances `publish: draft`. Opt-in via `--drafts` ou KNOWLEDGES_DRAFTS=1 :
+// sans l'un des deux, les brouillons sont exclus, donc un déploiement non modifié ne
+// peut jamais en publier un.
+const DRAFTS = process.argv.includes('--drafts') || process.env.KNOWLEDGES_DRAFTS === '1';
+const DRAFT_NOTE = 'Séance en cours de révision : contenu provisoire, non diffusé aux étudiants.';
+
+// `publish` → 'none' | 'draft' | 'online'. Tolère l'alias historique `true` et les
+// valeurs citées par Obsidian ('online', 'draft'). Toute autre valeur est un refus
+// bruyant : seul un état explicitement reconnu peut publier.
+function publishState(deck) {
+  const raw = typeof deck.fm.publish === 'string' ? deck.fm.publish.trim().toLowerCase() : deck.fm.publish;
+  if (raw === 'online' || raw === true) return 'online';
+  if (raw === 'draft') return 'draft';
+  if (raw === false || raw === 'false' || raw === undefined || raw === null || raw === '') return 'none';
+  console.warn(`  ⚠ ${deck.name} : publish: ${JSON.stringify(deck.fm.publish)} inconnu — non publié (attendu false | draft | online)`);
+  return 'none';
+}
 
 // ---------------------------------------------------------------------------
 // Utilitaires
@@ -138,12 +171,18 @@ async function collect() {
 function buildSeances(items) {
   const seances = new Map();
   for (const deck of items.filter((it) => it.kind.dir === 'slides' && it.code).sort(byName)) {
-    if (deck.fm.publish !== true) continue;
+    const state = publishState(deck);
+    if (state === 'none') continue;
+    const draft = state === 'draft';
+    if (draft && !DRAFTS) {
+      console.log(`  ⤬ ${deck.code} : brouillon, exclu du build en ligne (npm run preview pour le voir)`);
+      continue;
+    }
     const slug = slugify(deck.code);
     const url = `/${slugify(deck.category)}/${slug}/`;
     const out = path.join(DIST, slugify(deck.category), slug);
     Object.assign(deck, { url: url + 'slides/', out: path.join(out, 'slides') });
-    seances.set(deck.code, { code: deck.code, category: deck.category, title: deck.title, url, out, deck, exercises: [], resources: [] });
+    seances.set(deck.code, { code: deck.code, category: deck.category, title: deck.title, url, out, draft, deck, exercises: [], resources: [] });
   }
 
   const known = new Set(items.map((it) => it.code).filter(Boolean));
@@ -275,17 +314,20 @@ async function renderDeck(seance, resolver, themes) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${escapeHtml(item.title)}</title>
+${seance.draft ? '<meta name="robots" content="noindex, nofollow">' : ''}
+<title>${seance.draft ? '[BROUILLON] ' : ''}${escapeHtml(item.title)}</title>
 <link rel="stylesheet" href="/assets/reveal/dist/reset.css">
 <link rel="stylesheet" href="/assets/reveal/dist/reveal.css">
 <link rel="stylesheet" href="/assets/reveal/dist/theme/${theme}.css">
 <link rel="stylesheet" href="/assets/reveal/plugin/highlight/monokai.css">
 ${css.map((href) => `<link rel="stylesheet" href="${href}">`).join('\n')}
-<style>.deck-home{position:fixed;top:10px;left:12px;z-index:30;font:13px system-ui,sans-serif;color:#888;text-decoration:none}.deck-home:hover{color:#E30613}</style>
+<style>.deck-home{position:fixed;top:10px;left:12px;z-index:30;font:13px system-ui,sans-serif;color:#888;text-decoration:none}.deck-home:hover{color:#E30613}
+.deck-draft{position:fixed;top:10px;right:12px;z-index:30;padding:3px 9px;border-radius:999px;background:#B8860B;color:#fff;font:700 11px/1.4 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}</style>
 </head>
 <body>
 <a class="deck-home" href="${seance.url}" target="_top">← ${escapeHtml(seance.code)}</a>
 <script>if (window.self !== window.top) document.querySelector('.deck-home').hidden = true;</script>
+${seance.draft ? '<span class="deck-draft">brouillon</span>' : ''}
 <div class="reveal"><div class="slides">
 ${sections}
 </div></div>
@@ -472,17 +514,18 @@ function versioned(url, file) {
   return `${url}?v=${hashes.get(file)}`;
 }
 
-function pageShell(title, body, { crumbs = '' } = {}) {
+function pageShell(title, body, { crumbs = '', draft = false } = {}) {
   return `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${escapeHtml(title)}</title>
+${draft ? '<meta name="robots" content="noindex, nofollow">' : ''}
+<title>${draft ? '[BROUILLON] ' : ''}${escapeHtml(title)}</title>
 <link rel="stylesheet" href="/assets/hljs.css">
 <link rel="stylesheet" href="${versioned('/assets/site.css', path.join(HERE, 'assets/site.css'))}">
 </head>
-<body>
+<body${draft ? ' class="is-draft"' : ''}>
 <header class="topbar"><a href="/">Games Programming</a>${crumbs}</header>
 <main>
 ${body}
@@ -534,12 +577,18 @@ async function renderSeance(seance, resolver) {
   const sections = panels.map((p) => `<section class="tab-panel" id="tab-${p.id}" role="tabpanel">\n${p.html}\n</section>`).join('\n');
 
   const crumbs = ` <span>›</span> ${escapeHtml(seance.category)} <span>›</span> ${escapeHtml(seance.code)}`;
-  const body = `<p class="code">${escapeHtml(seance.code)}</p>
-<h1>${escapeHtml(seance.title)}</h1>
+  const banner = seance.draft ? `<p class="draft-banner"><strong>Brouillon</strong> ${escapeHtml(DRAFT_NOTE)}</p>` : '';
+  const badge = seance.draft ? ' <span class="draft-badge">brouillon</span>' : '';
+  const body = `${banner}
+<p class="code">${escapeHtml(seance.code)}</p>
+<h1>${escapeHtml(seance.title)}${badge}</h1>
 <nav class="tabs" role="tablist">${tabs}</nav>
 ${sections}
 <script>${TABS_SCRIPT}</script>`;
-  await writeFile(path.join(seance.out, 'index.html'), pageShell(`${seance.code} - ${seance.title}`, body, { crumbs }));
+  await writeFile(
+    path.join(seance.out, 'index.html'),
+    pageShell(`${seance.code} - ${seance.title}`, body, { crumbs, draft: seance.draft }),
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -550,13 +599,23 @@ async function renderIndex(seances) {
   const blocks = categories.map((cat) => {
     const lis = seances
       .filter((s) => s.category === cat)
-      .map((s) => `<li><a href="${s.url}"><span class="code">${escapeHtml(s.code)}</span>${escapeHtml(s.title)}</a></li>`)
+      .map(
+        (s) =>
+          `<li><a href="${s.url}"><span class="code">${escapeHtml(s.code)}</span>${escapeHtml(s.title)}${
+            s.draft ? ' <span class="draft-badge">brouillon</span>' : ''
+          }</a></li>`,
+      )
       .join('\n');
     return `<section class="category"><h2>${escapeHtml(cat)}</h2><ul class="seance-list">\n${lis}\n</ul></section>`;
   });
   const empty = seances.length ? '' : '<p class="lead">Aucune séance publiée pour le moment.</p>';
-  const body = `<h1>Games Programming</h1>\n<p class="lead">SAE Institute Genève</p>\n${empty}${blocks.join('\n')}`;
-  await writeFile(path.join(DIST, 'index.html'), pageShell('Games Programming', body));
+  const drafts = seances.filter((s) => s.draft).length;
+  // Rappel visible sur l'accueil : ce dist contient des brouillons et ne doit pas partir en ligne.
+  const banner = drafts
+    ? `<p class="draft-banner"><strong>Build de prévisualisation</strong> ${drafts} séance(s) en brouillon incluses — ne pas déployer en ligne.</p>`
+    : '';
+  const body = `${banner}<h1>Games Programming</h1>\n<p class="lead">SAE Institute Genève</p>\n${empty}${blocks.join('\n')}`;
+  await writeFile(path.join(DIST, 'index.html'), pageShell('Games Programming', body, { draft: drafts > 0 }));
 }
 
 // ---------------------------------------------------------------------------
@@ -609,7 +668,10 @@ async function main() {
   await renderIndex(seances);
   await copyAssets(resolver);
 
+  const drafts = seances.filter((s) => s.draft).length;
   console.log(`\n${seances.length} séance(s) active(s), ${published.length} documents → ${path.relative(ROOT, DIST)}`);
+  if (drafts) console.log(`⚠ ${drafts} séance(s) en brouillon incluses : build de prévisualisation, ne pas déployer.`);
+  else if (!DRAFTS) console.log('Build de production : aucun brouillon inclus.');
 }
 
 main().catch((err) => {

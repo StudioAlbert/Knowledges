@@ -2,6 +2,7 @@ filters:
   and:
     - file.inFolder("01 courses/__reviews")
     - file.ext == "md"
+    - file.name != "CLAUDE"
 properties:
   note.slides:
     displayName: Slides
@@ -11,10 +12,12 @@ views:
   - type: kanban-action-planner
     name: Kanban
     statuses:
+      - Backlog
       - To do
       - To check
       - Ready
-    collapsedColumns: []
+    collapsedColumns:
+      - Backlog
   - type: list
     name: Tableau
     order:

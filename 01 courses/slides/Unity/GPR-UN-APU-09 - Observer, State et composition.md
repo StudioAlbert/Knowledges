@@ -13,7 +13,7 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
+publish: draft
 ---
 
 # State, un pattern de gameplay

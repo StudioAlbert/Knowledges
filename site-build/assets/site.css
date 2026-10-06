@@ -147,3 +147,19 @@ article blockquote { margin: 1em 0; padding: 4px 16px; border-left: 3px solid va
 .callout[data-callout="worker"] { border-left-color: #E30613; }
 .callout[data-callout="fork"] { border-left-style: dashed; }
 .callout pre { max-width: 100%; overflow-x: auto; }
+
+/* --- Brouillons (publish: draft) -------------------------------------------
+   Rendus uniquement par un build KNOWLEDGES_DRAFTS=1 : visibles sur le serveur
+   de test, jamais en ligne. Le marquage doit rester impossible à confondre avec
+   une séance publiée. */
+.draft-banner {
+  margin: 0 0 20px; padding: 10px 14px; border-left: 4px solid #B8860B;
+  background: #FDF6E3; color: #6B5200; font-size: 0.9rem; border-radius: 0 4px 4px 0;
+}
+.draft-banner strong { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-right: 6px; }
+.draft-badge {
+  display: inline-block; vertical-align: middle; padding: 2px 8px; border-radius: 999px;
+  background: #B8860B; color: #fff; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+body.is-draft { border-top: 3px solid #B8860B; }

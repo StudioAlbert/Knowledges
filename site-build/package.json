@@ -5,7 +5,9 @@
   "description": "Génère le site statique des supports de cours (slides reveal.js + exercices) pour knowledges.studio-albert.com",
   "scripts": {
     "build": "node build.mjs",
-    "serve": "npx --yes serve dist"
+    "build:draft": "node build.mjs --drafts",
+    "serve": "npx --yes serve dist",
+    "preview": "node build.mjs --drafts && npx --yes serve dist"
   },
   "engines": {
     "node": ">=24"

@@ -4,8 +4,23 @@
     {
       "name": "knowledges-site",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["--yes", "serve", "site-build/dist", "-l", "4173"],
-      "port": 4173
+      "runtimeArgs": [
+        "--yes",
+        "serve",
+        "site-build/dist"
+      ],
+      "autoPort": true
+    },
+    {
+      "name": "knowledges-site-draft",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "--prefix",
+        "site-build"
+      ],
+      "autoPort": true
     }
   ]
 }
