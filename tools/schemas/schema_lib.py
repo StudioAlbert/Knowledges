@@ -30,9 +30,11 @@ class Figure:
         self.seed = seed
 
     # ------------------------------------------------------------ primitives
-    def line(self, pts, color=INK, width=3, dash=False, opacity=1.0, arrow=False):
+    def line(self, pts, color=INK, width=3, dash=False, opacity=1.0, arrow=False, fill="none"):
+        """`fill` remplit le contour : utile pour une face vue en 3D."""
         self.els.append(("line", dict(pts=[(float(x), float(y)) for x, y in pts], color=color,
-                                      width=width, dash=dash, opacity=opacity, arrow=arrow)))
+                                      width=width, dash=dash, opacity=opacity, arrow=arrow,
+                                      fill=fill)))
 
     def dot(self, x, y, r=6, color=INK):
         self.els.append(("dot", dict(x=float(x), y=float(y), r=r, color=color)))
@@ -138,9 +140,9 @@ class Figure:
                 dash = ' stroke-dasharray="7 6"' if e["dash"] else ""
                 op = '' if e["opacity"] == 1.0 else ' stroke-opacity="%.2f"' % e["opacity"]
                 mk = ' marker-end="url(#%s)"' % heads.get(e["color"], "head-ink") if e["arrow"] else ""
-                o.append('<path d="%s" fill="none" stroke="%s" stroke-width="%s" '
+                o.append('<path d="%s" fill="%s" stroke="%s" stroke-width="%s" '
                          'stroke-linecap="round" stroke-linejoin="round"%s%s%s/>'
-                         % (d, e["color"], e["width"], dash, op, mk))
+                         % (d, e.get("fill", "none"), e["color"], e["width"], dash, op, mk))
             elif kind == "rect":
                 dash = ' stroke-dasharray="7 6"' if e["dash"] else ""
                 o.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="%d" fill="%s" '
@@ -184,7 +186,9 @@ class Figure:
                 ys = [p[1] for p in e["pts"]]
                 x0, y0 = xs[0], ys[0]
                 d = base(i, "arrow" if e["arrow"] else "line", x0, y0, max(xs) - min(xs),
-                         max(ys) - min(ys), e["color"], sw=min(4, e["width"]))
+                         max(ys) - min(ys), e["color"],
+                         e.get("fill", "none") if e.get("fill", "none") != "none" else "transparent",
+                         sw=min(4, e["width"]))
                 d["strokeStyle"] = "dashed" if e["dash"] else "solid"
                 d["opacity"] = int(e["opacity"] * 100)
                 d["points"] = [[p[0] - x0, p[1] - y0] for p in e["pts"]]

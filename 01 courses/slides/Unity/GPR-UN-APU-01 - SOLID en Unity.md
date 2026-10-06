@@ -105,6 +105,7 @@ Tout le monde lève la main.
 ---
 
 ## Après, en schéma
+<!-- .slide: class="schema" -->
 
 ![[solid_principles_in_unity_02.png]]
 
@@ -508,6 +509,10 @@ foreach (IAnimal animal in animals)
 | champ `GameObject` + `GetComponent<IDamageable>()` | garde l'interface | erreur visible seulement au lancement |
 | classe abstraite `Damageable : MonoBehaviour` | champ typé, glisser-déposer | un seul héritage possible |
 
+---
+
+## La classe abstraite, en pratique
+
 ```csharp
 public abstract class Damageable : MonoBehaviour
 {
@@ -600,6 +605,12 @@ if (hit.TryGetComponent(out ITalkable talkable)) talkable.Talk();
 if (hit.TryGetComponent(out IUsable usable)) usable.Use(health);
 ```
 
+<small>Projet : branche `04-isp`.</small>
+
+---
+
+## Qui implémente quoi
+
 | | `IMovable` | `IAttacker` | `IDamageable` | `ITalkable` | `IUsable` |
 |---|:-:|:-:|:-:|:-:|:-:|
 | Araignée | ✔ | ✔ | ✔ | | |
@@ -608,7 +619,7 @@ if (hit.TryGetComponent(out IUsable usable)) usable.Use(health);
 | Marchand | | | | ✔ | |
 | Potion | | | | | ✔ |
 
-<small>Projet : branche `04-isp`.</small>
+Chaque ligne ne porte que ce qu'elle sait faire : aucune classe n'implémente une méthode vide.
 
 ---
 

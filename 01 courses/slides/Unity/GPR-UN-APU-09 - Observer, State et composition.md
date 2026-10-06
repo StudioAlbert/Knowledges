@@ -362,20 +362,6 @@ Machine hiérarchique : le boss de l'exercice 6 — chaque phase est une
 machine. Arbres de comportement : vus dans le bloc IA
 ([[cpp_behaviour_tree_lecture]]).
 
----
-
-## Atelier — 20 min
-
-L'araignée du Dungeon Crawler a quatre états cachés dans `Spider.Move` et `EnemyDirector` : les sortir au grand jour.
-
-Note:
-Énoncé : [[01 courses/exercises/Unity/GPR-UN-APU-09 - Observer, State et composition|exercice 1]].
-5 min au tableau : dessiner la machine (Repos, Poursuite, Morsure,
-Récupération). 15 min : l'écrire en `enum` + `switch` dans `Spider`, depuis
-la branche `main`. À la maison : passer en classes `IState`.
-
----
-
 ## À retenir
 
 - un comportement à phases est une machine : **dessinez-la d'abord**

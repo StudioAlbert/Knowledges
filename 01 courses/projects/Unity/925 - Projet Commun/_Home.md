@@ -14,8 +14,11 @@ tags:
 
 ### Préparation
 
-- [[01 courses/resources/Unity/925 - Projet Commun/Organisation - Echéances|Organisation - Echéances]]
-- [[01 courses/resources/Unity/925 - Projet Commun/Overview|Overview]]
-- [[01 courses/resources/Unity/925 - Projet Commun/Objectifs|Objectifs]]
-- [[01 courses/resources/Unity/925 - Projet Commun/Rôle|Rôles]]
-- [[01 courses/resources/Unity/925 - Projet Commun/GDD|GDD]]
+- [[01 courses/slides/Unity/GPR-UN-PCO-925 - Projet Commun|Slides du projet]] — objectifs,
+  calendrier, point bi-hebdomadaire, play tests et rôles
+- [[01 courses/resources/Unity/925 - Projet Commun/Overview|Overview]] — genre, références,
+  prérequis techniques et asset packs
+- GDD — à créer pour cette promotion
+
+> [!note] Les fiches *Objectifs*, *Organisation - Echéances* et *Rôle* n'existent plus
+> Leur contenu est passé dans le deck de la séance le 05.10.2026.

@@ -2,7 +2,7 @@
 title: Interpolation et courbes
 type: seance
 code: TC-FT-GVM-05
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle
@@ -30,14 +30,18 @@ Lerp, rotation en 2D et en 3D, fonctions paramétriques, normalisation d'un para
 
 **Découper un deck existant.** `08 - Theorical Notions of graphics programming - Maths` (20,0 ko) porte 8 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `TC-FT-RNLB-03`, `TC-FT-TRG-01`, `TC-FT-TRG-02`, `TC-FT-RDE-02`, `TC-FT-RDE-03`, `TC-FT-GVM-01`, `TC-FT-GVM-02` — les découper en une seule passe évite de rouvrir le deck 8 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-GVM-05 - Interpolation et courbes|TC-FT-GVM-05 - Interpolation et courbes]] — 16 slides, `publish: false` · widgets proposés : `easing_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-05 - Interpolation et courbes|TC-FT-GVM-05 - Interpolation et courbes]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck et widgets développés le 06.10.2026
+> - **Deck** : [[01 courses/slides/Theory/TC-FT-GVM-05 - Interpolation et courbes|Slides GVM-05]] — 33 slides,
+>   `publish: true`, bâti sur l'ossature posée à la main (*Animer…*, *Aller de A à B*,
+>   *Clamp vs clamp*, *le clip d'animation*, *la fonction cyclique*).
+> - **Widgets** : `fonctions_temps_widget.html` (droite non bornée, sinus paramétrable,
+>   dents de scie, Lerp clampé ou non) et `quaternion_widget.html` (ordre des angles
+>   d'Euler, gimbal lock mesuré sur un cardan, slerp contre interpolation d'angles).
+>   Ils remplacent l'`easing_widget.html` proposé dans le plan, non construit.
+> - **Exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-05 - Interpolation et courbes|Exos GVM-05]] —
+>   **encore à l'état d'overview**, la note de révision ne demandait pas de les rédiger.
 
 ## Matériel
 
@@ -45,6 +49,8 @@ Lerp, rotation en 2D et en 3D, fonctions paramétriques, normalisation d'un para
     - Slides d'origine : https://docs.google.com/presentation/d/1MyyUSkqldoEikta8TUQdn0hG3AnSXnd81yfQcC0hGMc/edit
     - Exercices : [[Exercices - 08 - Introduction to Maths]]
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Géométrie Vectorielle et Matricielle.md`, ligne `05`
+- Sources :
+	- 
 
 ## Liens
 

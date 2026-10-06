@@ -1,6 +1,6 @@
 ---
-status: To check
-manual_order: 1.75
+status: To do
+manual_order: 3
 parent:
   - "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:
@@ -8,6 +8,8 @@ slides:
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|Exos APU-05]]"
 ---
+- [ ] Faire propositions dans cette note des différentes situations dans un jeu de voiture qui permettent d'utiliser le pattern; relier ces situations a une implementation parmi les 3 identifiées 
+
 - Sources :
 	- https://learn.unity.com/tutorial/create-modular-and-maintainable-code-with-the-observer-pattern
 	- https://gist.github.com/adammyhre/353195d4870e8fd0cc0028659e66f208

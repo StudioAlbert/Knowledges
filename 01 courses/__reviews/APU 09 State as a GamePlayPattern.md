@@ -1,6 +1,6 @@
 ---
-status: To check
-manual_order: 4
+status: To do
+manual_order: 2
 parent:
   - "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:
@@ -8,11 +8,17 @@ slides:
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-09 - Observer, State et composition|Exos APU-09]]"
 ---
-- Rappeller les principes d'une State Machine
-- Proposer des exemples sous formes de schémas appliqués :
-	- Tour par tour : Chaque Tour de Jeu est un State,  les entités suivent la State Machine
-	- UI : Cheminement dans une interface, QTE
-	- *Proposer autres cas d'usage*
+
+- [ ] Proposer Companion Unity permettant d'explorer les cas d'usage
+	- [ ] une scene par cas d'usage
+	- [ ] une UI pour visualiser l'etat des states machines
+	- [ ] l'utilisation de la state machine generique issue de ce repo https://github.com/StudioAlbert/MallLifeStealthGame/tree/main/MallLife-UnityProject/Assets/03%20-%20Scripts/Core/StateMachine
+	- [ ] Cas d'usage :
+		- [ ] Hero : Jumping, Landing, Grounded (Simple cube jumping on Bar Space presses, Landing cooldown via coroutine)
+		- [ ] Guard : Idle, Patrolling, OnAlarm
+		- [ ] QTE : Invite, Confirn, Fail, Success, Closing => every state display a UI Panel, and transition are mapped on UI buttons (Canvas)
+		- [ ] Tour par tour : pas d'idée de gameplay, kind of Xcom Game, 2 Tourelles se tirant dessus, une est controllée par le joueur, l'autre est en auto. Le joueur passe le tour avec un bouton next, l'IA passe quand elle est a court de munitions
+- [ ] Presenter la state machine generique du repo ci dessus
 
 ## Traité le 28.09 — à vérifier (séance du 01.10)
 

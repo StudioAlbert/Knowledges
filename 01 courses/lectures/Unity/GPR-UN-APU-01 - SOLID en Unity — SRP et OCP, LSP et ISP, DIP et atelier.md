@@ -2,7 +2,7 @@
 title: SOLID en Unity — SRP et OCP, LSP et ISP, DIP et atelier
 type: seance
 code: GPR-UN-APU-01
-status: To check
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity

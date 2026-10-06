@@ -19,6 +19,10 @@ Ce dossier fait partie du vault `Knowledges` ; il en était un sous-module, il n
 | `_widgets/resolution_triangles_widget.html` | Loi des sinus, loi des cosinus, rôle d'`atan2` | `#sinus` `#cosinus` `#atan2` | TC-FT-TRG-03 |
 | `_widgets/git_graph_widget.html` | Graphe de commits : bac à sable (commit, branche, `HEAD`, merge, rebase) et comparaison statique merge / rebase avec les commandes | `#libre` `#compare` | GPR-CF-GTE-02 |
 | `_widgets/git_conflict_widget.html` | Quiz de résolution de conflits en 7 situations : voter (HEAD, branche, les deux, réécrire), puis résoudre — commit refusé tant que ça ne compile pas | `#choisir` `#garder` `#doublon` `#include` `#condition` `#renommer` `#texte` | GPR-CF-GTE-02 |
+| `_widgets/vecteur_widget.html` | Un vecteur à la souris : composantes, norme, normalisation, puis somme, différence et multiplication par un scalaire | `#vecteur` `#norme` `#normalise` `#origine` `#somme` `#difference` `#scalaire` (`#operations` = `#somme`) | TC-FT-GVM-01 |
+| `_widgets/fonctions_temps_widget.html` | Une valeur pilotée par le temps : droite non bornée, sinus paramétrable, dents de scie, et Lerp clampé ou non | `#droite` `#cyclique` `#scie` `#lerp` | TC-FT-GVM-05 |
+| `_widgets/quaternion_widget.html` | L'ambiguïté des rotations 3D : l'ordre des angles d'Euler, le gimbal lock mesuré sur un cardan, et slerp contre interpolation d'angles | `#ordre` `#gimbal` `#slerp` | TC-FT-GVM-05 |
+| `_widgets/produit_scalaire_widget.html` | Signe et angle du produit scalaire, projection et rejet, test d'orientation et cône de vision | `#scalaire` `#projection` `#orientation` | TC-FT-GVM-02 |
 | `_widgets/string_index_widget.html` | Une `std::string` case par case : `[]` contre `at()` hors des bornes, `substr`, `find` et `npos` | `#index` `#substr` `#find` | GPR-CF-BDP-06 |
 | `_widgets/utility_ai.html` | Courbes de réponse pour la décision des PNJ | — | portfolio uniquement |
 
@@ -38,7 +42,7 @@ Une séance peut aussi lister ses widgets dans l'onglet *Ressources* du site, vi
 
 ## Conventions d'un widget
 
-Ce que les cinq widgets du bloc Trigonométrie, `git_graph_widget.html`, `git_conflict_widget.html` et `string_index_widget.html` respectent, et que reprendra le prochain.
+Ce que les cinq widgets du bloc Trigonométrie, `git_graph_widget.html`, `git_conflict_widget.html`, `string_index_widget.html`, `vecteur_widget.html`, `produit_scalaire_widget.html`, `fonctions_temps_widget.html` et `quaternion_widget.html` respectent, et que reprendra le prochain.
 `astar_widgets.html` et `utility_ai.html` sont antérieurs et n'en suivent aucune — ils
 fonctionnent, mais en iframe ils avalent les flèches du clavier.
 

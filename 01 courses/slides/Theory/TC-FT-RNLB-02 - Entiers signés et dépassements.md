@@ -151,7 +151,9 @@ complément à deux pour les entiers signés.
 
 Signé sur *n* bits : de **−2ⁿ⁻¹** à **2ⁿ⁻¹ − 1** — un négatif de plus que de positifs.
 
-En code : `std::numeric_limits<T>::min()` et `max()`, dans `<limits>`.
+Note:
+En code, ces bornes se lisent avec `std::numeric_limits<T>::min()` et
+`max()`, dans `<limits>` — jamais recopiées à la main.
 
 ---
 

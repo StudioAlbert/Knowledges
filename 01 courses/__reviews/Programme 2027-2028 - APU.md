@@ -1,6 +1,6 @@
 ---
-status: To do
-manual_order: 99
+status: Backlog
+manual_order: 1
 echeance: rentrée 2027-2028
 slides:
   - "[[01 courses/slides/Unity/GPR-UN-APU-04 - ScriptableObjects — les données hors du code|Slides APU-04]]"

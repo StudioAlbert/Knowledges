@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="400" viewBox="0 0 1180 400" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1180" height="400" fill="#ffffff"/>
+<path d="M115.8,358.2 L374.5,358.2 L533.9,231.3 L275.2,231.3 L115.8,358.2" fill="none" stroke="#ededed" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M272.5,223.5 L423.6,225.1 L247.5,130.9 L272.5,223.5" fill="#eef4ee" stroke="#1a1a1a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M272.5,223.5 L423.6,225.1" fill="none" stroke="#2e9e5b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<path d="M272.5,223.5 L247.5,130.9" fill="none" stroke="#2b6cb0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<path d="M314.5,193.1 L354.9,90.5" fill="none" stroke="#E30613" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="377.6" y="92.5" text-anchor="middle" font-size="19" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">n</text>
+<circle cx="272.5" cy="223.5" r="5" fill="#1a1a1a"/>
+<circle cx="423.6" cy="225.1" r="5" fill="#1a1a1a"/>
+<circle cx="247.5" cy="130.9" r="5" fill="#1a1a1a"/>
+<text x="254.6" y="241.3" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="444.7" y="236.2" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="231.4" y="120.9" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">C</text>
+<text x="300.0" y="44.0" text-anchor="middle" font-size="15" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">SOMMETS LUS A → B → C</text>
+<text x="300.0" y="338.0" text-anchor="middle" font-size="14" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">n sort vers vous</text>
+<text x="300.0" y="362.0" text-anchor="middle" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">la face est visible</text>
+<path d="M695.8,358.2 L954.5,358.2 L1113.9,231.3 L855.2,231.3 L695.8,358.2" fill="none" stroke="#ededed" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M852.5,223.5 L827.5,130.9 L1003.6,225.1 L852.5,223.5" fill="#f5f5f5" stroke="#1a1a1a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M852.5,223.5 L827.5,130.9" fill="none" stroke="#2e9e5b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<path d="M852.5,223.5 L1003.6,225.1" fill="none" stroke="#2b6cb0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<path d="M894.5,193.1 L854.1,295.8" fill="none" stroke="#E30613" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="831.5" y="303.8" text-anchor="middle" font-size="19" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">n</text>
+<circle cx="852.5" cy="223.5" r="5" fill="#1a1a1a"/>
+<circle cx="827.5" cy="130.9" r="5" fill="#1a1a1a"/>
+<circle cx="1003.6" cy="225.1" r="5" fill="#1a1a1a"/>
+<text x="834.6" y="241.3" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="1024.7" y="236.2" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="811.4" y="120.9" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">C</text>
+<text x="880.0" y="44.0" text-anchor="middle" font-size="15" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">SOMMETS LUS A → C → B</text>
+<text x="880.0" y="338.0" text-anchor="middle" font-size="14" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">n part derrière</text>
+<text x="880.0" y="362.0" text-anchor="middle" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">la face est éliminée — backface culling</text>
+<path d="M590.0,70.0 L590.0,320.0" fill="none" stroke="#e5e5e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6"/>
+<text x="300.0" y="392.0" text-anchor="middle" font-size="14" font-weight="800" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">n = (B − A) × (C − A)</text>
+<text x="880.0" y="392.0" text-anchor="middle" font-size="14" font-weight="800" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">n = (C − A) × (B − A)</text>
+</svg>

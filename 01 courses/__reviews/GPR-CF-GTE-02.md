@@ -1,6 +1,6 @@
 ---
 status: Ready
-manual_order: 1
+manual_order: 0.5
 slides:
   - "[[01 courses/slides/C++/GPR-CF-GTE-02 - Branches et intégration|Slides GTE-02]]"
 exercices:

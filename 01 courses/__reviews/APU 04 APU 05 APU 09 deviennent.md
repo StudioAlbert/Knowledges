@@ -1,6 +1,6 @@
 ---
-status: To check
-manual_order: 1
+status: Ready
+manual_order: 1.5
 children:
   - "[[APU 04 Scriptable objects]]"
 slides:

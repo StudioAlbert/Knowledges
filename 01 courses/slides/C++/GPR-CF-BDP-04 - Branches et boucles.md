@@ -128,30 +128,34 @@ default:
 ```
 
 ---
-## while / do while
+## `while` : on teste d'abord
 
-si je gagne, je joue
-
-Pre / Post conditions
+La condition est vérifiée **avant** le premier tour : le corps peut ne jamais s'exécuter.
 
 ```cpp
-// Pre conditions
 int munitions = 0;
 while (munitions > 0)
 {
     std::println("Tir");
     munitions--;
 }
+// n'affiche rien
 ```
 
+---
+
+## `do while` : on teste ensuite
+
+La condition est vérifiée **après** le premier tour : le corps s'exécute au moins une fois.
+
 ```cpp
-// Post conditions
 int munitions = 0;
 do
 {
     std::println("Tir");
     munitions--;
 } while (munitions > 0);
+// affiche Tir une fois
 ```
 
 Note:
@@ -395,28 +399,20 @@ Rien ne modifie `munitions` : la condition reste vraie pour toujours.
 ---
 ## 5. `for` et `while` ne servent pas à la même chose
 
+- **`for`** : je sais **combien de fois** — les trois parties tiennent sur une ligne
+- **`while`** : je sais **quand m'arrêter** — le nombre de tours dépend du jeu
+
 ```cpp
 int i = 0;
-while (i < 10)
-{
-    std::println("{}", i);
-    i++;
-}
+while (i < 10) { std::println("{}", i); i++; }   // devrait être un for
+
+for (; pv > 0;) { subir_degats(); }              // devrait être un while
 ```
 
-Le nombre de tours est connu → c'est un `for`, et les trois parties tiennent sur une ligne.
-
-```cpp
-for (; pv > 0;)
-{
-    subir_degats();
-}
-```
-
-Le nombre de tours dépend du jeu → c'est un `while`.
-
-- **`for`** : je sais combien de fois
-- **`while`** : je sais quand m'arrêter
+Note:
+Les deux boucles ci-dessus fonctionnent, mais chacune emploie le mot-clé de
+l'autre. Le lecteur perd l'information la plus utile : sait-on, oui ou non,
+combien de tours il y aura ?
 
 ---
 ## 6. `break` ne sort que d'une boucle

@@ -2,7 +2,7 @@
 title: Produits scalaire et vectoriel
 type: seance
 code: TC-FT-GVM-02
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle
@@ -24,20 +24,23 @@ date_scheduled: 2026-10-08
 
 ## À couvrir
 
-Produit scalaire et lien avec l'angle, orthogonalité, projection et rejet d'un vecteur sur un autre, réflexion, produit vectoriel, test d'orientation, perpendiculaire en 2D et en 3D, normale d'une surface, aire d'un parallélogramme, produit mixte et volume, indépendance linéaire, base et espace vectoriel
+Produit scalaire et lien avec l'angle, orthogonalité, projection et composante orthogonale d'un vecteur par rapport à un autre, réflexion, produit vectoriel, test d'orientation, perpendiculaire en 2D et en 3D, normale d'une surface, aire d'un parallélogramme, produit mixte et volume, indépendance linéaire, base et espace vectoriel
 
 ## Ce qu'il y a à faire
 
 **Découper un deck existant.** `08 - Theorical Notions of graphics programming - Maths` (20,0 ko) porte 8 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `TC-FT-RNLB-03`, `TC-FT-TRG-01`, `TC-FT-TRG-02`, `TC-FT-RDE-02`, `TC-FT-RDE-03`, `TC-FT-GVM-01`, `TC-FT-GVM-05` — les découper en une seule passe évite de rouvrir le deck 8 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|TC-FT-GVM-02 - Produits scalaire et vectoriel]] — 17 slides, `publish: false` · widgets proposés : `produit_scalaire_widget.html`, `orientation_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|TC-FT-GVM-02 - Produits scalaire et vectoriel]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck et exercices développés le 05.10.2026
+> - **Deck** : [[01 courses/slides/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|Slides GVM-02]] — 28 slides,
+>   `publish: true`. L'ossature d'ouverture (`AB × BC ?` → définition → cas particuliers
+>   perpendiculaires / colinéaires) est celle posée à la main dans le plan.
+> - **Widget** : `produit_scalaire_widget.html`, trois onglets — il remplace les deux
+>   widgets proposés dans le plan (`produit_scalaire` et `orientation`).
+> - **Exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|Exos GVM-02]] —
+>   un préambule (A, B), les deux courts rédigés, un exercice de compréhension (7) et un
+>   bilan formatif (8) dont la sortie citée est la sortie réelle.
 
 ## Matériel
 
@@ -49,7 +52,7 @@ Produit scalaire et lien avec l'angle, orthogonalité, projection et rejet d'un 
 
 ## Liens
 
-- Séance précédente : [[TC-FT-GVM-01 - Vecteurs et repères]]
+- Séance précédente : [[01 courses/lectures/Theory/TC-FT-GVM-01 - Vecteurs et repères]]
 - Séance suivante : [[TC-FT-GVM-03 - Matrices et transformations]]
 
 ## Notes de préparation

@@ -2,7 +2,7 @@
 title: Géométrie du triangle
 type: seance
 code: TC-FT-TRG-01
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Trigonométrie

@@ -68,12 +68,12 @@ uniquement à **regarder** ce que les commandes ont produit.
 > >
 > > 1. Ouvrir [github.com/StudioAlbert/GPR_CF_GTE_02_ChasseAuTresor](https://github.com/StudioAlbert/GPR_CF_GTE_02_ChasseAuTresor).
 > > 2. Bouton **Fork** en haut à droite → **Create fork**. Vous arrivez sur `github.com/<owner>/GPR_CF_GTE_02_ChasseAuTresor` : c'est **votre** copie.
-> > 3. Dans votre fork : **Settings** → **Collaborators** → **Add people** → saisir `<worker>` → **Add to repository**.
+> >3. Sur github, dans votre nouveau repository : **Settings** → **Collaborators** → **Add people** → saisir `<worker>` → **Add to repository**.
 >
 > > [!worker] Worker
 > >
-> > 1. Attendre l'invitation de l'Owner.
-> > 2. L'accepter depuis le mail reçu, ou en ouvrant `github.com/<owner>/GPR_CF_GTE_02_ChasseAuTresor/invitations` → **Accept invitation**.
+> > 4. Attendre l'invitation de l'Owner.
+> > 5. L'accepter depuis le mail reçu, ou en ouvrant `github.com/<owner>/GPR_CF_GTE_02_ChasseAuTresor/invitations` → **Accept invitation**.
 
 > [!fork] Regardez sur GitHub
 >
@@ -93,7 +93,8 @@ uniquement à **regarder** ce que les commandes ont produit.
 > cd GPR_CF_GTE_02_ChasseAuTresor
 > ```
 >
-> Ouvrir le dossier dans Fork : **File → Open Repository**. Compiler et lancer le jeu une fois.
+> Ouvrir le dossier dans Fork : **File → Open Repository**. 
+> Dans CLION, compiler et lancer le jeu une fois.
 
 > [!columns]
 >
@@ -306,6 +307,6 @@ Worker en veut **6**.
 Un seul rendu par binôme :
 
 - l'URL du fork `github.com/<owner>/GPR_CF_GTE_02_ChasseAuTresor` ;
-- une capture du graphe de Fork **après** l'étape 5 ;
-- vos réponses aux questions des cadres *Regardez dans Fork*, en une ou deux lignes chacune ;
-- trois lignes : ce que chaque marqueur de conflit désignait, et la valeur retenue.
+- ~~une capture du graphe de Fork **après** l'étape 5 ;~~
+- ~~vos réponses aux questions des cadres *Regardez dans Fork*, en une ou deux lignes chacune ;~~
+- ~~trois lignes : ce que chaque marqueur de conflit désignait, et la valeur retenue.~~

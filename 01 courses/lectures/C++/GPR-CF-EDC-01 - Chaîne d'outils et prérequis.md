@@ -2,7 +2,7 @@
 title: Chaîne d'outils et prérequis
 type: seance
 code: GPR-CF-EDC-01
-status: To check
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Environnement de Développement C++

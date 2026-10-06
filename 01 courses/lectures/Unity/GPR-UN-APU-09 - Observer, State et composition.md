@@ -9,7 +9,7 @@ bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
 classes:
   - GP-925
-date_scheduled: 2026-10-01
+date_scheduled: 2026-10-15
 manual_order: 32
 estimate: 1h
 tache: créer de zéro

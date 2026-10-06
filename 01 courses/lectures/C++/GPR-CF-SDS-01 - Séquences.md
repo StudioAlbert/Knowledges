@@ -2,7 +2,7 @@
 title: Séquences
 type: seance
 code: GPR-CF-SDS-01
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Structures de Données et STL

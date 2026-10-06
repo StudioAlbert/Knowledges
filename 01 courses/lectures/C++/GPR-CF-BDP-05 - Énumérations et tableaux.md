@@ -2,7 +2,7 @@
 title: Énumérations et tableaux
 type: seance
 code: GPR-CF-BDP-05
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation
@@ -34,7 +34,7 @@ Le problème que résout l'`enum`, déclaration, `enum` simple contre `enum clas
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
 > - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-BDP-05 - Énumérations et tableaux|GPR-CF-BDP-05 - Énumérations et tableaux]] — 15 slides, `publish: false` · widgets proposés : `tableau_index_widget.html`, `grille_memoire_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-BDP-05 - Énumérations et tableaux|GPR-CF-BDP-05 - Énumérations et tableaux]] — 4 courts, 1 complet, 1 difficile.
+> - **Exercices**, en trois feuilles : [[01 courses/exercises/C++/GPR-CF-BDP-05 - Énumérations|Énumérations]] · [[01 courses/exercises/C++/GPR-CF-BDP-05 - Tableaux|Tableaux]] · [[01 courses/exercises/C++/GPR-CF-BDP-05 - Bilan formatif, le morpion|Bilan formatif]]
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
 > exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.

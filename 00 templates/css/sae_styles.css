@@ -49,11 +49,74 @@
 /* ===== MISE EN PAGE ===== */
 /* Zone utile des fonds (slide 1280×720) : cadre de x 0→1189, y 97→622.
    Bande noire de droite (~90px) → padding droit = 91 + 80, de sorte que le
-   contenu (80→1109) reste centré dans le cadre et n'y déborde pas. */
+   contenu (80→1109) reste centré dans le cadre et n'y déborde pas.
+   Le padding vertical matérialise le cadre : 124 en haut (97 de cadre + 27 de
+   respiration sous la bande noire), 98 en bas (720 − 622). */
 .reveal .slides section {
-    padding: 50px 171px 50px 80px;
+    padding: 124px 171px 98px 80px;
     box-sizing: border-box;
     font-size: 0.6em; /* also scale down text if content is dense */
+}
+
+/* ===== LE CONTENU NE MORD JAMAIS LE CADRE =====
+   reveal centre chaque section en lui posant un `top` en ligne, calculé sur SA
+   hauteur : dès que le contenu dépasse la hauteur du cadre, tout remonte et le
+   titre finit sur la bande noire du fond. On fige donc la section sur toute la
+   slide et on centre le contenu À L'INTÉRIEUR du padding, qui est le cadre.
+   Le contenu court reste centré comme avant ; le contenu haut s'arrête net au
+   bord du cadre au lieu de le franchir. */
+.reveal .slides > section:not(.title) {
+    top: 0 !important;
+    height: 720px;
+}
+
+/* `!important` nécessaire : reveal pose `display: block` EN LIGNE sur la slide
+   courante, ce qui bat une règle de feuille de style ordinaire. */
+.reveal .slides > section.present:not(.title) {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Les enfants gardent leur hauteur, sauf ceux qui savent se réduire (images). */
+.reveal .slides > section.present:not(.title) > * {
+    flex: 0 0 auto;
+    min-height: 0;
+}
+
+/* Le titre reste en haut du cadre, et tout ce qui le suit se centre dans la
+   hauteur qui reste — au lieu de s'empiler juste dessous en laissant le bas
+   vide. Les marges `auto` d'un conteneur flex font tout le travail. */
+.reveal .slides > section.present:not(.title):has(> h2:first-child) {
+    justify-content: flex-start;
+}
+
+.reveal .slides > section.present:not(.title):has(> h2:first-child) > h2 + * {
+    margin-top: auto;
+}
+
+.reveal .slides > section.present:not(.title):has(> h2:first-child) > :last-child {
+    margin-bottom: auto;
+}
+
+/* ===== FLÈCHES DE DÉFILEMENT =====
+   reveal les pose en bas à droite, donc sur la bande noire du fond : en noir,
+   elles y sont invisibles. */
+.reveal .controls {
+    color: var(--sae-white);
+}
+
+.reveal .controls button:hover {
+    color: var(--sae-red);
+}
+
+/* ===== EXCEPTION : la slide de titre =====
+   Son fond est une photo, avec le logo en haut au centre : le cadre des slides
+   de contenu n'y a pas cours, et un titre poussé en haut vient buter dedans.
+   Elle est donc laissée au centrage vertical de reveal — d'où le `:not(.title)`
+   sur la règle ci-dessus, et le padding d'origine ci-dessous. */
+.reveal .slides > section.present.title {
+    display: block;
 }
 
 .reveal h1 {
@@ -148,6 +211,29 @@
     font-size: 0.85em;
 }
 
+/* ===== FORMULE : une expression mathématique hors bloc de code =====
+   Un bloc ``` ne rend pas le HTML, et l'unicode n'a pas d'indice `y`. Dès
+   qu'il faut de vrais indices, la formule s'écrit dans un paragraphe :
+   <p class="formule">u · v = u<sub>x</sub>v<sub>x</sub> + u<sub>y</sub>v<sub>y</sub></p>
+   L'allure reste celle d'un bloc de code. */
+.reveal .slides section p.formule {
+    font-family: var(--r-code-font, 'JetBrains Mono', monospace);
+    background: #f5f5f5;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    padding: 14px 22px;
+    margin: 22px auto;
+    display: table;
+    text-align: center;
+}
+
+.reveal .slides section p.formule sub {
+    font-size: 0.68em;
+    vertical-align: baseline;
+    position: relative;
+    bottom: -0.3em;
+}
+
 .reveal blockquote {
     font-size: 0.6em;
     padding: 8px 16px;
@@ -165,7 +251,24 @@
    <!-- .slide: data-background-iframe="00 widgets/_widgets/<fichier>.html#<onglet>" data-background-interactive -->
 
    ===== SCHEMA : une figure sous le titre =====
-   <!-- .slide: class="schema" --> — laisse au dessin la hauteur du cadre. */
+   <!-- .slide: class="schema" --> — laisse au dessin la hauteur du cadre.
+   L'image est le seul enfant qui se réduit : elle prend ce qui reste sous le
+   titre et son chapeau, et pas un pixel de plus. Un dessin trop haut rétrécit
+   au lieu de pousser le titre hors du cadre. */
 .reveal .slides section.schema img {
-    max-height: 420px;
+    max-height: 100%;
+    min-height: 0;
+}
+
+.reveal .slides > section.present.schema > img,
+.reveal .slides > section.present.schema > p:has(> img) {
+    flex: 0 1 auto;
+    min-height: 0;
+}
+
+.reveal .slides section.schema p:has(> img) {
+    display: flex;
+    justify-content: center;
+    min-height: 0;
+    margin: 0;
 }

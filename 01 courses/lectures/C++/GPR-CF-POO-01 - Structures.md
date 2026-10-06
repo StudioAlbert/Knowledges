@@ -2,7 +2,7 @@
 title: Structures
 type: seance
 code: GPR-CF-POO-01
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet

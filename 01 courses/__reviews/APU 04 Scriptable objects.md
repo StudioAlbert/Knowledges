@@ -1,6 +1,6 @@
 ---
-status: To check
-manual_order: 2
+status: Ready
+manual_order: 1.75
 parent: "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:
   - "[[01 courses/slides/Unity/GPR-UN-APU-04 - ScriptableObjects — les données hors du code|Slides APU-04]]"

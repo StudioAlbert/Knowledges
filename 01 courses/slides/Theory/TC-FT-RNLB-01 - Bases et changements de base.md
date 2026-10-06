@@ -51,8 +51,9 @@ On termine par l'écriture de ces nombres en C++.
 ---
 
 ## C'est quoi ?
+<!-- .slide: class="schema" -->
 
-« Cet instrument était utilisé par des peuples très largement séparés comme les [Étrusques](https://fr.wikipedia.org/wiki/%C3%89trusques "Étrusques"), les [Grecs](https://fr.wikipedia.org/wiki/Gr%C3%A8ce_antique "Grèce antique"), les [Égyptiens](https://fr.wikipedia.org/wiki/%C3%89gypte_antique "Égypte antique"), les [Indiens](https://fr.wikipedia.org/wiki/Indiens_\(Inde\) "Indiens (Inde)"), les [Chinois](https://fr.wikipedia.org/wiki/Chinois_\(nation\)) et les [Mexicains](https://fr.wikipedia.org/wiki/Mexicains "Mexicains") et l'on peut penser qu'il a été inventé indépendamment dans différents endroits. »
+Le boulier apparaît indépendamment chez les Étrusques, les Grecs, les Égyptiens, les Chinois et les Mexicains — partout où il a fallu compter gros.
 
 ![[boulier.png]]
 

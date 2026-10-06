@@ -346,14 +346,19 @@ Un projectile de vitesse initiale *v*, lancé à l'angle θ **depuis le sol vers
 d = (v² · sin(2θ)) / g
 ```
 
+---
+
+## Tir en cloche — l'angle à viser
+
 En isolant θ avec asin :
 
 ```
 θ = ½ · asin(g · d / v²)
 ```
 
-- deux solutions : θ (tir tendu) et 90° − θ (tir en cloche) — même portée, `sin(2θ) = sin(180° − 2θ)`
-- **portée maximale** à θ = 45° ; si g·d/v² > 1, asin échoue : **aucun angle n'atteint la cible** à cette vitesse
+- deux solutions : θ (tir tendu) et 90° − θ (tir en cloche) — même portée
+- **portée maximale** à θ = 45°
+- si g·d/v² > 1, asin échoue : **aucun angle n'atteint la cible** à cette vitesse
 
 Note:
 Faire le lien avec la duplication vue en début de séance : sin(2θ) est

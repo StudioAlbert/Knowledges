@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rotations en 3D — l'ordre, le gimbal lock, et le quaternion</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 660px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 46px; }
+input[type=range] { accent-color: var(--sae-red); width: 110px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(52vh, 430px); user-select: none; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint strong { color: var(--text); }
+.hint code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.result { font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.8; }
+.result .k { color: var(--muted2); }
+.result .ok { color: var(--sae-red); font-weight: 800; }
+.result .big { font-size: 14.5px; font-weight: 700; }
+.result .sep { display: block; height: 1px; background: var(--line-soft); margin: 7px 0; }
+.verdict {
+    display: inline-block; font-size: 13.5px; font-weight: 800;
+    border-radius: var(--radius); padding: 7px 12px; margin-top: 6px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.verdict.red { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.verdict.ink { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 26px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 330px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Trois angles, <span class="hl">plusieurs réponses</span></h1>
+    <p class="sub">Les mêmes angles d'Euler ne décrivent pas une orientation unique : l'ordre compte, un axe peut disparaître, et l'interpolation part de travers. Le quaternion règle les trois.</p>
+  </div>
+  <div class="formula">q = (<b>x, y, z</b>, w)</div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="ordre">1 · L'ordre compte</button>
+  <button data-tab="gimbal">2 · Gimbal lock</button>
+  <button data-tab="slerp">3 · Interpoler</button>
+</nav>
+
+<div class="toolbar">
+  <div class="group" data-for="ordre">
+    <label class="rng">lacet Y <input type="range" id="yaw" min="-180" max="180" step="5" value="90"><output id="yawv">90°</output></label>
+    <label class="rng">tangage X <input type="range" id="pitch" min="-180" max="180" step="5" value="90"><output id="pitchv">90°</output></label>
+    <label class="rng">roulis Z <input type="range" id="roll" min="-180" max="180" step="5" value="0"><output id="rollv">0°</output></label>
+  </div>
+  <div class="group" data-for="gimbal">
+    <label class="rng">lacet Y <input type="range" id="gyaw" min="-180" max="180" step="5" value="30"><output id="gyawv">30°</output></label>
+    <label class="rng">tangage X <input type="range" id="gpitch" min="-90" max="90" step="5" value="0"><output id="gpitchv">0°</output></label>
+    <label class="rng">roulis Z <input type="range" id="groll" min="-180" max="180" step="5" value="0"><output id="grollv">0°</output></label>
+    <button id="bloquer">Mettre le tangage à 90°</button>
+  </div>
+  <div class="group" data-for="slerp">
+    <label class="rng">t <input type="range" id="t" min="0" max="1" step="0.01" value="0"><output id="tv">0.00</output></label>
+    <button id="play" class="primary">▶ Animer</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="board">
+    <svg id="svg" role="img" aria-label="Deux cubes orientés par les mêmes angles, dans deux ordres différents"></svg>
+    <p class="tip" id="tip"></p>
+  </div>
+  <div class="side">
+    <div class="card"><h3>Le calcul</h3><div class="result" id="res"></div></div>
+    <div class="card"><h3>À retenir</h3><div id="memo"></div></div>
+  </div>
+</div>
+
+<footer>SAE Institute Genève · TC-FT-GVM-05 Interpolation et courbes · onglets <code>#ordre</code> <code>#gimbal</code> <code>#slerp</code></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const RED = "#E30613", INK = "#1a1a1a", GRAY = "#a8a8a8", GRAY2 = "#6e6e6e";
+const AX = "#E30613", AY = "#2e9e5b", AZ = "#2b6cb0";
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const rad = d => d * Math.PI / 180;
+const n2 = v => (Math.round(v * 100) / 100).toFixed(2);
+
+const st = {tab: "ordre", yaw: 90, pitch: 90, roll: 0, gyaw: 30, gpitch: 0, groll: 0, t: 0, joue: false};
+
+// ------------------------------------------------------------------ matrices
+const Rx = a => [[1, 0, 0], [0, Math.cos(a), -Math.sin(a)], [0, Math.sin(a), Math.cos(a)]];
+const Ry = a => [[Math.cos(a), 0, Math.sin(a)], [0, 1, 0], [-Math.sin(a), 0, Math.cos(a)]];
+const Rz = a => [[Math.cos(a), -Math.sin(a), 0], [Math.sin(a), Math.cos(a), 0], [0, 0, 1]];
+
+function mm(A, B){
+  const C = [[0,0,0],[0,0,0],[0,0,0]];
+  for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++)
+    C[i][j] = A[i][0]*B[0][j] + A[i][1]*B[1][j] + A[i][2]*B[2][j];
+  return C;
+}
+const mv = (M, p) => [M[0][0]*p[0] + M[0][1]*p[1] + M[0][2]*p[2],
+                      M[1][0]*p[0] + M[1][1]*p[1] + M[1][2]*p[2],
+                      M[2][0]*p[0] + M[2][1]*p[1] + M[2][2]*p[2]];
+
+// `ordre` se lit de gauche à droite : "YXZ" = on applique Z, puis X, puis Y.
+function euler(ordre, yaw, pitch, roll){
+  const R = {X: Rx(rad(pitch)), Y: Ry(rad(yaw)), Z: Rz(rad(roll))};
+  return mm(mm(R[ordre[0]], R[ordre[1]]), R[ordre[2]]);
+}
+
+// ------------------------------------------------------------------ quaternions
+const qAxe = (a, ang) => {
+  const s = Math.sin(rad(ang) / 2), n = Math.hypot(a[0], a[1], a[2]) || 1;
+  return [a[0]/n*s, a[1]/n*s, a[2]/n*s, Math.cos(rad(ang) / 2)];
+};
+function qMul(a, b){
+  return [a[3]*b[0] + a[0]*b[3] + a[1]*b[2] - a[2]*b[1],
+          a[3]*b[1] - a[0]*b[2] + a[1]*b[3] + a[2]*b[0],
+          a[3]*b[2] + a[0]*b[1] - a[1]*b[0] + a[2]*b[3],
+          a[3]*b[3] - a[0]*b[0] - a[1]*b[1] - a[2]*b[2]];
+}
+function qSlerp(a, b, t){
+  let d = a[0]*b[0] + a[1]*b[1] + a[2]*b[2] + a[3]*b[3];
+  let B = b.slice();
+  if (d < 0) { B = b.map(v => -v); d = -d; }        // q et −q : on prend l'arc court
+  if (d > 0.9995) return a.map((v, i) => v + (B[i] - v) * t);
+  const th = Math.acos(d), s = Math.sin(th);
+  const k0 = Math.sin((1 - t) * th) / s, k1 = Math.sin(t * th) / s;
+  return a.map((v, i) => v * k0 + B[i] * k1);
+}
+function qToM(q){
+  const [x, y, z, w] = q;
+  return [[1-2*(y*y+z*z), 2*(x*y-z*w),   2*(x*z+y*w)],
+          [2*(x*y+z*w),   1-2*(x*x+z*z), 2*(y*z-x*w)],
+          [2*(x*z-y*w),   2*(y*z+x*w),   1-2*(x*x+y*y)]];
+}
+
+// ------------------------------------------------------------------ rendu 3D
+const VW = 680, VH = 440;
+const VUE = mm(Ry(rad(-32)), Rx(rad(-18)));        // la caméra, fixe
+const FOV = 6;
+
+function proj(p, cx, cy, ech){
+  const v = mv(VUE, p);
+  const k = FOV / (FOV + v[2]);
+  return [cx + v[0] * ech * k, cy - v[1] * ech * k, v[2]];
+}
+
+const SOMMETS = [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+const FACES = [
+  {i: [0,1,2,3], c: "#dfe7f2"}, {i: [4,5,6,7], c: "#f7dcdc"},
+  {i: [0,1,5,4], c: "#e6f0e6"}, {i: [2,3,7,6], c: "#f2eede"},
+  {i: [1,2,6,5], c: "#eae4f2"}, {i: [0,3,7,4], c: "#e9e9e9"}
+];
+
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs){
+  const t = el("text", Object.assign({x: x, y: y, "text-anchor": "middle", "font-size": 13,
+    fill: INK, "font-weight": 700, stroke: "#fff", "stroke-width": 3.5, "paint-order": "stroke",
+    "stroke-linejoin": "round"}, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+
+function cube(svg, M, cx, cy, ech, titre, couleurTitre){
+  const g = el("g", {}, svg);
+  const P = SOMMETS.map(s => proj(mv(M, s), cx, cy, ech));
+  // peintre : les faces du fond d'abord
+  FACES.map(f => ({f, z: f.i.reduce((a, i) => a + P[i][2], 0) / 4}))
+       .sort((a, b) => b.z - a.z)
+       .forEach(({f}) => {
+         el("polygon", {points: f.i.map(i => P[i][0].toFixed(1) + "," + P[i][1].toFixed(1)).join(" "),
+           fill: f.c, stroke: INK, "stroke-width": 1.6, "stroke-linejoin": "round",
+           "fill-opacity": 0.95}, g);
+       });
+  // le trièdre de l'objet, pour lire son orientation sans ambiguïté
+  [[[1.9,0,0], AX, "x"], [[0,1.9,0], AY, "y"], [[0,0,1.9], AZ, "z"]].forEach(([a, col, nom]) => {
+    const o = proj(mv(M, [0,0,0]), cx, cy, ech), b = proj(mv(M, a), cx, cy, ech);
+    el("line", {x1: o[0], y1: o[1], x2: b[0], y2: b[1], stroke: col, "stroke-width": 3,
+      "stroke-linecap": "round"}, g);
+    txt(g, b[0], b[1] - 8, nom, {"font-size": 14, fill: col, "font-weight": 800});
+  });
+  if (titre) txt(g, cx, cy - ech * 2.1, titre, {"font-size": 14, fill: couleurTitre || GRAY2, "font-weight": 800});
+  return g;
+}
+
+function anneau(svg, M, cx, cy, ech, couleur, rayon, epais){
+  const pts = [];
+  for (let i = 0; i <= 64; i++){
+    const a = 2 * Math.PI * i / 64;
+    pts.push(proj(mv(M, [Math.cos(a) * rayon, 0, Math.sin(a) * rayon]), cx, cy, ech));
+  }
+  el("path", {d: pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" "),
+    fill: "none", stroke: couleur, "stroke-width": epais || 2.5, "stroke-opacity": 0.85}, svg);
+}
+
+// ------------------------------------------------------------------ dessins
+function draw(){
+  const svg = $("svg");
+  svg.innerHTML = "";
+  svg.setAttribute("viewBox", "0 0 " + VW + " " + VH);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+  if (st.tab === "ordre"){
+    const A = euler("YXZ", st.yaw, st.pitch, st.roll);
+    const B = euler("ZXY", st.yaw, st.pitch, st.roll);
+    cube(svg, A, 180, 230, 62, "ordre Z → X → Y", INK);
+    cube(svg, B, 500, 230, 62, "ordre Y → X → Z", RED);
+    el("line", {x1: 340, y1: 60, x2: 340, y2: 400, stroke: "#e5e5e5", "stroke-width": 1.5,
+      "stroke-dasharray": "6 6"}, svg);
+    txt(svg, 340, 415, "mêmes angles, deux résultats", {"font-size": 13, fill: GRAY2, "font-weight": 700});
+  } else if (st.tab === "gimbal"){
+    const M = euler("YXZ", st.gyaw, st.gpitch, st.groll);
+    // Le cardan, monté comme le vrai : l'anneau du lacet est fixé au châssis,
+    // celui du tangage est porté par le premier, celui du roulis par le second.
+    // Les rayons décroissent pour que deux anneaux devenus coplanaires restent
+    // lisibles — c'est justement ce qu'on veut montrer.
+    const I = [[1,0,0],[0,1,0],[0,0,1]];
+    anneau(svg, I, 340, 220, 66, AY, 2.6, 3);
+    anneau(svg, mm(Ry(rad(st.gyaw)), Rz(rad(-90))), 340, 220, 66, AX, 2.2, 3);
+    anneau(svg, mm(mm(Ry(rad(st.gyaw)), Rx(rad(st.gpitch))), Rx(rad(90))), 340, 220, 66, AZ, 1.8, 3);
+    cube(svg, M, 340, 220, 38, null);
+    txt(svg, 340, 415, "les trois anneaux du cardan", {"font-size": 13, fill: GRAY2, "font-weight": 700});
+  } else {
+    const qA = qMul(qAxe([0,1,0], 0), qAxe([1,0,0], 0));
+    const qB = qMul(qAxe([0,1,0], 170), qAxe([0,0,1], 80));
+    // interpolation naive des angles d'Euler contre slerp
+    const eul = euler("YXZ", 170 * st.t, 0, 80 * st.t);
+    const sl = qToM(qSlerp(qA, qB, st.t));
+    cube(svg, eul, 180, 230, 62, "angles interpolés", INK);
+    cube(svg, sl, 500, 230, 62, "slerp du quaternion", RED);
+    el("line", {x1: 340, y1: 60, x2: 340, y2: 400, stroke: "#e5e5e5", "stroke-width": 1.5,
+      "stroke-dasharray": "6 6"}, svg);
+    txt(svg, 340, 415, "mêmes extrémités, deux chemins", {"font-size": 13, fill: GRAY2, "font-weight": 700});
+  }
+}
+
+// ------------------------------------------------------------------ panneau
+function side(){
+  const res = $("res"), memo = $("memo"), tip = $("tip");
+  if (st.tab === "ordre"){
+    const A = euler("YXZ", st.yaw, st.pitch, st.roll);
+    const B = euler("ZXY", st.yaw, st.pitch, st.roll);
+    let ecart = 0;
+    for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) ecart = Math.max(ecart, Math.abs(A[i][j] - B[i][j]));
+    const pareil = ecart < 0.001;
+    res.innerHTML =
+      '<div>lacet Y = ' + st.yaw + '°</div>' +
+      '<div>tangage X = ' + st.pitch + '°</div>' +
+      '<div>roulis Z = ' + st.roll + '°</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">où part l\'axe z de l\'objet :</div>' +
+      '<div>Z→X→Y : (' + A[0][2].toFixed(2) + ', ' + A[1][2].toFixed(2) + ', ' + A[2][2].toFixed(2) + ')</div>' +
+      '<div>Y→X→Z : (' + B[0][2].toFixed(2) + ', ' + B[1][2].toFixed(2) + ', ' + B[2][2].toFixed(2) + ')</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">écart maximal : ' + ecart.toFixed(3) + '</div>' +
+      '<div class="verdict ' + (pareil ? "" : "red") + '">' +
+        (pareil ? "ici, les deux coïncident" : "deux orientations différentes") + '</div>';
+    memo.innerHTML =
+      '<p class="hint">Trois angles ne suffisent pas à décrire une orientation : il faut aussi dire <strong>dans quel ordre</strong> on les applique.</p>' +
+      '<p class="hint">Unity applique Z, puis X, puis Y. Unreal fait autrement. Un même triplet copié d\'un moteur à l\'autre ne donne <strong>pas</strong> la même pose.</p>' +
+      '<p class="hint">Un quaternion, lui, ne pose pas la question : il porte <strong>un axe et un angle</strong>, et rien d\'autre.</p>';
+    tip.textContent = "Mettez lacet et tangage à 90° : les deux cubes ne se ressemblent plus du tout.";
+  } else if (st.tab === "gimbal"){
+    // On ne décrète pas le blocage : on le mesure. Si ajouter 20° de lacet se
+    // rattrape exactement par du roulis, c'est que les deux commandes tournent
+    // autour du même axe.
+    const M1 = euler("YXZ", st.gyaw, st.gpitch, st.groll);
+    const ecartAvec = d => {
+      const M2 = euler("YXZ", st.gyaw + 20, st.gpitch, st.groll + d);
+      let e = 0;
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) e = Math.max(e, Math.abs(M1[i][j] - M2[i][j]));
+      return e;
+    };
+    const moins = ecartAvec(-20), plus = ecartAvec(20), rien = ecartAvec(0);
+    const meilleur = Math.min(moins, plus);
+    const bloque = meilleur < 0.002;
+    const signe = moins <= plus ? "−20" : "+20";
+    res.innerHTML =
+      '<div>lacet Y = ' + st.gyaw + '°</div>' +
+      '<div>tangage X = ' + st.gpitch + '°</div>' +
+      '<div>roulis Z = ' + st.groll + '°</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">on ajoute +20° de lacet, puis on essaie</div>' +
+      '<div class="k">de le rattraper avec du roulis :</div>' +
+      '<div>roulis ' + signe + '° → écart ' + meilleur.toFixed(3) + '</div>' +
+      '<div class="k">sans rien changer → écart ' + rien.toFixed(3) + '</div>' +
+      '<div class="verdict ' + (bloque ? "red" : "") + '">' +
+        (bloque ? "le roulis annule le lacet" : "aucun roulis ne rattrape") + '</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">' + (bloque ? "un degré de liberté est perdu" : "les trois axes restent indépendants") + '</div>';
+    memo.innerHTML =
+      '<p class="hint">À 90° de tangage, l\'anneau du lacet et celui du roulis se retrouvent <strong>dans le même plan</strong>.</p>' +
+      '<p class="hint">Les deux commandes font alors tourner autour du même axe : il ne reste que <strong>deux</strong> libertés sur trois. C\'est le <strong>gimbal lock</strong>.</p>' +
+      '<p class="hint">Ce n\'est pas un bug de code : c\'est une limite des angles d\'Euler eux-mêmes. Le quaternion ne connaît pas ce problème.</p>';
+    tip.textContent = "Cliquez « Mettre le tangage à 90° », puis bougez lacet et roulis : le cube tourne pareil.";
+  } else {
+    const qA = qMul(qAxe([0,1,0], 0), qAxe([1,0,0], 0));
+    const qB = qMul(qAxe([0,1,0], 170), qAxe([0,0,1], 80));
+    const q = qSlerp(qA, qB, st.t);
+    res.innerHTML =
+      '<div class="k">de l\'identité vers (lacet 170°, roulis 80°)</div>' +
+      '<div>t = ' + n2(st.t) + '</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">angles interpolés :</div>' +
+      '<div>lacet ' + Math.round(170 * st.t) + '°, roulis ' + Math.round(80 * st.t) + '°</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">slerp(qA, qB, t) :</div>' +
+      '<div class="big">(' + q.slice(0, 3).map(v => v.toFixed(2)).join(', ') + ', <span class="ok">' + q[3].toFixed(2) + '</span>)</div>' +
+      '<div class="k">norme = ' + Math.hypot(q[0], q[1], q[2], q[3]).toFixed(3) + ' — toujours 1</div>';
+    memo.innerHTML =
+      '<p class="hint">Les deux cubes partent du même endroit et arrivent au même endroit. <strong>Entre les deux, pas du tout.</strong></p>' +
+      '<p class="hint">Interpoler des angles fait passer par des poses que personne n\'a demandées, à vitesse irrégulière.</p>' +
+      '<p class="hint">Le <code>slerp</code> suit le <strong>plus court arc</strong> sur la sphère des rotations, à vitesse constante. C\'est ce que fait <code>Quaternion.Slerp</code>.</p>';
+    tip.textContent = "Animez, et regardez le cube de gauche partir en vrille là où celui de droite tourne droit.";
+  }
+}
+
+function render(){
+  document.querySelectorAll("[data-for]").forEach(g => g.style.display = g.dataset.for === st.tab ? "" : "none");
+  draw();
+  side();
+}
+
+// ------------------------------------------------------------------ contrôles
+[["yaw","yawv"],["pitch","pitchv"],["roll","rollv"],["gyaw","gyawv"],["gpitch","gpitchv"],["groll","grollv"]]
+  .forEach(([id, out]) => $(id).addEventListener("input", function(){
+    st[id] = +this.value; $(out).textContent = this.value + "°"; render();
+  }));
+$("bloquer").addEventListener("click", function(){
+  st.gpitch = 90; $("gpitch").value = 90; $("gpitchv").textContent = "90°"; render();
+});
+$("t").addEventListener("input", function(){
+  st.joue = false; $("play").textContent = "▶ Animer";
+  st.t = +this.value; $("tv").textContent = n2(st.t); render();
+});
+$("play").addEventListener("click", function(){
+  st.joue = !st.joue;
+  this.textContent = st.joue ? "❚❚ Pause" : "▶ Animer";
+});
+
+let dernier = 0;
+function boucle(ms){
+  if (st.joue && st.tab === "slerp"){
+    if (dernier) st.t = (st.t + (ms - dernier) / 2500) % 1;
+    dernier = ms;
+    $("t").value = st.t; $("tv").textContent = n2(st.t);
+    render();
+  } else dernier = 0;
+  requestAnimationFrame(boucle);
+}
+requestAnimationFrame(boucle);
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!["ordre", "gimbal", "slerp"].includes(name)) name = "ordre";
+  st.tab = name;
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  render();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

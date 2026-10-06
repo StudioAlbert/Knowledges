@@ -2,7 +2,7 @@
 title: Vecteurs et repères
 type: seance
 code: TC-FT-GVM-01
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle
@@ -30,14 +30,15 @@ Scalaire contre vecteur, composantes, représentation graphique, norme, vecteur 
 
 **Découper un deck existant.** `08 - Theorical Notions of graphics programming - Maths` (20,0 ko) porte 8 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `TC-FT-RNLB-03`, `TC-FT-TRG-01`, `TC-FT-TRG-02`, `TC-FT-RDE-02`, `TC-FT-RDE-03`, `TC-FT-GVM-02`, `TC-FT-GVM-05` — les découper en une seule passe évite de rouvrir le deck 8 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-GVM-01 - Vecteurs et repères|TC-FT-GVM-01 - Vecteurs et repères]] — 16 slides, `publish: false` · widgets proposés : `vecteur_widget.html` ; 1 schéma à dessiner.
-> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-01 - Vecteurs et repères|TC-FT-GVM-01 - Vecteurs et repères]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck et exercices développés le 05.10.2026
+> - **Deck** : [[01 courses/slides/Theory/TC-FT-GVM-01 - Vecteurs et repères|Slides GVM-01]] — 27 slides, `publish: true`.
+>   Widget `vecteur_widget.html` (onglets `#vecteur` et `#operations`) et schéma
+>   `gvm01_reperes.svg` (Unity / Unreal / maths).
+> - **Exercices** : [[01 courses/exercises/Theory/TC-FT-GVM-01 - Vecteurs et repères|Exos GVM-01]] — 3 courts rédigés
+>   avec corrigés, 1 complet en C++ (le vaisseau, la poussée et le courant) dont la sortie
+>   citée est la sortie réelle. Les ex. 5 et 6 du plan restent abandonnés.
 
 ## Matériel
 

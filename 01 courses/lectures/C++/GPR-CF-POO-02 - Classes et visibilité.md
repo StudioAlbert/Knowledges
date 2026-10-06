@@ -2,7 +2,7 @@
 title: Classes et visibilité
 type: seance
 code: GPR-CF-POO-02
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
@@ -10,7 +10,7 @@ specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
   - WEB-926
-date_scheduled: 2026-10-14
+date_scheduled: 2026-10-08
 manual_order: 17
 estimate: 1h
 tache: découper
@@ -30,14 +30,16 @@ La `class`, membres publics et privés, `class` contre `struct`, méthodes, clas
 
 **Découper un deck existant.** `01.03 - Basics OOP` (12,6 ko) porte 4 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-POO-01`, `GPR-CF-POO-03`, `GPR-CF-POO-04` — les découper en une seule passe évite de rouvrir le deck 4 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-POO-02 - Classes et visibilité|GPR-CF-POO-02 - Classes et visibilité]] — 14 slides, `publish: false` · widgets proposés : `encapsulation_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-POO-02 - Classes et visibilité|GPR-CF-POO-02 - Classes et visibilité]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck et exercices développés le 05.10.2026
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-POO-02 - Classes et visibilité|Slides POO-02]] — 23 slides,
+>   `publish: true`. Sans constructeur (POO-04) et sans découpage `.h` / `.cpp` (POO-03) ;
+>   la visibilité vue en POO-01 n'est que rappelée, le sujet du jour étant à quoi elle sert.
+> - **Pas de widget**, comme demandé : `encapsulation_widget` est remplacé par le schéma
+>   `poo02_encapsulation.svg`.
+> - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-02 - Classes et visibilité|Exos POO-02]] — rédigés,
+>   avec un **projet companion** pour l'exercice 5 où l'élève ne complète que `joueur.h`.
 
 ## Matériel
 

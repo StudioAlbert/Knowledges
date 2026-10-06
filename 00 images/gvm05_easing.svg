@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="400" viewBox="0 0 1180 400" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1180" height="400" fill="#ffffff"/>
+<text x="205.0" y="44.0" text-anchor="middle" font-size="13" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">LA COURBE</text>
+<rect x="80.0" y="68.0" width="250.0" height="250.0" rx="4" fill="#fcfcfc" stroke="#e5e5e5" stroke-width="1.5"/>
+<path d="M142.5,68.0 L142.5,318.0" fill="none" stroke="#f0f0f0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,255.5 L330.0,255.5" fill="none" stroke="#f0f0f0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M205.0,68.0 L205.0,318.0" fill="none" stroke="#f0f0f0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,193.0 L330.0,193.0" fill="none" stroke="#f0f0f0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M267.5,68.0 L267.5,318.0" fill="none" stroke="#f0f0f0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,130.5 L330.0,130.5" fill="none" stroke="#f0f0f0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,318.0 L330.0,318.0" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,68.0 L80.0,318.0" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="66.0" y="322.0" text-anchor="middle" font-size="12" font-weight="600" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">0</text>
+<text x="330.0" y="338.0" text-anchor="middle" font-size="12" font-weight="600" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">t = 1</text>
+<text x="64.0" y="74.0" text-anchor="middle" font-size="12" font-weight="600" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1</text>
+<path d="M80.0,318.0 L84.2,313.8 L88.3,309.7 L92.5,305.5 L96.7,301.3 L100.8,297.2 L105.0,293.0 L109.2,288.8 L113.3,284.7 L117.5,280.5 L121.7,276.3 L125.8,272.2 L130.0,268.0 L134.2,263.8 L138.3,259.7 L142.5,255.5 L146.7,251.3 L150.8,247.2 L155.0,243.0 L159.2,238.8 L163.3,234.7 L167.5,230.5 L171.7,226.3 L175.8,222.2 L180.0,218.0 L184.2,213.8 L188.3,209.7 L192.5,205.5 L196.7,201.3 L200.8,197.2 L205.0,193.0 L209.2,188.8 L213.3,184.7 L217.5,180.5 L221.7,176.3 L225.8,172.2 L230.0,168.0 L234.2,163.8 L238.3,159.7 L242.5,155.5 L246.7,151.3 L250.8,147.2 L255.0,143.0 L259.2,138.8 L263.3,134.7 L267.5,130.5 L271.7,126.3 L275.8,122.2 L280.0,118.0 L284.2,113.8 L288.3,109.7 L292.5,105.5 L296.7,101.3 L300.8,97.2 L305.0,93.0 L309.2,88.8 L313.3,84.7 L317.5,80.5 L321.7,76.3 L325.8,72.2 L330.0,68.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6"/>
+<path d="M80.0,318.0 L84.2,317.9 L88.3,317.7 L92.5,317.4 L96.7,316.9 L100.8,316.3 L105.0,315.5 L109.2,314.6 L113.3,313.6 L117.5,312.4 L121.7,311.1 L125.8,309.6 L130.0,308.0 L134.2,306.3 L138.3,304.4 L142.5,302.4 L146.7,300.2 L150.8,297.9 L155.0,295.5 L159.2,292.9 L163.3,290.2 L167.5,287.4 L171.7,284.4 L175.8,281.3 L180.0,278.0 L184.2,274.6 L188.3,271.1 L192.5,267.4 L196.7,263.6 L200.8,259.6 L205.0,255.5 L209.2,251.3 L213.3,246.9 L217.5,242.4 L221.7,237.7 L225.8,232.9 L230.0,228.0 L234.2,222.9 L238.3,217.7 L242.5,212.4 L246.7,206.9 L250.8,201.3 L255.0,195.5 L259.2,189.6 L263.3,183.6 L267.5,177.4 L271.7,171.1 L275.8,164.6 L280.0,158.0 L284.2,151.3 L288.3,144.4 L292.5,137.4 L296.7,130.2 L300.8,122.9 L305.0,115.5 L309.2,107.9 L313.3,100.2 L317.5,92.4 L321.7,84.4 L325.8,76.3 L330.0,68.0" fill="none" stroke="#E30613" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,318.0 L84.2,309.7 L88.3,301.6 L92.5,293.6 L96.7,285.8 L100.8,278.1 L105.0,270.5 L109.2,263.1 L113.3,255.8 L117.5,248.6 L121.7,241.6 L125.8,234.7 L130.0,228.0 L134.2,221.4 L138.3,214.9 L142.5,208.6 L146.7,202.4 L150.8,196.4 L155.0,190.5 L159.2,184.7 L163.3,179.1 L167.5,173.6 L171.7,168.3 L175.8,163.1 L180.0,158.0 L184.2,153.1 L188.3,148.3 L192.5,143.6 L196.7,139.1 L200.8,134.7 L205.0,130.5 L209.2,126.4 L213.3,122.4 L217.5,118.6 L221.7,114.9 L225.8,111.4 L230.0,108.0 L234.2,104.7 L238.3,101.6 L242.5,98.6 L246.7,95.8 L250.8,93.1 L255.0,90.5 L259.2,88.1 L263.3,85.8 L267.5,83.6 L271.7,81.6 L275.8,79.7 L280.0,78.0 L284.2,76.4 L288.3,74.9 L292.5,73.6 L296.7,72.4 L300.8,71.4 L305.0,70.5 L309.2,69.7 L313.3,69.1 L317.5,68.6 L321.7,68.3 L325.8,68.1 L330.0,68.0" fill="none" stroke="#2b6cb0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80.0,318.0 L84.2,317.8 L88.3,317.2 L92.5,316.2 L96.7,314.8 L100.8,313.1 L105.0,311.0 L109.2,308.6 L113.3,305.9 L117.5,302.8 L121.7,299.5 L125.8,295.9 L130.0,292.0 L134.2,287.9 L138.3,283.5 L142.5,278.9 L146.7,274.1 L150.8,269.2 L155.0,264.0 L159.2,258.7 L163.3,253.2 L167.5,247.6 L171.7,241.8 L175.8,236.0 L180.0,230.0 L184.2,224.0 L188.3,217.9 L192.5,211.7 L196.7,205.5 L200.8,199.2 L205.0,193.0 L209.2,186.8 L213.3,180.5 L217.5,174.3 L221.7,168.1 L225.8,162.0 L230.0,156.0 L234.2,150.0 L238.3,144.2 L242.5,138.4 L246.7,132.8 L250.8,127.3 L255.0,122.0 L259.2,116.8 L263.3,111.9 L267.5,107.1 L271.7,102.5 L275.8,98.1 L280.0,94.0 L284.2,90.1 L288.3,86.5 L292.5,83.2 L296.7,80.1 L300.8,77.4 L305.0,75.0 L309.2,72.9 L313.3,71.2 L317.5,69.8 L321.7,68.8 L325.8,68.2 L330.0,68.0" fill="none" stroke="#2e9e5b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="825.0" y="44.0" text-anchor="middle" font-size="13" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">CE QUE L'ŒIL VOIT : OÙ EST LA BILLE À CHAQUE INSTANT</text>
+<text x="550.0" y="76.0" text-anchor="end" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">linéaire</text>
+<text x="550.0" y="98.0" text-anchor="end" font-size="12" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">t</text>
+<path d="M560.0,92.0 L1090.0,92.0" fill="none" stroke="#e0e0e0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="560.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="613.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="666.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="719.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="772.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="825.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="878.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="931.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="984.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="1037.0" cy="92.0" r="6" fill="#6e6e6e"/>
+<circle cx="1090.0" cy="92.0" r="8" fill="#6e6e6e"/>
+<text x="560.0" y="118.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="1090.0" y="118.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="550.0" y="150.0" text-anchor="end" font-size="14" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">smooth start</text>
+<text x="550.0" y="172.0" text-anchor="end" font-size="12" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">t²</text>
+<path d="M560.0,166.0 L1090.0,166.0" fill="none" stroke="#e0e0e0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="560.0" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="565.3" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="581.2" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="607.7" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="644.8" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="692.5" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="750.8" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="819.7" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="899.2" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="989.3" cy="166.0" r="6" fill="#E30613"/>
+<circle cx="1090.0" cy="166.0" r="8" fill="#E30613"/>
+<text x="560.0" y="192.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="1090.0" y="192.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="550.0" y="224.0" text-anchor="end" font-size="14" font-weight="800" fill="#2b6cb0" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">smooth stop</text>
+<text x="550.0" y="246.0" text-anchor="end" font-size="12" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 − (1 − t)²</text>
+<path d="M560.0,240.0 L1090.0,240.0" fill="none" stroke="#e0e0e0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="560.0" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="660.7" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="750.8" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="830.3" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="899.2" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="957.5" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="1005.2" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="1042.3" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="1068.8" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="1084.7" cy="240.0" r="6" fill="#2b6cb0"/>
+<circle cx="1090.0" cy="240.0" r="8" fill="#2b6cb0"/>
+<text x="560.0" y="266.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="1090.0" y="266.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="550.0" y="298.0" text-anchor="end" font-size="14" font-weight="800" fill="#2e9e5b" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">smoother step</text>
+<text x="550.0" y="320.0" text-anchor="end" font-size="12" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">t²(3 − 2t)</text>
+<path d="M560.0,314.0 L1090.0,314.0" fill="none" stroke="#e0e0e0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="560.0" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="574.8" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="615.1" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="674.5" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="746.6" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="825.0" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="903.4" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="975.5" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="1034.9" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="1075.2" cy="314.0" r="6" fill="#2e9e5b"/>
+<circle cx="1090.0" cy="314.0" r="8" fill="#2e9e5b"/>
+<text x="560.0" y="340.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">A</text>
+<text x="1090.0" y="340.0" text-anchor="middle" font-size="12" font-weight="700" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">B</text>
+<text x="300.0" y="352.0" text-anchor="middle" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">les onze instants sont réguliers ; seule la courbe change</text>
+<text x="300.0" y="376.0" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">points serrés = lent · points écartés = rapide</text>
+</svg>

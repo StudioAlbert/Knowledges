@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="440" viewBox="0 0 1160 440" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1160" height="440" fill="#ffffff"/>
+<text x="205.0" y="34.0" text-anchor="middle" font-size="13" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">CE QUE VOUS ÉCRIVEZ</text>
+<rect x="40.0" y="60.0" width="330.0" height="114.0" rx="10" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
+<rect x="40.0" y="60.0" width="330.0" height="30.0" rx="10" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<text x="56.0" y="81.0" text-anchor="start" font-size="15" font-weight="800" fill="#ffffff" font-family="JetBrains Mono, Consolas, monospace">main.cpp</text>
+<text x="60.0" y="112.0" text-anchor="start" font-size="13" font-weight="700" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace">#include "Joueur.h"</text>
+<text x="60.0" y="134.0" text-anchor="start" font-size="13" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">int main()</text>
+<text x="60.0" y="156.0" text-anchor="start" font-size="13" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">{ Joueur j; }</text>
+<rect x="40.0" y="180.0" width="330.0" height="114.0" rx="10" fill="#ffffff" stroke="#2e9e5b" stroke-width="2.5"/>
+<rect x="40.0" y="180.0" width="330.0" height="30.0" rx="10" fill="#2e9e5b" stroke="#2e9e5b" stroke-width="2.5"/>
+<text x="56.0" y="201.0" text-anchor="start" font-size="15" font-weight="800" fill="#ffffff" font-family="JetBrains Mono, Consolas, monospace">Joueur.h</text>
+<text x="60.0" y="232.0" text-anchor="start" font-size="13" font-weight="700" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace">#include "Vector2.h"</text>
+<text x="60.0" y="254.0" text-anchor="start" font-size="13" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">class Joueur</text>
+<text x="60.0" y="276.0" text-anchor="start" font-size="13" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">{ Vector2 pos_; };</text>
+<rect x="40.0" y="300.0" width="330.0" height="92.0" rx="10" fill="#ffffff" stroke="#2b6cb0" stroke-width="2.5"/>
+<rect x="40.0" y="300.0" width="330.0" height="30.0" rx="10" fill="#2b6cb0" stroke="#2b6cb0" stroke-width="2.5"/>
+<text x="56.0" y="321.0" text-anchor="start" font-size="15" font-weight="800" fill="#ffffff" font-family="JetBrains Mono, Consolas, monospace">Vector2.h</text>
+<text x="60.0" y="352.0" text-anchor="start" font-size="13" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">struct Vector2</text>
+<text x="60.0" y="374.0" text-anchor="start" font-size="13" font-weight="600" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">{ float x, y; };</text>
+<text x="910.0" y="34.0" text-anchor="middle" font-size="13" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">CE QUE VOIT LE COMPILATEUR</text>
+<rect x="700.0" y="52.0" width="420.0" height="338.0" rx="12" fill="#f5f5f5" stroke="#1a1a1a" stroke-width="3"/>
+<text x="910.0" y="78.0" text-anchor="middle" font-size="14" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">une seule unité de compilation</text>
+<rect x="724.0" y="100.0" width="372.0" height="72.0" rx="8" fill="#ffffff" stroke="#2b6cb0" stroke-width="2"/>
+<path d="M724.0,106.0 L724.0,166.0" fill="none" stroke="#2b6cb0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="746.0" y="128.0" text-anchor="start" font-size="14" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">struct Vector2</text>
+<text x="746.0" y="152.0" text-anchor="start" font-size="14" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">{ float x, y; };</text>
+<text x="1076.0" y="92.0" text-anchor="end" font-size="11" font-weight="700" fill="#2b6cb0" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">recopié de Vector2.h</text>
+<circle cx="708.0" cy="136.0" r="13" fill="#2b6cb0"/>
+<text x="708.0" y="141.0" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">1</text>
+<rect x="724.0" y="204.0" width="372.0" height="72.0" rx="8" fill="#ffffff" stroke="#2e9e5b" stroke-width="2"/>
+<path d="M724.0,210.0 L724.0,270.0" fill="none" stroke="#2e9e5b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="746.0" y="232.0" text-anchor="start" font-size="14" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">class Joueur</text>
+<text x="746.0" y="256.0" text-anchor="start" font-size="14" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">{ Vector2 pos_; };</text>
+<text x="1076.0" y="196.0" text-anchor="end" font-size="11" font-weight="700" fill="#2e9e5b" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">recopié de Joueur.h</text>
+<circle cx="708.0" cy="240.0" r="13" fill="#2e9e5b"/>
+<text x="708.0" y="245.0" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">2</text>
+<rect x="724.0" y="308.0" width="372.0" height="72.0" rx="8" fill="#ffffff" stroke="#E30613" stroke-width="2"/>
+<path d="M724.0,314.0 L724.0,374.0" fill="none" stroke="#E30613" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="746.0" y="336.0" text-anchor="start" font-size="14" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">int main()</text>
+<text x="746.0" y="360.0" text-anchor="start" font-size="14" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">{ Joueur j; }</text>
+<text x="1076.0" y="300.0" text-anchor="end" font-size="11" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">recopié de main.cpp</text>
+<circle cx="708.0" cy="344.0" r="13" fill="#E30613"/>
+<text x="708.0" y="349.0" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff">3</text>
+<path d="M376.0,346.0 L520.0,346.0 L520.0,136.0 L678.0,136.0" fill="none" stroke="#2b6cb0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-ink)"/>
+<path d="M376.0,237.0 L520.0,237.0 L520.0,240.0 L678.0,240.0" fill="none" stroke="#2e9e5b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-ink)"/>
+<path d="M376.0,117.0 L520.0,117.0 L520.0,344.0 L678.0,344.0" fill="none" stroke="#E30613" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-red)"/>
+<text x="580.0" y="424.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">L'ordre vient des inclusions : le plus profond est recopié en premier. Un en-tête lu deux fois déclare deux fois — d'où les gardes.</text>
+</svg>

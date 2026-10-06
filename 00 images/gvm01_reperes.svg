@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="390" viewBox="0 0 1140 390" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1140" height="390" fill="#ffffff"/>
+<text x="190.0" y="46.0" text-anchor="middle" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">UNITY</text>
+<circle cx="190.0" cy="200.0" r="6" fill="#1a1a1a"/>
+<path d="M190.0,200.0 L285.0,200.0" fill="none" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="309.0" y="206.0" text-anchor="middle" font-size="18" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">x</text>
+<text x="309.0" y="223.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">droite</text>
+<path d="M190.0,200.0 L190.0,105.0" fill="none" stroke="#2e9e5b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="190.0" y="91.0" text-anchor="middle" font-size="18" font-weight="800" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">y</text>
+<text x="190.0" y="108.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">haut</text>
+<path d="M190.0,200.0 L242.0,148.0" fill="none" stroke="#2b6cb0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="266.0" y="154.0" text-anchor="middle" font-size="18" font-weight="800" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">z</text>
+<text x="266.0" y="171.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">avant</text>
+<rect x="112.0" y="296.0" width="156.0" height="32.0" rx="16" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
+<text x="190.0" y="318.0" text-anchor="middle" font-size="15" font-weight="800" fill="#E30613">main gauche</text>
+<text x="190.0" y="352.0" text-anchor="middle" font-size="13" font-weight="600" fill="#6e6e6e" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 unité = 1 m</text>
+<text x="570.0" y="46.0" text-anchor="middle" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">UNREAL</text>
+<circle cx="570.0" cy="200.0" r="6" fill="#1a1a1a"/>
+<path d="M570.0,200.0 L665.0,200.0" fill="none" stroke="#2e9e5b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="689.0" y="206.0" text-anchor="middle" font-size="18" font-weight="800" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">y</text>
+<text x="689.0" y="223.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">droite</text>
+<path d="M570.0,200.0 L570.0,105.0" fill="none" stroke="#2b6cb0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="570.0" y="91.0" text-anchor="middle" font-size="18" font-weight="800" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">z</text>
+<text x="570.0" y="108.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">haut</text>
+<path d="M570.0,200.0 L622.0,148.0" fill="none" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="646.0" y="154.0" text-anchor="middle" font-size="18" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">x</text>
+<text x="646.0" y="171.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">avant</text>
+<rect x="492.0" y="296.0" width="156.0" height="32.0" rx="16" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
+<text x="570.0" y="318.0" text-anchor="middle" font-size="15" font-weight="800" fill="#E30613">main gauche</text>
+<text x="570.0" y="352.0" text-anchor="middle" font-size="13" font-weight="600" fill="#6e6e6e" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 unité = 1 cm</text>
+<path d="M380.0,62.0 L380.0,364.0" fill="none" stroke="#e5e5e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6"/>
+<text x="950.0" y="46.0" text-anchor="middle" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">MATHS, OPENGL</text>
+<circle cx="950.0" cy="200.0" r="6" fill="#1a1a1a"/>
+<path d="M950.0,200.0 L1045.0,200.0" fill="none" stroke="#E30613" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="1069.0" y="206.0" text-anchor="middle" font-size="18" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">x</text>
+<text x="1069.0" y="223.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">droite</text>
+<path d="M950.0,200.0 L950.0,105.0" fill="none" stroke="#2e9e5b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="950.0" y="91.0" text-anchor="middle" font-size="18" font-weight="800" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">y</text>
+<text x="950.0" y="108.0" text-anchor="middle" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">haut</text>
+<path d="M950.0,200.0 L898.0,252.0" fill="none" stroke="#2b6cb0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="888.0" y="256.0" text-anchor="end" font-size="18" font-weight="800" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">z</text>
+<text x="888.0" y="273.0" text-anchor="end" font-size="12" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">vers vous</text>
+<rect x="872.0" y="296.0" width="156.0" height="32.0" rx="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="950.0" y="318.0" text-anchor="middle" font-size="15" font-weight="800" fill="#1a1a1a">main droite</text>
+<text x="950.0" y="352.0" text-anchor="middle" font-size="13" font-weight="600" fill="#6e6e6e" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 unité = 1 unité</text>
+<path d="M760.0,62.0 L760.0,364.0" fill="none" stroke="#e5e5e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6"/>
+<text x="570.0" y="382.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Règle de la main : pouce = x, index = y, majeur = z — si les trois tiennent avec la main droite, le repère est direct.</text>
+</svg>

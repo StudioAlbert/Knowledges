@@ -27,7 +27,3 @@ Ajouter une structure `Vector2` et l'utiliser deux fois dans un `Transform` (pos
 ### 5 — Le bestiaire
 Un tableau de six monstres rempli à la déclaration. Écrire les fonctions qui affichent le bestiaire complet, trouvent le plus dangereux, comptent ceux qui survivraient à un coup de 30 dégâts, et appliquent une vague de dégâts à tous. Chaque fonction prend le tableau par référence quand elle le modifie et par référence constante quand elle le lit seulement.
 
-## Difficile — se projeter
-
-### 6 — L'inventaire du héros
-Un `Heros` contient un `Transform`, un tableau de huit emplacements d'`Objet` (nom, type énuméré, quantité, poids) et un poids maximum. Écrire ramasser, jeter, empiler les objets identiques, et calculer la charge — en refusant proprement ce qui dépasse. L'énoncé demandera ensuite d'expliquer quelles fonctions gagneraient à devenir des méthodes de la structure, ce qui ouvre la séance suivante.

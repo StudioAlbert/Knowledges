@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fonctions du temps — droite, sinus, scie et Lerp</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 640px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 40px; }
+input[type=range] { accent-color: var(--sae-red); width: 120px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(52vh, 420px); user-select: none; touch-action: none; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint strong { color: var(--text); }
+.hint code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.result { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.85; }
+.result .k { color: var(--muted2); }
+.result .ok { color: var(--sae-red); font-weight: 800; }
+.result .big { font-size: 15px; font-weight: 700; }
+.result .sep { display: block; height: 1px; background: var(--line-soft); margin: 7px 0; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 26px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 330px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Une valeur <span class="hl">qui change</span></h1>
+    <p class="sub">La même horloge alimente les quatre fonctions. Lancez le temps, changez les paramètres, et regardez la bille obéir.</p>
+  </div>
+  <div class="formula">valeur = <b>f(t)</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="droite">1 · La droite</button>
+  <button data-tab="cyclique">2 · Cyclique</button>
+  <button data-tab="scie">3 · La scie</button>
+  <button data-tab="lerp">4 · Lerp</button>
+</nav>
+
+<div class="toolbar">
+  <div class="group">
+    <button id="play" class="primary">▶ Lancer</button>
+    <button id="raz">Remettre à 0</button>
+    <label class="rng">t <input type="range" id="t" min="0" max="4" step="0.01" value="0"><output id="tv">0.00</output></label>
+  </div>
+  <div class="group" data-for="droite">
+    <label class="rng">a <input type="range" id="a" min="-1" max="2" step="0.1" value="0.5"><output id="av">0.5</output></label>
+    <label class="rng">b <input type="range" id="b" min="-1" max="1" step="0.1" value="0"><output id="bv">0</output></label>
+  </div>
+  <div class="group" data-for="cyclique">
+    <label class="rng">A <input type="range" id="amp" min="0.1" max="1.4" step="0.1" value="1"><output id="ampv">1</output></label>
+    <label class="rng">ω <input type="range" id="w" min="0.5" max="8" step="0.5" value="3"><output id="wv">3</output></label>
+    <label class="rng">φ <input type="range" id="phi" min="0" max="6.28" step="0.1" value="0"><output id="phiv">0</output></label>
+  </div>
+  <div class="group" data-for="scie">
+    <label class="rng">période <input type="range" id="per" min="0.4" max="2" step="0.1" value="1"><output id="perv">1</output></label>
+  </div>
+  <div class="group" data-for="lerp">
+    <label class="chk"><input type="checkbox" id="clamp" checked> clamper t entre 0 et 1</label>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="board">
+    <svg id="svg" role="img" aria-label="Courbe d'une fonction du temps et bille pilotée par sa valeur"></svg>
+    <p class="tip" id="tip"></p>
+  </div>
+  <div class="side">
+    <div class="card"><h3>Le calcul</h3><div class="result" id="res"></div></div>
+    <div class="card"><h3>À retenir</h3><div id="memo"></div></div>
+  </div>
+</div>
+
+<footer>SAE Institute Genève · TC-FT-GVM-05 Interpolation et courbes · onglets <code>#droite</code> <code>#cyclique</code> <code>#scie</code> <code>#lerp</code></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const RED = "#E30613", INK = "#1a1a1a", GRAY = "#a8a8a8", GRAY2 = "#6e6e6e", BLUE = "#2b6cb0", PALE = "#f5f5f5";
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+
+// --- repère : t de 0 à 4 en abscisse, valeur de -1.6 à 1.6 en ordonnée ---
+const VW = 660, VH = 440;
+const X0 = 60, X1 = 620, YMID = 190, YSPAN = 120;   // le graphe
+const TMAX = 4, VMAX = 1.6;
+const PX = t => X0 + (t / TMAX) * (X1 - X0);
+const PY = v => YMID - (v / VMAX) * YSPAN;
+const PISTE_Y = 380, PISTE_X0 = 120, PISTE_X1 = 560;   // la bille
+
+const st = {tab: "droite", t: 0, joue: false, a: 0.5, b: 0, amp: 1, w: 3, phi: 0, per: 1, clamp: true};
+
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs){
+  const t = el("text", Object.assign({x: x, y: y, "text-anchor": "middle", "font-size": 14,
+    fill: INK, "font-weight": 700, stroke: "#fff", "stroke-width": 4, "paint-order": "stroke",
+    "stroke-linejoin": "round"}, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+const n2 = v => (Math.round(v * 100) / 100).toFixed(2);
+
+// ------------------------------------------------------------ les fonctions
+function f(t){
+  if (st.tab === "droite")   return st.a * t + st.b;
+  if (st.tab === "cyclique") return st.amp * Math.sin(st.w * t + st.phi);
+  if (st.tab === "scie")     return (t / st.per) - Math.floor(t / st.per);
+  // lerp : t normalisé sur la durée totale, clampé ou non
+  const u = st.clamp ? Math.max(0, Math.min(1, t / 2)) : t / 2;
+  return u;
+}
+
+function courbe(svg){
+  // On coupe le trace des qu'il sort du cadre ou qu'il saute (la scie), pour
+  // que le depassement se voie au lieu d'etre ecrase sur le bord.
+  const HAUT = PY(VMAX), BAS = PY(-VMAX);
+  let d = "", precedent = null, dehors = false;
+  for (let i = 0; i <= 560; i++){
+    const t = (i / 560) * TMAX;
+    const y = PY(f(t));
+    if (y < HAUT || y > BAS){ precedent = null; dehors = true; continue; }
+    const saut = precedent !== null && Math.abs(y - precedent) > 60;
+    d += (precedent === null || saut ? "M" : "L") + PX(t).toFixed(1) + "," + y.toFixed(1) + " ";
+    precedent = y;
+  }
+  if (d) el("path", {d: d.trim(), fill: "none", stroke: RED, "stroke-width": 3.2,
+    "stroke-linecap": "round", "stroke-linejoin": "round"}, svg);
+  return dehors;
+}
+
+function grille(svg){
+  const g = el("g", {}, svg);
+  // bande des valeurs utiles 0 → 1
+  el("rect", {x: X0, y: PY(1), width: X1 - X0, height: PY(0) - PY(1), fill: "#fafafa"}, g);
+  for (let v = -1; v <= 1; v += 0.5){
+    el("line", {x1: X0, y1: PY(v), x2: X1, y2: PY(v), stroke: v === 0 ? INK : "#eeeeee",
+      "stroke-width": v === 0 ? 1.6 : 1}, g);
+    txt(g, X0 - 20, PY(v) + 5, String(v), {"font-size": 11, fill: GRAY, "font-weight": 500});
+  }
+  for (let t = 0; t <= TMAX; t += 0.5){
+    el("line", {x1: PX(t), y1: PY(VMAX), x2: PX(t), y2: PY(-VMAX), stroke: "#f2f2f2", "stroke-width": 1}, g);
+    if (t % 1 === 0) txt(g, PX(t), PY(-VMAX) + 20, String(t) + " s", {"font-size": 11, fill: GRAY, "font-weight": 500});
+  }
+  el("line", {x1: X0, y1: PY(-VMAX), x2: X0, y2: PY(VMAX), stroke: INK, "stroke-width": 1.6}, g);
+  txt(g, X0 - 30, PY(VMAX) + 4, "valeur", {"font-size": 12, fill: GRAY2, "text-anchor": "start"});
+}
+
+function piste(svg, v){
+  const g = el("g", {}, svg);
+  el("line", {x1: PISTE_X0, y1: PISTE_Y, x2: PISTE_X1, y2: PISTE_Y, stroke: GRAY,
+    "stroke-width": 6, "stroke-linecap": "round"}, g);
+  txt(g, PISTE_X0, PISTE_Y + 26, "A", {"font-size": 14, fill: GRAY2});
+  txt(g, PISTE_X1, PISTE_Y + 26, "B", {"font-size": 14, fill: GRAY2});
+  const x = PISTE_X0 + v * (PISTE_X1 - PISTE_X0);
+  const dedans = v >= -0.02 && v <= 1.02;
+  const xc = Math.max(PISTE_X0 - 60, Math.min(PISTE_X1 + 60, x));
+  el("circle", {cx: xc, cy: PISTE_Y, r: 13, fill: dedans ? RED : "#ffffff",
+    stroke: dedans ? RED : RED, "stroke-width": 3, "stroke-dasharray": dedans ? "none" : "4 3"}, g);
+  if (!dedans)
+    txt(g, xc, PISTE_Y - 24, "hors piste", {"font-size": 12, fill: RED, "font-weight": 800});
+}
+
+function draw(){
+  const svg = $("svg");
+  svg.innerHTML = "";
+  svg.setAttribute("viewBox", "0 0 " + VW + " " + VH);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  grille(svg);
+  courbe(svg);
+  const v = f(st.t);
+  // tête de lecture
+  el("line", {x1: PX(st.t), y1: PY(VMAX), x2: PX(st.t), y2: PISTE_Y, stroke: BLUE,
+    "stroke-width": 1.6, "stroke-dasharray": "5 5"}, svg);
+  const yv = Math.max(PY(VMAX), Math.min(PY(-VMAX), PY(v)));
+  el("circle", {cx: PX(st.t), cy: yv, r: 7, fill: "#fff", stroke: BLUE, "stroke-width": 3}, svg);
+  txt(svg, PX(st.t), PY(VMAX) - 8, "t = " + n2(st.t) + " s", {"font-size": 13, fill: BLUE});
+  piste(svg, st.tab === "cyclique" ? (v + 1) / 2 : v);
+}
+
+// ------------------------------------------------------------------ panneau
+function side(){
+  const res = $("res"), memo = $("memo"), tip = $("tip");
+  const v = f(st.t);
+  if (st.tab === "droite"){
+    res.innerHTML =
+      '<div class="big">y = a·t + b</div>' +
+      '<span class="sep"></span>' +
+      '<div>a = ' + n2(st.a) + ' &nbsp; b = ' + n2(st.b) + '</div>' +
+      '<div>t = ' + n2(st.t) + '</div>' +
+      '<div class="big">y = <span class="ok">' + n2(v) + '</span></div>' +
+      (v < 0 || v > 1 ? '<div class="k">hors de [0, 1] : la bille a quitté la piste</div>'
+                      : '<div class="k">dans [0, 1]</div>');
+    memo.innerHTML =
+      '<p class="hint">Une droite ne s\'arrête <strong>jamais</strong> : rien dans la formule ne la retient entre 0 et 1.</p>' +
+      '<p class="hint">C\'est le défaut de la fonction brute — il faut <strong>décider</strong> quoi faire au-delà.</p>' +
+      '<p class="hint">Deux réponses possibles : <strong>clamper</strong> (onglet 4) ou <strong>boucler</strong> (onglets 2 et 3).</p>';
+    tip.textContent = "Montez a : la bille sort de la piste avant la fin du temps.";
+  } else if (st.tab === "cyclique"){
+    const T = 2 * Math.PI / st.w;
+    res.innerHTML =
+      '<div class="big">y = A · sin(ω·t + φ)</div>' +
+      '<span class="sep"></span>' +
+      '<div>A = ' + n2(st.amp) + ' &nbsp; ω = ' + n2(st.w) + ' &nbsp; φ = ' + n2(st.phi) + '</div>' +
+      '<div>ω·t + φ = ' + n2(st.w * st.t + st.phi) + ' rad</div>' +
+      '<div class="big">y = <span class="ok">' + n2(v) + '</span></div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">période T = 2π/ω = ' + n2(T) + ' s</div>';
+    memo.innerHTML =
+      '<p class="hint"><strong>A</strong> règle l\'amplitude, <strong>ω</strong> la vitesse, <strong>φ</strong> le décalage au départ.</p>' +
+      '<p class="hint">La valeur reste <strong>bornée</strong> toute seule, pour toujours : c\'est ce qu\'on veut pour un flottement, une pulsation, une respiration.</p>' +
+      '<p class="hint">Deux objets avec le même ω et un φ différent oscillent <strong>en décalé</strong> — c\'est comme ça qu\'on casse l\'effet « tout le monde en rythme ».</p>';
+    tip.textContent = "Changez φ sans toucher à ω : la courbe glisse, sa forme ne change pas.";
+  } else if (st.tab === "scie"){
+    res.innerHTML =
+      '<div class="big">y = t/T − ⌊t/T⌋</div>' +
+      '<span class="sep"></span>' +
+      '<div>T = ' + n2(st.per) + ' s</div>' +
+      '<div>t/T = ' + n2(st.t / st.per) + '</div>' +
+      '<div>⌊t/T⌋ = ' + Math.floor(st.t / st.per) + '</div>' +
+      '<div class="big">y = <span class="ok">' + n2(v) + '</span></div>';
+    memo.innerHTML =
+      '<p class="hint">La scie monte de 0 à 1 puis <strong>retombe d\'un coup</strong> : c\'est la partie décimale du temps.</p>' +
+      '<p class="hint">En C++ : <code>std::fmod(t, T) / T</code>. Le saut est voulu — pour une barre qui se remplit en boucle, un défilement de texture, un cycle de jour.</p>' +
+      '<p class="hint">Attention au raccord : à chaque retour, la valeur fait un <strong>bond</strong>. Inacceptable pour une position.</p>';
+    tip.textContent = "Réduisez la période : la bille repart plus souvent au point A.";
+  } else {
+    const u = st.t / 2;
+    const uc = st.clamp ? Math.max(0, Math.min(1, u)) : u;
+    res.innerHTML =
+      '<div class="big">Lerp(A, B, t) = A + (B − A)·t</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">le paramètre vient du temps :</div>' +
+      '<div>t = ' + n2(st.t) + ' / durée 2 = ' + n2(u) + '</div>' +
+      (st.clamp ? '<div>clamp(' + n2(u) + ', 0, 1) = <span class="ok">' + n2(uc) + '</span></div>'
+                : '<div class="k">non clampé : ' + n2(u) + '</div>') +
+      '<span class="sep"></span>' +
+      '<div class="k">A = 0, B = 100 :</div>' +
+      '<div class="big">résultat = <span class="ok">' + n2(uc * 100) + '</span></div>';
+    memo.innerHTML =
+      '<p class="hint"><code>Lerp</code> ne connaît pas le temps : il attend un paramètre <strong>déjà normalisé</strong> entre 0 et 1.</p>' +
+      '<p class="hint">Tout le travail est de <strong>fabriquer ce paramètre</strong> : temps écoulé ÷ durée voulue.</p>' +
+      '<p class="hint">Sans clamp, t continue au-delà de 1 et la valeur dépasse B — <strong>exactement le problème de l\'onglet 1</strong>.</p>';
+    tip.textContent = "Décochez le clamp et laissez tourner : la bille continue au-delà de B.";
+  }
+}
+
+function render(){
+  document.querySelectorAll("[data-for]").forEach(g => g.style.display = g.dataset.for === st.tab ? "" : "none");
+  $("t").value = st.t; $("tv").textContent = n2(st.t);
+  draw();
+  side();
+}
+
+// ------------------------------------------------------------------ horloge
+let dernier = 0;
+function boucle(ms){
+  if (st.joue){
+    if (dernier) st.t = (st.t + (ms - dernier) / 1000) % TMAX;
+    dernier = ms;
+    render();
+  }
+  requestAnimationFrame(boucle);
+}
+requestAnimationFrame(boucle);
+
+$("play").addEventListener("click", function(){
+  st.joue = !st.joue;
+  dernier = 0;
+  this.textContent = st.joue ? "❚❚ Pause" : "▶ Lancer";
+});
+$("raz").addEventListener("click", function(){ st.t = 0; render(); });
+$("t").addEventListener("input", function(){ st.joue = false; $("play").textContent = "▶ Lancer"; st.t = +this.value; render(); });
+
+[["a", "av"], ["b", "bv"], ["amp", "ampv"], ["w", "wv"], ["phi", "phiv"], ["per", "perv"]].forEach(([id, out]) => {
+  $(id).addEventListener("input", function(){
+    st[id] = +this.value;
+    $(out).textContent = n2(+this.value).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+    render();
+  });
+});
+$("clamp").addEventListener("change", function(){ st.clamp = this.checked; render(); });
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!["droite", "cyclique", "scie", "lerp"].includes(name)) name = "droite";
+  st.tab = name;
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  render();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

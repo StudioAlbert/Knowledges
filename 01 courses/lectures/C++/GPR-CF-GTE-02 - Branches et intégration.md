@@ -2,7 +2,7 @@
 title: Branches et intégration
 type: seance
 code: GPR-CF-GTE-02
-status: To prepare
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Git et Travail en Équipe

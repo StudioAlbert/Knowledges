@@ -2,12 +2,14 @@
 title: Cercle trigonométrique et unités
 type: seance
 code: TC-FT-TRG-02
-status: To prepare
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Trigonométrie
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-926, WEB-926]
+classes:
+  - GP-926
+  - WEB-926
 date_scheduled: 2026-09-23
 manual_order: 18
 estimate: 1h

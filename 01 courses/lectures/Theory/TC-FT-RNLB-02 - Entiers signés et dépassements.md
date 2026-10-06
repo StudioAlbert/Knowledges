@@ -2,7 +2,7 @@
 title: Entiers signés et dépassements
 type: seance
 code: TC-FT-RNLB-02
-status: To check
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Représentation des Nombres et Logique Binaire

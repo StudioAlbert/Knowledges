@@ -165,7 +165,9 @@ Pour `a ∧ (b ∨ c)` : une ligne par combinaison, une colonne par sous-express
 | 1 | 1 | 0 | 1 | 1 |
 | 1 | 1 | 1 | 1 | 1 |
 
+Note:
 *n* variables donnent 2ⁿ lignes : on compte en binaire de 0 à 2ⁿ − 1.
+C'est pour ça qu'une table de vérité à cinq variables ne se fait plus à la main.
 
 ---
 
