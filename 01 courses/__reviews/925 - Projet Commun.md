@@ -21,7 +21,7 @@ url_test: http://localhost:3000/unity/gpr-un-pco-925/
 > - **Noms des élèves** : la fiche *Rôle* listait « Alex + Arthur + Thibault + Nathan » sans rôle associé ; je ne les ai pas mis dans un deck publié. La colonne *Qui* est à remplir.
 > - **Polish** : la fiche disait S19 – S23 alors que la V3 finit en S19 ; le schéma le fait commencer en S20.
 > - **Repo** : le prérequis pointe vers `GPR926---Unity-Projet-Commun` pour la promotion 925 — à confirmer.
-> - `[[GDD]]` n'existe pas dans le dossier 925 (seulement en 924).
+> - `[[GDD]]` du 925 n'est qu'un gabarit vide issu de Confluence — à écrire ou à retirer.
 
 ## Traité le 05.10 — complément
 
@@ -37,8 +37,7 @@ voir les slides de la séance », et ne garde que genre / références, prérequ
   play test, le tableau des rôles). Elles ne polluent plus l'onglet *Ressources*.
 - **`_Home.md` est recablé** : il pointe le deck et `Overview`, plus une ligne pour le GDD
   à créer. Un encadré dit où est parti le contenu des trois fiches.
-- **`[[GDD]]`** disparait du deck : le lien ne menait nulle part (le GDD n'existe que pour
-  la promotion 924). Remplaçé par « à créer pour cette promotion ».
+- **`[[GDD]]`** disparait du deck, remplacé par « à créer pour cette promotion ».
 - **Polish** : la contradiction S19 – S23 venait de la fiche Confluence, maintenant
   supprimée. La note du deck ne renvoie plus à une fiche qui n'existe pas : elle dit
   simplement que la V3 finit en S19 et que le polish commence en S20, comme le schéma.
