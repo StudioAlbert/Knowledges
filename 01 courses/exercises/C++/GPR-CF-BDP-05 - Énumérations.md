@@ -29,7 +29,10 @@ Reprendre l'énumération des slides :
 enum class Aliment { BURGER, SUSHI, SALADE, PIZZA };
 ```
 
-1. Écrire `std::string nom(Aliment a)` et `int prix(Aliment a)` : Burger 12, Sushi 18, Salade 9, Pizza 15 CHF.
+1. Écrire les fonctions
+	1. `std::string nom(Aliment a)` : Renvoie le nom des aliments
+	2. `int prix(Aliment a)` : Renvoie le prix des aliments
+	3. Resultat attendu => Burger 12, Sushi 18, Salade 9, Pizza 15 CHF.
 2. Afficher le menu, lire un numéro, le convertir en `Aliment` en utilisant `static_cast<Aliment>(choix - 1)` (voir tip ci-dessous)
 3. Ajouter le prix du plat à l'addition, et recommencer jusqu'au choix `0`.
 4. Refuser un numéro hors du menu, puis afficher le total.
