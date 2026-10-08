@@ -371,6 +371,16 @@ md.core.ruler.push('obsidian_callouts', (state) => {
     first.content = first.content.slice(m[0].length);
     tokens[i].attrJoin('class', 'callout');
     tokens[i].attrSet('data-callout', m[1].toLowerCase());
+    // Titre : la fin de la premiere ligne, quand c'est du texte nu. Sans ca il
+    // se fondrait dans le corps du callout.
+    const kids = tokens[i + 2].children;
+    const brk = kids.findIndex((t) => t.type === 'softbreak');
+    const end = brk === -1 ? kids.length : brk;
+    if (end !== 1 || !first.content.trim()) continue;
+    tokens[i].attrSet('data-callout-title', first.content.trim());
+    kids.splice(0, brk === -1 ? 1 : 2);
+    // Le titre occupait tout le paragraphe : il ne reste rien a rendre.
+    if (kids.length === 0) tokens.splice(i + 1, 3);
   }
 });
 

@@ -102,6 +102,7 @@ article blockquote { margin: 1em 0; padding: 4px 16px; border-left: 3px solid va
   text-transform: uppercase;
   color: var(--sae-red);
 }
+.callout[data-callout-title]::before { content: attr(data-callout-title); text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
 
 /* ---- Fiche GitHub (bloc ```github) ---- */
 .repo-card { margin: 1.5em 0; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
