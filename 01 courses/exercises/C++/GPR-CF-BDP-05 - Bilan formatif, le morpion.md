@@ -8,7 +8,7 @@ seances: [GPR-CF-BDP-05]
 
 Un seul fichier `main.cpp` par exercice, sortie avec `std::println`. Accolades obligatoires, comme en `GPR-CF-BDP-04`. Pas de `std::vector` : il arrive plus tard.
 
-### 8 — Morpion
+### 6 — Morpion
 
 > [!abstract] Objectifs
 > tout le contenu de la séance : `enum class`, `switch`, tableau 2D, fonctions qui reçoivent un tableau, boucles imbriquées

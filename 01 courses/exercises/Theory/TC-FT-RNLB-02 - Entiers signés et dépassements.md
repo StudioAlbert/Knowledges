@@ -2,7 +2,7 @@
 
 > Cours associé : [[01 courses/slides/Theory/TC-FT-RNLB-02 - Entiers signés et dépassements]]
 
-Les exercices 1 à 4 se font sur papier ; les exercices 5 et 6 sont des programmes C++.
+Les exercices 1 à 3 se font sur papier ; l'exercice 4 se corrige au clavier.
 
 ## Exercice 1 — Plages
 
@@ -48,7 +48,3 @@ void afficher_a_l_envers(const std::vector<int>& v)
 
 1. Que se passe-t-il avec un vecteur vide ? Et avec `{1, 2, 3}` ?
 2. Corriger la fonction.
-
-### Bonus
-
-Même chose pour la multiplication.

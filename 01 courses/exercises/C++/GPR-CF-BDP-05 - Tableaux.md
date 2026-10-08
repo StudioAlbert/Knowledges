@@ -8,7 +8,7 @@ seances: [GPR-CF-BDP-05]
 
 Un seul fichier `main.cpp` par exercice, sortie avec `std::println`. Accolades obligatoires, comme en `GPR-CF-BDP-04`. Pas de `std::vector` : il arrive plus tard.
 
-### 4 — Le meilleur score
+### 3 — Le meilleur score
 
 > [!abstract] Objectifs
 > parcours avec index, garder le meilleur au fil de la boucle
@@ -19,7 +19,7 @@ int scores[]{ 84, 92, 76, 81, 56 };
 
 Afficher le meilleur score **et sa position** dans le tableau : `Meilleur score : 92 (joueur 1)`. Le programme doit rester juste si l'on change les valeurs, ou si le meilleur score est le premier.
 
-### 5 — La valeur est-elle là ?
+### 4 — La valeur est-elle là ?
 
 > [!abstract] Objectifs
 > remplir un tableau, recherche linéaire, `bool` posé avant la boucle
@@ -29,18 +29,9 @@ Afficher le meilleur score **et sa position** dans le tableau : `Meilleur score 
 3. Afficher le tableau sur une ligne, puis `V est dans le tableau` ou `V n'est pas dans le tableau`.
 4. Bonus : afficher aussi combien de fois `V` apparaît.
 
-### ~~6 — La table de multiplication~~
-
-> [!abstract] ~~Objectifs~~
-> ~~tableau à deux dimensions, deux boucles imbriquées, alignement~~
-
-1. ~~Déclarer `int table[10][10]` et le **remplir** avec deux boucles : la case `[i][j]` contient `(i + 1) × (j + 1)`.~~
-2. ~~Dans une deuxième passe, l'**afficher** en colonnes alignées : `std::print("{:4}", table[i][j])`.~~
-3. ~~Afficher ensuite la seule ligne du 7, en ne lisant que `table`.~~
-
 ## Complet — tableaux à deux dimensions
 
-### 7 — La carte du donjon
+### 5 — La carte du donjon
 
 > [!abstract] Objectifs
 > grille 2D d'énumérations, parcours, coordonnées ligne / colonne, tout le vocabulaire de la séance

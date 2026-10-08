@@ -137,7 +137,7 @@ p p p p        la vie descend 70, 40, 10, 0 — jamais négative, et la partie s
 
 ## Difficile — se projeter
 
-### 6 — L'inventaire qui ne peut pas mentir
+### 5 — L'inventaire qui ne peut pas mentir
 
 > [!abstract] Objectifs
 > tenir **quatre** garanties à la fois, et démontrer qu'aucun code extérieur ne peut les

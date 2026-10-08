@@ -304,9 +304,4 @@ Worker en veut **6**.
 
 ### Rendu
 
-Un seul rendu par binôme :
-
-- l'URL du fork `github.com/<owner>/GPR_CF_GTE_02_ChasseAuTresor` ;
-- ~~une capture du graphe de Fork **après** l'étape 5 ;~~
-- ~~vos réponses aux questions des cadres *Regardez dans Fork*, en une ou deux lignes chacune ;~~
-- ~~trois lignes : ce que chaque marqueur de conflit désignait, et la valeur retenue.~~
+Un seul rendu par binôme : l'URL du fork `github.com/<owner>/GPR_CF_GTE_02_ChasseAuTresor`.
