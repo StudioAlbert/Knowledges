@@ -40,6 +40,8 @@ La `class`, membres publics et privés, `class` contre `struct`, méthodes, clas
 >   `poo02_encapsulation.svg`.
 > - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-02 - Classes et visibilité|Exos POO-02]] — rédigés,
 >   avec un **projet companion** pour l'exercice 5 où l'élève ne complète que `joueur.h`.
+> - **Companion** : [[01 courses/resources/C++/GPR-CF-POO-02 - Projet companion La classe Joueur|Projet companion POO-02]]
+>   — dépôt public `StudioAlbert/GPR_CF_POO_02_ClassesEtVisibilite`, sous-module du vault.
 
 ## Matériel
 

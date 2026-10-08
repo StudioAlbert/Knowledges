@@ -61,10 +61,7 @@ Gobelin : 30/30 pv      (après 9999 soins, et non 10029)
 > `std::max(0, vie - degats)` et `std::min(vieMax, vie + soin)`, dans `<algorithm>`. Écrites
 > **une fois**, dans la méthode — c'est tout l'intérêt.
 
-### ~~3 — Le même code, deux mots-clés~~
-~~Écrire la même chose en `struct` puis en `class` sans autre modification, et dire précisément quelle ligne cesse de compiler et pourquoi.~~
-
-### 4 — De la fonction libre à la méthode
+### 3 — De la fonction libre à la méthode
 
 > [!abstract] Objectifs
 > voir ce que la méthode gagne par rapport à la fonction libre, et ce qu'elle perd
@@ -91,7 +88,7 @@ void afficherFiche(const Monstre& m)
 
 ## Complet — reprendre toute la séance
 
-### 5 — La classe `Joueur`
+### 4 — La classe `Joueur`
 
 > [!abstract] Objectifs
 > cinq règles du jeu, cinq méthodes, zéro attribut public — dans un projet où le reste est
@@ -100,7 +97,7 @@ void afficherFiche(const Monstre& m)
 **Un projet companion est fourni.** Le menu de commandes fonctionne déjà : vous ne touchez
 qu'à **`joueur.h`**.
 
-> Dossier : `01 courses/companion projects/C++/GPR-CF-POO-02 - Classes et visibilité/`
+> Dépôt : [[01 courses/resources/C++/GPR-CF-POO-02 - Projet companion La classe Joueur|Projet companion — la classe Joueur]]
 > — ouvrir le `CMakeLists.txt` dans CLion, ou `cmake -S . -B build && cmake --build build`.
 
 | Fichier | Ce que vous en faites |
