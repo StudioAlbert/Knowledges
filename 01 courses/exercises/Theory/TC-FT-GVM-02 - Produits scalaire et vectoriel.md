@@ -113,15 +113,9 @@ limite = cos 60° = 0,5
 > Le cosinus **décroît** quand l'angle grandit : un angle plus petit donne un cosinus plus
 > grand. D'où le `≥` alors qu'on teste « l'angle est-il plus petit que 60° ».
 
-### ~~3 — Le rebond de la balle~~
-~~Une balle arrive sur un mur de normale donnée : calculer la direction sortante, vérifier que l'angle d'incidence égale l'angle de réflexion, et traiter le cas de l'arrivée perpendiculaire.~~
-
-### ~~4 — À gauche du garde~~
-~~Par le signe du produit vectoriel en 2D, dire de quel côté de sa ligne de regard se trouve la cible, et en déduire dans quel sens le garde doit tourner.~~
-
 ## Comprendre la séance
 
-### 7 — Les trois opérations à la main
+### 3 — Les trois opérations à la main
 
 > [!abstract] Objectifs
 > écrire soi-même l'addition, la multiplication par un scalaire et le produit vectoriel,
@@ -155,7 +149,7 @@ float   Cross(Vector2 a, Vector2 b);         // produit vectoriel, en 2D : un no
 
 ## Bilan formatif
 
-### 8 — Le garde voit-il le joueur ?
+### 4 — Le garde voit-il le joueur ?
 
 > [!abstract] Objectifs
 > enchaîner les trois tests de la séance — distance, angle, côté — sur une liste de cibles,
@@ -220,13 +214,3 @@ cible            dist    cos    cote        verdict
 > | lire le signe d'un produit vectoriel | `gauche` / `droite` / `devant` sont justes sur les six cibles |
 > | protéger la normalisation | une cible posée **sur** le garde ne produit pas de `NaN` |
 > | ordonner des tests du moins cher au plus cher | la distance d'abord, l'angle ensuite |
-
-## ~~Complet — reprendre toute la séance~~
-
-### ~~5 — L'arène de billard~~
-~~Une balle, quatre murs, et des obstacles rectangulaires. Calculer les rebonds successifs sur dix secondes : normale du mur touché, réflexion, projection pour savoir de combien la balle a dépassé le mur, et correction de position. Le rendu trace la trajectoire en caractères et affiche le nombre de rebonds.~~
-
-## ~~Difficile — se projeter~~
-
-### ~~6 — La zone de déclenchement~~
-~~Une zone de trigger convexe définie par ses sommets, dans l'ordre. Écrire le test « le joueur est-il à l'intérieur » par le signe du produit vectoriel sur chaque arête, puis la distance au bord la plus courte par projection, et enfin la normale de sortie pour repousser le joueur. Prolongement : dire ce qui casse si le polygone n'est pas convexe, et ce que font les moteurs à la place.~~
