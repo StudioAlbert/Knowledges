@@ -28,3 +28,6 @@
 [submodule "01 courses/companion projects/Unity/GPR-UN-APU-09 - State machine"]
 	path = 01 courses/companion projects/Unity/GPR-UN-APU-09 - State machine
 	url = https://github.com/StudioAlbert/GPR_UN_APU_09_StateMachine.git
+[submodule "01 courses/companion projects/C++/GPR-CF-POO-02 - Classes et visibilité"]
+	path = 01 courses/companion projects/C++/GPR-CF-POO-02 - Classes et visibilité
+	url = https://github.com/StudioAlbert/GPR_CF_POO_02_ClassesEtVisibilite.git
