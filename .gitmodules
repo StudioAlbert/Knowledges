@@ -31,3 +31,9 @@
 [submodule "01 courses/companion projects/C++/GPR-CF-POO-02 - Classes et visibilité"]
 	path = 01 courses/companion projects/C++/GPR-CF-POO-02 - Classes et visibilité
 	url = https://github.com/StudioAlbert/GPR_CF_POO_02_ClassesEtVisibilite.git
+[submodule "01 courses/companion projects/C++/GPR-CF-BDP-06 - Chaînes de caractères"]
+	path = 01 courses/companion projects/C++/GPR-CF-BDP-06 - Chaînes de caractères
+	url = https://github.com/StudioAlbert/GPR_CF_BDP_06_ChainesDeCaracteres.git
+[submodule "01 courses/companion projects/C++/GPR-CF-POO-03 - Découpage en fichiers"]
+	path = 01 courses/companion projects/C++/GPR-CF-POO-03 - Découpage en fichiers
+	url = https://github.com/StudioAlbert/GPR_CF_POO_03_DecoupageEnFichiers.git
