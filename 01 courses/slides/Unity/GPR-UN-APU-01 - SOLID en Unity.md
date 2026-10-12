@@ -5,6 +5,7 @@ status: Backlog
 subject: Unity
 duration_h: 1
 bloc_gsda: Architecture et Patterns Unity
+specialisation: Unity
 theme: white
 css:
   - 00 templates/css/sae_styles.css

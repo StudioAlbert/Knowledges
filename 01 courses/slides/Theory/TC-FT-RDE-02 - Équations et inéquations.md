@@ -5,6 +5,7 @@ status: Backlog
 subject: Theory
 duration_h: 1
 bloc_gsda: Résolution d'Équation
+specialisation: Fondamentaux Théoriques
 theme: white
 css:
   - 00 templates/css/sae_styles.css

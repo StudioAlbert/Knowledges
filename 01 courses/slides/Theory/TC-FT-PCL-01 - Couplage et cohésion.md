@@ -5,6 +5,7 @@ status: Backlog
 subject: Theory
 duration_h: 1
 bloc_gsda: Principes de Conception Logicielle
+specialisation: Fondamentaux Théoriques
 theme: white
 css:
   - 00 templates/css/sae_styles.css

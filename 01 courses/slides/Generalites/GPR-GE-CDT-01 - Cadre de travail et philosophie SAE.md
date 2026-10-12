@@ -5,6 +5,7 @@ status: Backlog
 subject: Generic
 duration_h: 1
 bloc_gsda: Généralités
+specialisation: Généralités
 theme: white
 css:
   - 00 templates/css/sae_styles.css

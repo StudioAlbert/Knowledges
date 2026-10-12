@@ -7,8 +7,14 @@ url_test: http://localhost:56689/
 
 - [x] Fleches de défilement en blanc sur tous les slides
 - [x] Sur la page d'entrée, Présenter les cours regroupés par bloc GSDA dans un header repliable
+- [x] Reprendre le sommaire (voir schema ci dessous)
+	- [x] 
+    n4["Rounded"] --> n2["Socle 1 (non foldable)"] & n5["Socle 2 (non foldable)"]
+    n2 --> n6["Bloc 3 (Foldable)"] & n7["Bloc 1 (Foldable)"] & n8["Bloc 2 (Foldable)"]
+    n5 --> n9["Bloc 4 (Foldable)"] & n10["Bloc 5 (Foldable)"]
 
 #### Captures
+
 ![[Pasted image 20261012094336.png]]
 
 - [x] Execption pour les slides Titre (contenu centré)
@@ -20,6 +26,43 @@ url_test: http://localhost:56689/
 	- [x] centrer le contenu dans l'espace restant
 ![[Pasted image 20261006134032.png]]
 - [x] Fleches de défilement en blanc
+
+## Sommaire à deux niveaux — traité le 12.10
+
+Ton schéma demande un niveau **au-dessus** des blocs : des socles, qui ne se replient pas,
+et les blocs repliables dessous. La donnée existait déjà, sur les **notes de séance** :
+`specialisation`. Le build ne lit que `slides/`, `exercises/` et `resources/` — jamais
+`lectures/`, et c'est voulu — donc je l'ai recopiée sur les decks, comme `bloc_gsda` l'est
+déjà. **En texte simple, jamais en wikilink** : aucune note de spécialisation n'existe, même
+règle que pour les blocs.
+
+72 decks ont reçu le champ, repris de leur note de séance par **code** et non par nom de
+fichier — deux decks EDC portent une double espace dans leur titre et ne se seraient pas
+retrouvés.
+
+| Socle | Blocs | Séances publiées |
+|---|---|---|
+| C++ Fondamentaux | Bases de la Programmation, Environnement de Développement C++, Git et Travail en Équipe, Programmation Orientée Objet | 17 |
+| Généralités | Généralités | 2 |
+| Unity | Architecture et Patterns Unity, Projet Commun | 4 |
+| Fondamentaux Théoriques | Géométrie Vectorielle et Matricielle, Représentation des Nombres et Logique Binaire, Trigonométrie | 10 |
+
+**Au passage** : le sommaire affichait des titres qui répétaient leur propre code
+(*GPR-CF-BDP-04 - Branches et boucles*) à côté de la colonne qui l'affiche déjà. Le build le
+retire **à l'affichage** seulement — aucun `title:` n'est touché, parce que les titres sont
+des identifiants de wikilink.
+
+### Trois choses à trancher
+
+- **Trois decks n'ont pas de note de séance** d'où tirer leur spécialisation :
+  `GPR-GE-CDT-01`, `GPR-GE-PRE-01` et `GPR-UN-PCO-925`. Je leur ai mis *Généralités*,
+  *Généralités* et *Unity*. Le socle *Généralités* ne contient donc que le bloc
+  *Généralités* — un socle pour lui tout seul, qui fait redite. Un autre nom, ou un
+  rattachement ailleurs, et je corrige.
+- **Les blocs restent ouverts par défaut.** Avec le socle en plus, la page est plus longue.
+  Un mot à changer si tu les veux fermés.
+- `Physics & Engine` existe comme spécialisation mais son unique deck n'est pas publié : le
+  socle n'apparaît pas encore.
 
 ## Traité le 12.10 — à vérifier
 

@@ -5,6 +5,7 @@ status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: SFML et Box2D
+specialisation: C++ Fondamentaux
 theme: white
 css:
   - 00 templates/css/sae_styles.css

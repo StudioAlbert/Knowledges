@@ -5,6 +5,7 @@ status: To check
 subject: C++
 duration_h: 1
 bloc_gsda: Programmation Orientée Objet
+specialisation: C++ Fondamentaux
 theme: white
 css:
   - 00 templates/css/sae_styles.css

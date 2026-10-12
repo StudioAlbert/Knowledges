@@ -4,6 +4,7 @@ type: slides
 status: En cours
 subject: Unity
 bloc_gsda: Projet Commun
+specialisation: Unity
 theme: white
 css:
   - 00 templates/css/sae_styles.css

@@ -5,6 +5,7 @@ status: Backlog
 subject: C++
 duration_h: 3
 bloc_gsda: Bases de la Programmation
+specialisation: C++ Fondamentaux
 theme: white
 css:
   - 00 templates/css/sae_styles.css

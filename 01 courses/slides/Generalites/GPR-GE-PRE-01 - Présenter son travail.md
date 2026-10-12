@@ -5,6 +5,7 @@ status: To check
 subject: Generic
 duration_h: 0.25
 bloc_gsda: Généralités
+specialisation: Généralités
 theme: white
 css:
   - 00 templates/css/sae_styles.css

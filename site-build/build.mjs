@@ -100,6 +100,17 @@ const slugify = (s) =>
 
 const byName = (a, b) => a.name.localeCompare(b.name, 'fr', { numeric: true });
 
+const compte = (n) => `${n} séance${n > 1 ? 's' : ''}`;
+
+// Le code est déjà affiché à côté du titre sur l'accueil : un titre qui le répète
+// fait doublon. Certains decks le portent, d'autres non — on normalise à l'affichage.
+const sansCode = (code, titre) => {
+  if (!titre.startsWith(code)) return titre;
+  let reste = titre.slice(code.length);
+  while (reste && (reste[0] === ' ' || reste[0] === '-')) reste = reste.slice(1);
+  return reste || titre;
+};
+
 const encodePath = (p) => p.split('/').map(encodeURIComponent).join('/');
 
 async function walk(dir, filter) {
@@ -183,7 +194,8 @@ function buildSeances(items) {
     const out = path.join(DIST, slugify(deck.category), slug);
     Object.assign(deck, { url: url + 'slides/', out: path.join(out, 'slides') });
     const bloc = String(deck.fm.bloc_gsda ?? '').trim() || 'Hors bloc';
-    seances.set(deck.code, { code: deck.code, category: deck.category, bloc, title: deck.title, url, out, draft, deck, exercises: [], resources: [] });
+    const socle = String(deck.fm.specialisation ?? '').trim() || 'Hors socle';
+    seances.set(deck.code, { code: deck.code, category: deck.category, socle, bloc, title: deck.title, url, out, draft, deck, exercises: [], resources: [] });
   }
 
   const known = new Set(items.map((it) => it.code).filter(Boolean));
@@ -606,27 +618,38 @@ ${sections}
 // Accueil
 
 async function renderIndex(seances) {
-  // Groupé par bloc GSDA, pas par dossier : c'est la maille du programme. L'ordre
-  // est celui de première apparition, et les decks sont déjà triés par nom de
-  // fichier, donc par code : les blocs d'une même filière restent voisins.
-  const blocs = new Map();
+  // Deux niveaux, comme le sommaire : la spécialisation (le socle) ne se replie
+  // pas, le bloc GSDA se replie. L'ordre est celui de première apparition, et les
+  // decks sont déjà triés par nom de fichier, donc par code.
+  const socles = new Map();
   for (const s of seances) {
+    if (!socles.has(s.socle)) socles.set(s.socle, new Map());
+    const blocs = socles.get(s.socle);
     if (!blocs.has(s.bloc)) blocs.set(s.bloc, []);
     blocs.get(s.bloc).push(s);
   }
-  const blocks = [...blocs].map(([bloc, list]) => {
-    const lis = list
-      .map(
-        (s) =>
-          `<li><a href="${s.url}"><span class="code">${escapeHtml(s.code)}</span>${escapeHtml(s.title)}${
-            s.draft ? ' <span class="draft-badge">brouillon</span>' : ''
-          }</a></li>`,
-      )
-      .join('\n');
-    // `open` par défaut : le repli est un geste du lecteur, la page n'arrive pas vide.
-    const count = `${list.length} séance${list.length > 1 ? 's' : ''}`;
-    return `<details class="bloc" open><summary>${escapeHtml(bloc)}<span class="bloc-count">${count}</span></summary><ul class="seance-list">\n${lis}\n</ul></details>`;
+
+  const blocks = [...socles].map(([socle, blocs]) => {
+    const total = [...blocs.values()].reduce((n, l) => n + l.length, 0);
+    const sections = [...blocs].map(([bloc, list]) => {
+      const lis = list
+        .map(
+          (s) =>
+            `<li><a href="${s.url}"><span class="code">${escapeHtml(s.code)}</span>${escapeHtml(sansCode(s.code, s.title))}${
+              s.draft ? ' <span class="draft-badge">brouillon</span>' : ''
+            }</a></li>`,
+        )
+        .join('\n');
+      // `open` par défaut : le repli est un geste du lecteur, la page n'arrive pas vide.
+      return `<details class="bloc" open><summary>${escapeHtml(bloc)}<span class="bloc-count">${compte(
+        list.length,
+      )}</span></summary><ul class="seance-list">\n${lis}\n</ul></details>`;
+    });
+    return `<section class="socle"><h2>${escapeHtml(socle)}<span class="socle-count">${compte(
+      total,
+    )}</span></h2>\n${sections.join('\n')}</section>`;
   });
+
   const empty = seances.length ? '' : '<p class="lead">Aucune séance publiée pour le moment.</p>';
   const drafts = seances.filter((s) => s.draft).length;
   // Rappel visible sur l'accueil : ce dist contient des brouillons et ne doit pas partir en ligne.
