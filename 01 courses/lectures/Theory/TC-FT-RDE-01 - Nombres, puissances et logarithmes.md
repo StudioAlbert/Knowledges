@@ -2,7 +2,7 @@
 title: Nombres, puissances et logarithmes
 type: seance
 code: TC-FT-RDE-01
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Résolution d'Équation
@@ -30,14 +30,17 @@ Ensembles de nombres, nombres premiers, puissances et racines et leurs règles d
 
 **Créer le support de zéro.** La fiche GSDA porte « hors livres — à écrire » en source : aucun matériel n'existe, ni dans ce vault ni dans les livres de référence.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/Theory/TC-FT-RDE-01 - Nombres, puissances et logarithmes|TC-FT-RDE-01 - Nombres, puissances et logarithmes]] — 15 slides, `publish: false` · widgets proposés : `croissance_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/Theory/TC-FT-RDE-01 - Nombres, puissances et logarithmes|TC-FT-RDE-01 - Nombres, puissances et logarithmes]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck rédigé le 12.10.2026, créé de zéro
+> - **Deck** : [[01 courses/slides/Theory/TC-FT-RDE-01 - Nombres, puissances et logarithmes|Slides RDE-01]] —
+>   23 slides, `publish: draft` le temps de la révision.
+> - **Schémas** : `rde01_exponentielle.svg` et `rde01_logarithme.svg` — deux figures jumelles,
+>   mêmes six points, axes échangés.
+> - **Pas de widget** : `croissance_widget.html` reste proposé, pas construit — les deux
+>   courbes couvrent le sujet sans le pas-à-pas.
+> - **Exercices** : [[01 courses/exercises/Theory/TC-FT-RDE-01 - Nombres, puissances et logarithmes|Exos RDE-01]] —
+>   toujours à l'état d'overview, hors périmètre de cette révision.
 
 ## Matériel
 
