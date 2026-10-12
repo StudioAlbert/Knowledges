@@ -2,7 +2,7 @@
 title: Découpage en fichiers
 type: seance
 code: GPR-CF-POO-03
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
@@ -32,14 +32,15 @@ En-tête et source, ce que le header promet, gardes d'inclusion, le duo `.h` / `
 
 ## Plan et exercices
 
-> [!done] Deck et exercices développés le 05.10.2026
+> [!done] Deck et companion révisés le 12.10.2026
 > - **Deck** : [[01 courses/slides/C++/GPR-CF-POO-03 - Découpage en fichiers|Slides POO-03]] — 22 slides,
->   `publish: true`. La slide *Forward declaration*, restée vide dans le plan, est écrite.
-> - **Schéma** : `poo03_unite_compilation.svg` — trois fichiers à gauche, l'unique unité de
->   compilation à droite, avec l'ordre de recopie.
+>   `publish: draft` le temps de la révision. La slide *Atelier* est retirée.
+> - **Schémas** : `poo03_unite_compilation.svg` — l'inclusion est un copier-coller — et
+>   `poo03_connaissance_reciproque.svg` — l'inclusion croisée, et l'annonce qui la coupe.
 > - **Pas de widget** : `inclusion_widget` n'est pas construit (voir la note de révision).
-> - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-03 - Découpage en fichiers|Exos POO-03]] — rédigés,
->   tous assis sur un **projet companion** : le donjon en un seul `main.cpp` de 293 lignes.
+> - **Pas de feuille d'exercices** : le travail pratique tient entier dans le companion,
+>   [[01 courses/resources/C++/GPR-CF-POO-03 - Projet companion Déclaration anticipée|Projet companion]],
+>   réduit à sa seule étape — le donjon à découper est retiré.
 
 ## Matériel
 

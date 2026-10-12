@@ -13,7 +13,7 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
+publish: draft
 ---
 
 # Découpage en fichiers
@@ -232,27 +232,36 @@ Un en-tête qui inclut tout fait recompiler tout le projet au moindre changement
 ## Forward declaration
 
 ```cpp
-// Joueur.h
+// Arme.h
 #pragma once
 
-class Arme;            // « Arme existe » — et rien de plus
+class Joueur;          // « Joueur existe » — et rien de plus
 
-class Joueur
+class Arme
 {
 public:
-    void equiper(Arme* arme);
+    void frapper();
 
 private:
-    Arme* arme_ = nullptr;
+    Joueur* porteur_ = nullptr;
 };
 ```
 
-Le `#include "Arme.h"` descend alors dans `Joueur.cpp`, où le code en a vraiment besoin.
+Le `#include "Joueur.h"` descend alors dans `Arme.cpp`, où le code en a vraiment besoin.
+
+---
+
+## Quand les deux se connaissent
+<!-- .slide: class="schema" -->
+
+`Joueur` a son `Arme`, `Arme` a son porteur : aucun des deux ne peut être lu en premier.
+
+![[poo03_connaissance_reciproque.svg]]
 
 Note:
-C'est aussi la seule sortie quand deux classes se connaissent mutuellement :
-`Joueur` connaît son `Arme`, `Arme` connaît son porteur. Deux `#include`
-croisés ne compilent jamais ; une annonce de chaque côté, si.
+Le companion le montre à la compilation : commenter l'annonce, décommenter
+l'include, et lire le C2143. L'annonce ne suffit que parce qu'`Arme` garde un
+**pointeur** — un attribut par valeur réclamerait la taille, donc le type complet.
 
 ---
 
@@ -293,19 +302,6 @@ Note:
 Vérifié au compilateur. Savoir lire laquelle des deux on a sous les yeux fait
 gagner un quart d'heure à chaque fois : le compilateur se plaint d'un fichier
 et d'une ligne, l'éditeur de liens d'un `.obj` et d'un symbole.
-
----
-
-## Atelier — 20 min
-
-Sortir la classe `Joueur` de `main.cpp` :
-
-1. créer `Joueur.h` et `Joueur.cpp`, avec `#pragma once`
-2. déplacer la déclaration dans l'en-tête, les corps dans le source
-3. ajouter `Joueur.cpp` au `CMakeLists.txt`, et recompiler
-4. retirer la garde, recompiler, **lire l'erreur**, puis la remettre
-
-Exercices 1 et 2 de la feuille ; le 5 est le bilan, à finir à la maison.
 
 ---
 
