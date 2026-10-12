@@ -2,7 +2,7 @@
 title: Cycle de vie de l'objet
 type: seance
 code: GPR-CF-POO-04
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
@@ -30,14 +30,18 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 
 **Découper un deck existant.** `01.03 - Basics OOP` (12,6 ko) porte 4 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-POO-01`, `GPR-CF-POO-02`, `GPR-CF-POO-03` — les découper en une seule passe évite de rouvrir le deck 4 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet|GPR-CF-POO-04 - Cycle de vie de l'objet]] — 15 slides, `publish: false` · widgets proposés : `cycle_de_vie_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-POO-04 - Cycle de vie de l'objet|GPR-CF-POO-04 - Cycle de vie de l'objet]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck rédigé et companion construit le 12.10.2026
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet|Slides POO-04]] — 23 slides,
+>   `publish: draft` le temps de la révision.
+> - **Schéma** : `poo04_ordre_initialisation.svg` — l'ordre qu'on écrit, l'ordre qui a lieu,
+>   et le membre lu avant d'exister.
+> - **Companion** : [[01 courses/resources/C++/GPR-CF-POO-04 - Projet companion Naître et mourir|Projet companion]]
+>   — une `Entity` qui annonce sa naissance et sa mort, trois situations, trois traces.
+> - **Pas de widget** : `cycle_de_vie_widget.html` reste proposé, pas construit.
+> - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-04 - Cycle de vie de l'objet|Exos POO-04]] —
+>   toujours à l'état d'overview, hors périmètre de cette révision.
 
 ## Matériel
 

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1000" height="330" fill="#ffffff"/>
+<text x="20.0" y="36.0" text-anchor="start" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">CE QUE VOUS ÉCRIVEZ — la liste d'initialisation</text>
+<rect x="55.0" y="52.0" width="390.0" height="56.0" rx="10" fill="#ffffff" stroke="#6e6e6e" stroke-width="2.5"/>
+<circle cx="55.0" cy="80.0" r="15" fill="#6e6e6e"/>
+<text x="55.0" y="86.0" text-anchor="middle" font-size="16" font-weight="800" fill="#ffffff">1</text>
+<text x="87.0" y="86.0" text-anchor="start" font-size="15" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">pointsDeVieMax_(max)</text>
+<rect x="545.0" y="52.0" width="390.0" height="56.0" rx="10" fill="#ffffff" stroke="#6e6e6e" stroke-width="2.5"/>
+<circle cx="545.0" cy="80.0" r="15" fill="#6e6e6e"/>
+<text x="545.0" y="86.0" text-anchor="middle" font-size="16" font-weight="800" fill="#ffffff">2</text>
+<text x="577.0" y="86.0" text-anchor="start" font-size="15" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">pointsDeVie_(pointsDeVieMax_)</text>
+<text x="20.0" y="176.0" text-anchor="start" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">CE QUI A LIEU — l'ordre de déclaration des membres</text>
+<rect x="55.0" y="212.0" width="390.0" height="56.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="55.0" cy="240.0" r="15" fill="#1a1a1a"/>
+<text x="55.0" y="246.0" text-anchor="middle" font-size="16" font-weight="800" fill="#ffffff">1</text>
+<text x="87.0" y="246.0" text-anchor="start" font-size="15" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">int pointsDeVie_;</text>
+<rect x="545.0" y="212.0" width="390.0" height="56.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="545.0" cy="240.0" r="15" fill="#1a1a1a"/>
+<text x="545.0" y="246.0" text-anchor="middle" font-size="16" font-weight="800" fill="#ffffff">2</text>
+<text x="577.0" y="246.0" text-anchor="start" font-size="15" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">int pointsDeVieMax_;</text>
+<path d="M250.0,108.0 L740.0,212.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-grey)"/>
+<path d="M740.0,108.0 L250.0,212.0" fill="none" stroke="#E30613" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="500.0" y="308.0" text-anchor="middle" font-size="15" font-weight="700" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 initialise pointsDeVie_ à partir de pointsDeVieMax_, qui ne sera construit qu'en 2.</text>
+</svg>
