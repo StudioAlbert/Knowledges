@@ -40,3 +40,6 @@
 [submodule "01 courses/companion projects/C++/GPR-CF-POO-04 - Cycle de vie de l'objet"]
 	path = 01 courses/companion projects/C++/GPR-CF-POO-04 - Cycle de vie de l'objet
 	url = https://github.com/StudioAlbert/GPR_CF_POO_04_CycleDeVieDeLObjet.git
+[submodule "01 courses/companion projects/C++/GPR-CF-POO-06 - Heritage et polymorphisme"]
+	path = 01 courses/companion projects/C++/GPR-CF-POO-06 - Heritage et polymorphisme
+	url = https://github.com/StudioAlbert/GPR_CF_POO_06_HeritageEtPolymorphisme.git

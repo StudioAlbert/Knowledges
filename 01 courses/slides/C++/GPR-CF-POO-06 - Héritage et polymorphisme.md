@@ -269,16 +269,16 @@ exception : une classe destinée à être héritée a un destructeur `virtual`.
 
 ---
 
-## Atelier — 20 min
+## La formative
 
-Un menu, cinq touches, cinq armes de cinq types différents.
+Un stand de tir. Cinq armes, cinq types, un menu de `1` à `5`.
 
-1. écrire la base `Arme`, avec `tirer()` en **virtuelle pure**
-2. en dériver cinq, chacune avec sa façon de tirer
-3. le menu ne connaît que des `Arme*` : il n'a aucun `if` sur le type
-4. ajouter une sixième arme sans toucher au menu — c'est le test
+- le companion donne **une** arme et **une** classe, sans parent
+- en ajouter une deuxième par copier-coller suffit à poser le problème
+- la contrainte : le menu ne teste **jamais** le type de l'arme
+- le test final : une sixième arme, sans toucher ni la base ni le menu
 
-Énoncé complet : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]].
+Énoncé : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]].
 
 ---
 

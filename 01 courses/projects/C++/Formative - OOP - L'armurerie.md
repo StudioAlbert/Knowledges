@@ -1,101 +1,100 @@
 # Formative — OOP — L'armurerie
 
 > Cours associé : [[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme|GPR-CF-POO-06 - Héritage et polymorphisme]]
-> Proposée le 12.10.2026, à valider.
+> Projet de départ : [[01 courses/resources/C++/GPR-CF-POO-06 - Projet companion Le stand de tir|Projet companion — le stand de tir]]
 
-## Énoncé
+## Le but
 
-Un stand de tir. Un menu affiche cinq armes, numérotées de **1** à **5**. On tape un
-chiffre, l'arme choisie tire, et le stand affiche ce qui s'est passé.
+Un stand de tir. Cinq armes, cinq types différents. Un menu de `1` à `5`.
 
-```text
---- STAND DE TIR ---
-  1  Pistolet          12 / 12
-  2  Fusil a pompe       6 / 6
-  3  Fusil de precision  4 / 4
-  4  Lance-roquettes     1 / 1
-  5  Arc                 1 fleche encochee
+**Le menu ne teste jamais le type de l'arme.** Pas de `switch`, pas de `if` sur une
+énumération. Il tient des armes, il appelle.
 
-  r  recharger    q  quitter
-> 2
-Fusil a pompe : 8 plombs en cone, 6 degats chacun a bout portant.
-```
+## Le départ
 
-Les cinq armes ne tirent pas de la même façon :
+Le companion donne **une** arme et **une** classe, sans parent. Le menu l'appelle
+directement.
 
-| Arme | Ce que `tirer()` fait |
-|---|---|
-| **Pistolet** | un projectile, dégâts fixes, chargeur de 12 |
-| **Fusil à pompe** | huit plombs d'un coup, les dégâts chutent avec la distance |
-| **Fusil de précision** | un projectile, dégâts élevés, une seconde entre deux tirs |
-| **Lance-roquettes** | dégâts de zone autour du point d'impact, une seule roquette |
-| **Arc** | les dégâts dépendent du **temps de tension** avant le lâcher |
+Ajoutez-en une deuxième par copier-coller. Puis une troisième. Arrêtez-vous là : le
+problème est posé.
 
-**La contrainte, qui est tout le sujet** : le menu ne doit contenir **aucun test sur le
-type de l'arme**. Pas de `if (type == PISTOLET)`, pas de `switch` sur une énumération
-d'armes. Il tient un tableau d'armes, et il appelle.
-
-## La hiérarchie
+## La hiérarchie à construire
 
 ```mermaid
 classDiagram
-    class Arme {
-        <<abstract>>
-        #nom_
-        #munitions_
-        +Tirer()* void
-        +Recharger() void
-        +PeutTirer() bool
+    class Weapon {
+        name : String
+        damage : int
+        weight : float
+        Fire()* void
     }
-    class Pistolet { +Tirer() void }
-    class FusilAPompe { -plombs_ ; +Tirer() void }
-    class FusilDePrecision { -delai_ ; +Tirer() void }
-    class LanceRoquettes { -rayon_ ; +Tirer() void }
-    class Arc { -tension_ ; +Tirer() void }
-    Arme <|-- Pistolet
-    Arme <|-- FusilAPompe
-    Arme <|-- FusilDePrecision
-    Arme <|-- LanceRoquettes
-    Arme <|-- Arc
+    class Firearm {
+        caliber : String
+        magazineCapacity : int
+        Reload() void
+    }
+    class Melee {
+        bladeLength : float
+        Swing() void
+    }
+    class SemiAutomatic {
+        SingleShotMode() void
+    }
+    class FullAuto {
+        burstMode : boolean
+        burstLength : int
+        FireFullAuto() void
+    }
+    Weapon <|-- Firearm
+    Weapon <|-- Melee
+    Firearm <|-- SemiAutomatic
+    Firearm <|-- FullAuto
 ```
 
-`Tirer()` est **virtuelle pure** : la base ne sait pas tirer, elle promet seulement que
-toute arme sait le faire. Ce qui est commun — le nom, les munitions, le décompte, le
-rechargement — reste dans la base, écrit une seule fois.
+`Fire()` est **virtuelle pure** sur `Weapon` : toute arme sait tirer, aucune ne tire pareil,
+et `Weapon` ne sait pas comment.
 
-## Travail demandé
+Les attributs sont notés `+` sur le diagramme. Dans le code, ils sont **`protected`** : les
+classes filles s'en servent, l'extérieur non. POO-02 reste vrai.
 
-1. **La base.** Écrire `Arme` avec son nom, ses munitions, `Recharger()`, `PeutTirer()`,
-   et `Tirer()` en virtuelle pure. Vérifier qu'`Arme arme;` est refusé par le compilateur,
-   et recopier le message.
-2. **Deux armes.** Dériver `Pistolet` et `FusilAPompe`. Chacune implémente `Tirer()` à sa
-   façon, et consomme ses munitions en passant par la base.
-3. **Le menu.** Un `std::vector<std::unique_ptr<Arme>>`, et une boucle qui lit un chiffre,
-   le transforme en indice, et appelle `Tirer()`. **Aucun test sur le type.**
-4. **Les trois autres.** Ajouter `FusilDePrecision`, `LanceRoquettes` et `Arc`. Le menu ne
-   doit pas changer d'une ligne.
-5. **Le test de l'énoncé.** Ajouter une **sixième** arme de votre invention. Si le menu a
-   besoin d'être touché pour autre chose que la ligne qui la crée, la hiérarchie n'est pas
-   la bonne.
+## Pourquoi trois niveaux
+
+`Melee` n'a pas de chargeur. Poser `Reload()` sur `Weapon` obligerait un couteau à
+recharger. `Firearm` existe pour ça : il porte ce que seules les armes à feu partagent.
+
+## Les étapes
+
+1. **`Weapon`.** Reprendre la classe du companion. Rendre `Fire()` virtuelle pure. Vérifier
+   que `Weapon w;` est refusé, et recopier le message du compilateur.
+2. **`Firearm`.** Dériver de `Weapon`. Ajouter `caliber_`, `magazineCapacity_`, `Reload()`.
+   `Fire()` consomme une munition et refuse à vide.
+3. **`SemiAutomatic`.** Dériver de `Firearm`. Un coup par appui. `SingleShotMode()`.
+4. **`FullAuto`.** Dériver de `Firearm`. `burstLength_` coups par appui. `FireFullAuto()`.
+5. **`Melee`.** Dériver de `Weapon`. `bladeLength_`, `Swing()`. `Fire()` frappe : aucune
+   munition, aucun `Reload()`.
+6. **Le menu.** Un `std::vector<std::unique_ptr<Weapon>>`. Cinq entrées, cinq instances.
+   Aucun test sur le type.
+7. **Le test.** Ajouter une sixième arme. Seule la ligne qui la crée doit changer.
 
 ## Ce qu'on vérifiera
 
 | Je sais… | Vérification |
 |---|---|
-| écrire une base abstraite | `Arme` ne s'instancie pas, et le compilateur le dit |
-| factoriser ce qui est commun | les munitions et le rechargement sont écrits **une fois** |
-| laisser l'objet décider | le menu appelle `Tirer()` sans savoir sur quoi |
-| fermer ce qui doit l'être | aucun attribut public, `protected` seulement si un enfant s'en sert |
-| ne rien casser en ajoutant | la sixième arme n'oblige à toucher ni la base ni le menu |
+| écrire une base abstraite | `Weapon` ne s'instancie pas, et le compilateur le dit |
+| placer un membre au bon niveau | `Reload()` est sur `Firearm`, jamais sur `Weapon` |
+| laisser l'objet décider | le menu appelle `Fire()` sans savoir sur quoi |
+| fermer ce qui doit l'être | aucun attribut public ; `protected` seulement si une fille s'en sert |
+| ne rien casser en ajoutant | la sixième arme ne touche ni la base, ni le menu |
 
 > [!tip] Le destructeur
-> Le tableau tient des `Arme*`. Au moment où il se vide, c'est le destructeur de la **base**
-> qui est appelé — et si celui de la base n'est pas `virtual`, celui de l'arme réelle ne
-> passe jamais. Ajouter un message dans chaque destructeur et regarder la trace.
+> Le vecteur tient des `Weapon*`. Quand il se vide, c'est le destructeur de la **base** qui
+> part — et sans `virtual`, celui de l'arme réelle ne part jamais. Mettre un message dans
+> chaque destructeur, et lire la trace.
 
-## Pistes d'extension
+## Pour aller plus loin
 
-- une arme **composite** : un fusil à double canon qui contient deux armes et les déclenche
-  l'une après l'autre. La base ne change pas.
-- un **modificateur** appliqué à n'importe quelle arme — silencieux, viseur — qui pose la
-  question composition contre héritage, et prépare [[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage|TC-FT-PCL-04]].
+- un **fusil à double canon** qui contient deux armes et les déclenche l'une après l'autre :
+  la base ne change pas ;
+- un **silencieux** ou un **viseur** applicable à n'importe quelle arme — et la question
+  devient composition contre héritage, qui est
+  [[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage|TC-FT-PCL-04]].

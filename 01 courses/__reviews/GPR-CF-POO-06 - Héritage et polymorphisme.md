@@ -1,15 +1,53 @@
 ---
 status: To check
-manual_order: 4
+manual_order: 3
 url_test: http://localhost:56689/cpp/gpr-cf-poo-06/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme]]"
 ---
+- [x] Pas d'exercices, pas d'atelier => un seul exercice Formative basé sur le contenu de l'atelier initial
+- [x] se baser sur la hierarchie pour rédiger les étapes de l'exercice
+- [x] ajouter companion pour lancer les étudiants sur l'exercice
+	- [x] donner Menu avec une arme, classe non héritée
+	      
+> [!Tip] Dans la rédaction des consignes, rester concis (peu de mots, phrases courtes, mots précis et spécifiques)
+> 
+
 - [x] Extraire contenu de 01 courses/lectures/C++/04 - OOP Advanced et l'inclure dans le deck final 
 - [x] Proposer nouvel atelier de création d'une hierarchie, l'inclure comme formative
-	- [ ] https://mermaid.ai/app/projects/cf787ab8-6815-4645-90a0-22f5b42df581/diagrams/c74b9e74-9c5f-474e-9c74-40517add3281/share/invite/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2N1bWVudElEIjoiYzc0YjllNzQtOWM1Zi00NzRlLTljNzQtNDA1MTdhZGQzMjgxIiwiYWNjZXNzIjoiRWRpdCIsInB1cnBvc2UiOiJzaGFyZS1pbnZpdGUiLCJpYXQiOjE3OTE3OTY0MjcsImV4cCI6MTc5NDM4ODQyN30.aNtRXTvQPKYZTBeAZwJZcdY_dgN5tbLCOTiNZRSkjfA?entryPoint=share-modal
+	- [x] https://mermaid.ai/app/projects/cf787ab8-6815-4645-90a0-22f5b42df581/diagrams/c74b9e74-9c5f-474e-9c74-40517add3281/share/invite/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2N1bWVudElEIjoiYzc0YjllNzQtOWM1Zi00NzRlLTljNzQtNDA1MTdhZGQzMjgxIiwiYWNjZXNzIjoiRWRpdCIsInB1cnBvc2UiOiJzaGFyZS1pbnZpdGUiLCJpYXQiOjE3OTE3OTY0MjcsImV4cCI6MTc5NDM4ODQyN30.aNtRXTvQPKYZTBeAZwJZcdY_dgN5tbLCOTiNZRSkjfA?entryPoint=share-modal
 	- [x] éléments d'énoncé
 		- [x] un menu : 1/2/3/4/5 pour tirer avec une arme de chaque type 
 		- [x] l'élève doit créer la hiérarchie, chaque entrée de menu utilise une arme différente de type différent
+
+## Deuxième passe, le 12.10 — à vérifier
+
+**La hiérarchie est la tienne**, reprise du diagramme : `Weapon` → `Firearm` →
+`SemiAutomatic` / `FullAuto`, et `Melee` à côté. Trois niveaux, pas deux — et la formative
+dit **pourquoi** : `Melee` n'a pas de chargeur, donc `Reload()` ne peut pas monter sur
+`Weapon`. `Firearm` existe pour porter ce que seules les armes à feu partagent. C'est le
+point que ma première proposition, à plat, ratait complètement.
+
+Une seule liberté prise : les attributs sont notés `+` sur ton diagramme, ils sont écrits
+`protected` dans l'énoncé. Sinon POO-02 est contredit deux séances plus tard. C'est dit dans
+la formative, en une phrase.
+
+**Plus de feuille d'exercices, plus d'atelier.**
+`exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme.md` est supprimée, et la slide
+*Atelier — 20 min* devient *La formative* : quatre puces, le companion, la contrainte, le
+test final. Le site ne rattache plus d'exercice à POO-06.
+
+**Companion créé** : `StudioAlbert/GPR_CF_POO_06_HeritageEtPolymorphisme`, poussé, ajouté en
+sous-module, avec sa fiche ressources. Une cible, `01_une_seule_arme` : une classe `Weapon`
+sans parent, un menu qui l'appelle directement. Compilé et lancé au MSVC — tirer, recharger,
+chargeur vide.
+
+Le premier geste demandé est volontairement le mauvais : **ajouter une deuxième arme par
+copier-coller**. C'est ce qui fait apparaître le problème avant qu'on en donne la solution.
+
+**Consignes resserrées**, comme demandé : phrases courtes, sept étapes numérotées, un verbe
+par étape, et le tableau d'auto-évaluation en cinq lignes.
+
+**18 slides**, aucune hors cadre.
 
 ## Traité le 12.10 — à vérifier
 

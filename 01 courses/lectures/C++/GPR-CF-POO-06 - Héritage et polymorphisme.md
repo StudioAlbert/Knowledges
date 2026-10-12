@@ -37,12 +37,14 @@ Principe de l'héritage, le code, les deux points à retenir, mode d'héritage, 
 >   `publish: draft` le temps de la révision. Reprend les tranches *Héritage* et
 >   *Polymorphisme* du support d'origine ; `static` et les opérateurs restent à POO-05.
 > - **Schéma** : `poo06_diamant.svg` — le diamant, et la base plus interface qui l'évite.
-> - **Formative** : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]]
->   — un menu de cinq armes de cinq types, sans un seul test sur le type.
+> - **Formative, et elle seule** : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]]
+>   — cinq armes, cinq types, un menu sans un seul test sur le type. Écrite sur la
+>   hiérarchie `Weapon` / `Firearm` / `Melee` fournie par l'auteur.
+> - **Companion** : [[01 courses/resources/C++/GPR-CF-POO-06 - Projet companion Le stand de tir|Projet companion]]
+>   — une arme, une classe sans parent, un menu qui l'appelle. Le point de départ.
 > - **Pas de widget** : `dispatch_widget.html` reste proposé, pas construit — les deux
 >   sorties console du deck sont réelles, vérifiées au compilateur.
-> - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme|Exos POO-06]] —
->   toujours à l'état d'overview, hors périmètre de cette révision.
+> - **Ni feuille d'exercices, ni atelier** : supprimés le 12.10, la formative les remplace.
 
 ## Matériel
 
