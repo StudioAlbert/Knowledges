@@ -26,6 +26,7 @@ Each area carries its own `CLAUDE.md`, loaded when you touch a file there:
 | `00 widgets/CLAUDE.md` | widgets autonomes, inventaire, chemins |
 | `tools/schemas/CLAUDE.md` | générateurs Python des figures SVG |
 | `01 courses/__reviews/CLAUDE.md` | checklists de révision, kanban, métadonnées GSDA |
+| `01 courses/companion projects/CLAUDE.md` | structure d'un companion, cibles CMake |
 
 Procédure récurrente : la skill **`traiter-revisions`** (traiter le kanban Reviews de bout
 en bout).

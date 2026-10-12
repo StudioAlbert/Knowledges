@@ -1,8 +1,0 @@
-//
-// Created by sebas on 08.10.2026.
-//
-
-#ifndef GRP_CF_POO_01___STRUCTURES_ENNEMI_H
-#define GRP_CF_POO_01___STRUCTURES_ENNEMI_H
-
-#endif //GRP_CF_POO_01___STRUCTURES_ENNEMI_H
