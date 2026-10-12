@@ -2,7 +2,7 @@
 title: Héritage et polymorphisme
 type: seance
 code: GPR-CF-POO-06
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
@@ -30,14 +30,19 @@ Principe de l'héritage, le code, les deux points à retenir, mode d'héritage, 
 
 **Découper un deck existant.** `04 - OOP Advanced` (10,1 ko) porte 2 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-POO-05` — les découper en une seule passe évite de rouvrir le deck 2 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme|GPR-CF-POO-06 - Héritage et polymorphisme]] — 14 slides, `publish: false` · widgets proposés : `dispatch_widget.html` ; 1 schéma à dessiner.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme|GPR-CF-POO-06 - Héritage et polymorphisme]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck rédigé le 12.10.2026, à partir de [[04 - OOP Advanced]]
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme|Slides POO-06]] — 18 slides,
+>   `publish: draft` le temps de la révision. Reprend les tranches *Héritage* et
+>   *Polymorphisme* du support d'origine ; `static` et les opérateurs restent à POO-05.
+> - **Schéma** : `poo06_diamant.svg` — le diamant, et la base plus interface qui l'évite.
+> - **Formative** : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]]
+>   — un menu de cinq armes de cinq types, sans un seul test sur le type.
+> - **Pas de widget** : `dispatch_widget.html` reste proposé, pas construit — les deux
+>   sorties console du deck sont réelles, vérifiées au compilateur.
+> - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme|Exos POO-06]] —
+>   toujours à l'état d'overview, hors périmètre de cette révision.
 
 ## Matériel
 

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="340" viewBox="0 0 1000 340" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1000" height="340" fill="#ffffff"/>
+<text x="240.0" y="26.0" text-anchor="middle" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">HÉRITAGE MULTIPLE — le diamant</text>
+<rect x="145.0" y="41.0" width="190.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="240.0" y="64.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Personnage</text>
+<text x="240.0" y="82.0" text-anchor="middle" font-size="12" font-weight="500" fill="#6e6e6e">pointsDeVie_</text>
+<rect x="25.0" y="134.0" width="170.0" height="44.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="110.0" y="162.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Combattant</text>
+<rect x="285.0" y="134.0" width="170.0" height="44.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="370.0" y="162.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Magicien</text>
+<rect x="145.0" y="225.0" width="190.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="240.0" y="248.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Paladin</text>
+<text x="240.0" y="266.0" text-anchor="middle" font-size="12" font-weight="500" fill="#6e6e6e">pointsDeVie_ deux fois</text>
+<path d="M147.6,130.0 L198.1,95.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-grey)"/>
+<path d="M332.4,130.0 L281.9,95.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-grey)"/>
+<path d="M199.9,221.0 L146.0,182.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-grey)"/>
+<path d="M280.1,221.0 L334.0,182.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-grey)"/>
+<text x="240.0" y="292.0" text-anchor="middle" font-size="14" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">quel pointsDeVie_ ? il y en a deux</text>
+<text x="240.0" y="322.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Chaque chemin apporte sa copie de l'aïeul.</text>
+<text x="740.0" y="26.0" text-anchor="middle" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">UNE BASE, ET UNE INTERFACE</text>
+<rect x="545.0" y="41.0" width="190.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="640.0" y="64.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Personnage</text>
+<text x="640.0" y="82.0" text-anchor="middle" font-size="12" font-weight="500" fill="#6e6e6e">pointsDeVie_</text>
+<rect x="780.0" y="41.0" width="180.0" height="50.0" rx="10" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="870.0" y="64.0" text-anchor="middle" font-size="16" font-weight="700" fill="#6e6e6e">Incantateur</text>
+<text x="870.0" y="82.0" text-anchor="middle" font-size="12" font-weight="500" fill="#6e6e6e">virtuelle pure</text>
+<rect x="645.0" y="225.0" width="190.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="740.0" y="248.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Paladin</text>
+<text x="740.0" y="266.0" text-anchor="middle" font-size="12" font-weight="500" fill="#6e6e6e">pointsDeVie_ une fois</text>
+<path d="M724.2,221.0 L655.8,95.0" fill="none" stroke="#6e6e6e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-grey)"/>
+<path d="M760.5,221.0 L849.5,95.0" fill="none" stroke="#2e9e5b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-ink)"/>
+<text x="740.0" y="322.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">L'interface ne porte aucune donnée : rien à dupliquer.</text>
+<path d="M500.0,44.0 L500.0,300.0" fill="none" stroke="#6e6e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" stroke-opacity="0.60"/>
+</svg>
