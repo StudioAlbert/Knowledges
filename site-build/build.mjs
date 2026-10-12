@@ -631,6 +631,9 @@ async function renderIndex(seances) {
 
   const blocks = [...socles].map(([socle, blocs]) => {
     const total = [...blocs.values()].reduce((n, l) => n + l.length, 0);
+    // Un socle qui ne porte qu'un bloc n'a rien à replier : le titre du socle suffit,
+    // et un `<details>` y ferait doublon avec lui.
+    const seul = blocs.size === 1;
     const sections = [...blocs].map(([bloc, list]) => {
       const lis = list
         .map(
@@ -640,10 +643,12 @@ async function renderIndex(seances) {
             }</a></li>`,
         )
         .join('\n');
+      const liste = `<ul class="seance-list">\n${lis}\n</ul>`;
+      if (seul) return bloc === socle ? liste : `<h3 class="bloc-seul">${escapeHtml(bloc)}</h3>\n${liste}`;
       // `open` par défaut : le repli est un geste du lecteur, la page n'arrive pas vide.
       return `<details class="bloc" open><summary>${escapeHtml(bloc)}<span class="bloc-count">${compte(
         list.length,
-      )}</span></summary><ul class="seance-list">\n${lis}\n</ul></details>`;
+      )}</span></summary>${liste}</details>`;
     });
     return `<section class="socle"><h2>${escapeHtml(socle)}<span class="socle-count">${compte(
       total,

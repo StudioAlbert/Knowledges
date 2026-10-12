@@ -37,3 +37,6 @@
 [submodule "01 courses/companion projects/C++/GPR-CF-POO-01 - Structures"]
 	path = 01 courses/companion projects/C++/GPR-CF-POO-01 - Structures
 	url = https://github.com/StudioAlbert/GPR_CF_POO_01_Structures.git
+[submodule "01 courses/companion projects/C++/GPR-CF-POO-04 - Cycle de vie de l'objet"]
+	path = 01 courses/companion projects/C++/GPR-CF-POO-04 - Cycle de vie de l'objet
+	url = https://github.com/StudioAlbert/GPR_CF_POO_04_CycleDeVieDeLObjet.git

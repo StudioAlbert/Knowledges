@@ -76,6 +76,8 @@ h1::after { content: ''; display: block; width: 48px; height: 3px; margin-top: 1
 .bloc > summary:hover { color: var(--sae-red); }
 .bloc-count { margin-left: auto; font-size: .8rem; font-weight: 400; color: var(--muted); }
 .bloc .seance-list { margin-top: 12px; }
+.bloc-seul { font-size: 1.1rem; font-weight: 600; margin: 18px 0 10px; }
+.socle > .seance-list { margin-top: 18px; }
 .seance-list { list-style: none; margin: 0; padding: 0 18px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
 .seance-list li + li { border-top: 1px solid var(--line); }
 .seance-list a { display: block; padding: 12px 0; color: var(--ink); text-decoration: none; font-weight: 500; }

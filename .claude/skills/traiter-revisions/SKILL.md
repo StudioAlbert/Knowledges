@@ -10,11 +10,13 @@ Backlog, To do, To check, Ready).
 
 ## Choisir la note
 
-Traiter les notes en statut **To do**, par ordre d'urgence :
+Traiter les notes en statut **To do**, **dans l'ordre du Kanban** — `manual_order` croissant,
+et rien d'autre. L'auteur place lui-même ses révisions et les ordonne : la colonne est déjà
+priorisée. La réordonner sur les dates de séance, ou sur ce qui paraît urgent, lui retire ce
+contrôle.
 
-1. les séances à venir d'abord — `date_scheduled` de la séance correspondante dans
-   `01 courses/lectures/<matière>/` ;
-2. à égalité, l'ordre dans le Kanban (`manual_order`).
+Dérouler **toute** la colonne, pas la première note seulement. Et **relire le Kanban après
+chaque note** : l'auteur en ajoute, et en rouvre, pendant qu'on travaille.
 
 ## Traiter
 

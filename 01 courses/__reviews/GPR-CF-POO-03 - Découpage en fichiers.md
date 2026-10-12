@@ -1,6 +1,6 @@
 ---
-status: To check
-manual_order: 2
+status: Ready
+manual_order: -3.5
 url_test: http://localhost:56689/cpp/gpr-cf-poo-03/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-03 - Découpage en fichiers]]"
 ---
@@ -47,5 +47,5 @@ texte aussi gros que le cadre le permet.
 - **`.cpp` dans le deck, `.cc` dans le companion.** Le deck écrit `Joueur.cpp` partout, le
   companion suit la skill `programmation-cpp` (Google : `.h` / `.cc`). Les deux se tiennent,
   mais l'étudiant voit les deux le même jour. Hors périmètre de cette révision — à décider.
-- Le deck est en **`publish: draft`** : il sort du site en ligne au prochain déploiement.
-  Le repasser en `online` est ton geste, après relecture.
+- ~~Le deck est en `publish: draft`~~ — **repassé en `online` le 12.10**, révision validée.
+  Vérifié par un build de production : 29 séances actives, POO-03 dedans, aucun brouillon.
