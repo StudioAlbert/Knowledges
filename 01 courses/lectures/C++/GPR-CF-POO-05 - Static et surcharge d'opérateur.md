@@ -30,14 +30,18 @@ Attribut et méthode `static`, ce qu'ils partagent entre instances, surcharge d'
 
 **Découper un deck existant.** `04 - OOP Advanced` (10,1 ko) porte 2 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-POO-06` — les découper en une seule passe évite de rouvrir le deck 2 fois.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-POO-05 - Static et surcharge d'opérateur|GPR-CF-POO-05 - Static et surcharge d'opérateur]] — 14 slides, `publish: false` · widgets proposés : `static_partage_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-POO-05 - Static et surcharge d'opérateur|GPR-CF-POO-05 - Static et surcharge d'opérateur]] — 4 courts, 1 complet, 1 difficile.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Deck rédigé le 12.10.2026, à partir de [[04 - OOP Advanced]]
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-POO-05 - Static et surcharge d'opérateur|Slides POO-05]] — 20 slides,
+>   `publish: draft` le temps de la révision. Reprend les tranches *Static* et *Surcharge
+>   d'opérateur* du support d'origine ; l'héritage et le polymorphisme restent à POO-06.
+> - **Schéma** : `poo05_static_partage.svg` — trois objets, trois attributs, une seule case
+>   partagée.
+> - **Pas de widget** : `static_partage_widget.html` reste proposé, pas construit — le
+>   schéma et la trace du compteur couvrent le même point.
+> - **Exercices** : [[01 courses/exercises/C++/GPR-CF-POO-05 - Static et surcharge d'opérateur|Exos POO-05]] —
+>   toujours à l'état d'overview, hors périmètre de cette révision.
 
 ## Matériel
 
