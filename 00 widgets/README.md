@@ -24,6 +24,7 @@ Ce dossier fait partie du vault `Knowledges` ; il en était un sous-module, il n
 | `_widgets/quaternion_widget.html` | L'ambiguïté des rotations 3D : l'ordre des angles d'Euler, le gimbal lock mesuré sur un cardan, et slerp contre interpolation d'angles | `#ordre` `#gimbal` `#slerp` | TC-FT-GVM-05 |
 | `_widgets/produit_scalaire_widget.html` | Signe et angle du produit scalaire, projection et rejet, test d'orientation et cône de vision | `#scalaire` `#projection` `#orientation` | TC-FT-GVM-02 |
 | `_widgets/string_index_widget.html` | Une `std::string` case par case : `[]` contre `at()` hors des bornes, `substr`, `find` et `npos` | `#index` `#substr` `#find` | GPR-CF-BDP-06 |
+| `_widgets/etats_quizz_widget.html` | Cinq situations de gameplay : trier les étiquettes entre états et non-états — donnée, condition, événement, action — puis révéler la machine attendue et ses transitions | `#porte` `#garde` `#arme` `#dash` `#manche` | GPR-UN-APU-09 |
 | `_widgets/utility_ai.html` | Courbes de réponse pour la décision des PNJ | — | portfolio uniquement |
 
 ## Dans une slide

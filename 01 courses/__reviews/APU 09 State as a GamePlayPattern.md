@@ -7,9 +7,10 @@ slides:
   - "[[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|Slides APU-09]]"
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-09 - Observer, State et composition|Exos APU-09]]"
-url_test: http://localhost:50822/unity/gpr-un-apu-09/
+url_test: http://localhost:56689/unity/gpr-un-apu-09/
 ---
-
+- [ ] "- reconnaître un comportement qui a des **états**" -> Faire un widget / quizz avec qqes situations de gameplay, La question : quels etats et transitions peut on déduire de cette situation ?
+- [x] Transformer Slide Ressources en fiche Ressources publiée sur le site
 - [x] Proposer Companion Unity permettant d'explorer les cas d'usage
 	- [x] une scene par cas d'usage
 	- [x] une UI pour visualiser l'etat des states machines
@@ -20,6 +21,38 @@ url_test: http://localhost:50822/unity/gpr-un-apu-09/
 		- [x] QTE : Invite, Confirn, Fail, Success, Closing => every state display a UI Panel, and transition are mapped on UI buttons (Canvas)
 		- [x] Tour par tour : pas d'idée de gameplay, kind of Xcom Game, 2 Tourelles se tirant dessus, une est controllée par le joueur, l'autre est en auto. Le joueur passe le tour avec un bouton next, l'IA passe quand elle est a court de munitions
 - [x] Presenter la state machine generique du repo ci dessus
+
+## Traité le 12.10 — à vérifier
+
+**Le quizz existe** : `00 widgets/_widgets/etats_quizz_widget.html`, cinq situations, une par
+onglet — la porte, le garde, l'arme, le dash, la manche. Pour chacune, une poignée
+d'étiquettes à trier : lesquelles sont des états ? *Vérifier* corrige, explique chaque
+étiquette en une ligne, et **dessine la machine attendue** avec ses transitions.
+
+Les mauvaises réponses ne sont pas du remplissage : ce sont les **quatre confusions qui
+reviennent toujours**, une par catégorie.
+
+| Catégorie | Exemple du quizz | Pourquoi ce n'est pas un état |
+|---|---|---|
+| donnée | *Points de vie* | un nombre, que l'état courant ne change pas |
+| condition | *Le joueur a la clé* | elle autorise une transition |
+| événement | *Le joueur appuie sur E* | il déclenche une transition |
+| action | *Crier* | ça se fait à l'entrée d'un état, ça ne dure pas |
+| propriété | *Invulnérable* (dash) | vrai **pendant** Dash, pas un état de plus |
+
+La slide est posée juste après *Les règles d'une bonne machine* : on vient de nommer état,
+transition et condition, on s'entraîne à les reconnaître avant de passer au code.
+
+**La slide Ressources est devenue une fiche** :
+[[01 courses/resources/Unity/GPR-UN-APU-09 - Ressources|Ressources — State]], rattachée à la
+séance par `seances:`. Elle apparaît dans l'onglet *Ressources* du site, à côté de la fiche
+du companion. Les quatre liens sont repris tels quels, avec l'ordre de lecture conseillé, le
+lien vers la machine générique de *MallLifeStealthGame*, et le quizz.
+
+Le deck se referme maintenant sur une slide *Questions ?*, comme les autres — c'était la
+slide Ressources qui lui servait de fin.
+
+**30 slides**, aucune hors cadre.
 
 ## Traité le 28.09 — à vérifier (séance du 01.10)
 

@@ -102,9 +102,6 @@ tout seul, à la déclaration.
 - la règle écrite **une fois**, pas à chaque création
 - l'extérieur ne peut pas l'oublier : il n'y a pas d'autre chemin
 
-C'est le `private` de POO-02 pris par l'autre bout — on ferme la porte, puis on
-installe la seule entrée.
-
 ---
 
 ## Construire avec des paramètres
@@ -220,12 +217,13 @@ L'ordre de la liste ne compte pas. Seul celui de la **déclaration** compte.
 ## Ce qui se passe vraiment
 <!-- .slide: class="schema" -->
 
-Le membre lu n'est pas encore construit, et rien ne s'en plaint.
+`Monstre(int max) : pointsDeVieMax_(max), pointsDeVie_(pointsDeVieMax_)`
 
 ![[poo04_ordre_initialisation.svg]]
 
 Note:
-`pointsDeVie_` est déclaré en premier, donc initialisé en premier, à partir d'un
+Le membre lu n'est pas encore construit, et rien ne s'en plaint. `pointsDeVie_`
+est déclaré en premier, donc initialisé en premier, à partir d'un
 `pointsDeVieMax_` qui ne vaut encore rien. Le programme tourne et donne un
 nombre — un nombre faux, différent selon la machine.
 

@@ -1,9 +1,12 @@
 ---
 status: To check
-manual_order: 3
+manual_order: 1
 url_test: http://localhost:56689/cpp/gpr-cf-poo-04/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet]]"
 ---
+- [x] C'est le private de POO-02 pris par l'autre bout — on ferme la porte, puis on installe la seule entrée. => Supprimer
+- [x] Slide "Ce qui se passe vraiment", rappeller snippet de code en une ligne
+- [ ] 
 - [x] Créer companion : mini projet faisant démonstration du sujet
 	- [x] une classe **Entity**  avec constructeur et destructeur et affichage console pour montrer par ou passe le programme
 		- [x] Création d'une entité, destruction d'une entité dans le main
@@ -11,6 +14,19 @@ slides: "[[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet]]"
 		- [x] Création de deux entités a la suite dans le main
 - [x] Détailler le contenu
 - [ ] Publier — **en attente de toi** : le deck est en `draft`, un mot à changer
+
+## Deuxième passe, le 12.10
+
+- **Phrase supprimée.** La slide *Ce qu'il garantit* s'arrête sur ses trois puces.
+- **Le schéma rappelle son code.** La ligne de contexte de *Ce qui se passe vraiment* est
+  devenue le constructeur lui-même :
+  `Monstre(int max) : pointsDeVieMax_(max), pointsDeVie_(pointsDeVieMax_)`. On lit la liste
+  et le schéma sans revenir en arrière. La phrase qui y était est passée en note de
+  présentation, où elle sert de commentaire oral.
+- **Le companion a son dépôt** : `StudioAlbert/GPR_CF_POO_04_CycleDeVieDeLObjet`, poussé, et
+  ajouté ici en sous-module. La fiche ressources affiche donc sa vraie fiche GitHub.
+- **Publier** reste ouvert : la séance est le **14.10** et le deck est en `draft`. Il part en
+  ligne quand tu passes cette note en *Ready*.
 
 ## Traité le 12.10 — à vérifier
 

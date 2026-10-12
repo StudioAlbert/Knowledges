@@ -114,6 +114,17 @@ quelque chose.
 
 ---
 
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/etats_quizz_widget.html#porte" data-background-interactive -->
+
+Note:
+Cinq situations, cinq onglets. Faire proposer à voix haute avant de cliquer :
+quels états, et pourquoi les autres étiquettes n'en sont pas. Les pièges sont
+toujours les mêmes quatre — une donnée, une condition, un événement, une action.
+Le dash est le plus instructif : « invulnérable » est une **propriété** de l'état
+Dash, pas un état de plus.
+
+---
+
 # En code
 <!-- .slide: class="title" -->
 
@@ -456,9 +467,9 @@ machine. Arbres de comportement : vus dans le bloc IA
 
 ---
 
-## Ressources
+# Questions ?
+<!-- .slide: class="title" -->
 
-- [State — Game Programming Patterns](https://gameprogrammingpatterns.com/state.html) (Robert Nystrom) : le chapitre de référence, avec l'héroïne qui saute
-- [State — Refactoring.Guru](https://refactoring.guru/fr/design-patterns/state) : le pattern en schémas et en C#
-- [Level up your code with design patterns and SOLID — e-book Unity](https://unity.com/resources/design-patterns-solid-ebook) : chapitre *State pattern*
-- [State Machine Basics — Unity Manual](https://docs.unity3d.com/Manual/StateMachineBasics.html) : l'Animator comme machine à états
+### Pour aller plus loin
+
+<small>Les quatre lectures de référence sont dans l'onglet **Ressources** de la séance.</small>
