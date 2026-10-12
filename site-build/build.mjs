@@ -182,7 +182,8 @@ function buildSeances(items) {
     const url = `/${slugify(deck.category)}/${slug}/`;
     const out = path.join(DIST, slugify(deck.category), slug);
     Object.assign(deck, { url: url + 'slides/', out: path.join(out, 'slides') });
-    seances.set(deck.code, { code: deck.code, category: deck.category, title: deck.title, url, out, draft, deck, exercises: [], resources: [] });
+    const bloc = String(deck.fm.bloc_gsda ?? '').trim() || 'Hors bloc';
+    seances.set(deck.code, { code: deck.code, category: deck.category, bloc, title: deck.title, url, out, draft, deck, exercises: [], resources: [] });
   }
 
   const known = new Set(items.map((it) => it.code).filter(Boolean));
@@ -605,10 +606,16 @@ ${sections}
 // Accueil
 
 async function renderIndex(seances) {
-  const categories = [...new Set(seances.map((s) => s.category))].sort((a, b) => a.localeCompare(b, 'fr'));
-  const blocks = categories.map((cat) => {
-    const lis = seances
-      .filter((s) => s.category === cat)
+  // Groupé par bloc GSDA, pas par dossier : c'est la maille du programme. L'ordre
+  // est celui de première apparition, et les decks sont déjà triés par nom de
+  // fichier, donc par code : les blocs d'une même filière restent voisins.
+  const blocs = new Map();
+  for (const s of seances) {
+    if (!blocs.has(s.bloc)) blocs.set(s.bloc, []);
+    blocs.get(s.bloc).push(s);
+  }
+  const blocks = [...blocs].map(([bloc, list]) => {
+    const lis = list
       .map(
         (s) =>
           `<li><a href="${s.url}"><span class="code">${escapeHtml(s.code)}</span>${escapeHtml(s.title)}${
@@ -616,7 +623,9 @@ async function renderIndex(seances) {
           }</a></li>`,
       )
       .join('\n');
-    return `<section class="category"><h2>${escapeHtml(cat)}</h2><ul class="seance-list">\n${lis}\n</ul></section>`;
+    // `open` par défaut : le repli est un geste du lecteur, la page n'arrive pas vide.
+    const count = `${list.length} séance${list.length > 1 ? 's' : ''}`;
+    return `<details class="bloc" open><summary>${escapeHtml(bloc)}<span class="bloc-count">${count}</span></summary><ul class="seance-list">\n${lis}\n</ul></details>`;
   });
   const empty = seances.length ? '' : '<p class="lead">Aucune séance publiée pour le moment.</p>';
   const drafts = seances.filter((s) => s.draft).length;

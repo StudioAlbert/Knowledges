@@ -101,9 +101,27 @@
 
 /* ===== FLÈCHES DE DÉFILEMENT =====
    reveal les pose en bas à droite, donc sur la bande noire du fond : en noir,
-   elles y sont invisibles. */
+   elles y sont invisibles.
+
+   Le blanc seul ne suffisait pas. reveal lit la couleur de fond de la slide
+   courante, pose `has-light-background` ou `has-dark-background` sur `.reveal`,
+   puis se recolore depuis sa propre feuille :
+   `.reveal.has-light-background .controls { color: #000 }` — deux classes, donc
+   plus spécifique que `.reveal .controls`. Les slides de contenu ont un fond
+   blanc : elles retombaient en noir. Seules les slides de titre, au fond noir,
+   avaient des flèches blanches. On reprend donc la main au même niveau.
+
+   Le halo sombre couvre l'autre cas : hors 16:9, reveal place les flèches dans
+   le coin de la FENÊTRE et non de la slide, et elles tombent sur la bande
+   blanche du letterbox. */
+.reveal.has-light-background .controls,
+.reveal.has-dark-background .controls,
 .reveal .controls {
     color: var(--sae-white);
+}
+
+.reveal .controls button {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.85));
 }
 
 .reveal .controls button:hover {

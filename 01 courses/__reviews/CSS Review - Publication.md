@@ -1,11 +1,16 @@
 ---
-status: To do
+status: To check
 manual_order: 1
-url_test: http://localhost:60720/
+url_test: http://localhost:56689/
 ---
 > [!tip] Revisiter l'ensemble des slides
 
-- [ ] Fleches de défilement en blanc sur tous les slides
+- [x] Fleches de défilement en blanc sur tous les slides
+- [x] Sur la page d'entrée, Présenter les cours regroupés par bloc GSDA dans un header repliable
+
+#### Captures
+![[Pasted image 20261012094336.png]]
+
 - [x] Execption pour les slides Titre (contenu centré)
 ![[{5637A15E-82B6-45C6-84AF-4E1CB2B91556}.png]]
 ![[{7F99BE4A-6ED3-4B90-9FD8-51474B0A11F2}.png]]
@@ -15,6 +20,36 @@ url_test: http://localhost:60720/
 	- [x] centrer le contenu dans l'espace restant
 ![[Pasted image 20261006134032.png]]
 - [x] Fleches de défilement en blanc
+
+## Traité le 12.10 — à vérifier
+
+**1. Flèches de défilement, pour de bon.** Le blanc posé le 06.10 n'a jamais tenu sur les
+slides de contenu, et la raison est dans reveal : il lit la couleur de fond de la slide
+courante, pose `has-light-background` ou `has-dark-background` sur `.reveal`, puis se
+recolore depuis sa propre feuille.
+
+| sélecteur | spécificité | couleur |
+|---|---|---|
+| `.reveal.has-light-background .controls` — reveal.css | 0,3,0 | noir |
+| `.reveal .controls` — sae_styles.css | 0,2,0 | blanc |
+
+Les slides de contenu ont un fond **blanc** : elles retombaient en noir, sur la bande noire
+du fond. Seules les slides de **titre**, au fond noir, passaient en `has-dark-background` et
+avaient donc des flèches blanches — exactement « blanches sur certaines slides seulement ».
+La règle reprend la main sur les deux classes.
+
+Un `drop-shadow` sombre couvre l'autre cas : hors 16:9, reveal place les flèches dans le coin
+de la **fenêtre** et non de la slide, et elles tombent sur la bande du letterbox.
+
+Vérifié sur slide de contenu, de titre, de schéma et de widget, en 1280×720 et en 1280×900.
+
+**2. Accueil groupé par bloc GSDA.** `renderIndex` ne groupe plus par dossier (C++, Theory,
+Unity) mais par `bloc_gsda`, lu sur le frontmatter du deck — les 30 decks publiés le portent
+tous. Chaque bloc est un `<details>` repliable, avec son nombre de séances à droite. L'ordre
+est celui des codes : BDP, EDC, GTE, POO, puis Généralités, Unity, Theory.
+
+Les blocs sont **ouverts par défaut** — la page garde tout son contenu au premier regard, et
+le repli est un geste du lecteur. Un mot à changer si tu les préfères fermés.
 
 ## Traité le 06.10 — à vérifier
 
