@@ -94,6 +94,31 @@ plus le motif. C'est ainsi qu'on casse l'effet « tout le monde en rythme ».
 
 ---
 
+## Décomposer
+
+```text
+ 1  =  (rien)            ni premier, ni composé : le produit vide
+ 2  =  2                 premier
+ 3  =  3                 premier
+ 4  =  2 × 2             =  2²
+ 5  =  5                 premier
+ 8  =  2 × 2 × 2         =  2³
+13  =  13                premier
+18  =  2 × 3 × 3         =  2 × 3²
+19  =  19                premier
+```
+
+Une seule décomposition par nombre, à l'ordre des facteurs près.
+
+Note:
+C'est le théorème fondamental de l'arithmétique. Les premiers sont les briques,
+et il n'y a qu'une façon d'empiler les briques pour obtenir un nombre donné. Le
+cas de 1 mérite l'arrêt : il n'est pas premier, et pas composé non plus — c'est
+le produit de zéro facteur. En faire un premier casserait l'unicité, puisqu'on
+pourrait écrire 18 = 1 × 2 × 3² autant de fois qu'on veut.
+
+---
+
 # Puissances et racines
 <!-- .slide: class="title" -->
 
@@ -101,7 +126,7 @@ plus le motif. C'est ainsi qu'on casse l'effet « tout le monde en rythme ».
 
 ## Puissances
 
-<p class="formule">a<sup>n</sup> = a × a × … × a &nbsp;&nbsp; (n facteurs)</p>
+$$a^n = \underbrace{a \times a \times \cdots \times a}_{n \text{ facteurs}}$$
 
 Trois règles, et tout le reste s'en déduit :
 
@@ -115,7 +140,7 @@ On **additionne** les exposants pour multiplier, on les **multiplie** pour empil
 
 ## Racines
 
-<p class="formule">√a = a<sup>1/2</sup> &nbsp;&nbsp;&nbsp; ∛a = a<sup>1/3</sup></p>
+$$\sqrt{a} = a^{1/2} \qquad \sqrt[3]{a} = a^{1/3}$$
 
 Une racine n'est pas une opération de plus : c'est une **puissance fractionnaire**.
 
@@ -145,7 +170,7 @@ machine, qui ne connaît que `pow`.
 
 ## Notation scientifique
 
-<p class="formule">a × 10<sup>n</sup> &nbsp;&nbsp; avec 1 ≤ a &lt; 10</p>
+$$a \times 10^{n} \qquad \text{avec } 1 \leqslant a < 10$$
 
 Un niveau de jeu, c'est 10<sup>5</sup> triangles et 10<sup>7</sup> octets de textures.
 
@@ -161,7 +186,7 @@ on compare `10⁶` et `10⁶`.
 
 ## Exponentielle
 
-<p class="formule">f(x) = a<sup>x</sup> &nbsp;&nbsp; avec a &gt; 0</p>
+$$f(x) = a^{x} \qquad \text{avec } a > 0$$
 
 - l'exposant devient la **variable** : on ne multiplie plus, on fait varier
 - elle décrit toute grandeur dont la **croissance est proportionnelle à elle-même**
@@ -186,7 +211,7 @@ C'est le problème que le logarithme vient résoudre.
 
 ## Logarithme
 
-<p class="formule">log<sub>a</sub>(x) = y &nbsp;&nbsp; ⟺ &nbsp;&nbsp; a<sup>y</sup> = x</p>
+$$\log_a(x) = y \iff a^{y} = x$$
 
 - c'est **l'exposant** qu'il faut mettre à `a` pour obtenir `x`
 - donc la fonction **réciproque** de l'exponentielle
@@ -246,7 +271,7 @@ partie, le joueur voit la différence.
 
 ## Erreur relative
 
-<p class="formule">erreur relative = |mesure − vraie valeur| ÷ |vraie valeur|</p>
+$$\varepsilon_{\text{rel}} = \frac{\lvert \text{mesure} - \text{valeur vraie} \rvert}{\lvert \text{valeur vraie} \rvert}$$
 
 - se tromper d'un mètre sur un kilomètre : **0,1 %**
 - se tromper d'un mètre sur un mètre : **100 %**

@@ -347,8 +347,14 @@ ${sections}
 <script src="/assets/reveal/dist/reveal.js"></script>
 <script src="/assets/reveal/plugin/markdown/markdown.js"></script>
 <script src="/assets/reveal/plugin/highlight/highlight.js"></script>
+<script src="/assets/reveal/plugin/math/math.js"></script>
 <script>Reveal.initialize(Object.assign(${JSON.stringify(options)}, {
-  plugins: [RevealMarkdown, RevealHighlight],
+  // KaTeX est servi depuis /assets/katex, pas depuis un CDN : le site reste
+  // autonome. Les delimiteurs sont ceux d'Obsidian, donc une formule ecrite dans
+  // le vault s'affiche pareil des deux cotes. Les blocs <code> et <pre> sont
+  // ignores par KaTeX : une variable CMake entre accolades n'est pas touchee.
+  katex: { local: '/assets/katex' },
+  plugins: [RevealMarkdown, RevealHighlight, RevealMath.KaTeX],
   // Un bloc sans langage (formule, pseudo-code) reste en texte brut : sans cette
   // ligne, highlight.js devine une langue au hasard et colorie les formules.
   highlight: { beforeHighlight: (hljs) => hljs.configure({ languages: [] }) },
@@ -676,6 +682,7 @@ async function copyAssets(resolver) {
     recursive: true,
     filter: (src) => !['.git', '.nojekyll', 'README.md'].includes(path.basename(src)),
   });
+  await fs.cp(path.join(HERE, 'node_modules/katex/dist'), path.join(DIST, 'assets/katex/dist'), { recursive: true });
   await fs.copyFile(path.join(HERE, 'assets/site.css'), path.join(DIST, 'assets/site.css'));
   await fs.copyFile(path.join(HERE, 'node_modules/highlight.js/styles/github.min.css'), path.join(DIST, 'assets/hljs.css'));
 
