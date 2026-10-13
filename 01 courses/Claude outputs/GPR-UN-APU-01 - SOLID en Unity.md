@@ -535,7 +535,7 @@ Refactorer une scène fournie, non SOLID.
 ## Pour aller plus loin
 <!-- .slide: data-background="00 images/01_slide_fond_titre.jpg" -->
 
-Séances suivantes : [[GPR-UN-APU-08 - Strategy pattern en Unity|Strategy]] · [[GPR-UN-APU-09 - Observer, State et composition|Observer, State, composition]]
+Séances suivantes : [[GPR-UN-APU-08 - Strategy pattern en Unity|Strategy]] · [[01 courses/slides/Unity/GPR-UN-APU-09 - State, un pattern de gameplay|Observer, State, composition]]
 
 - [Level up your code with design patterns and SOLID](https://unity.com/resources/design-patterns-solid-ebook) — e-book Unity
 - [Unite Austin 2017 — S.O.L.I.D. Unity](https://youtu.be/eIf3-aDTOOA)

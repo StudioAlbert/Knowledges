@@ -32,9 +32,9 @@ Rappel des principes d'une machine à états, `enum` + `switch` puis pattern Sta
 
 **Deck créé le 28.09** — plus rien à découper : `solid_principles_in_unity` ne couvrait pas State.
 
-- **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|GPR-UN-APU-09 - State, un pattern de gameplay]] — 30 slides, `publish: draft` tant que non relu, 6 schémas générés (`tools/schemas/apu09_*.py`).
+- **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-09 - State, un pattern de gameplay|GPR-UN-APU-09 - State, un pattern de gameplay]] — 30 slides, `publish: draft` tant que non relu, 6 schémas générés (`tools/schemas/apu09_*.py`).
 - **Companion** : `01 courses/companion projects/Unity/GPR-UN-APU-09 - State machine` — quatre démos de la machine générique (héros, garde, QTE, tour par tour), à montrer en direct sur le garde et le QTE.
-- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-09 - Observer, State et composition|atelier araignée]] rédigé ; pistes 2 à 6 en overview.
+- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-09 - State, un pattern de gameplay|atelier araignée]] rédigé ; pistes 2 à 6 en overview.
 - **Widget proposé, non fait** : `state_machine_widget.html` — la machine du héros, boutons de conditions, état courant qui s'allume, transitions impossibles refusées avec explication.
 
 ## Matériel

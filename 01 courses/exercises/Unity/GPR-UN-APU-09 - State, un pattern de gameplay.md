@@ -1,6 +1,6 @@
 # Exercices — GPR-UN-APU-09 — State, un pattern de gameplay
 
-> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|GPR-UN-APU-09 - State, un pattern de gameplay]]
+> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-09 - State, un pattern de gameplay|GPR-UN-APU-09 - State, un pattern de gameplay]]
 
 Terrain de jeu : le **Dungeon Crawler** de [[GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01]], branche `main`.
 

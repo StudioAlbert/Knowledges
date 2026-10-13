@@ -46,7 +46,7 @@ Substituer un comportement à l'exécution, interface de stratégie, sélection 
 ## Liens
 
 - Séance précédente : [[GPR-UN-APU-07 - Singleton générique et persistant]]
-- Séance suivante : [[GPR-UN-APU-09 - Observer, State et composition]]
+- Séance suivante : [[01 courses/lectures/Unity/GPR-UN-APU-09 - State, un pattern de gameplay]]
 
 ## Notes de préparation
 
