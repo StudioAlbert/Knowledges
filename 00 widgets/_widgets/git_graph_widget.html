@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphe Git — branches, HEAD, merge et rebase</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+.toolbar button:disabled { opacity: .4; cursor: default; }
+.toolbar select, .toolbar input[type=text] {
+    font: inherit; font-size: 13px; font-family: "JetBrains Mono", monospace;
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 8px; background: #fff; color: var(--text);
+}
+.toolbar input[type=text] { width: 140px; }
+.toolbar input.msg { width: 230px; font-family: "Inter", system-ui, sans-serif; }
+pre.cmds { font-family: "JetBrains Mono", monospace; font-size: 12.5px; line-height: 1.6; background: var(--sae-black); color: #eaeaea; border-radius: var(--radius); padding: 8px 10px; margin: 6px 6px 0; white-space: pre; }
+pre.cmds .c { color: #9a9a9a; }
+pre.cmds b { color: #fff; }
+pre.cmds b::before { content: "$ "; color: var(--sae-red); }
+html.embed pre.cmds { font-size: 12px; padding: 6px 10px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(52vh, 460px); user-select: none; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.duo .col h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; padding: 4px 6px 0;
+}
+.duo svg { height: min(46vh, 400px); }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint strong { color: var(--text); }
+.hint code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.state { font-family: "JetBrains Mono", monospace; font-size: 13px; line-height: 1.8; }
+.state .r { color: var(--sae-red); font-weight: 700; }
+.term {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.55;
+    background: var(--sae-black); color: #eaeaea; border-radius: var(--radius);
+    padding: 9px 10px; max-height: 190px; overflow-y: auto; white-space: pre-wrap;
+}
+.term .cmd { color: #fff; font-weight: 700; }
+.term .cmd::before { content: "$ "; color: var(--sae-red); }
+.term .out { color: #b5b5b5; }
+.term .err { color: #ff8a8a; }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+text.mono { font-family: "JetBrains Mono", monospace; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 28px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .duo { flex: 1; min-height: 0; }
+html.embed .duo .col { display: flex; flex-direction: column; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Le graphe <span class="hl">Git</span></h1>
+    <p class="sub">Une branche n'est qu'une étiquette posée sur un commit ; <code>HEAD</code> dit sur laquelle vous êtes. Cliquez les commandes et regardez l'historique pousser.</p>
+  </div>
+  <div class="formula"><b>HEAD</b> → branche → commit</div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="libre">1 · Bac à sable</button>
+  <button data-tab="compare">2 · Merge ou rebase</button>
+</nav>
+
+<!-- =============================== 1 · BAC À SABLE =============================== -->
+<section class="panel on" id="libre">
+  <div class="toolbar">
+    <div class="group">
+      <input type="text" id="l-msg" class="msg" aria-label="Message du prochain commit">
+      <button class="primary" data-act="commit">ajouter un commit</button>
+    </div>
+    <div class="group">
+      <input type="text" id="l-name" value="saut-double" aria-label="Nom de la nouvelle branche">
+      <button data-act="branch">switch -c</button>
+    </div>
+    <div class="group">
+      <select id="l-target" aria-label="Branche cible"></select>
+      <button data-act="switch">switch</button>
+      <button data-act="merge">merge</button>
+      <button data-act="rebase">rebase</button>
+    </div>
+    <div class="group">
+      <button data-act="undo">annuler</button>
+      <button data-act="reset">recommencer</button>
+      <label class="chk"><input type="checkbox" id="l-ghost" checked> commits abandonnés</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg-libre" role="img" aria-label="Graphe de commits interactif"></svg>
+      <p class="tip">Chaque cercle est un commit ; les étiquettes noires sont les branches ; l'étiquette rouge <strong>HEAD</strong> montre où vous êtes. Le prochain commit s'accroche au commit rouge.</p>
+    </div>
+    <div class="side">
+      <div class="card"><h3>État</h3><div class="state" id="l-state"></div></div>
+      <div class="card">
+        <h3>Où pointe HEAD</h3>
+        <p class="hint">Une branche est un <strong>pointeur</strong> vers un commit, pas une copie du projet : la créer ne coûte rien.</p>
+        <p class="hint"><code>switch</code> déplace <strong>HEAD</strong> ; <code>commit</code> fait avancer <strong>la branche de HEAD</strong> — et elle seule.</p>
+      </div>
+      <div class="card"><h3>Terminal</h3><div class="term" id="l-term"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 2 · COMPARER =============================== -->
+<section class="panel" id="compare">
+  <div class="stage">
+    <div class="board">
+      <div class="duo">
+        <div class="col"><h4>merge</h4><svg id="svg-cmp-m" role="img" aria-label="Intégration par merge"></svg>
+<pre class="cmds"><b>git switch main</b>
+<b>git merge saut-double</b>     <span class="c"># crée un commit de fusion</span></pre></div>
+        <div class="col"><h4>rebase puis merge</h4><svg id="svg-cmp-r" role="img" aria-label="Intégration par rebase"></svg>
+<pre class="cmds"><b>git switch saut-double</b>
+<b>git rebase main</b>           <span class="c"># rejoue les 2 commits</span>
+<b>git switch main</b>
+<b>git merge saut-double</b>     <span class="c"># fast-forward</span></pre></div>
+      </div>
+      <p class="tip">Même départ, mêmes commits, même contenu final : seule la forme de l'histoire change. En pointillés, les anciens commits réécrits par le rebase.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Merge</h3>
+        <p class="hint">Garde l'histoire <strong>telle qu'elle s'est passée</strong>, avec ses bifurcations. Ajoute un commit de fusion. Sans danger sur une branche partagée.</p>
+      </div>
+      <div class="card">
+        <h3>Rebase</h3>
+        <p class="hint">Réécrit l'histoire pour qu'elle soit <strong>linéaire</strong>, puis <code>main</code> avance en fast-forward. Plus lisible, mais les commits changent d'identité.</p>
+      </div>
+      <div class="card">
+        <h3>La règle</h3>
+        <p class="hint">Rebase <strong>avant</strong> de proposer, sur une branche à vous seul. Merge pour intégrer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>SAE Institute Genève · GPR-CF-GTE-02 Branches et intégration · onglets <code>#libre</code> <code>#compare</code></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+const RED = "#E30613", INK = "#1a1a1a", GRAY = "#a8a8a8", GRAY2 = "#6e6e6e";
+const NS = "http://www.w3.org/2000/svg";
+
+/* ================================================================
+   modèle : un dépôt Git minimal
+   ================================================================ */
+let hashSeed = 7;
+function newHash(){
+  // pseudo-aléatoire déterministe : les mêmes clics donnent les mêmes hash
+  hashSeed = (hashSeed * 1103515245 + 12345) & 0x7fffffff;
+  return (hashSeed.toString(16) + "0000000").slice(0, 7);
+}
+
+class Repo {
+  constructor(){
+    this.commits = {};     // hash -> {hash, parents, msg, lane, order, dead}
+    this.order = 0;
+    this.branches = {};    // nom -> hash
+    this.lanes = {};       // nom -> numéro de ligne
+    this.head = "main";
+    this.count = 0;
+    this.log = [];
+    this.last = null;      // dernier événement, pour les explications
+  }
+  clone(){ return JSON.parse(JSON.stringify(this)); }
+  restore(o){ Object.assign(this, JSON.parse(JSON.stringify(o))); }
+
+  tip(b){ return this.branches[b === undefined ? this.head : b]; }
+  laneOf(b){
+    if (this.lanes[b] === undefined){
+      const used = Object.values(this.lanes);
+      let l = 0; while (used.includes(l)) l++;
+      this.lanes[b] = l;
+    }
+    return this.lanes[b];
+  }
+  mk(parents, msg, lane){
+    const h = newHash();
+    this.commits[h] = {hash: h, parents: parents, msg: msg, lane: lane, order: this.order++, dead: false};
+    return h;
+  }
+  commit(msg){
+    this.count++;
+    msg = msg || ("Commit " + this.count);
+    const h = this.mk(this.tip() ? [this.tip()] : [], msg, this.laneOf(this.head));
+    this.branches[this.head] = h;
+    this.cmd('git commit -m "' + msg + '"', "[" + this.head + " " + h + "] " + msg);
+    this.last = {type: "commit", hash: h};
+    return h;
+  }
+  branch(name){
+    if (!name || !/^[\w\-\/.]+$/.test(name)){ this.cmd("git switch -c " + (name || "?"), "fatal: nom de branche invalide", true); return false; }
+    if (this.branches[name]){ this.cmd("git switch -c " + name, "fatal: a branch named '" + name + "' already exists", true); return false; }
+    this.branches[name] = this.tip();
+    this.laneOf(name);
+    this.head = name;
+    this.cmd("git switch -c " + name, "Switched to a new branch '" + name + "'");
+    this.last = {type: "branch"};
+    return true;
+  }
+  switchTo(name){
+    if (name === this.head){ this.cmd("git switch " + name, "Already on '" + name + "'"); return; }
+    this.head = name;
+    this.cmd("git switch " + name, "Switched to branch '" + name + "'");
+    this.last = {type: "switch"};
+  }
+  ancestors(h){
+    const seen = new Set(), stack = h ? [h] : [];
+    while (stack.length){
+      const x = stack.pop();
+      if (seen.has(x)) continue;
+      seen.add(x);
+      this.commits[x].parents.forEach(p => stack.push(p));
+    }
+    return seen;
+  }
+  merge(name, opts){
+    opts = opts || {};
+    const cur = this.tip(), other = this.tip(name);
+    const label = "git merge " + (opts.noEdit ? "--no-edit " : "") + name;
+    if (name === this.head){ this.cmd(label, "fatal: impossible de fusionner une branche avec elle-même", true); return null; }
+    if (this.ancestors(cur).has(other)){ this.cmd(label, "Already up to date."); this.last = {type: "uptodate"}; return "uptodate"; }
+    if (this.ancestors(other).has(cur)){
+      this.branches[this.head] = other;
+      this.cmd(label, "Updating " + cur + ".." + other + "\nFast-forward");
+      this.last = {type: "ff"};
+      return "ff";
+    }
+    const h = this.mk([cur, other], "Merge branch '" + name + "'", this.laneOf(this.head));
+    this.branches[this.head] = h;
+    this.cmd(label, "Merge made by the 'ort' strategy.");
+    this.last = {type: "merge", hash: h};
+    return "merge";
+  }
+  rebase(onto){
+    const cur = this.tip(), base = this.tip(onto);
+    const label = "git rebase " + onto;
+    if (onto === this.head){ this.cmd(label, "Current branch " + this.head + " is up to date.", false); return null; }
+    const baseAnc = this.ancestors(base);
+    if (baseAnc.has(cur)){ this.cmd(label, "Current branch " + this.head + " is up to date."); return null; }
+    // commits propres à la branche, du plus ancien au plus récent (chaîne des premiers parents)
+    const mine = [];
+    let x = cur;
+    while (x && !baseAnc.has(x)){ mine.unshift(x); x = this.commits[x].parents[0]; }
+    if (mine.some(h => this.commits[h].parents.length > 1)){
+      this.cmd(label, "(ce widget ne rejoue pas les commits de fusion)", true); return null;
+    }
+    const map = [];
+    let prev = base;
+    const lane = this.laneOf(this.head);
+    mine.forEach(h => {
+      const n = this.mk([prev], this.commits[h].msg, lane);
+      this.commits[n].was = h;
+      this.commits[h].dead = true;
+      map.push([h, n]);
+      prev = n;
+    });
+    this.branches[this.head] = prev;
+    this.cmd(label, "Successfully rebased and updated refs/heads/" + this.head + ".");
+    this.last = {type: "rebase", map: map};
+    return map;
+  }
+  cmd(c, out, err){ this.log.push({c: c, out: out, err: !!err}); }
+  // un commit « mort » reste visible tant qu'aucune branche ne le rejoint
+  reachable(){
+    const s = new Set();
+    Object.values(this.branches).forEach(h => this.ancestors(h).forEach(x => s.add(x)));
+    return s;
+  }
+}
+
+/* ================================================================
+   dessin SVG
+   ================================================================ */
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs){
+  const t = el("text", Object.assign({x: x, y: y, "text-anchor": "middle", "font-size": 12, fill: INK,
+    stroke: "#fff", "stroke-width": 4, "paint-order": "stroke", "stroke-linejoin": "round"}, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+
+function render(svg, repo, opts){
+  opts = opts || {};
+  svg.innerHTML = "";
+  const DX = opts.dx || 86, DY = opts.dy || 96, X0 = 60, Y0 = 92;
+  const reach = repo.reachable();
+  const list = Object.values(repo.commits)
+    .filter(c => opts.ghost || reach.has(c.hash))
+    .sort((a, b) => a.order - b.order);
+
+  // colonnes compactes : l'ordre de création, sans trous laissés par les commits masqués
+  const col = {};
+  list.forEach((c, i) => col[c.hash] = i);
+
+  // ligne d'affichage : la chaîne des premiers parents de main est toujours en haut,
+  // comme dans git log --graph ; les autres commits gardent la ligne de leur branche
+  const mainChain = new Set();
+  for (let x = repo.branches.main; x; x = repo.commits[x].parents[0]) mainChain.add(x);
+  const laneOf = h => mainChain.has(h) ? 0 : Math.max(1, repo.commits[h].lane);
+  const pos = h => ({x: X0 + col[h] * DX, y: Y0 + laneOf(h) * DY});
+
+  const maxLane = Math.max(0, ...list.map(c => laneOf(c.hash)));
+  const W = Math.max(opts.minW || 640, X0 + Math.max(0, list.length - 1) * DX + 170);
+  const H = Y0 + maxLane * DY + 70;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("preserveAspectRatio", "xMinYMid meet");
+
+  const headAnc = repo.ancestors(repo.tip());
+  const headTip = repo.tip();
+
+  // arêtes
+  list.forEach(c => c.parents.forEach(p => {
+    if (col[p] === undefined) return;
+    const a = pos(p), b = pos(c.hash);
+    const onHead = headAnc.has(c.hash) && headAnc.has(p);
+    const dead = c.dead;
+    let d;
+    if (a.y === b.y) d = "M" + a.x + "," + a.y + " L" + b.x + "," + b.y;
+    else if (b.y > a.y) // bifurcation : on descend tout de suite après le parent
+      d = "M" + a.x + "," + a.y + " C" + (a.x + DX * .45) + "," + a.y + " " + (a.x + DX * .1) + "," + b.y + " " + (a.x + DX * .65) + "," + b.y + " L" + b.x + "," + b.y;
+    else                // retour : on remonte juste avant l'enfant
+      d = "M" + a.x + "," + a.y + " L" + (b.x - DX * .65) + "," + a.y + " C" + (b.x - DX * .1) + "," + a.y + " " + (b.x - DX * .45) + "," + b.y + " " + b.x + "," + b.y;
+    el("path", {d: d, fill: "none", stroke: dead ? GRAY : (onHead ? INK : GRAY2),
+      "stroke-width": onHead ? 3 : 2, "stroke-dasharray": dead ? "5 5" : "none"}, svg);
+  }));
+
+  // commits
+  list.forEach(c => {
+    const p = pos(c.hash);
+    const isHead = c.hash === headTip;
+    const hl = opts.highlight && opts.highlight.includes(c.hash);
+    el("circle", {cx: p.x, cy: p.y, r: isHead ? 15 : 13,
+      fill: c.dead ? "#fff" : (isHead ? RED : (c.parents.length > 1 ? "#fff" : INK)),
+      stroke: c.dead ? GRAY : (hl ? RED : INK), "stroke-width": c.dead ? 2 : (hl ? 4 : 2.5),
+      "stroke-dasharray": c.dead ? "4 3" : "none"}, svg);
+    if (c.parents.length > 1 && !isHead) el("circle", {cx: p.x, cy: p.y, r: 5, fill: INK}, svg);
+    txt(svg, p.x, p.y + 32, c.hash, {"class": "mono", "font-size": 11.5, fill: c.dead ? GRAY : (hl ? RED : GRAY2), "font-weight": hl ? 700 : 500});
+    const cut = opts.cut || 16;
+    const short = c.msg.length > cut ? c.msg.slice(0, cut - 1) + "…" : c.msg;
+    txt(svg, p.x, p.y + 47, short, {"font-size": 10.5, fill: c.dead ? GRAY : GRAY2});
+  });
+
+  // étiquettes de branche, empilées au-dessus de leur commit
+  const stack = {};
+  Object.keys(repo.branches).sort((a, b) => (a === "main" ? -1 : b === "main" ? 1 : a.localeCompare(b))).forEach(name => {
+    const h = repo.branches[name];
+    if (!h || col[h] === undefined) return;
+    const p = pos(h);
+    const k = stack[h] = (stack[h] || 0) + 1;
+    const cur = name === repo.head;
+    const w = name.length * 7.4 + 18;
+    const y = p.y - 26 - k * 25;
+    const g = el("g", {}, svg);
+    el("line", {x1: p.x, y1: y + 10, x2: p.x, y2: p.y - 15, stroke: cur ? RED : INK, "stroke-width": 1.5}, g);
+    el("rect", {x: p.x - w / 2, y: y - 10, width: w, height: 20, rx: 4, fill: cur ? RED : INK}, g);
+    txt(g, p.x, y + 4, name, {"class": "mono", fill: "#fff", stroke: "none", "font-size": 12, "font-weight": 700});
+    if (cur){
+      const hx = p.x + w / 2 + 34;
+      el("rect", {x: hx - 26, y: y - 10, width: 52, height: 20, rx: 4, fill: "#fff", stroke: RED, "stroke-width": 2}, g);
+      txt(g, hx, y + 4, "HEAD", {"class": "mono", fill: RED, stroke: "none", "font-size": 12, "font-weight": 800});
+      el("path", {d: "M" + (hx - 26) + "," + y + " L" + (p.x + w / 2 + 3) + "," + y, stroke: RED, "stroke-width": 2, "marker-end": ""}, g);
+      el("path", {d: "M" + (p.x + w / 2 + 3) + "," + y + " l7,-5 l0,10 z", fill: RED}, g);
+    }
+  });
+}
+
+function renderTerm(node, repo){
+  node.innerHTML = repo.log.map(l =>
+    '<div class="cmd">' + esc(l.c) + '</div><div class="' + (l.err ? "err" : "out") + '">' + esc(l.out) + '</div>').join("");
+  node.scrollTop = node.scrollHeight;
+}
+function renderState(node, repo){
+  const h = repo.tip();
+  node.innerHTML =
+    '<div><span class="r">HEAD</span> → <span class="r">' + esc(repo.head) + '</span> → ' + (h || "—") + '</div>' +
+    Object.keys(repo.branches).map(b => '<div>' + (b === repo.head ? '<span class="r">' : '') + esc(b) + (b === repo.head ? '</span>' : '') +
+      ' → ' + repo.branches[b] + '</div>').join("");
+}
+function esc(s){ return String(s).replace(/[&<>]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c])); }
+
+/* scénario commun : main a 2 commits ; le bac à sable repart de là */
+function base(opts){
+  hashSeed = opts && opts.seed || 7;
+  const r = new Repo();
+  r.commit("Plateforme"); r.commit("Saut simple");
+  r.log = [];
+  return r;
+}
+function divergent(mainMoves){
+  const r = base();
+  r.branch("saut-double");
+  r.commit("Double saut"); r.commit("Anim saut");
+  r.switchTo("main");
+  for (let i = 0; i < mainMoves; i++) r.commit(["Fix collision", "Menu pause"][i]);
+  r.log = [];
+  return r;
+}
+
+/* ================================================================
+   1 · bac à sable
+   ================================================================ */
+const L = {repo: null, history: []};
+function resetLibre(){ L.repo = base(); L.history = []; }
+function drawLibre(){
+  const r = L.repo;
+  render(document.getElementById("svg-libre"), r, {ghost: document.getElementById("l-ghost").checked});
+  renderTerm(document.getElementById("l-term"), r);
+  renderState(document.getElementById("l-state"), r);
+  const sel = document.getElementById("l-target"), prev = sel.value;
+  sel.innerHTML = Object.keys(r.branches).map(b => '<option' + (b === prev ? " selected" : "") + '>' + esc(b) + '</option>').join("");
+  if (!sel.value) sel.value = "main";
+  document.getElementById("l-msg").value = suggest(r);
+}
+function libre(fn){ L.history.push(L.repo.clone()); fn(L.repo); drawLibre(); }
+const namePool = ["saut-double", "menu-pause", "boss-final", "fix-collision", "sons"];
+// libellés de commit réalistes, par branche ; au-delà, un libellé générique
+const MSGS = {
+  "main": ["Menu principal", "Fix collision mur", "Réglage vitesse joueur", "Écran de fin", "Musique niveau 1"],
+  "saut-double": ["Input du double saut", "Physique du double saut", "Anim du double saut", "Son du double saut", "Fix saut infini"],
+  "menu-pause": ["Panneau de pause", "Bouton reprendre", "Bouton quitter", "Flou d'arrière-plan"],
+  "boss-final": ["Salle du boss", "Barre de vie du boss", "Phase 2 du boss", "Cinématique de fin"],
+  "fix-collision": ["Test de collision", "Corrige le glissement", "Collision des pentes"],
+  "sons": ["Sons de pas", "Son du saut", "Mixage des effets"]
+};
+function suggest(r){
+  const b = r.head, used = new Set(Object.values(r.commits).map(c => c.msg));
+  const pool = MSGS[b] || [];
+  const next = pool.find(m => !used.has(m));
+  if (next) return next;
+  let n = 1; while (used.has(b + " : étape " + n)) n++;
+  return b + " : étape " + n;
+}
+document.querySelectorAll("#libre [data-act]").forEach(b => b.addEventListener("click", () => {
+  const act = b.dataset.act, target = document.getElementById("l-target").value;
+  if (act === "commit"){
+    const msg = document.getElementById("l-msg").value.trim();
+    libre(r => r.commit(msg || suggest(r)));
+  }
+  if (act === "branch"){
+    const inp = document.getElementById("l-name");
+    libre(r => { if (r.branch(inp.value.trim())){
+      const next = namePool.find(n => !r.branches[n]); inp.value = next || ("branche-" + (Object.keys(r.branches).length));
+    }});
+  }
+  if (act === "switch") libre(r => r.switchTo(target));
+  if (act === "merge") libre(r => r.merge(target, {noEdit: true}));
+  if (act === "rebase") libre(r => r.rebase(target));
+  if (act === "undo" && L.history.length){ L.repo.restore(L.history.pop()); drawLibre(); }
+  if (act === "reset"){ resetLibre(); document.getElementById("l-name").value = "saut-double"; drawLibre(); }
+}));
+document.getElementById("l-ghost").addEventListener("change", drawLibre);
+
+/* ================================================================
+   2 · comparer (statique)
+   ================================================================ */
+function drawCompare(){
+  const m = divergent(2);
+  m.merge("saut-double");
+  const r = divergent(2);
+  r.switchTo("saut-double"); r.rebase("main"); r.switchTo("main"); r.merge("saut-double");
+  const o = {dx: 74, dy: 90, minW: 480, cut: 11};
+  render(document.getElementById("svg-cmp-m"), m, o);
+  render(document.getElementById("svg-cmp-r"), r, Object.assign({ghost: true}, o));
+}
+
+/* ================================================================
+   onglets + intégration reveal.js
+   ================================================================ */
+const draws = {libre: drawLibre, compare: drawCompare};
+// anciennes ancres des slides : #head, #merge, #rebase
+const ALIAS = {head: "libre", merge: "compare", rebase: "compare"};
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  name = ALIAS[name] || name;
+  if (!draws[name]) name = Object.keys(draws)[0];
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === name));
+  draws[name]();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+
+resetLibre();
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

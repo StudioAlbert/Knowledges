@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produits scalaire et vectoriel — signe, angle, projection, orientation</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 640px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 42px; }
+input[type=range] { accent-color: var(--sae-red); width: 140px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(52vh, 420px); user-select: none; touch-action: none; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint strong { color: var(--text); }
+.hint code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.result { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.85; }
+.result .k { color: var(--muted2); }
+.result .ok { color: var(--sae-red); font-weight: 800; }
+.result .big { font-size: 15px; font-weight: 700; }
+.result .sep { display: block; height: 1px; background: var(--line-soft); margin: 7px 0; }
+.verdict {
+    display: inline-block; font-size: 14px; font-weight: 800; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 7px 13px; margin-top: 4px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.verdict.red { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.verdict.ink { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 26px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Deux vecteurs, <span class="hl">une question</span></h1>
+    <p class="sub">Le produit scalaire répond « à quel point d'accord », le produit vectoriel répond « de quel côté ». Attrapez les pointes et lisez les deux réponses.</p>
+  </div>
+  <div class="formula">u · v = <b>uₓvₓ + u_yv_y</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="scalaire">1 · Signe et angle</button>
+  <button data-tab="projection">2 · Projeter</button>
+  <button data-tab="orientation">3 · De quel côté</button>
+</nav>
+
+<div class="toolbar">
+  <div class="group" data-for="scalaire">
+    <label class="chk"><input type="checkbox" id="arc" checked> l'angle</label>
+    <label class="chk"><input type="checkbox" id="demi"> les trois zones</label>
+  </div>
+  <div class="group" data-for="projection">
+    <label class="chk"><input type="checkbox" id="rejet" checked> la composante ⊥</label>
+  </div>
+  <div class="group" data-for="orientation">
+    <label class="rng">cône ± <input type="range" id="cone" min="5" max="90" step="5" value="30"><output id="conev">30°</output></label>
+    <label class="rng">portée <input type="range" id="portee" min="1" max="7" step="0.5" value="5"><output id="porteev">5</output></label>
+  </div>
+  <div class="group">
+    <button id="reset">Réinitialiser</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="board">
+    <svg id="svg" role="img" aria-label="Plan cartésien avec deux vecteurs manipulables à la souris"></svg>
+    <p class="tip" id="tip"></p>
+  </div>
+  <div class="side">
+    <div class="card"><h3>Le calcul</h3><div class="result" id="res"></div></div>
+    <div class="card"><h3>À retenir</h3><div id="memo"></div></div>
+  </div>
+</div>
+
+<footer>SAE Institute Genève · TC-FT-GVM-02 Produits scalaire et vectoriel · onglets <code>#scalaire</code> <code>#projection</code> <code>#orientation</code></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const RED = "#E30613", INK = "#1a1a1a", GRAY = "#a8a8a8", GRAY2 = "#6e6e6e", BLUE = "#2b6cb0", GREEN = "#2e9e5b";
+const PALE_RED = "#fdeaea", PALE = "#f5f5f5", PALE_BLUE = "#eaf1f8";
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+
+const VW = 600, VH = 440, OX = 300, OY = 222, S = 42;
+const XMIN = -6.5, XMAX = 6.5, YMIN = -4.5, YMAX = 4.5;
+const px = v => OX + v * S;
+const py = v => OY - v * S;
+const ux = p => (p - OX) / S;
+const uy = p => (OY - p) / S;
+
+const DEF = {U: {x: 4, y: 1}, V: {x: 1.5, y: 3}, G: {x: 3.5, y: 0.5}, T: {x: 1, y: 3}};
+const st = {
+  tab: "scalaire", drag: null, cone: 30, portee: 5,
+  U: Object.assign({}, DEF.U), V: Object.assign({}, DEF.V),
+  G: Object.assign({}, DEF.G), T: Object.assign({}, DEF.T)
+};
+
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs){
+  const t = el("text", Object.assign({x: x, y: y, "text-anchor": "middle", "font-size": 15,
+    fill: INK, "font-weight": 700, stroke: "#fff", "stroke-width": 4, "paint-order": "stroke",
+    "stroke-linejoin": "round"}, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+const n1 = v => (Math.round(v * 100) / 100).toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+const norm = v => Math.hypot(v.x, v.y);
+const sub = (a, b) => ({x: a.x - b.x, y: a.y - b.y});
+const add = (a, b) => ({x: a.x + b.x, y: a.y + b.y});
+const mul = (a, s) => ({x: a.x * s, y: a.y * s});
+const dot = (a, b) => a.x * b.x + a.y * b.y;
+const cross = (a, b) => a.x * b.y - a.y * b.x;   // le « z » du produit vectoriel, en 2D
+
+function defs(svg){
+  const d = el("defs", {}, svg);
+  [["h-red", RED], ["h-ink", INK], ["h-gray", GRAY], ["h-blue", BLUE], ["h-green", GREEN]].forEach(([id, c]) => {
+    const m = el("marker", {id: id, viewBox: "0 0 10 10", refX: 9, refY: 5,
+      markerWidth: 6.5, markerHeight: 6.5, orient: "auto-start-reverse"}, d);
+    el("path", {d: "M0,0 L10,5 L0,10 z", fill: c}, m);
+  });
+  const cp = el("clipPath", {id: "plot"}, d);
+  el("rect", {x: px(XMIN), y: py(YMAX), width: (XMAX - XMIN) * S, height: (YMAX - YMIN) * S}, cp);
+}
+const HEAD = {}; HEAD[RED] = "h-red"; HEAD[INK] = "h-ink"; HEAD[GRAY] = "h-gray"; HEAD[BLUE] = "h-blue"; HEAD[GREEN] = "h-green";
+
+function grid(svg){
+  const g = el("g", {}, svg);
+  for (let i = Math.ceil(XMIN); i <= XMAX; i++)
+    el("line", {x1: px(i), y1: py(YMIN), x2: px(i), y2: py(YMAX), stroke: i ? "#eeeeee" : INK,
+      "stroke-width": i ? 1 : 1.6}, g);
+  for (let j = Math.ceil(YMIN); j <= YMAX; j++)
+    el("line", {x1: px(XMIN), y1: py(j), x2: px(XMAX), y2: py(j), stroke: j ? "#eeeeee" : INK,
+      "stroke-width": j ? 1 : 1.6}, g);
+  el("line", {x1: px(XMIN), y1: py(0), x2: px(XMAX) + 12, y2: py(0), stroke: INK,
+    "stroke-width": 1.6, "marker-end": "url(#h-ink)"}, g);
+  el("line", {x1: px(0), y1: py(YMIN), x2: px(0), y2: py(YMAX) - 12, stroke: INK,
+    "stroke-width": 1.6, "marker-end": "url(#h-ink)"}, g);
+  return g;
+}
+
+function vec(svg, from, to, color, label, opt){
+  opt = opt || {};
+  const g = el("g", {}, svg);
+  el("line", {x1: px(from.x), y1: py(from.y), x2: px(to.x), y2: py(to.y), stroke: color,
+    "stroke-width": opt.width || 3.4, "stroke-linecap": "round",
+    "stroke-dasharray": opt.dash ? "8 6" : "none",
+    "stroke-opacity": opt.opacity || 1,
+    "marker-end": "url(#" + HEAD[color] + ")"}, g);
+  if (label){
+    const dx = px(to.x) - px(from.x), dy = py(to.y) - py(from.y), L = Math.hypot(dx, dy) || 1;
+    const bx = opt.at === "tip" ? px(to.x) + dx / L * 28 : (px(from.x) + px(to.x)) / 2 - dy / L * 16;
+    const by = opt.at === "tip" ? py(to.y) + dy / L * 28 + 5 : (py(from.y) + py(to.y)) / 2 + dx / L * 16;
+    txt(g, bx, by, label, {"font-size": 16, fill: color, "font-weight": 800});
+  }
+  return g;
+}
+
+function handle(svg, p, name, color){
+  const g = el("g", {}, svg);
+  el("circle", {cx: px(p.x), cy: py(p.y), r: 13, fill: "#fff", "fill-opacity": 0.01,
+    style: "cursor:grab"}, g).dataset.grab = name;
+  el("circle", {cx: px(p.x), cy: py(p.y), r: 6.5, fill: "#fff", stroke: color,
+    "stroke-width": 3, style: "cursor:grab"}, g).dataset.grab = name;
+  return g;
+}
+
+function arc(svg, a, b, r, color){
+  const A = Math.atan2(a.y, a.x), B = Math.atan2(b.y, b.x);
+  let d = B - A;
+  while (d > Math.PI) d -= 2 * Math.PI;
+  while (d < -Math.PI) d += 2 * Math.PI;
+  const pts = [];
+  for (let i = 0; i <= 24; i++){
+    const t = A + d * i / 24;
+    pts.push([px(r * Math.cos(t)), py(r * Math.sin(t))]);
+  }
+  el("path", {d: pts.map((p, i) => (i ? "L" : "M") + p[0] + "," + p[1]).join(" "),
+    fill: "none", stroke: color, "stroke-width": 2}, svg);
+  const mid = A + d / 2;
+  return {x: (r + 0.6) * Math.cos(mid), y: (r + 0.6) * Math.sin(mid)};
+}
+
+function angleDroit(svg, sommet, d1, d2, color){
+  const t = 0.42;
+  const a = add(sommet, mul(d1, t)), b = add(sommet, mul(d2, t)), c = add(a, mul(d2, t));
+  el("path", {d: "M" + px(a.x) + "," + py(a.y) + " L" + px(c.x) + "," + py(c.y) +
+    " L" + px(b.x) + "," + py(b.y), fill: "none", stroke: color, "stroke-width": 2}, svg);
+}
+
+function demiPlan(svg, dir, cote, fill){
+  const n = {x: -dir.y * cote, y: dir.x * cote};
+  const B = 40;
+  const p = [add(mul(dir, B), mul(n, 0)), add(mul(dir, B), mul(n, B)),
+             add(mul(dir, -B), mul(n, B)), mul(dir, -B)];
+  el("polygon", {points: p.map(q => px(q.x) + "," + py(q.y)).join(" "),
+    fill: fill, "clip-path": "url(#plot)"}, svg);
+}
+
+function secteur(svg, dir, demiAngle, rayon, fill){
+  const a0 = Math.atan2(dir.y, dir.x) - demiAngle, a1 = Math.atan2(dir.y, dir.x) + demiAngle;
+  const pts = ["M" + px(0) + "," + py(0)];
+  for (let i = 0; i <= 32; i++){
+    const t = a0 + (a1 - a0) * i / 32;
+    pts.push("L" + px(rayon * Math.cos(t)) + "," + py(rayon * Math.sin(t)));
+  }
+  el("path", {d: pts.join(" ") + " Z", fill: fill, "clip-path": "url(#plot)"}, svg);
+}
+
+// ------------------------------------------------------------------ dessins
+function drawScalaire(svg){
+  const U = st.U, V = st.V, O = {x: 0, y: 0}, d = dot(U, V);
+  if ($("demi").checked){
+    const nu = norm(U) ? mul(U, 1 / norm(U)) : {x: 1, y: 0};
+    demiPlan(svg, {x: -nu.y, y: nu.x}, 1, PALE_RED);
+    demiPlan(svg, {x: -nu.y, y: nu.x}, -1, PALE_BLUE);
+  }
+  grid(svg);
+  if ($("arc").checked && norm(U) > 0.1 && norm(V) > 0.1){
+    const p = arc(svg, U, V, 1.5, GRAY2);
+    const ang = Math.acos(Math.max(-1, Math.min(1, d / (norm(U) * norm(V))))) * 180 / Math.PI;
+    txt(svg, px(p.x), py(p.y) + 5, n1(ang) + "°", {"font-size": 15, fill: GRAY2});
+    if (Math.abs(ang - 90) < 1.5){
+      const nu = mul(U, 1 / norm(U)), nv = mul(V, 1 / norm(V));
+      angleDroit(svg, O, nu, nv, RED);
+    }
+  }
+  vec(svg, O, U, INK, "u", {width: 3.4, at: "tip"});
+  vec(svg, O, V, d >= 0 ? RED : BLUE, "v", {width: 3.4, at: "tip"});
+  handle(svg, U, "U", INK);
+  handle(svg, V, "V", d >= 0 ? RED : BLUE);
+}
+
+function drawProjection(svg){
+  const U = st.U, V = st.V, O = {x: 0, y: 0};
+  const nv2 = dot(V, V);
+  const k = nv2 > 0.001 ? dot(U, V) / nv2 : 0;
+  const proj = mul(V, k);
+  grid(svg);
+  el("line", {x1: px(V.x * -12), y1: py(V.y * -12), x2: px(V.x * 12), y2: py(V.y * 12),
+    stroke: GRAY, "stroke-width": 1.4, "stroke-dasharray": "6 6", "clip-path": "url(#plot)"}, svg);
+  if ($("rejet").checked && nv2 > 0.001){
+    vec(svg, proj, U, GREEN, "u⊥", {width: 2.6, dash: true});
+    const nv = mul(V, 1 / norm(V));
+    const r = sub(U, proj);
+    if (norm(r) > 0.3) angleDroit(svg, proj, mul(nv, k >= 0 ? 1 : -1), mul(r, 1 / norm(r)), GRAY2);
+  }
+  vec(svg, O, V, GRAY2, "v", {width: 3, at: "tip"});
+  vec(svg, O, U, INK, "u", {width: 3.4, at: "tip"});
+  vec(svg, O, proj, RED, "u∥", {width: 4.5, at: "tip"});
+  handle(svg, U, "U", INK);
+  handle(svg, V, "V", GRAY2);
+}
+
+function drawOrientation(svg){
+  const G = st.G, T = st.T, O = {x: 0, y: 0};
+  const demi = st.cone * Math.PI / 180;
+  const g = norm(G) > 0.1 ? mul(G, 1 / norm(G)) : {x: 1, y: 0};
+  demiPlan(svg, g, 1, PALE_RED);
+  demiPlan(svg, g, -1, PALE);
+  secteur(svg, g, demi, st.portee, "rgba(227, 6, 19, .16)");
+  grid(svg);
+  el("line", {x1: px(-g.x * 12), y1: py(-g.y * 12), x2: px(g.x * 12), y2: py(g.y * 12),
+    stroke: GRAY, "stroke-width": 1.4, "stroke-dasharray": "6 6", "clip-path": "url(#plot)"}, svg);
+  vec(svg, O, mul(g, 2.2), INK, "regard", {width: 3.4, at: "tip"});
+  const c = cross(g, T);
+  vec(svg, O, T, Math.abs(c) < 0.05 ? GRAY2 : (c > 0 ? RED : BLUE), "cible", {width: 3.2, at: "tip"});
+  handle(svg, G, "G", INK);
+  handle(svg, T, "T", c > 0 ? RED : BLUE);
+  txt(svg, px(0) - 22, py(0) + 20, "garde", {"font-size": 13, fill: GRAY2, "font-weight": 600});
+}
+
+function draw(){
+  const svg = $("svg");
+  svg.innerHTML = "";
+  svg.setAttribute("viewBox", "0 0 " + VW + " " + VH);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  defs(svg);
+  if (st.tab === "scalaire") drawScalaire(svg);
+  else if (st.tab === "projection") drawProjection(svg);
+  else drawOrientation(svg);
+}
+
+// ------------------------------------------------------------------ panneau
+function side(){
+  const res = $("res"), memo = $("memo"), tip = $("tip");
+  if (st.tab === "scalaire"){
+    const U = st.U, V = st.V, d = dot(U, V);
+    const cos = (norm(U) * norm(V)) > 0.01 ? d / (norm(U) * norm(V)) : 0;
+    const ang = Math.acos(Math.max(-1, Math.min(1, cos))) * 180 / Math.PI;
+    const verdict = Math.abs(d) < 0.05 ? ["perpendiculaires", ""]
+      : d > 0 ? ["d'accord — devant", "red"] : ["opposés — derrière", "ink"];
+    res.innerHTML =
+      '<div><span class="k">u</span> (' + n1(U.x) + ', ' + n1(U.y) + ') &nbsp; ' +
+      '<span class="k">v</span> (' + n1(V.x) + ', ' + n1(V.y) + ')</div>' +
+      '<span class="sep"></span>' +
+      '<div class="big">u · v = ' + n1(U.x) + '×' + n1(V.x) + ' + ' + n1(U.y) + '×' + n1(V.y) + '</div>' +
+      '<div class="big">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span class="ok">' + n1(d) + '</span></div>' +
+      '<span class="sep"></span>' +
+      '<div>cos θ = u·v / (‖u‖‖v‖)</div>' +
+      '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= ' + n1(cos) + ' &nbsp;soit θ = <span class="ok">' + n1(ang) + '°</span></div>' +
+      '<div class="verdict ' + verdict[1] + '">' + verdict[0] + '</div>';
+    memo.innerHTML =
+      '<p class="hint">Le <strong>signe seul</strong> répond à « devant ou derrière » : positif devant, négatif derrière, nul exactement sur le côté.</p>' +
+      '<p class="hint">L\'angle demande deux normes et un <code>acos</code> — bien plus cher. On s\'en passe presque toujours.</p>' +
+      '<p class="hint">u · v = 0 ⟺ les deux vecteurs sont <strong>perpendiculaires</strong>.</p>';
+    tip.textContent = "Tournez v autour de u : le produit scalaire change de signe pile quand l'angle passe 90°.";
+  } else if (st.tab === "projection"){
+    const U = st.U, V = st.V, nv2 = dot(V, V);
+    const k = nv2 > 0.001 ? dot(U, V) / nv2 : 0;
+    const proj = mul(V, k), rej = sub(U, proj);
+    res.innerHTML =
+      '<div><span class="k">u</span> (' + n1(U.x) + ', ' + n1(U.y) + ') &nbsp; ' +
+      '<span class="k">v</span> (' + n1(V.x) + ', ' + n1(V.y) + ')</div>' +
+      '<span class="sep"></span>' +
+      '<div>k = u·v / ‖v‖² = ' + n1(dot(U, V)) + ' / ' + n1(nv2) + ' = ' + n1(k) + '</div>' +
+      '<div class="big">u∥ = k · v = <span class="ok">(' + n1(proj.x) + ', ' + n1(proj.y) + ')</span></div>' +
+      '<span class="sep"></span>' +
+      '<div>u⊥ = u − u∥ = (' + n1(rej.x) + ', ' + n1(rej.y) + ')</div>' +
+      '<div class="k">u∥ · u⊥ = ' + n1(dot(proj, rej)) + ' → perpendiculaires</div>';
+    memo.innerHTML =
+      '<p class="hint">La projection est <strong>l\'ombre</strong> de u sur la droite de v. Aucune trigonométrie : deux produits scalaires suffisent.</p>' +
+      '<p class="hint">Tout vecteur se découpe en une part <strong>le long de v</strong> (u∥) et une part <strong>perpendiculaire</strong> (u⊥) — c\'est ce découpage qui fait rebondir une balle.</p>' +
+      '<p class="hint">k négatif : l\'ombre tombe derrière l\'origine.</p>';
+    tip.textContent = "Faites tourner u : la composante ⊥ reste perpendiculaire à v, et le produit scalaire des deux reste nul.";
+  } else {
+    const G = st.G, T = st.T;
+    const g = norm(G) > 0.1 ? mul(G, 1 / norm(G)) : {x: 1, y: 0};
+    const c = cross(g, T), d = dot(g, T), dist = norm(T);
+    const cote = Math.abs(c) < 0.05 ? ["alignée", ""] : c > 0 ? ["à gauche", "red"] : ["à droite", "ink"];
+    const cosLim = Math.cos(st.cone * Math.PI / 180);
+    const cosReel = dist > 0.01 ? d / dist : 0;
+    const vu = dist <= st.portee && cosReel >= cosLim;
+    const dir = dist > 0.01 ? mul(T, 1 / dist) : {x: 0, y: 0};
+    const theta = Math.acos(Math.max(-1, Math.min(1, cosReel))) * 180 / Math.PI;
+    res.innerHTML =
+      '<div><span class="k">regard</span> (' + n1(g.x) + ', ' + n1(g.y) + ')</div>' +
+      '<div><span class="k">cible</span> &nbsp;(' + n1(T.x) + ', ' + n1(T.y) + ')</div>' +
+      '<span class="sep"></span>' +
+      '<div class="big">regard × cible</div>' +
+      '<div class="big">&nbsp;= ' + n1(g.x) + '×' + n1(T.y) + ' − ' + n1(g.y) + '×' + n1(T.x) + '</div>' +
+      '<div class="big">&nbsp;= <span class="ok">' + n1(c) + '</span></div>' +
+      '<div class="verdict ' + cote[1] + '">' + cote[0] + '</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">distance = ‖cible‖ = ' + n1(dist) + '</div>' +
+      '<div class="k">' + n1(dist) + ' ≤ ' + n1(st.portee) + ' ? ' + (dist <= st.portee ? "oui" : "non") + '</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">direction = cible / ‖cible‖</div>' +
+      '<div class="k">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= (' + n1(dir.x) + ', ' + n1(dir.y) + ')</div>' +
+      '<div>cos θ = regard · direction</div>' +
+      '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span class="ok">' + n1(cosReel) + '</span> &nbsp;soit θ = ' + n1(theta) + '°</div>' +
+      '<span class="sep"></span>' +
+      '<div class="k">limite = cos ' + st.cone + '° = ' + n1(cosLim) + '</div>' +
+      '<div class="k">' + n1(cosReel) + ' ≥ ' + n1(cosLim) + ' ? ' + (cosReel >= cosLim ? "oui" : "non") + '</div>' +
+      '<div class="verdict ' + (vu ? "red" : "") + '">' + (vu ? "le garde la voit" : "hors du cône") + '</div>';
+    memo.innerHTML =
+      '<p class="hint">En 2D, le produit vectoriel rend <strong>un seul nombre</strong>. Son signe dit de quel côté de sa ligne de regard se trouve la cible.</p>' +
+      '<p class="hint">C\'est ce qui décide dans quel sens le garde doit <strong>tourner</strong>.</p>' +
+      '<p class="hint">« Voir » demande les deux : la <strong>distance</strong> (produit scalaire sur soi-même) et l\'<strong>angle</strong> (produit scalaire), le côté venant du vectoriel.</p>';
+    tip.textContent = "Déplacez la cible autour du garde : le signe bascule exactement sur la ligne de regard.";
+  }
+}
+
+function render(){
+  document.querySelectorAll("[data-for]").forEach(g => g.style.display = g.dataset.for === st.tab ? "" : "none");
+  draw();
+  side();
+}
+
+// ------------------------------------------------------------------ souris
+const svgEl = $("svg");
+function toWorld(evt){
+  const r = svgEl.getBoundingClientRect();
+  const vb = svgEl.viewBox.baseVal;
+  const scale = Math.min(r.width / vb.width, r.height / vb.height);
+  const ox = r.left + (r.width - vb.width * scale) / 2;
+  const oy = r.top + (r.height - vb.height * scale) / 2;
+  return {x: ux((evt.clientX - ox) / scale), y: uy((evt.clientY - oy) / scale)};
+}
+const snapX = v => Math.max(XMIN, Math.min(XMAX, Math.round(v * 2) / 2));
+const snapY = v => Math.max(YMIN, Math.min(YMAX, Math.round(v * 2) / 2));
+
+// Aimante le point sur les directions remarquables de `ref` : même sens, sens
+// opposé, ou perpendiculaire. Sans ça, un produit vectoriel exactement nul
+// — donc deux vecteurs colinéaires — est presque impossible à attraper à la
+// souris, et c'est pourtant le cas que la slide veut montrer.
+const PRES = 0.995;        // ~5,7° de tolérance
+function aimanter(p, ref){
+  if (!ref) return p;
+  const lr = norm(ref), lp = norm(p);
+  if (lr < 0.2 || lp < 0.2) return p;
+  const r = mul(ref, 1 / lr);
+  const axes = [r, {x: -r.x, y: -r.y}, {x: -r.y, y: r.x}, {x: r.y, y: -r.x}];
+  for (const a of axes){
+    if (dot(p, a) / lp > PRES)
+      return {x: Math.round(a.x * lp * 100) / 100, y: Math.round(a.y * lp * 100) / 100};
+  }
+  return p;
+}
+
+svgEl.addEventListener("pointerdown", function(e){
+  const name = e.target.dataset && e.target.dataset.grab;
+  if (!name) return;
+  st.drag = name;
+  svgEl.setPointerCapture(e.pointerId);
+  e.preventDefault();
+});
+svgEl.addEventListener("pointermove", function(e){
+  if (!st.drag) return;
+  const w = toWorld(e);
+  const ref = st.tab === "orientation" ? (st.drag === "T" ? st.G : st.T)
+                                       : (st.drag === "V" ? st.U : st.V);
+  st[st.drag] = aimanter({x: snapX(w.x), y: snapY(w.y)}, ref);
+  render();
+});
+["pointerup", "pointercancel"].forEach(ev => svgEl.addEventListener(ev, function(){ st.drag = null; }));
+
+// ------------------------------------------------------------------ contrôles
+["arc", "demi", "rejet"].forEach(id => $(id).addEventListener("change", render));
+$("cone").addEventListener("input", function(){ st.cone = +this.value; $("conev").textContent = st.cone + "°"; render(); });
+$("portee").addEventListener("input", function(){ st.portee = +this.value; $("porteev").textContent = n1(st.portee); render(); });
+$("reset").addEventListener("click", function(){
+  ["U", "V", "G", "T"].forEach(k => st[k] = Object.assign({}, DEF[k]));
+  st.cone = 30; st.portee = 5;
+  $("cone").value = 30; $("conev").textContent = "30°";
+  $("portee").value = 5; $("porteev").textContent = "5";
+  $("arc").checked = true; $("demi").checked = false; $("rejet").checked = true;
+  render();
+});
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!["scalaire", "projection", "orientation"].includes(name)) name = "scalaire";
+  st.tab = name;
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  render();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

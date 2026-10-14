@@ -1,0 +1,8 @@
+//
+// Created by sebas on 14.10.2026.
+//
+
+#ifndef INHERITANCE_RANGER_HPP
+#define INHERITANCE_RANGER_HPP
+
+#endif //INHERITANCE_RANGER_HPP

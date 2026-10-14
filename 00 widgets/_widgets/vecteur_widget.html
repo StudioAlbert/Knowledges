@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vecteurs — composantes, norme, normalisation et opérations</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 640px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 34px; }
+input[type=range] { accent-color: var(--sae-red); width: 150px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(52vh, 420px); user-select: none; touch-action: none; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint strong { color: var(--text); }
+.hint code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.result { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.85; }
+.result .k { color: var(--muted2); }
+.result .ok { color: var(--sae-red); font-weight: 800; }
+.result .big { font-size: 15px; font-weight: 700; }
+.result .sep { display: block; height: 1px; background: var(--line-soft); margin: 7px 0; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 26px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 330px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Le vecteur, <span class="hl">à la souris</span></h1>
+    <p class="sub">Attrapez les points du plan. Les composantes, la norme, la direction normalisée et le résultat des opérations se recalculent en direct.</p>
+  </div>
+  <div class="formula">AB = B − A &nbsp;·&nbsp; ‖v‖ = <b>√(x² + y²)</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="vecteur">1 · Un vecteur</button>
+  <button data-tab="operations">2 · Opérations</button>
+</nav>
+
+<div class="toolbar">
+  <div class="group" data-for="vecteur">
+    <span class="group-label">Afficher</span>
+    <label class="chk"><input type="checkbox" id="unit"> le vecteur normalisé</label>
+    <label class="chk"><input type="checkbox" id="ghost"> le même vecteur depuis l'origine</label>
+  </div>
+  <div class="group" data-for="operations">
+    <span class="group-label">Opération</span>
+    <button data-op="add" class="on">u + v</button>
+    <button data-op="sub">u − v</button>
+    <button data-op="scale">k · u</button>
+  </div>
+  <div class="group" data-for="operations" id="kgroup">
+    <label class="rng">k <input type="range" id="k" min="-2" max="3" step="0.25" value="2"><output id="kv">2</output></label>
+  </div>
+  <div class="group">
+    <button id="reset">Réinitialiser</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="board">
+    <svg id="svg" role="img" aria-label="Plan cartésien avec des vecteurs manipulables à la souris"></svg>
+    <p class="tip" id="tip"></p>
+  </div>
+  <div class="side">
+    <div class="card"><h3>Le calcul</h3><div class="result" id="res"></div></div>
+    <div class="card"><h3>À retenir</h3><div id="memo"></div></div>
+  </div>
+</div>
+
+<footer>SAE Institute Genève · TC-FT-GVM-01 Vecteurs et repères · onglets <code>#vecteur</code> <code>#operations</code></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+const RED = "#E30613", INK = "#1a1a1a", GRAY = "#a8a8a8", GRAY2 = "#6e6e6e", BLUE = "#2b6cb0", GREEN = "#2e9e5b";
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+
+// --- repère : 600 x 440 en pixels SVG, origine au centre, 44 px par unité ---
+const VW = 600, VH = 440, OX = 290, OY = 222, S = 44;
+const XMIN = -6, XMAX = 7, YMIN = -4, YMAX = 4;
+const px = v => OX + v * S;             // unité monde -> pixel
+const py = v => OY - v * S;
+const ux = p => (p - OX) / S;           // pixel -> unité monde
+const uy = p => (OY - p) / S;
+
+const DEF = {
+  A: {x: -3, y: -1}, B: {x: 1, y: 2},
+  U: {x: 3, y: 1},   V: {x: 1, y: 2.5}
+};
+const st = {
+  tab: "vecteur", op: "add", k: 2, drag: null,
+  A: Object.assign({}, DEF.A), B: Object.assign({}, DEF.B),
+  U: Object.assign({}, DEF.U), V: Object.assign({}, DEF.V)
+};
+
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs){
+  const t = el("text", Object.assign({x: x, y: y, "text-anchor": "middle", "font-size": 15,
+    fill: INK, "font-weight": 700, stroke: "#fff", "stroke-width": 4, "paint-order": "stroke",
+    "stroke-linejoin": "round"}, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+const n1 = v => (Math.round(v * 100) / 100).toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+const norm = v => Math.hypot(v.x, v.y);
+const sub = (a, b) => ({x: a.x - b.x, y: a.y - b.y});
+const add = (a, b) => ({x: a.x + b.x, y: a.y + b.y});
+const mul = (a, s) => ({x: a.x * s, y: a.y * s});
+
+function defs(svg){
+  const d = el("defs", {}, svg);
+  [["h-red", RED], ["h-ink", INK], ["h-gray", GRAY], ["h-blue", BLUE], ["h-green", GREEN]].forEach(([id, c]) => {
+    const m = el("marker", {id: id, viewBox: "0 0 10 10", refX: 9, refY: 5,
+      markerWidth: 6.5, markerHeight: 6.5, orient: "auto-start-reverse"}, d);
+    el("path", {d: "M0,0 L10,5 L0,10 z", fill: c}, m);
+  });
+}
+const HEAD = {}; HEAD[RED] = "h-red"; HEAD[INK] = "h-ink"; HEAD[GRAY] = "h-gray"; HEAD[BLUE] = "h-blue"; HEAD[GREEN] = "h-green";
+
+function grid(svg){
+  const g = el("g", {}, svg);
+  for (let i = XMIN; i <= XMAX; i++)
+    el("line", {x1: px(i), y1: py(YMIN), x2: px(i), y2: py(YMAX), stroke: i ? "#eeeeee" : INK,
+      "stroke-width": i ? 1 : 1.6}, g);
+  for (let j = YMIN; j <= YMAX; j++)
+    el("line", {x1: px(XMIN), y1: py(j), x2: px(XMAX), y2: py(j), stroke: j ? "#eeeeee" : INK,
+      "stroke-width": j ? 1 : 1.6}, g);
+  // flèches des axes et leurs noms
+  el("line", {x1: px(XMIN), y1: py(0), x2: px(XMAX) + 14, y2: py(0), stroke: INK,
+    "stroke-width": 1.6, "marker-end": "url(#h-ink)"}, g);
+  el("line", {x1: px(0), y1: py(YMIN), x2: px(0), y2: py(YMAX) - 14, stroke: INK,
+    "stroke-width": 1.6, "marker-end": "url(#h-ink)"}, g);
+  txt(g, px(XMAX) + 16, py(0) + 20, "x", {"font-size": 14, fill: GRAY2});
+  txt(g, px(0) - 16, py(YMAX) - 14, "y", {"font-size": 14, fill: GRAY2});
+  for (let i = XMIN; i <= XMAX; i++) if (i)
+    txt(g, px(i), py(0) + 17, String(i), {"font-size": 11, fill: GRAY, "font-weight": 500});
+  for (let j = YMIN; j <= YMAX; j++) if (j)
+    txt(g, px(0) - 14, py(j) + 4, String(j), {"font-size": 11, fill: GRAY, "font-weight": 500});
+}
+
+function vec(svg, from, to, color, label, opt){
+  opt = opt || {};
+  const g = el("g", {}, svg);
+  el("line", {x1: px(from.x), y1: py(from.y), x2: px(to.x), y2: py(to.y), stroke: color,
+    "stroke-width": opt.width || 3.4, "stroke-linecap": "round",
+    "stroke-dasharray": opt.dash ? "8 6" : "none",
+    "stroke-opacity": opt.opacity || 1,
+    "marker-end": "url(#" + HEAD[color] + ")"}, g);
+  if (label){
+    const dx = px(to.x) - px(from.x), dy = py(to.y) - py(from.y), L = Math.hypot(dx, dy) || 1;
+    // au milieu par défaut, décalé perpendiculairement ; « tip » met le libellé
+    // au-delà de la pointe — indispensable sur une flèche trop courte pour le porter
+    const bx = opt.at === "tip" ? px(to.x) + dx / L * 30 : (px(from.x) + px(to.x)) / 2 - dy / L * 16;
+    const by = opt.at === "tip" ? py(to.y) + dy / L * 30 + 5 : (py(from.y) + py(to.y)) / 2 + dx / L * 16;
+    txt(g, bx, by, label,
+      {"font-size": 16, fill: color, "font-weight": 800, "stroke-opacity": opt.opacity || 1});
+  }
+  return g;
+}
+
+function handle(svg, p, name, color){
+  const g = el("g", {}, svg);
+  el("circle", {cx: px(p.x), cy: py(p.y), r: 13, fill: "#fff", "fill-opacity": 0.01,
+    stroke: "none", style: "cursor:grab"}, g).dataset.grab = name;
+  el("circle", {cx: px(p.x), cy: py(p.y), r: 6.5, fill: "#fff", stroke: color,
+    "stroke-width": 3, style: "cursor:grab"}, g).dataset.grab = name;
+  return g;
+}
+
+// ------------------------------------------------------------------ dessins
+function drawVecteur(svg){
+  const A = st.A, B = st.B, AB = sub(B, A), L = norm(AB);
+  if ($("ghost").checked && L > 0.01){
+    vec(svg, {x: 0, y: 0}, AB, GRAY, "même vecteur", {dash: true, width: 2.6});
+  }
+  const dashed = $("unit").checked && L > 0.01;
+  vec(svg, A, B, dashed ? GRAY : RED, "AB", {dash: dashed, width: dashed ? 2.6 : 3.6,
+    opacity: dashed ? 0.9 : 1});
+  if (dashed){
+    const u = mul(AB, 1 / L);
+    vec(svg, A, add(A, u), RED, "normalisé", {width: 4, at: "tip"});
+  }
+  handle(svg, A, "A", INK);
+  handle(svg, B, "B", INK);
+  txt(svg, px(A.x), py(A.y) + 26, "A (" + n1(A.x) + ", " + n1(A.y) + ")", {"font-size": 13, fill: INK});
+  txt(svg, px(B.x), py(B.y) - 18, "B (" + n1(B.x) + ", " + n1(B.y) + ")", {"font-size": 13, fill: INK});
+}
+
+function drawOperations(svg){
+  const U = st.U, V = st.V, O = {x: 0, y: 0};
+  if (st.op === "scale"){
+    const R = mul(U, st.k);
+    vec(svg, O, R, RED, "k·u", {width: 4});
+    vec(svg, O, U, INK, "u", {width: 3});
+  } else if (st.op === "add"){
+    const R = add(U, V);
+    vec(svg, U, R, GREEN, null, {dash: true, width: 2.4, opacity: 0.8});
+    vec(svg, V, R, BLUE, null, {dash: true, width: 2.4, opacity: 0.8});
+    vec(svg, O, U, INK, "u", {width: 3});
+    vec(svg, O, V, GRAY2, "v", {width: 3});
+    vec(svg, O, R, RED, "u + v", {width: 4});
+  } else {
+    const R = sub(U, V);
+    vec(svg, O, U, INK, "u", {width: 3});
+    vec(svg, O, V, GRAY2, "v", {width: 3});
+    vec(svg, V, U, RED, "u − v", {width: 4});
+    vec(svg, O, R, RED, null, {dash: true, width: 2.4, opacity: 0.55});
+  }
+  handle(svg, U, "U", INK);
+  if (st.op !== "scale") handle(svg, V, "V", GRAY2);
+}
+
+function draw(){
+  const svg = $("svg");
+  svg.innerHTML = "";
+  svg.setAttribute("viewBox", "0 0 " + VW + " " + VH);
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+  defs(svg);
+  grid(svg);
+  if (st.tab === "vecteur") drawVecteur(svg); else drawOperations(svg);
+}
+
+// ------------------------------------------------------------------ panneau
+function side(){
+  const res = $("res"), memo = $("memo"), tip = $("tip");
+  if (st.tab === "vecteur"){
+    const A = st.A, B = st.B, AB = sub(B, A), L = norm(AB);
+    const u = L > 0.01 ? mul(AB, 1 / L) : null;
+    res.innerHTML =
+      '<div><span class="k">A</span> (' + n1(A.x) + ', ' + n1(A.y) + ')' +
+      ' &nbsp; <span class="k">B</span> (' + n1(B.x) + ', ' + n1(B.y) + ')</div>' +
+      '<span class="sep"></span>' +
+      '<div class="big">AB = B − A = <span class="ok">(' + n1(AB.x) + ', ' + n1(AB.y) + ')</span></div>' +
+      '<div>‖AB‖ = √(' + n1(AB.x) + '² + ' + n1(AB.y) + '²)</div>' +
+      '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span class="ok">' + n1(L) + '</span></div>' +
+      '<span class="sep"></span>' +
+      '<div>AB / ‖AB‖ = ' + (u ? '<span class="ok">(' + n1(u.x) + ', ' + n1(u.y) + ')</span>'
+        : '<span class="ok">impossible</span>') + '</div>' +
+      (u ? '<div class="k">longueur 1, direction gardée</div>'
+         : '<div class="k">le vecteur nul n\'a pas de direction</div>');
+    memo.innerHTML =
+      '<p class="hint">Le vecteur qui va de <strong>A à B</strong> se calcule <code>B − A</code> : destination moins départ.</p>' +
+      '<p class="hint">La <strong>norme</strong> est la longueur de la flèche — Pythagore sur les composantes.</p>' +
+      '<p class="hint">Un vecteur n\'a pas de point de départ imposé : cochez la case et comparez.</p>';
+    tip.textContent = "Déplacez A et B. Cochez « vecteur normalisé » : le vrai vecteur passe en pointillé, la direction pure reste.";
+  } else {
+    const U = st.U, V = st.V;
+    let head = '<div><span class="k">u</span> (' + n1(U.x) + ', ' + n1(U.y) + ')';
+    if (st.op !== "scale") head += ' &nbsp; <span class="k">v</span> (' + n1(V.x) + ', ' + n1(V.y) + ')';
+    head += '</div><span class="sep"></span>';
+    let body, m;
+    if (st.op === "add"){
+      const R = add(U, V);
+      body = '<div class="big">u + v = <span class="ok">(' + n1(R.x) + ', ' + n1(R.y) + ')</span></div>' +
+             '<div class="k">on additionne composante par composante</div>' +
+             '<div>‖u + v‖ = ' + n1(norm(R)) + '</div>' +
+             '<div class="k">‖u‖ + ‖v‖ = ' + n1(norm(U) + norm(V)) + '</div>';
+      m = '<p class="hint">Deux déplacements enchaînés valent leur <strong>somme</strong> : le pointillé ferme le parallélogramme.</p>' +
+          '<p class="hint">La norme de la somme n\'est <strong>pas</strong> la somme des normes — sauf si u et v pointent pareil.</p>';
+    } else if (st.op === "sub"){
+      const R = sub(U, V);
+      body = '<div class="big">u − v = <span class="ok">(' + n1(R.x) + ', ' + n1(R.y) + ')</span></div>' +
+             '<div class="k">c\'est le vecteur qui va de v vers u</div>' +
+             '<div>‖u − v‖ = <span class="ok">' + n1(norm(R)) + '</span></div>' +
+             '<div class="k">soit la distance entre les deux pointes</div>';
+      m = '<p class="hint"><code>cible − joueur</code> donne la <strong>direction</strong> vers la cible, et sa norme la <strong>distance</strong>.</p>' +
+          '<p class="hint">Dans l\'autre sens on obtient l\'opposé : même droite, sens inverse.</p>';
+    } else {
+      const R = mul(U, st.k);
+      body = '<div class="big">' + n1(st.k) + ' · u = <span class="ok">(' + n1(R.x) + ', ' + n1(R.y) + ')</span></div>' +
+             '<div>‖u‖ = ' + n1(norm(U)) + ' &nbsp;→&nbsp; ‖k·u‖ = ' + n1(norm(R)) + '</div>' +
+             '<div class="k">' + (st.k < 0 ? "k négatif : le vecteur se retourne"
+               : st.k === 0 ? "k nul : il ne reste rien" : "même direction, longueur multipliée") + '</div>';
+      m = '<p class="hint">Le scalaire <strong>étire</strong> ou <strong>retourne</strong> le vecteur, sans le faire sortir de sa droite.</p>' +
+          '<p class="hint">C\'est ainsi qu\'on avance : <code>position + direction × vitesse × dt</code>.</p>';
+    }
+    res.innerHTML = head + body;
+    memo.innerHTML = m;
+    tip.textContent = st.op === "scale"
+      ? "Déplacez u et faites varier k, y compris en négatif."
+      : "Déplacez les pointes de u et de v.";
+  }
+}
+
+function render(){
+  document.querySelectorAll("[data-for]").forEach(g => g.style.display = g.dataset.for === st.tab ? "" : "none");
+  $("kgroup").style.display = (st.tab === "operations" && st.op === "scale") ? "" : "none";
+  draw();
+  side();
+}
+
+// ------------------------------------------------------------------ souris
+const svgEl = $("svg");
+function toWorld(evt){
+  const r = svgEl.getBoundingClientRect();
+  const vb = svgEl.viewBox.baseVal;
+  const scale = Math.min(r.width / vb.width, r.height / vb.height);
+  const ox = r.left + (r.width - vb.width * scale) / 2;
+  const oy = r.top + (r.height - vb.height * scale) / 2;
+  return {x: ux((evt.clientX - ox) / scale), y: uy((evt.clientY - oy) / scale)};
+}
+const snap = v => Math.max(XMIN, Math.min(XMAX, Math.round(v * 2) / 2));
+const snapY = v => Math.max(YMIN, Math.min(YMAX, Math.round(v * 2) / 2));
+
+svgEl.addEventListener("pointerdown", function(e){
+  const name = e.target.dataset && e.target.dataset.grab;
+  if (!name) return;
+  st.drag = name;
+  svgEl.setPointerCapture(e.pointerId);
+  e.preventDefault();
+});
+svgEl.addEventListener("pointermove", function(e){
+  if (!st.drag) return;
+  const w = toWorld(e);
+  st[st.drag] = {x: snap(w.x), y: snapY(w.y)};
+  render();
+});
+["pointerup", "pointercancel"].forEach(ev => svgEl.addEventListener(ev, function(){ st.drag = null; }));
+
+// ------------------------------------------------------------------ contrôles
+document.querySelectorAll("[data-op]").forEach(b => b.addEventListener("click", function(){
+  st.op = b.dataset.op;
+  document.querySelectorAll("[data-op]").forEach(o => o.classList.toggle("on", o === b));
+  render();
+}));
+$("k").addEventListener("input", function(){ st.k = +this.value; $("kv").textContent = n1(st.k); render(); });
+["unit", "ghost"].forEach(id => $(id).addEventListener("change", render));
+$("reset").addEventListener("click", function(){
+  ["A", "B", "U", "V"].forEach(k => st[k] = Object.assign({}, DEF[k]));
+  st.k = 2; $("k").value = 2; $("kv").textContent = "2";
+  $("unit").checked = false; $("ghost").checked = false;
+  render();
+});
+
+// Une ancre par notion : la slide qui suit un point du cours ouvre le widget
+// directement sur la démonstration de ce point.
+const PRESETS = {
+  vecteur:    {tab: "vecteur"},
+  norme:      {tab: "vecteur"},
+  normalise:  {tab: "vecteur", unit: true},
+  origine:    {tab: "vecteur", ghost: true},
+  operations: {tab: "operations", op: "add"},
+  somme:      {tab: "operations", op: "add"},
+  difference: {tab: "operations", op: "sub"},
+  scalaire:   {tab: "operations", op: "scale"}
+};
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  const p = PRESETS[name] || PRESETS.vecteur;
+  st.tab = p.tab;
+  $("unit").checked = !!p.unit;
+  $("ghost").checked = !!p.ghost;
+  if (p.op){
+    st.op = p.op;
+    document.querySelectorAll("[data-op]").forEach(o => o.classList.toggle("on", o.dataset.op === p.op));
+  }
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === p.tab));
+  render();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

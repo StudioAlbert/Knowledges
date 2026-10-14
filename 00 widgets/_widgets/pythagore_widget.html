@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pythagore — démonstration graphique</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 24px; }
+input[type=range] { accent-color: var(--sae-red); width: 120px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(66vh, 620px); touch-action: none; user-select: none; }
+.board svg [data-handle] { cursor: grab; }
+.board svg.dragging, .board svg.dragging [data-handle] { cursor: grabbing; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.eq { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.9; }
+.eq .v { font-weight: 700; }
+.eq .na { color: var(--muted); }
+.eq .nc { color: var(--sae-red); }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint code, .steps code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.legend { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.legend div { display: flex; align-items: center; gap: 8px; }
+.sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; border: 1px solid rgba(0,0,0,.12); }
+pre.code {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 10px; overflow-x: auto; color: var(--text);
+}
+
+/* étapes du raisonnement (réciproque) */
+ol.steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 7px; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 26px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 1px;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--sae-black); color: #fff;
+    font-size: 11px; font-weight: 700; display: grid; place-items: center;
+}
+ol.steps li b { color: var(--text); }
+ol.steps li.concl::before { background: var(--sae-red); }
+ol.steps .mono { font-family: "JetBrains Mono", monospace; color: var(--text); }
+
+.logic { display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.logic div { border-left: 3px solid var(--line); padding: 2px 0 2px 9px; }
+.logic div.on { border-left-color: var(--sae-red); color: var(--text); }
+.logic .mono { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); white-space: nowrap; }
+
+.bars { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.bar { display: flex; align-items: center; gap: 8px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+.bar .lbl { width: 58px; flex: 0 0 auto; color: var(--muted); }
+.bar .track { flex: 1; height: 16px; display: flex; background: var(--panel2); border-radius: 3px; overflow: hidden; }
+.bar .seg { height: 100%; transition: width .15s; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 28px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+/* iframe étroite (portrait, fenêtre réduite) : une seule colonne */
+@media (max-width: 900px) {
+    html.embed .panel.on { overflow-y: auto; }
+    html.embed .stage { grid-template-columns: 1fr; grid-template-rows: minmax(240px, 1fr) auto; }
+    html.embed .board svg { min-height: 240px; }
+    html.embed .side { overflow: visible; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1><span class="hl">Pythagore</span> — démonstration graphique</h1>
+    <p class="sub">Le théorème parle d'<strong>aires</strong>, pas de longueurs : le carré construit sur l'hypoténuse a exactement la même aire que les deux autres réunis. Attrapez les sommets à la souris, le calcul suit.</p>
+  </div>
+  <div class="formula">a² + b² = <b>c²</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="carres">1 · Les trois carrés</button>
+  <button data-tab="preuve">2 · Preuve par réarrangement</button>
+  <button data-tab="reciproque">3 · La réciproque</button>
+  <button data-tab="distance">4 · Distance dans un repère</button>
+</nav>
+
+<!-- =============================== 1 · CARRÉS =============================== -->
+<section class="panel on" id="carres">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Triangle</span>
+      <button id="p1-345">3 · 4 · 5</button>
+      <button id="p1-512">5 · 12 · 13</button>
+      <button id="p1-acu">aigu</button>
+      <button id="p1-obt">obtus</button>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p1-sq" checked> Carrés</label>
+      <label class="chk"><input type="checkbox" id="p1-grid" checked> Grille</label>
+      <label class="chk"><input type="checkbox" id="p1-snap" checked> Aimanter à la grille</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg1" role="img" aria-label="Triangle avec les carrés construits sur ses trois côtés"></svg>
+      <p class="tip">Glissez les sommets A, B, C à la souris.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Mesures</h3>
+        <div class="eq" id="p1-eq"></div>
+        <div id="p1-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Légende</h3>
+        <div class="legend">
+          <div><span class="sw" style="background:#9a9a9a"></span>carré sur <em>a</em> — côté [BC]</div>
+          <div><span class="sw" style="background:#c7c7c7"></span>carré sur <em>b</em> — côté [CA]</div>
+          <div><span class="sw" style="background:#E30613"></span>carré sur <em>c</em> — côté [AB], opposé à C</div>
+        </div>
+        <p class="hint">L'angle testé est celui du sommet <code>C</code>, opposé au côté <em>c</em>. L'égalité n'est vraie que lorsqu'il vaut exactement 90°.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 2 · PREUVE =============================== -->
+<section class="panel" id="preuve">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Côtés</span>
+      <label class="rng">a <input type="range" id="p2-a" min="1" max="6" step="1" value="3"><output id="p2-av">3</output></label>
+      <label class="rng">b <input type="range" id="p2-b" min="1" max="6" step="1" value="4"><output id="p2-bv">4</output></label>
+    </div>
+    <div class="group">
+      <span class="group-label">Réarrangement</span>
+      <input type="range" id="p2-t" min="0" max="1" step="0.005" value="0" aria-label="Avancement du réarrangement">
+      <button id="p2-play" class="primary">▶ Animer</button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg2" role="img" aria-label="Deux pavages d'un même carré par quatre triangles rectangles identiques"></svg>
+      <p class="tip">Glissez les deux sommets rouges du premier triangle pour changer a et b.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Le raisonnement</h3>
+        <p class="hint">Un carré de côté <code>a + b</code>, pavé de deux façons avec les <strong>mêmes</strong> quatre triangles rectangles de côtés <em>a</em>, <em>b</em>, <em>c</em>.</p>
+        <div class="eq" id="p2-eq" style="margin-top:8px"></div>
+        <div id="p2-badge"></div>
+      </div>
+      <div class="card">
+        <h3>En une ligne</h3>
+        <pre class="code">(a+b)² = 4 · (a·b / 2) + c²
+(a+b)² = 4 · (a·b / 2) + a² + b²</pre>
+        <p class="hint">Même carré total, mêmes quatre triangles retirés : ce qui reste est forcément égal. Donc <strong>c² = a² + b²</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 3 · RÉCIPROQUE =============================== -->
+<section class="panel" id="reciproque">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Longueurs</span>
+      <label class="rng">a <input type="range" id="p3-a" min="1" max="20" step="1" value="9"><output id="p3-av">9</output></label>
+      <label class="rng">b <input type="range" id="p3-b" min="1" max="20" step="1" value="12"><output id="p3-bv">12</output></label>
+      <label class="rng">c <input type="range" id="p3-c" min="1" max="25" step="1" value="15"><output id="p3-cv">15</output></label>
+    </div>
+    <div class="group">
+      <button data-abc="3,4,5">3 · 4 · 5</button>
+      <button data-abc="9,12,15">9 · 12 · 15</button>
+      <button data-abc="4,5,6">4 · 5 · 6</button>
+      <button data-abc="4,5,8">4 · 5 · 8</button>
+      <button data-abc="3,4,9">3 · 4 · 9</button>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p3-compass" checked> Construction au compas</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg3" role="img" aria-label="Triangle construit à partir de ses trois longueurs"></svg>
+      <p class="tip">On ne donne que trois longueurs. Le triangle est construit au compas : A est à la distance b de C et à la distance c de B.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Le raisonnement, pas à pas</h3>
+        <ol class="steps" id="p3-steps"></ol>
+        <div class="bars" id="p3-bars"></div>
+      </div>
+      <div class="card">
+        <h3>Direct ou réciproque ?</h3>
+        <div class="logic" id="p3-logic">
+          <div data-l="direct"><b>Théorème</b> — on <em>sait</em> que l'angle est droit, on en déduit une longueur.<br><span class="mono">Ĉ = 90° ⟹ a² + b² = c²</span></div>
+          <div data-l="reci"><b>Réciproque</b> — on ne connaît <em>que</em> les longueurs, on en déduit l'angle, sans rapporteur.<br><span class="mono">a² + b² = c² ⟹ Ĉ = 90°</span></div>
+          <div data-l="contra"><b>Contraposée</b> — si l'égalité est fausse, l'angle n'est pas droit.<br><span class="mono">a² + b² ≠ c² ⟹ Ĉ ≠ 90°</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 4 · DISTANCE =============================== -->
+<section class="panel" id="distance">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Portée</span>
+      <label class="rng">r <input type="range" id="p4-r" min="1" max="14" step="1" value="8"><output id="p4-rv">8</output></label>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p4-circle" checked> Cercle de détection</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg4" role="img" aria-label="Deux points dans un repère, avec le triangle rectangle formé par les axes"></svg>
+      <p class="tip">Glissez A (le PNJ) et B (le joueur). Le triangle rectangle est fabriqué par les axes : ses côtés sont dx et dy.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Calcul</h3>
+        <div class="eq" id="p4-eq"></div>
+        <div id="p4-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Et en code</h3>
+        <pre class="code">// comparer, pas mesurer
+float dx = b.x - a.x;
+float dy = b.y - a.y;
+if (dx*dx + dy*dy &lt;= r*r)
+    // cible à portée</pre>
+        <p class="hint">La racine carrée ne sert que si l'on a besoin de la <em>valeur</em>. Pour un test de portée ou un tri par proximité, on reste au carré.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TC-FT-TRG-01 — Géométrie du triangle · SAE Institute Genève
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const U = 40;                     // pixels SVG par unité
+const RED = "#E30613", INK = "#1a1a1a", GREY_A = "#9a9a9a", GREY_B = "#c7c7c7";
+
+/* ---------------------------------------------------------------- outils */
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function label(parent, x, y, s, attrs){
+  const a = Object.assign({x: x, y: y, "font-size": 14, "font-weight": 700, fill: INK,
+                           stroke: "#fff", "stroke-width": 4, "paint-order": "stroke", "stroke-linejoin": "round"}, attrs || {});
+  el("text", a, parent).textContent = s;
+}
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function poly(pts){ return pts.map(p => p.x.toFixed(2) + "," + p.y.toFixed(2)).join(" "); }
+function sub(p, q){ return {x: p.x - q.x, y: p.y - q.y}; }
+function add(p, q){ return {x: p.x + q.x, y: p.y + q.y}; }
+function mul(p, k){ return {x: p.x * k, y: p.y * k}; }
+function len(v){ return Math.hypot(v.x, v.y); }
+function unit(v){ const l = len(v) || 1; return {x: v.x / l, y: v.y / l}; }
+function mid(p, q){ return {x: (p.x + q.x) / 2, y: (p.y + q.y) / 2}; }
+function dot(u, v){ return u.x * v.x + u.y * v.y; }
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function fr(n, d){
+  const k = Math.pow(10, d === undefined ? 2 : d);
+  return String(Math.round(n * k) / k).replace(".", ",");
+}
+function fitBox(pts, pad){
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const p of pts){
+    x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x);
+    y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y);
+  }
+  return {x0: x0 - pad, y0: y0 - pad, x1: x1 + pad, y1: y1 + pad};
+}
+function setView(svg, b){
+  svg.setAttribute("viewBox", b.x0 + " " + b.y0 + " " + (b.x1 - b.x0) + " " + (b.y1 - b.y0));
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+}
+/* zone réellement visible (meet : la viewBox est complétée sur un axe) */
+function visibleBox(svg, b){
+  const r = svg.getBoundingClientRect();
+  if (!r.width || !r.height) return b;
+  const w = b.x1 - b.x0, h = b.y1 - b.y0;
+  const s = Math.min(r.width / w, r.height / h);
+  const W = r.width / s, H = r.height / s;
+  return {x0: b.x0 - (W - w) / 2, x1: b.x1 + (W - w) / 2, y0: b.y0 - (H - h) / 2, y1: b.y1 + (H - h) / 2};
+}
+function grid(svg, b, step){
+  const g = el("g", {}, svg);
+  for (let x = Math.floor(b.x0 / step) * step; x <= b.x1; x += step)
+    el("line", {x1: x, y1: b.y0, x2: x, y2: b.y1, stroke: "#ececec", "stroke-width": 1}, g);
+  for (let y = Math.floor(b.y0 / step) * step; y <= b.y1; y += step)
+    el("line", {x1: b.x0, y1: y, x2: b.x1, y2: y, stroke: "#ececec", "stroke-width": 1}, g);
+}
+function toSvg(svg, evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  const m = svg.getScreenCTM();
+  return m ? pt.matrixTransform(m.inverse()) : null;
+}
+function handle(parent, p, key, fill, stroke){
+  const g = el("g", {"data-handle": key}, parent);
+  el("circle", {cx: p.x, cy: p.y, r: 20, fill: "transparent"}, g);          // zone de prise
+  el("circle", {cx: p.x, cy: p.y, r: 9, fill: fill || "#fff", stroke: stroke || INK, "stroke-width": 2.5}, g);
+  return g;
+}
+/* marque d'angle : carré si droit, arc + valeur sinon (points en pixels SVG) */
+function angleMark(svg, V, P, Q, right, deg, color){
+  const u = unit(sub(P, V)), w = unit(sub(Q, V));
+  if (right){
+    const L = 15;
+    el("polyline", {points: poly([add(V, mul(u, L)), add(V, add(mul(u, L), mul(w, L))), add(V, mul(w, L))]),
+                    fill: "none", stroke: color, "stroke-width": 2}, svg);
+    return;
+  }
+  const R = 26;
+  const p1 = add(V, mul(u, R)), p2 = add(V, mul(w, R));
+  const cross = u.x * w.y - u.y * w.x;
+  el("path", {d: "M" + p1.x + "," + p1.y + " A" + R + "," + R + " 0 0," + (cross > 0 ? 1 : 0) + " " + p2.x + "," + p2.y,
+              fill: "none", stroke: color, "stroke-width": 2}, svg);
+  const bis = unit(add(u, w));
+  const t = add(V, mul(bis, R + 18));
+  label(svg, t.x, t.y + 5, fr(deg, 1) + "°", {"text-anchor": "middle", "font-size": 13, fill: color});
+}
+
+/* Glisser-déposer : capture sur le <svg> lui-même (il survit aux redessins,
+   contrairement aux poignées). Pendant un glissement la viewBox est figée,
+   sinon le repère bougerait sous la souris. */
+function dragger(svg, onMove, onEnd){
+  let active = null;
+  svg.addEventListener("pointerdown", function(e){
+    const h = e.target.closest("[data-handle]");
+    if (!h) return;
+    e.preventDefault();
+    active = h.getAttribute("data-handle");
+    svg.setPointerCapture(e.pointerId);
+    svg.classList.add("dragging");
+  });
+  svg.addEventListener("pointermove", function(e){
+    if (!active) return;
+    const p = toSvg(svg, e);
+    if (p) onMove(active, p);
+  });
+  function end(){
+    if (!active) return;
+    active = null;
+    svg.classList.remove("dragging");
+    if (onEnd) onEnd();
+  }
+  svg.addEventListener("pointerup", end);
+  svg.addEventListener("pointercancel", end);
+  svg.addEventListener("lostpointercapture", end);
+  return function(){ return active !== null; };
+}
+
+/* ================================================================
+   1 · LES TROIS CARRÉS
+   ================================================================ */
+const svg1 = document.getElementById("svg1");
+const P1 = {V: {C: {x: 0, y: 0}, B: {x: 4, y: 0}, A: {x: 0, y: 3}}, box: null};
+const px = v => ({x: v.x * U, y: -v.y * U});
+
+function squareOn(P, Q, R){           // carré sur [PQ], du côté opposé à R
+  const d = sub(Q, P);
+  let n = {x: d.y, y: -d.x};
+  if (dot(n, sub(R, P)) > 0) n = {x: -d.y, y: d.x};
+  return [P, Q, add(Q, n), add(P, n)];
+}
+
+const dragging1 = dragger(svg1, function(key, p){
+  const snap = document.getElementById("p1-snap").checked;
+  const vb = visibleBox(svg1, P1.box);
+  let x = p.x / U, y = -p.y / U;
+  if (snap){ x = Math.round(x); y = Math.round(y); }
+  x = clamp(x, Math.ceil(vb.x0 / U + .3), Math.floor(vb.x1 / U - .3));
+  y = clamp(y, Math.ceil(-vb.y1 / U + .3), Math.floor(-vb.y0 / U - .3));
+  const old = P1.V[key];
+  P1.V[key] = {x: x, y: y};
+  const V = P1.V;
+  const cross = (V.B.x - V.A.x) * (V.C.y - V.A.y) - (V.B.y - V.A.y) * (V.C.x - V.A.x);
+  if (Math.abs(cross) < .05) P1.V[key] = old;     // triangle aplati : refusé
+  draw1();
+}, draw1);
+
+function draw1(){
+  const showSq = document.getElementById("p1-sq").checked;
+  const showGr = document.getElementById("p1-grid").checked;
+  const snap = document.getElementById("p1-snap").checked;
+  const A = px(P1.V.A), B = px(P1.V.B), C = px(P1.V.C);
+
+  const a = len(sub(B, C)) / U, b = len(sub(C, A)) / U, c = len(sub(A, B)) / U;
+  const a2 = a * a, b2 = b * b, c2 = c * c;
+  const gamma = Math.acos(clamp(dot(sub(A, C), sub(B, C)) / (len(sub(A, C)) * len(sub(B, C))), -1, 1)) * 180 / Math.PI;
+  const exact = snap;                                   // sommets entiers ⇒ carrés entiers, comparaison exacte
+  const right = exact ? Math.abs(a2 + b2 - c2) < 1e-9 : Math.abs(gamma - 90) < .3;
+
+  const sqA = squareOn(B, C, A), sqB = squareOn(C, A, B), sqC = squareOn(A, B, C);
+
+  clear(svg1);
+  if (!dragging1() || !P1.box) P1.box = fitBox(showSq ? sqA.concat(sqB, sqC) : [A, B, C], 34);
+  setView(svg1, P1.box);
+  const vb = visibleBox(svg1, P1.box);
+  if (showGr) grid(svg1, vb, U);
+
+  if (showSq){
+    const defs = [[sqA, GREY_A, "#6f6f6f", "a² = " + fr(a2)], [sqB, GREY_B, "#8a8a8a", "b² = " + fr(b2)], [sqC, RED, RED, "c² = " + fr(c2)]];
+    for (const d of defs){
+      el("polygon", {points: poly(d[0]), fill: d[1], "fill-opacity": .22, stroke: d[1], "stroke-width": 2, "stroke-linejoin": "round"}, svg1);
+      const cx = (d[0][0].x + d[0][1].x + d[0][2].x + d[0][3].x) / 4;
+      const cy = (d[0][0].y + d[0][1].y + d[0][2].y + d[0][3].y) / 4;
+      label(svg1, cx, cy + 5, d[3], {"text-anchor": "middle", "font-size": 15, fill: d[2]});
+    }
+  }
+
+  el("polygon", {points: poly([A, B, C]), fill: INK, "fill-opacity": .08, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg1);
+  angleMark(svg1, C, A, B, right, gamma, right ? RED : "#888");
+
+  const G = mul(add(add(A, B), C), 1 / 3);
+  const sides = [[B, C, "a = " + fr(a), "#4a4a4a"], [C, A, "b = " + fr(b), "#4a4a4a"], [A, B, "c = " + fr(c), RED]];
+  for (const s of sides){
+    const m = mid(s[0], s[1]);
+    const o = add(m, mul(unit(sub(m, G)), 14));      // à l'extérieur du triangle
+    label(svg1, o.x, o.y + 5, s[2], {"text-anchor": "middle", "font-size": 13, fill: s[3]});
+  }
+
+  for (const k of ["A", "B", "C"]){
+    const p = px(P1.V[k]);
+    const o = add(p, mul(unit(sub(p, G)), 22));
+    label(svg1, o.x, o.y + 6, k, {"text-anchor": "middle", "font-size": 16, "font-weight": 800});
+    handle(svg1, p, k);
+  }
+
+  const eqs = exact ? "=" : "≈";
+  document.getElementById("p1-eq").innerHTML =
+    '<div><span class="na">a² + b²</span> = ' + fr(a2) + ' + ' + fr(b2) + ' = <span class="v">' + fr(a2 + b2) + '</span></div>' +
+    '<div><span class="nc">c²</span> = <span class="v">' + fr(c2) + '</span></div>' +
+    '<div><span class="na">angle Ĉ</span> ' + eqs + ' <span class="v">' + fr(gamma, 1) + '°</span></div>';
+
+  const d = a2 + b2 - c2;
+  const badge = document.getElementById("p1-badge");
+  if (right)      badge.innerHTML = '<span class="badge ok">Angle droit en C — a² + b² ' + eqs + ' c²</span>';
+  else if (d > 0) badge.innerHTML = '<span class="badge">a² + b² &gt; c² — angle aigu en C</span>';
+  else            badge.innerHTML = '<span class="badge">a² + b² &lt; c² — angle obtus en C</span>';
+}
+function preset1(V){ P1.V = V; P1.box = null; draw1(); }
+["p1-sq", "p1-grid", "p1-snap"].forEach(id => document.getElementById(id).addEventListener("change", function(){ P1.box = null; draw1(); }));
+document.getElementById("p1-345").addEventListener("click", () => preset1({C: {x: 0, y: 0}, B: {x: 4, y: 0}, A: {x: 0, y: 3}}));
+document.getElementById("p1-512").addEventListener("click", () => preset1({C: {x: 0, y: 0}, B: {x: 12, y: 0}, A: {x: 0, y: 5}}));
+document.getElementById("p1-acu").addEventListener("click", () => preset1({C: {x: 0, y: 0}, B: {x: 4, y: 0}, A: {x: 1, y: 3}}));
+document.getElementById("p1-obt").addEventListener("click", () => preset1({C: {x: 0, y: 0}, B: {x: 4, y: 0}, A: {x: -2, y: 3}}));
+
+/* ================================================================
+   2 · PREUVE PAR RÉARRANGEMENT
+   Chaque triangle est [R, Pa, Pb] : R le sommet de l'angle droit,
+   |R Pa| = a, |R Pb| = b, |Pa Pb| = c. Le passage d'un pavage à
+   l'autre est une simple translation de chaque triangle.
+   ================================================================ */
+const svg2 = document.getElementById("svg2");
+const P2 = {a: 3, b: 4, t: 0, playing: false, raf: 0, box: null};
+
+function tris(a, b){
+  const S = a + b;
+  const src = [
+    [{x: 0, y: 0}, {x: a, y: 0}, {x: 0, y: b}],
+    [{x: S, y: 0}, {x: S, y: a}, {x: a, y: 0}],
+    [{x: S, y: S}, {x: b, y: S}, {x: S, y: a}],
+    [{x: 0, y: S}, {x: 0, y: b}, {x: b, y: S}]
+  ];
+  const dst = [
+    [{x: 0, y: a}, {x: a, y: a}, {x: 0, y: S}],
+    [{x: S, y: 0}, {x: S, y: a}, {x: a, y: 0}],
+    [{x: a, y: S}, {x: 0, y: S}, {x: a, y: a}],
+    [{x: a, y: a}, {x: a, y: 0}, {x: S, y: a}]
+  ];
+  return {src: src, dst: dst, S: S};
+}
+
+const dragging2 = dragger(svg2, function(key, p){
+  stop2();
+  if (key === "a") P2.a = clamp(Math.round(p.x / U), 1, 6);
+  else             P2.b = clamp(Math.round(p.y / U - P2.t * P2.a), 1, 6);   // Pb glisse de (0,b) à (0,a+b)
+  sync2();
+}, function(){ P2.box = null; draw2(); });
+
+/* cote : trait fin + graduations + étiquette, de p à q, décalée de n (pixels) */
+function dimension(svg, p, q, n, text, color){
+  const P = add(p, n), Q = add(q, n), nu = mul(unit(n), 5);
+  el("line", {x1: P.x, y1: P.y, x2: Q.x, y2: Q.y, stroke: color, "stroke-width": 1.5}, svg);
+  for (const e of [P, Q]) el("line", {x1: e.x - nu.x, y1: e.y - nu.y, x2: e.x + nu.x, y2: e.y + nu.y, stroke: color, "stroke-width": 1.5}, svg);
+  const m = add(mid(P, Q), mul(unit(n), 14));
+  label(svg, m.x, m.y + 5, text, {"text-anchor": "middle", "font-size": 15, "font-style": "italic", fill: color});
+}
+
+function draw2(){
+  const a = P2.a, b = P2.b, t = P2.t, S = a + b;
+  const T = tris(a, b);
+  const M = p => ({x: p.x * U, y: p.y * U});
+
+  clear(svg2);
+  const outer = [{x: 0, y: 0}, {x: S, y: 0}, {x: S, y: S}, {x: 0, y: S}].map(M);
+  if (!dragging2() || !P2.box) P2.box = fitBox(outer.concat([{x: -10, y: -70}, {x: S * U + 60, y: S * U + 10}]), 20);
+  setView(svg2, P2.box);
+
+  el("rect", {x: 0, y: 0, width: S * U, height: S * U, fill: "#fafafa", stroke: INK, "stroke-width": 2}, svg2);
+
+  /* aire découverte : c² (moulin) puis a² + b² (deux carrés) */
+  const cSq = [{x: a, y: 0}, {x: S, y: a}, {x: b, y: S}, {x: 0, y: b}].map(M);
+  el("polygon", {points: poly(cSq), fill: RED, "fill-opacity": (1 - t) * .3, stroke: RED, "stroke-width": 2, "stroke-opacity": 1 - t}, svg2);
+  el("rect", {x: 0, y: 0, width: a * U, height: a * U, fill: GREY_A, "fill-opacity": t * .35, stroke: "#6a6a6a", "stroke-width": 2, "stroke-opacity": t}, svg2);
+  el("rect", {x: a * U, y: a * U, width: b * U, height: b * U, fill: GREY_B, "fill-opacity": t * .45, stroke: "#8a8a8a", "stroke-width": 2, "stroke-opacity": t}, svg2);
+
+  if (t < .5){
+    const cc = M({x: S / 2, y: S / 2});
+    el("text", {x: cc.x, y: cc.y + 7, "text-anchor": "middle", "font-size": 20, "font-weight": 800, fill: RED, "fill-opacity": 1 - 2 * t}, svg2)
+      .textContent = "c² = " + (a * a + b * b);
+  } else {
+    const ca = M({x: a / 2, y: a / 2}), cb = M({x: a + b / 2, y: a + b / 2}), o = 2 * t - 1;
+    el("text", {x: ca.x, y: ca.y + 6, "text-anchor": "middle", "font-size": 17, "font-weight": 800, fill: "#4a4a4a", "fill-opacity": o}, svg2).textContent = "a² = " + (a * a);
+    el("text", {x: cb.x, y: cb.y + 6, "text-anchor": "middle", "font-size": 17, "font-weight": 800, fill: "#4a4a4a", "fill-opacity": o}, svg2).textContent = "b² = " + (b * b);
+  }
+
+  /* les quatre triangles, avec la longueur de chaque côté */
+  let handles = null;
+  for (let i = 0; i < 4; i++){
+    const p = [0, 1, 2].map(j => M({x: T.src[i][j].x + (T.dst[i][j].x - T.src[i][j].x) * t,
+                                    y: T.src[i][j].y + (T.dst[i][j].y - T.src[i][j].y) * t}));
+    el("polygon", {points: poly(p), fill: INK, "fill-opacity": .84, stroke: INK, "stroke-width": 1.5, "stroke-linejoin": "round"}, svg2);
+    const G = mul(add(add(p[0], p[1]), p[2]), 1 / 3);
+    const edges = [[p[0], p[1], "a"], [p[0], p[2], "b"], [p[1], p[2], "c"]];
+    for (const e of edges){
+      const m = mid(e[0], e[1]);
+      const toG = sub(G, m);
+      const o = add(m, mul(unit(toG), Math.min(13, len(toG) * .55)));
+      el("text", {x: o.x, y: o.y + 5, "text-anchor": "middle", "font-size": 14, "font-weight": 700, "font-style": "italic",
+                  fill: e[2] === "c" ? "#ff8a90" : "#fff"}, svg2).textContent = e[2];
+    }
+    if (i === 0) handles = p;
+  }
+
+  /* cotes extérieures : le grand carré a pour côté a + b */
+  dimension(svg2, M({x: 0, y: 0}), M({x: a, y: 0}), {x: 0, y: -16}, "a", "#4a4a4a");
+  dimension(svg2, M({x: a, y: 0}), M({x: S, y: 0}), {x: 0, y: -16}, "b", "#4a4a4a");
+  dimension(svg2, M({x: S, y: 0}), M({x: S, y: a}), {x: 16, y: 0}, "a", "#4a4a4a");
+  dimension(svg2, M({x: S, y: a}), M({x: S, y: S}), {x: 16, y: 0}, "b", "#4a4a4a");
+  el("text", {x: S * U / 2, y: -52, "text-anchor": "middle", "font-size": 14, "font-weight": 600, fill: "#555"}, svg2)
+    .textContent = "carré de côté a + b = " + S + "  —  aire " + (S * S);
+
+  handle(svg2, handles[1], "a", RED, "#fff");
+  handle(svg2, handles[2], "b", RED, "#fff");
+
+  const rest = S * S - 2 * a * b;
+  document.getElementById("p2-eq").innerHTML =
+    '<div><span class="na">aire totale</span> (a+b)² = <span class="v">' + (S * S) + '</span></div>' +
+    '<div><span class="na">4 triangles</span> 4·(' + a + '·' + b + '/2) = <span class="v">' + (2 * a * b) + '</span></div>' +
+    '<div><span class="nc">reste</span> = ' + (S * S) + ' − ' + (2 * a * b) + ' = <span class="v">' + rest + '</span></div>';
+  document.getElementById("p2-badge").innerHTML = '<span class="badge ok">' +
+    (t < .5 ? 'reste = c² = ' + rest : 'reste = a² + b² = ' + (a * a) + ' + ' + (b * b) + ' = ' + rest) + '</span>';
+}
+
+function sync2(){
+  document.getElementById("p2-a").value = P2.a; document.getElementById("p2-av").value = P2.a;
+  document.getElementById("p2-b").value = P2.b; document.getElementById("p2-bv").value = P2.b;
+  document.getElementById("p2-t").value = P2.t;
+  draw2();
+}
+document.getElementById("p2-a").addEventListener("input", e => { P2.a = +e.target.value; P2.box = null; sync2(); });
+document.getElementById("p2-b").addEventListener("input", e => { P2.b = +e.target.value; P2.box = null; sync2(); });
+document.getElementById("p2-t").addEventListener("input", e => { P2.t = +e.target.value; stop2(); draw2(); });
+function stop2(){
+  P2.playing = false;
+  cancelAnimationFrame(P2.raf);
+  document.getElementById("p2-play").textContent = "▶ Animer";
+}
+document.getElementById("p2-play").addEventListener("click", function(){
+  if (P2.playing){ stop2(); return; }
+  P2.playing = true;
+  this.textContent = "❚❚ Pause";
+  const dir = P2.t >= 1 ? -1 : 1;
+  let last = performance.now();
+  (function loop(now){
+    if (!P2.playing) return;
+    const dt = (now - last) / 1000; last = now;
+    P2.t = clamp(P2.t + dir * dt * 0.45, 0, 1);
+    sync2();
+    if (P2.t <= 0 || P2.t >= 1){ stop2(); return; }
+    P2.raf = requestAnimationFrame(loop);
+  })(last);
+});
+
+/* ================================================================
+   3 · LA RÉCIPROQUE — on part de trois longueurs seulement
+   ================================================================ */
+const svg3 = document.getElementById("svg3");
+const P3 = {a: 9, b: 12, c: 15};
+
+function draw3(){
+  const a = P3.a, b = P3.b, c = P3.c;
+  const a2 = a * a, b2 = b * b, c2 = c * c, s = a2 + b2;
+  const possible = a < b + c && b < a + c && c < a + b;
+  const compass = document.getElementById("p3-compass").checked;
+
+  /* échelle : le plus grand côté fait ~ 12 unités d'écran */
+  const k = 12 * U / Math.max(a, b, c);
+  const C = {x: 0, y: 0}, B = {x: a * k, y: 0};
+  let A = null;
+  if (possible){
+    const cg = (a2 + b2 - c2) / (2 * a * b);
+    const g = Math.acos(clamp(cg, -1, 1));
+    A = {x: b * k * Math.cos(g), y: -b * k * Math.sin(g)};
+  }
+  const gamma = possible ? Math.acos(clamp((a2 + b2 - c2) / (2 * a * b), -1, 1)) * 180 / Math.PI : NaN;
+
+  clear(svg3);
+  /* compas : deux arcs autour de A ; cercles complets si le triangle est impossible */
+  const arcs = [];
+  if (compass){
+    const around = (O, r, P, span) => {
+      const t0 = Math.atan2(P.y - O.y, P.x - O.x), pts = [], n = span > 1 ? 96 : 24;
+      for (let i = 0; i <= n; i++){ const t = t0 - span + 2 * span * i / n; pts.push({x: O.x + r * Math.cos(t), y: O.y + r * Math.sin(t)}); }
+      return pts;
+    };
+    const span = possible ? .3 : Math.PI;
+    arcs.push([around(C, b * k, possible ? A : {x: C.x, y: C.y - 1}, span), GREY_A, "rayon b = " + b]);
+    arcs.push([around(B, c * k, possible ? A : {x: B.x, y: B.y - 1}, span), RED, "rayon c = " + c]);
+  }
+  const pts = [C, B].concat(possible ? [A] : [], ...arcs.map(x => x[0]));
+  setView(svg3, fitBox(pts, 44));
+
+  for (const arc of arcs){
+    el("polyline", {points: poly(arc[0]), fill: "none", stroke: arc[1], "stroke-opacity": .8, "stroke-width": 1.5, "stroke-dasharray": "5 5"}, svg3);
+    const e = arc[0][possible ? arc[0].length - 1 : 24];
+    label(svg3, e.x, e.y - 8, arc[2], {"font-size": 13, fill: arc[1] === RED ? RED : "#777", "text-anchor": "middle"});
+  }
+  el("line", {x1: -20, y1: 0, x2: Math.max(a * k, b * k) + 40, y2: 0, stroke: "#ddd", "stroke-width": 1}, svg3);
+
+  if (possible){
+    el("polygon", {points: poly([A, B, C]), fill: INK, "fill-opacity": .07, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg3);
+    el("line", {x1: A.x, y1: A.y, x2: B.x, y2: B.y, stroke: RED, "stroke-width": 3}, svg3);
+    const right = s === c2;
+    angleMark(svg3, C, A, B, right, gamma, right ? RED : "#666");
+    const G = mul(add(add(A, B), C), 1 / 3);
+    for (const e of [[B, C, "a = " + a, "#4a4a4a"], [C, A, "b = " + b, "#4a4a4a"], [A, B, "c = " + c, RED]]){
+      const m = mid(e[0], e[1]);
+      const o = add(m, mul(unit(sub(m, G)), 16));
+      label(svg3, o.x, o.y + 5, e[2], {"text-anchor": "middle", "font-size": 14, fill: e[3]});
+    }
+    for (const v of [[A, "A"], [B, "B"], [C, "C"]]){
+      const o = add(v[0], mul(unit(sub(v[0], G)), 20));
+      el("circle", {cx: v[0].x, cy: v[0].y, r: 5, fill: INK}, svg3);
+      label(svg3, o.x, o.y + 6, v[1], {"text-anchor": "middle", "font-size": 16, "font-weight": 800});
+    }
+  } else {
+    el("line", {x1: C.x, y1: C.y, x2: B.x, y2: B.y, stroke: INK, "stroke-width": 2.5}, svg3);
+    for (const v of [[B, "B"], [C, "C"]]){
+      el("circle", {cx: v[0].x, cy: v[0].y, r: 5, fill: INK}, svg3);
+      label(svg3, v[0].x, v[0].y + 24, v[1], {"text-anchor": "middle", "font-size": 16, "font-weight": 800});
+    }
+    label(svg3, B.x / 2, 22, "a = " + a, {"text-anchor": "middle", "font-size": 14, fill: "#4a4a4a"});
+    label(svg3, B.x / 2, -40, "Les deux cercles ne se coupent pas : aucun point A possible.", {"text-anchor": "middle", "font-size": 14, fill: RED});
+  }
+
+  /* raisonnement explicite */
+  const longest = Math.max(a, b, c);
+  const steps = [];
+  steps.push('<li><b>Données</b> : trois longueurs, aucun angle. <span class="mono">a = ' + a + ', b = ' + b + ', c = ' + c + '</span></li>');
+  if (!possible){
+    steps.push('<li><b>Inégalité triangulaire</b> : un côté est plus long que la somme des deux autres (<span class="mono">' +
+               (c >= a + b ? 'c ≥ a + b' : a >= b + c ? 'a ≥ b + c' : 'b ≥ a + c') + '</span>).</li>');
+    steps.push('<li class="concl"><b>Conclusion</b> : ces trois longueurs ne forment <b>pas</b> de triangle. La question de l\'angle ne se pose pas.</li>');
+  } else {
+    steps.push('<li><b>On calcule</b> les carrés : <span class="mono">a² + b² = ' + a2 + ' + ' + b2 + ' = ' + s + '</span> et <span class="mono">c² = ' + c2 + '</span></li>');
+    const cmp = s === c2 ? "=" : s > c2 ? "&gt;" : "&lt;";
+    steps.push('<li><b>On compare</b> : <span class="mono">' + s + ' ' + cmp + ' ' + c2 + '</span>, donc <span class="mono">a² + b² ' + cmp + ' c²</span></li>');
+    let concl;
+    if (s === c2)     concl = 'l\'égalité est vraie ⟹ par la <b>réciproque</b>, le triangle est <b>rectangle en C</b>.';
+    else if (s > c2)  concl = 'l\'égalité est fausse ⟹ pas d\'angle droit en C : l\'angle Ĉ est <b>aigu</b> (' + fr(gamma, 1) + '°).';
+    else              concl = 'l\'égalité est fausse ⟹ pas d\'angle droit en C : l\'angle Ĉ est <b>obtus</b> (' + fr(gamma, 1) + '°).';
+    steps.push('<li class="concl"><b>Conclusion</b> : ' + concl + '</li>');
+    if (c !== longest) steps.push('<li><b>Attention</b> : c n\'est pas le plus grand côté. Un angle droit est toujours opposé au plus grand côté ; c\'est lui qu\'il faut appeler c.</li>');
+  }
+  document.getElementById("p3-steps").innerHTML = steps.join("");
+
+  const max = Math.max(s, c2);
+  document.getElementById("p3-bars").innerHTML = possible ?
+    '<div class="bar"><span class="lbl">a² + b²</span><span class="track">' +
+      '<span class="seg" style="width:' + (a2 / max * 100) + '%;background:' + GREY_A + '"></span>' +
+      '<span class="seg" style="width:' + (b2 / max * 100) + '%;background:' + GREY_B + '"></span></span></div>' +
+    '<div class="bar"><span class="lbl">c²</span><span class="track">' +
+      '<span class="seg" style="width:' + (c2 / max * 100) + '%;background:' + RED + '"></span></span></div>' : "";
+
+  const logic = document.querySelectorAll("#p3-logic [data-l]");
+  logic.forEach(d => d.classList.toggle("on", possible && ((d.dataset.l === "reci" && s === c2) || (d.dataset.l === "contra" && s !== c2))));
+}
+function sync3(){
+  for (const k of ["a", "b", "c"]){
+    document.getElementById("p3-" + k).value = P3[k];
+    document.getElementById("p3-" + k + "v").value = P3[k];
+  }
+  draw3();
+}
+for (const k of ["a", "b", "c"])
+  document.getElementById("p3-" + k).addEventListener("input", e => { P3[k] = +e.target.value; sync3(); });
+document.querySelectorAll("#reciproque [data-abc]").forEach(btn => btn.addEventListener("click", function(){
+  const v = this.dataset.abc.split(",").map(Number);
+  P3.a = v[0]; P3.b = v[1]; P3.c = v[2]; sync3();
+}));
+document.getElementById("p3-compass").addEventListener("change", draw3);
+
+/* ================================================================
+   4 · DISTANCE DANS UN REPÈRE
+   ================================================================ */
+const svg4 = document.getElementById("svg4");
+const P4 = {A: {x: -3, y: -2}, B: {x: 2, y: 3}, r: 8, box: null};
+
+const dragging4 = dragger(svg4, function(key, p){
+  const vb = visibleBox(svg4, P4.box);
+  P4[key] = {x: clamp(Math.round(p.x / U), Math.ceil(vb.x0 / U), Math.floor(vb.x1 / U)),
+             y: clamp(Math.round(-p.y / U), Math.ceil(-vb.y1 / U), Math.floor(-vb.y0 / U))};
+  draw4();
+}, function(){ P4.box = null; draw4(); });
+
+function draw4(){
+  const A = px(P4.A), B = px(P4.B), K = {x: B.x, y: A.y};
+  const dx = P4.B.x - P4.A.x, dy = P4.B.y - P4.A.y;
+  const d2 = dx * dx + dy * dy, d = Math.sqrt(d2), r = P4.r;
+  const showCircle = document.getElementById("p4-circle").checked;
+
+  clear(svg4);
+  if (!dragging4() || !P4.box){
+    const pts = [A, B, {x: 0, y: 0}];
+    if (showCircle) pts.push({x: A.x - r * U, y: A.y - r * U}, {x: A.x + r * U, y: A.y + r * U});
+    P4.box = fitBox(pts, 40);
+  }
+  setView(svg4, P4.box);
+  const vb = visibleBox(svg4, P4.box);
+  grid(svg4, vb, U);
+
+  el("line", {x1: vb.x0, y1: 0, x2: vb.x1, y2: 0, stroke: "#c9c9c9", "stroke-width": 1.5}, svg4);
+  el("line", {x1: 0, y1: vb.y0, x2: 0, y2: vb.y1, stroke: "#c9c9c9", "stroke-width": 1.5}, svg4);
+
+  const inRange = d2 <= r * r;
+  if (showCircle)
+    el("circle", {cx: A.x, cy: A.y, r: r * U, fill: RED, "fill-opacity": inRange ? .07 : .03,
+                  stroke: RED, "stroke-width": 1.5, "stroke-dasharray": "5 4"}, svg4);
+
+  if (dx !== 0 && dy !== 0){
+    el("polygon", {points: poly([A, K, B]), fill: INK, "fill-opacity": .05, stroke: "none"}, svg4);
+    angleMark(svg4, K, A, B, true, 90, "#8a8a8a");
+  }
+  el("polyline", {points: poly([A, K, B]), fill: "none", stroke: "#8a8a8a", "stroke-width": 2, "stroke-dasharray": "6 4"}, svg4);
+  el("line", {x1: A.x, y1: A.y, x2: B.x, y2: B.y, stroke: RED, "stroke-width": 3}, svg4);
+
+  const m1 = mid(A, K), m2 = mid(K, B), mm = mid(A, B);
+  if (dx !== 0) label(svg4, m1.x, m1.y + (dy > 0 ? 20 : -10), "dx = " + dx, {"text-anchor": "middle", "font-size": 13, fill: "#4a4a4a"});
+  if (dy !== 0) label(svg4, m2.x + (dx > 0 ? 10 : -10), m2.y + 5, "dy = " + dy, {"text-anchor": dx > 0 ? "start" : "end", "font-size": 13, fill: "#4a4a4a"});
+  if (d > 0){
+    const n = unit({x: -(B.y - A.y), y: B.x - A.x});
+    const side = dot(n, sub(K, mm)) > 0 ? -1 : 1;             // du côté opposé à l'angle droit
+    const o = add(mm, mul(n, side * 18));
+    label(svg4, o.x, o.y + 5, "d = " + fr(d), {"text-anchor": "middle", "font-size": 14, fill: RED});
+  }
+
+  for (const k of ["A", "B"]){
+    const p = px(P4[k]);
+    label(svg4, p.x + 14, p.y - 12, k + " (" + P4[k].x + ", " + P4[k].y + ")", {"font-size": 14});
+    handle(svg4, p, k, k === "A" ? INK : RED, "#fff");
+  }
+
+  document.getElementById("p4-eq").innerHTML =
+    '<div><span class="na">dx² + dy²</span> = ' + (dx * dx) + ' + ' + (dy * dy) + ' = <span class="v">' + d2 + '</span></div>' +
+    '<div><span class="nc">d</span> = √' + d2 + ' = <span class="v">' + fr(d, 3) + '</span></div>' +
+    '<div><span class="na">r²</span> = <span class="v">' + (r * r) + '</span></div>';
+  document.getElementById("p4-badge").innerHTML = inRange
+    ? '<span class="badge ok">d² ≤ r² — cible à portée</span>'
+    : '<span class="badge">d² &gt; r² — hors de portée</span>';
+}
+document.getElementById("p4-r").addEventListener("input", function(e){
+  P4.r = +e.target.value; P4.box = null;
+  document.getElementById("p4-rv").value = P4.r;
+  draw4();
+});
+document.getElementById("p4-circle").addEventListener("change", function(){ P4.box = null; draw4(); });
+
+/* ================================================================
+   onglets (#carres, #preuve, #reciproque, #distance) + intégration
+   ================================================================ */
+const draws = {carres: draw1, preuve: draw2, reciproque: draw3, distance: draw4};
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!draws[name]) name = Object.keys(draws)[0];
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === name));
+  draws[name]();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+addEventListener("resize", () => show(document.querySelector(".tabs button.on").dataset.tab));
+
+/* Dans une slide reveal.js, les flèches doivent continuer à changer de slide. */
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+
+sync2(); sync3();
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

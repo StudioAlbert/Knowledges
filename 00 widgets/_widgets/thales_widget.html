@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thalès — proportionnalité et triangles semblables</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; font-size: 15px;
+    white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: var(--panel); color: var(--muted);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 16px; transition: all .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--text); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+.toolbar {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+}
+.group { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.group + .group { border-left: 1px solid var(--line-soft); padding-left: 14px; }
+.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted2); font-weight: 700; }
+.toolbar button {
+    font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 12px;
+}
+.toolbar button:hover { border-color: var(--sae-black); }
+.toolbar button.primary { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.toolbar button.primary:hover { background: var(--sae-red); border-color: var(--sae-red); }
+label.rng { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+label.rng output { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); min-width: 24px; }
+input[type=range] { accent-color: var(--sae-red); width: 120px; }
+label.chk { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.chk input { accent-color: var(--sae-red); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+
+.board {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px;
+    overflow: hidden;
+}
+.board svg { display: block; width: 100%; height: min(66vh, 620px); touch-action: none; user-select: none; }
+.board svg [data-handle] { cursor: grab; }
+.board svg.dragging, .board svg.dragging [data-handle] { cursor: grabbing; }
+.board .tip { font-size: 12px; color: var(--muted2); padding: 4px 4px 0; }
+
+.side { display: flex; flex-direction: column; gap: 12px; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 13px 14px;
+}
+.card h3 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted2); font-weight: 700; margin-bottom: 9px;
+}
+.eq { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.9; }
+.eq .v { font-weight: 700; }
+.eq .na { color: var(--muted); }
+.eq .nc { color: var(--sae-red); }
+.badge {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+    border-radius: var(--radius); padding: 6px 11px; margin-top: 8px;
+    border: 1px solid var(--line); background: var(--panel2); color: var(--muted);
+}
+.badge.ok { background: var(--sae-red); border-color: var(--sae-red); color: #fff; }
+.badge.ko { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 8px; }
+.hint:first-child { margin-top: 0; }
+.hint code, .steps code { font-family: "JetBrains Mono", monospace; background: var(--panel2); padding: 1px 4px; border-radius: 3px; }
+.legend { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.legend div { display: flex; align-items: center; gap: 8px; }
+.sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; border: 1px solid rgba(0,0,0,.12); }
+pre.code {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 9px 10px; overflow-x: auto; color: var(--text);
+}
+
+/* étapes du raisonnement (réciproque) */
+ol.steps { list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 7px; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 26px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+ol.steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 1px;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--sae-black); color: #fff;
+    font-size: 11px; font-weight: 700; display: grid; place-items: center;
+}
+ol.steps li b { color: var(--text); }
+ol.steps li.concl::before { background: var(--sae-red); }
+ol.steps .mono { font-family: "JetBrains Mono", monospace; color: var(--text); }
+
+.logic { display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.logic div { border-left: 3px solid var(--line); padding: 2px 0 2px 9px; }
+.logic div.on { border-left-color: var(--sae-red); color: var(--text); }
+.logic .mono { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--text); white-space: nowrap; }
+
+.bars { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.bar { display: flex; align-items: center; gap: 8px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+.bar .lbl { width: 58px; flex: 0 0 auto; color: var(--muted); }
+.bar .track { flex: 1; height: 16px; display: flex; background: var(--panel2); border-radius: 3px; overflow: hidden; }
+.bar .seg { height: 100%; transition: width .15s; }
+
+footer { margin-top: 20px; font-size: 12px; color: var(--muted2); }
+footer a { color: var(--sae-red); }
+
+text { font-family: "Inter", system-ui, sans-serif; }
+
+/* ===== intégré dans une slide (iframe) : tout tient dans la fenêtre ===== */
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 28px 18px 14px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs { margin-bottom: 10px; }
+html.embed .toolbar { margin-bottom: 10px; padding: 8px 12px; }
+html.embed .panel.on { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+/* iframe étroite (portrait, fenêtre réduite) : une seule colonne */
+@media (max-width: 900px) {
+    html.embed .panel.on { overflow-y: auto; }
+    html.embed .stage { grid-template-columns: 1fr; grid-template-rows: minmax(240px, 1fr) auto; }
+    html.embed .board svg { min-height: 240px; }
+    html.embed .side { overflow: visible; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1><span class="hl">Thalès</span> — proportionnalité</h1>
+    <p class="sub">Une parallèle à un côté découpe un triangle plus petit — ou plus grand — de <strong>même forme</strong>. Tous ses côtés sont multipliés par le même rapport <em>k</em>. Attrapez les points à la souris.</p>
+  </div>
+  <div class="formula">AM/AB = AN/AC = MN/BC = <b>k</b></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-tab="thales">1 · Le théorème</button>
+  <button data-tab="reciproque">2 · La réciproque</button>
+  <button data-tab="ombre">3 · Mesurer sans mesurer</button>
+</nav>
+
+<!-- =============================== 1 · THÉORÈME =============================== -->
+<section class="panel on" id="thales">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Rapport k</span>
+      <button data-k="0.5">½</button>
+      <button data-k="0.25">¼</button>
+      <button data-k="1.5">1,5</button>
+      <button data-k="-0.5">−½ (papillon)</button>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p1-lines" checked> Droites prolongées</label>
+      <label class="chk"><input type="checkbox" id="p1-grid" checked> Grille</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg1" role="img" aria-label="Triangle ABC coupé par une parallèle (MN) au côté (BC)"></svg>
+      <p class="tip">Glissez A, B, C pour déformer le triangle, et M le long de la droite (AB) : N suit, de sorte que (MN) reste parallèle à (BC).</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Les trois rapports</h3>
+        <div class="eq" id="p1-eq"></div>
+        <div id="p1-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Pourquoi ça marche</h3>
+        <p class="hint">(MN) ∥ (BC) ⇒ les angles en M et en B sont <strong>correspondants</strong>, donc égaux ; l'angle en A est commun (ou opposé par le sommet en papillon).</p>
+        <p class="hint">Deux angles égaux ⇒ AMN et ABC sont <strong>semblables</strong> ⇒ côtés proportionnels, d'un seul rapport <em>k</em>.</p>
+        <div class="eq" id="p1-area" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 2 · RÉCIPROQUE =============================== -->
+<section class="panel" id="reciproque">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Position</span>
+      <label class="rng">AM/AB <input type="range" id="p2-p" min="0.1" max="0.9" step="0.05" value="0.6"><output id="p2-pv">0,6</output></label>
+      <label class="rng">AN/AC <input type="range" id="p2-q" min="0.1" max="0.9" step="0.05" value="0.4"><output id="p2-qv">0,4</output></label>
+    </div>
+    <div class="group">
+      <label class="chk"><input type="checkbox" id="p2-ghost" checked> Montrer la position parallèle</label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg2" role="img" aria-label="Deux points M et N placés librement sur les côtés d'un triangle"></svg>
+      <p class="tip">M et N se déplacent indépendamment, chacun sur son côté. Amenez-les au même rapport : (MN) devient parallèle à (BC).</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Le raisonnement, pas à pas</h3>
+        <ol class="steps" id="p2-steps"></ol>
+      </div>
+      <div class="card">
+        <h3>Direct ou réciproque ?</h3>
+        <div class="logic" id="p2-logic">
+          <div data-l="direct"><b>Théorème</b> — on <em>sait</em> que les droites sont parallèles, on en déduit des longueurs.<br><span class="mono">(MN) ∥ (BC) ⟹ AM/AB = AN/AC</span></div>
+          <div data-l="reci"><b>Réciproque</b> — on ne connaît <em>que</em> des longueurs, on en déduit le parallélisme.<br><span class="mono">AM/AB = AN/AC ⟹ (MN) ∥ (BC)</span></div>
+          <div data-l="contra"><b>Contraposée</b> — rapports différents : les droites ne sont pas parallèles.<br><span class="mono">AM/AB ≠ AN/AC ⟹ (MN) ∦ (BC)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== 3 · OMBRE =============================== -->
+<section class="panel" id="ombre">
+  <div class="toolbar">
+    <div class="group">
+      <span class="group-label">Mesures</span>
+      <label class="rng">jalon h <input type="range" id="p3-h" min="0.5" max="3" step="0.1" value="1.8"><output id="p3-hv">1,8</output></label>
+      <label class="rng">ombre du jalon <input type="range" id="p3-s1" min="0.5" max="10" step="0.1" value="2.4"><output id="p3-s1v">2,4</output></label>
+      <label class="rng">ombre du bâtiment <input type="range" id="p3-s2" min="5" max="60" step="1" value="24"><output id="p3-s2v">24</output></label>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="board">
+      <svg id="svg3" role="img" aria-label="Un jalon et un bâtiment et leurs ombres, avec le même rayon de soleil"></svg>
+      <p class="tip">Le jalon est planté pour que son ombre finisse au même point O que celle du bâtiment. Glissez le pied ou le sommet du jalon, ou le pied du bâtiment.</p>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Calcul de la hauteur</h3>
+        <div class="eq" id="p3-eq"></div>
+        <div id="p3-badge"></div>
+      </div>
+      <div class="card">
+        <h3>Pourquoi c'est Thalès</h3>
+        <p class="hint">Le jalon et le bâtiment sont verticaux : ils sont <strong>parallèles</strong>. Le même rayon de soleil passe par leurs deux sommets.</p>
+        <p class="hint">On a donc la configuration du théorème, de sommet <code>O</code> : on mesure trois longueurs au sol ou à hauteur d'homme, on calcule la quatrième.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TC-FT-TRG-01 — Géométrie du triangle · SAE Institute Genève
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+const U = 40;                     // pixels SVG par unité
+const RED = "#E30613", INK = "#1a1a1a", GREY_A = "#9a9a9a", GREY_B = "#c7c7c7";
+
+/* ---------------------------------------------------------------- outils */
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function label(parent, x, y, s, attrs){
+  const a = Object.assign({x: x, y: y, "font-size": 14, "font-weight": 700, fill: INK,
+                           stroke: "#fff", "stroke-width": 4, "paint-order": "stroke", "stroke-linejoin": "round"}, attrs || {});
+  el("text", a, parent).textContent = s;
+}
+function clear(svg){ while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function poly(pts){ return pts.map(p => p.x.toFixed(2) + "," + p.y.toFixed(2)).join(" "); }
+function sub(p, q){ return {x: p.x - q.x, y: p.y - q.y}; }
+function add(p, q){ return {x: p.x + q.x, y: p.y + q.y}; }
+function mul(p, k){ return {x: p.x * k, y: p.y * k}; }
+function len(v){ return Math.hypot(v.x, v.y); }
+function unit(v){ const l = len(v) || 1; return {x: v.x / l, y: v.y / l}; }
+function mid(p, q){ return {x: (p.x + q.x) / 2, y: (p.y + q.y) / 2}; }
+function dot(u, v){ return u.x * v.x + u.y * v.y; }
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function fr(n, d){
+  const k = Math.pow(10, d === undefined ? 2 : d);
+  return String(Math.round(n * k) / k).replace(".", ",");
+}
+function fitBox(pts, pad){
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const p of pts){
+    x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x);
+    y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y);
+  }
+  return {x0: x0 - pad, y0: y0 - pad, x1: x1 + pad, y1: y1 + pad};
+}
+function setView(svg, b){
+  svg.setAttribute("viewBox", b.x0 + " " + b.y0 + " " + (b.x1 - b.x0) + " " + (b.y1 - b.y0));
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+}
+/* zone réellement visible (meet : la viewBox est complétée sur un axe) */
+function visibleBox(svg, b){
+  const r = svg.getBoundingClientRect();
+  if (!r.width || !r.height) return b;
+  const w = b.x1 - b.x0, h = b.y1 - b.y0;
+  const s = Math.min(r.width / w, r.height / h);
+  const W = r.width / s, H = r.height / s;
+  return {x0: b.x0 - (W - w) / 2, x1: b.x1 + (W - w) / 2, y0: b.y0 - (H - h) / 2, y1: b.y1 + (H - h) / 2};
+}
+function grid(svg, b, step){
+  const g = el("g", {}, svg);
+  for (let x = Math.floor(b.x0 / step) * step; x <= b.x1; x += step)
+    el("line", {x1: x, y1: b.y0, x2: x, y2: b.y1, stroke: "#ececec", "stroke-width": 1}, g);
+  for (let y = Math.floor(b.y0 / step) * step; y <= b.y1; y += step)
+    el("line", {x1: b.x0, y1: y, x2: b.x1, y2: y, stroke: "#ececec", "stroke-width": 1}, g);
+}
+function toSvg(svg, evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  const m = svg.getScreenCTM();
+  return m ? pt.matrixTransform(m.inverse()) : null;
+}
+function handle(parent, p, key, fill, stroke){
+  const g = el("g", {"data-handle": key}, parent);
+  el("circle", {cx: p.x, cy: p.y, r: 20, fill: "transparent"}, g);          // zone de prise
+  el("circle", {cx: p.x, cy: p.y, r: 9, fill: fill || "#fff", stroke: stroke || INK, "stroke-width": 2.5}, g);
+  return g;
+}
+/* marque d'angle : carré si droit, arc + valeur sinon (points en pixels SVG) */
+function angleMark(svg, V, P, Q, right, deg, color){
+  const u = unit(sub(P, V)), w = unit(sub(Q, V));
+  if (right){
+    const L = 15;
+    el("polyline", {points: poly([add(V, mul(u, L)), add(V, add(mul(u, L), mul(w, L))), add(V, mul(w, L))]),
+                    fill: "none", stroke: color, "stroke-width": 2}, svg);
+    return;
+  }
+  const R = 26;
+  const p1 = add(V, mul(u, R)), p2 = add(V, mul(w, R));
+  const cross = u.x * w.y - u.y * w.x;
+  el("path", {d: "M" + p1.x + "," + p1.y + " A" + R + "," + R + " 0 0," + (cross > 0 ? 1 : 0) + " " + p2.x + "," + p2.y,
+              fill: "none", stroke: color, "stroke-width": 2}, svg);
+  const bis = unit(add(u, w));
+  const t = add(V, mul(bis, R + 18));
+  label(svg, t.x, t.y + 5, fr(deg, 1) + "°", {"text-anchor": "middle", "font-size": 13, fill: color});
+}
+
+/* Glisser-déposer : capture sur le <svg> lui-même (il survit aux redessins,
+   contrairement aux poignées). Pendant un glissement la viewBox est figée,
+   sinon le repère bougerait sous la souris. */
+function dragger(svg, onMove, onEnd){
+  let active = null;
+  svg.addEventListener("pointerdown", function(e){
+    const h = e.target.closest("[data-handle]");
+    if (!h) return;
+    e.preventDefault();
+    active = h.getAttribute("data-handle");
+    svg.setPointerCapture(e.pointerId);
+    svg.classList.add("dragging");
+  });
+  svg.addEventListener("pointermove", function(e){
+    if (!active) return;
+    const p = toSvg(svg, e);
+    if (p) onMove(active, p);
+  });
+  function end(){
+    if (!active) return;
+    active = null;
+    svg.classList.remove("dragging");
+    if (onEnd) onEnd();
+  }
+  svg.addEventListener("pointerup", end);
+  svg.addEventListener("pointercancel", end);
+  svg.addEventListener("lostpointercapture", end);
+  return function(){ return active !== null; };
+}
+
+const px = v => ({x: v.x * U, y: -v.y * U});
+function lerp(P, Q, t){ return {x: P.x + (Q.x - P.x) * t, y: P.y + (Q.y - P.y) * t}; }
+/* droite (PQ) prolongée jusqu'aux bords de la zone visible b */
+function fullLine(svg, P, Q, b, attrs){
+  const d = sub(Q, P), L = 4 * Math.max(b.x1 - b.x0, b.y1 - b.y0);
+  const u = unit(d);
+  el("line", Object.assign({x1: P.x - u.x * L, y1: P.y - u.y * L, x2: P.x + u.x * L, y2: P.y + u.y * L}, attrs), svg);
+}
+/* double chevron « ∥ » aux trois quarts de [PQ] (le milieu porte la longueur), orienté de P vers Q */
+function parallelMark(svg, P, Q, color){
+  const u = unit(sub(Q, P)), n = {x: -u.y, y: u.x}, m = lerp(P, Q, .78);
+  for (const off of [-5, 5]){
+    const c = add(m, mul(u, off));
+    el("polyline", {points: poly([add(sub(c, mul(u, 6)), mul(n, 6)), c, sub(sub(c, mul(u, 6)), mul(n, 6))]),
+                    fill: "none", stroke: color, "stroke-width": 2}, svg);
+  }
+}
+function vlabel(svg, P, G, text, attrs){       // étiquette de sommet, écartée du centre G
+  const o = add(P, mul(unit(sub(P, G)), 22));
+  label(svg, o.x, o.y + 6, text, Object.assign({"text-anchor": "middle", "font-size": 16, "font-weight": 800}, attrs || {}));
+}
+function triOk(V){
+  const cross = (V.B.x - V.A.x) * (V.C.y - V.A.y) - (V.B.y - V.A.y) * (V.C.x - V.A.x);
+  return Math.abs(cross) >= 4;                  // aire ≥ 2 : pas de triangle aplati
+}
+function dragVertex(state, key, p, svg){
+  const vb = visibleBox(svg, state.box);
+  const old = state.V[key];
+  state.V[key] = {x: clamp(Math.round(p.x / U), Math.ceil(vb.x0 / U), Math.floor(vb.x1 / U)),
+                  y: clamp(Math.round(-p.y / U), Math.ceil(-vb.y1 / U), Math.floor(-vb.y0 / U))};
+  if (!triOk(state.V)) state.V[key] = old;
+}
+/* paramètre t du projeté de p sur (PQ) : P + t·(Q − P) */
+function project(p, P, Q){ const d = sub(Q, P); return dot(sub(p, P), d) / dot(d, d); }
+const snap = (x, s) => Math.round(x / s) * s;
+
+/* ================================================================
+   1 · LE THÉORÈME — M sur (AB), N = A + k·(C − A)
+   ================================================================ */
+const svg1 = document.getElementById("svg1");
+const P1 = {V: {A: {x: 1, y: 7}, B: {x: -3, y: 0}, C: {x: 7, y: 0}}, k: 0.5, box: null};
+
+const dragging1 = dragger(svg1, function(key, p){
+  if (key === "M"){
+    const A = px(P1.V.A), B = px(P1.V.B);
+    let k = clamp(snap(project(p, A, B), .05), -1, 1.6);
+    if (Math.abs(k) < .1) k = k < 0 ? -.1 : .1;
+    P1.k = Math.round(k * 100) / 100;
+  } else dragVertex(P1, key, p, svg1);
+  draw1();
+}, function(){ P1.box = null; draw1(); });
+
+function draw1(){
+  const k = P1.k, K = Math.abs(k);
+  const A = px(P1.V.A), B = px(P1.V.B), C = px(P1.V.C);
+  const M = lerp(A, B, k), N = lerp(A, C, k);
+  const AB = len(sub(B, A)) / U, AC = len(sub(C, A)) / U, BC = len(sub(C, B)) / U;
+  const AM = K * AB, AN = K * AC, MN = K * BC;
+
+  clear(svg1);
+  if (!dragging1() || !P1.box){
+    P1.box = fitBox([A, B, C, M, N], 50);
+  }
+  setView(svg1, P1.box);
+  const vb = visibleBox(svg1, P1.box);
+  if (document.getElementById("p1-grid").checked) grid(svg1, vb, U);
+
+  if (document.getElementById("p1-lines").checked){
+    fullLine(svg1, A, B, vb, {stroke: "#bbb", "stroke-width": 1.2, "stroke-dasharray": "6 5"});
+    fullLine(svg1, A, C, vb, {stroke: "#bbb", "stroke-width": 1.2, "stroke-dasharray": "6 5"});
+  }
+  el("polygon", {points: poly([A, B, C]), fill: INK, "fill-opacity": .07, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg1);
+  el("polygon", {points: poly([A, M, N]), fill: RED, "fill-opacity": .16, stroke: "none"}, svg1);
+  el("line", {x1: A.x, y1: A.y, x2: M.x, y2: M.y, stroke: RED, "stroke-width": 2.5}, svg1);
+  el("line", {x1: A.x, y1: A.y, x2: N.x, y2: N.y, stroke: RED, "stroke-width": 2.5}, svg1);
+  el("line", {x1: M.x, y1: M.y, x2: N.x, y2: N.y, stroke: RED, "stroke-width": 3.5}, svg1);
+  el("line", {x1: B.x, y1: B.y, x2: C.x, y2: C.y, stroke: INK, "stroke-width": 3.5}, svg1);
+  parallelMark(svg1, B, C, INK);
+  parallelMark(svg1, k > 0 ? M : N, k > 0 ? N : M, RED);
+
+  const G = mul(add(add(A, B), C), 1 / 3);
+  /* longueurs sur la figure */
+  const side = (P, Q, text, color, ref) => {
+    const m = mid(P, Q), n = unit({x: -(Q.y - P.y), y: Q.x - P.x});
+    const s = dot(n, sub(ref, m)) > 0 ? -1 : 1;
+    const o = add(m, mul(n, s * 16));
+    label(svg1, o.x, o.y + 5, text, {"text-anchor": "middle", "font-size": 13, fill: color});
+  };
+  side(B, C, "BC = " + fr(BC), INK, A);
+  side(M, N, "MN = " + fr(MN), RED, k > 0 ? B : A);
+
+  vlabel(svg1, A, G, "A");
+  vlabel(svg1, B, G, "B");
+  vlabel(svg1, C, G, "C");
+  const offM = unit(sub(M, N)), offN = unit(sub(N, M));
+  label(svg1, M.x + offM.x * 22, M.y + offM.y * 22 + 6, "M", {"text-anchor": "middle", "font-size": 16, "font-weight": 800, fill: RED});
+  label(svg1, N.x + offN.x * 22, N.y + offN.y * 22 + 6, "N", {"text-anchor": "middle", "font-size": 16, "font-weight": 800, fill: RED});
+  el("circle", {cx: N.x, cy: N.y, r: 6, fill: RED}, svg1);
+  handle(svg1, A, "A"); handle(svg1, B, "B"); handle(svg1, C, "C");
+  handle(svg1, M, "M", RED, "#fff");
+
+  const row = (num, den, n, d) => '<div><span class="na">' + num + '/' + den + '</span> = ' + fr(n) + ' / ' + fr(d) + ' = <span class="v">' + fr(n / d) + '</span></div>';
+  document.getElementById("p1-eq").innerHTML =
+    row("AM", "AB", AM, AB) + row("AN", "AC", AN, AC) + row("MN", "BC", MN, BC) +
+    '<div><span class="nc">k</span> = <span class="v">' + fr(K) + '</span></div>';
+  let cfg;
+  if (k < 0)       cfg = "Papillon — M et N de l'autre côté de A";
+  else if (k < 1)  cfg = "Emboîtés — AMN est une réduction de ABC";
+  else if (k === 1) cfg = "k = 1 — M = B, N = C";
+  else             cfg = "Agrandissement — M au-delà de B";
+  document.getElementById("p1-badge").innerHTML = '<span class="badge ok">' + cfg + '</span>';
+  document.getElementById("p1-area").innerHTML =
+    '<div><span class="na">aire AMN / aire ABC</span></div><div>= k² = ' + fr(K) + '² = <span class="v">' + fr(K * K, 4) + '</span></div>';
+}
+document.querySelectorAll("#thales [data-k]").forEach(b => b.addEventListener("click", function(){ P1.k = +this.dataset.k; P1.box = null; draw1(); }));
+["p1-lines", "p1-grid"].forEach(id => document.getElementById(id).addEventListener("change", draw1));
+
+/* ================================================================
+   2 · LA RÉCIPROQUE — M et N indépendants
+   ================================================================ */
+const svg2 = document.getElementById("svg2");
+const P2 = {V: {A: {x: 1, y: 7}, B: {x: -3, y: 0}, C: {x: 7, y: 0}}, p: .6, q: .4, box: null};
+
+const dragging2 = dragger(svg2, function(key, p){
+  const A = px(P2.V.A);
+  if (key === "M")      P2.p = Math.round(clamp(snap(project(p, A, px(P2.V.B)), .05), .1, .9) * 100) / 100;
+  else if (key === "N") P2.q = Math.round(clamp(snap(project(p, A, px(P2.V.C)), .05), .1, .9) * 100) / 100;
+  else dragVertex(P2, key, p, svg2);
+  sync2();
+}, function(){ P2.box = null; draw2(); });
+
+function draw2(){
+  const p = P2.p, q = P2.q;
+  const A = px(P2.V.A), B = px(P2.V.B), C = px(P2.V.C);
+  const M = lerp(A, B, p), N = lerp(A, C, q), N2 = lerp(A, C, p);
+  const AB = len(sub(B, A)) / U, AC = len(sub(C, A)) / U;
+  const par = Math.abs(p - q) < 1e-9;
+  /* écart angulaire entre (MN) et (BC) */
+  const u = unit(sub(N, M)), w = unit(sub(C, B));
+  const ang = Math.acos(clamp(Math.abs(dot(u, w)), 0, 1)) * 180 / Math.PI;
+
+  clear(svg2);
+  if (!dragging2() || !P2.box) P2.box = fitBox([A, B, C], 50);
+  setView(svg2, P2.box);
+  const vb = visibleBox(svg2, P2.box);
+  grid(svg2, vb, U);
+
+  el("polygon", {points: poly([A, B, C]), fill: INK, "fill-opacity": .07, stroke: INK, "stroke-width": 2.5, "stroke-linejoin": "round"}, svg2);
+  if (document.getElementById("p2-ghost").checked && !par){
+    el("line", {x1: M.x, y1: M.y, x2: N2.x, y2: N2.y, stroke: "#999", "stroke-width": 2, "stroke-dasharray": "6 5"}, svg2);
+    el("circle", {cx: N2.x, cy: N2.y, r: 5, fill: "#fff", stroke: "#999", "stroke-width": 2}, svg2);
+    const o = add(N2, mul(unit({x: -(C.y - A.y), y: C.x - A.x}), dot({x: -(C.y - A.y), y: C.x - A.x}, sub(B, A)) > 0 ? -18 : 18));
+    label(svg2, o.x, o.y + 4, "N′ (AN′/AC = " + fr(p) + ")", {"font-size": 12, fill: "#888", "text-anchor": "middle"});
+  }
+  fullLine(svg2, M, N, vb, {stroke: par ? RED : "#666", "stroke-width": 1.2, "stroke-dasharray": "3 4", "stroke-opacity": .8});
+  el("line", {x1: M.x, y1: M.y, x2: N.x, y2: N.y, stroke: par ? RED : "#555", "stroke-width": 3.5}, svg2);
+  el("line", {x1: B.x, y1: B.y, x2: C.x, y2: C.y, stroke: INK, "stroke-width": 3.5}, svg2);
+  if (par){ parallelMark(svg2, B, C, INK); parallelMark(svg2, M, N, RED); }
+
+  const G = mul(add(add(A, B), C), 1 / 3);
+  vlabel(svg2, A, G, "A"); vlabel(svg2, B, G, "B"); vlabel(svg2, C, G, "C");
+  vlabel(svg2, M, mid(M, N), "M", {fill: RED}); vlabel(svg2, N, mid(M, N), "N", {fill: RED});
+  handle(svg2, A, "A"); handle(svg2, B, "B"); handle(svg2, C, "C");
+  handle(svg2, M, "M", RED, "#fff"); handle(svg2, N, "N", RED, "#fff");
+
+  const AM = p * AB, AN = q * AC;
+  const steps = [];
+  steps.push('<li><b>Données</b> : A, M, B alignés et A, N, C alignés, <b>dans le même ordre</b>. On mesure <span class="mono">AM = ' + fr(AM) + '</span>, <span class="mono">AB = ' + fr(AB) + '</span>, <span class="mono">AN = ' + fr(AN) + '</span>, <span class="mono">AC = ' + fr(AC) + '</span></li>');
+  steps.push('<li><b>On calcule</b> les rapports : <span class="mono">AM/AB = ' + fr(p) + '</span> et <span class="mono">AN/AC = ' + fr(q) + '</span></li>');
+  steps.push('<li><b>On compare</b> : <span class="mono">' + fr(p) + (par ? ' = ' : ' ≠ ') + fr(q) + '</span></li>');
+  steps.push('<li class="concl"><b>Conclusion</b> : ' + (par
+    ? 'rapports égaux ⟹ par la <b>réciproque</b>, (MN) est <b>parallèle</b> à (BC).'
+    : 'rapports différents ⟹ (MN) n\'est <b>pas</b> parallèle à (BC) — écart de ' + fr(ang, 1) + '°.') + '</li>');
+  document.getElementById("p2-steps").innerHTML = steps.join("");
+  document.querySelectorAll("#p2-logic [data-l]").forEach(d => d.classList.toggle("on", (d.dataset.l === "reci" && par) || (d.dataset.l === "contra" && !par)));
+}
+function sync2(){
+  document.getElementById("p2-p").value = P2.p; document.getElementById("p2-pv").value = fr(P2.p);
+  document.getElementById("p2-q").value = P2.q; document.getElementById("p2-qv").value = fr(P2.q);
+  draw2();
+}
+document.getElementById("p2-p").addEventListener("input", e => { P2.p = Math.round(+e.target.value * 100) / 100; sync2(); });
+document.getElementById("p2-q").addEventListener("input", e => { P2.q = Math.round(+e.target.value * 100) / 100; sync2(); });
+document.getElementById("p2-ghost").addEventListener("change", draw2);
+
+/* ================================================================
+   3 · MESURER SANS MESURER — l'ombre d'un bâtiment
+   O : bout commun des deux ombres ; jalon en x = s1, bâtiment en x = s2.
+   ================================================================ */
+const svg3 = document.getElementById("svg3");
+const P3 = {h: 1.8, s1: 2.4, s2: 24, box: null};
+const UM = 22;                                  // pixels par mètre
+
+const dragging3 = dragger(svg3, function(key, p){
+  if (key === "foot")      P3.s1 = clamp(Math.round(p.x / UM * 10) / 10, .5, Math.min(10, P3.s2 - 1));
+  else if (key === "top")  P3.h  = clamp(Math.round(-p.y / UM * 10) / 10, .5, 3);
+  else if (key === "bld")  P3.s2 = clamp(Math.round(p.x / UM), Math.max(5, Math.ceil(P3.s1 + 1)), 60);
+  sync3();
+}, function(){ P3.box = null; draw3(); });
+
+function draw3(){
+  const h = P3.h, s1 = P3.s1, s2 = P3.s2, H = s2 * h / s1;
+  const O = {x: 0, y: 0}, J = {x: s1 * UM, y: 0}, Jt = {x: s1 * UM, y: -h * UM};
+  const Bf = {x: s2 * UM, y: 0}, Bt = {x: s2 * UM, y: -H * UM};
+  const W = Math.max(3, s2 * .12) * UM;           // largeur du bâtiment (décorative)
+
+  clear(svg3);
+  const ray = unit(sub(Bt, O));
+  const sun = add(Bt, mul(ray, 60));
+  if (!dragging3() || !P3.box) P3.box = fitBox([O, Bf, Bt, sun, {x: Bf.x + W + 20, y: 30}, {x: -30, y: 0}], 30);
+  setView(svg3, P3.box);
+  const vb = visibleBox(svg3, P3.box);
+
+  /* ciel, sol */
+  el("rect", {x: vb.x0, y: vb.y0, width: vb.x1 - vb.x0, height: -vb.y0, fill: "#fbfbfb"}, svg3);
+  el("rect", {x: vb.x0, y: 0, width: vb.x1 - vb.x0, height: vb.y1, fill: "#efefef"}, svg3);
+  el("line", {x1: vb.x0, y1: 0, x2: vb.x1, y2: 0, stroke: "#bbb", "stroke-width": 1.5}, svg3);
+
+  /* bâtiment : le triangle utile s'appuie sur son arête gauche */
+  el("rect", {x: Bf.x, y: Bt.y, width: W, height: H * UM, fill: "#d6d6d6", stroke: "#8a8a8a", "stroke-width": 1.5}, svg3);
+  /* ombres au sol */
+  el("line", {x1: O.x, y1: 3, x2: Bf.x, y2: 3, stroke: INK, "stroke-width": 6, "stroke-opacity": .35}, svg3);
+
+  /* soleil + rayon */
+  el("circle", {cx: sun.x, cy: sun.y, r: 16, fill: "#ffcf33", stroke: "#e0a800", "stroke-width": 2}, svg3);
+  el("line", {x1: O.x, y1: O.y, x2: sun.x - ray.x * 18, y2: sun.y - ray.y * 18, stroke: "#e0a800", "stroke-width": 2, "stroke-dasharray": "7 5"}, svg3);
+
+  /* les deux triangles semblables */
+  el("polygon", {points: poly([O, Bf, Bt]), fill: INK, "fill-opacity": .06, stroke: "none"}, svg3);
+  el("polygon", {points: poly([O, J, Jt]), fill: RED, "fill-opacity": .22, stroke: "none"}, svg3);
+  el("line", {x1: Bf.x, y1: 0, x2: Bt.x, y2: Bt.y, stroke: INK, "stroke-width": 3.5}, svg3);
+  el("line", {x1: J.x, y1: 0, x2: Jt.x, y2: Jt.y, stroke: RED, "stroke-width": 4}, svg3);
+  angleMark(svg3, J, O, Jt, true, 90, RED);
+  angleMark(svg3, Bf, O, Bt, true, 90, INK);
+
+  /* cotes */
+  label(svg3, O.x, 24, "O", {"text-anchor": "middle", "font-size": 15, "font-weight": 800});
+  label(svg3, J.x / 2, 22, "s₁ = " + fr(s1, 1) + " m", {"text-anchor": "middle", "font-size": 13, fill: RED});
+  label(svg3, Bf.x / 2 + J.x / 2, 44, "s₂ = " + s2 + " m", {"text-anchor": "middle", "font-size": 13, fill: INK});
+  el("line", {x1: 0, y1: 32, x2: Bf.x, y2: 32, stroke: "#777", "stroke-width": 1}, svg3);
+  label(svg3, J.x + 8, Jt.y / 2 + 5, "h = " + fr(h, 1) + " m", {"font-size": 13, fill: RED});
+  label(svg3, Bf.x - 8, Bt.y / 2 + 5, "H = ?", {"text-anchor": "end", "font-size": 15, fill: INK});
+
+  handle(svg3, J, "foot", RED, "#fff");
+  handle(svg3, Jt, "top", RED, "#fff");
+  handle(svg3, Bf, "bld", INK, "#fff");
+
+  document.getElementById("p3-eq").innerHTML =
+    '<div><span class="na">H / h</span> = <span class="na">s₂ / s₁</span></div>' +
+    '<div><span class="nc">H</span> = s₂ × h / s₁</div>' +
+    '<div>&nbsp;&nbsp;= ' + s2 + ' × ' + fr(h, 1) + ' / ' + fr(s1, 1) + '</div>' +
+    '<div>&nbsp;&nbsp;= <span class="v">' + fr(H, 2) + ' m</span></div>';
+  document.getElementById("p3-badge").innerHTML = '<span class="badge ok">rapport k = s₂ / s₁ = ' + fr(s2 / s1, 2) + '</span>';
+}
+function sync3(){
+  document.getElementById("p3-h").value = P3.h;   document.getElementById("p3-hv").value = fr(P3.h, 1);
+  document.getElementById("p3-s1").value = P3.s1; document.getElementById("p3-s1v").value = fr(P3.s1, 1);
+  document.getElementById("p3-s2").value = P3.s2; document.getElementById("p3-s2v").value = P3.s2;
+  draw3();
+}
+document.getElementById("p3-h").addEventListener("input", e => { P3.h = +e.target.value; P3.box = null; sync3(); });
+document.getElementById("p3-s1").addEventListener("input", e => { P3.s1 = Math.min(+e.target.value, P3.s2 - 1); P3.box = null; sync3(); });
+document.getElementById("p3-s2").addEventListener("input", e => { P3.s2 = Math.max(+e.target.value, Math.ceil(P3.s1 + 1)); P3.box = null; sync3(); });
+
+/* ================================================================
+   onglets (#thales, #reciproque, #ombre) + intégration
+   ================================================================ */
+const draws = {thales: draw1, reciproque: draw2, ombre: draw3};
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+  if (!draws[name]) name = Object.keys(draws)[0];
+  tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.classList.toggle("on", p.id === name));
+  draws[name]();
+}
+tabBtns.forEach(btn => btn.addEventListener("click", function(){
+  history.replaceState(null, "", "#" + btn.dataset.tab);
+  show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+addEventListener("resize", () => show(document.querySelector(".tabs button.on").dataset.tab));
+
+/* Dans une slide reveal.js, les flèches doivent continuer à changer de slide. */
+if (document.documentElement.classList.contains("embed")){
+  document.addEventListener("keydown", function(e){
+    if (e.target.closest("input, select, textarea")) return;
+    const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+    if (!m) return;
+    e.preventDefault();
+    try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+  });
+}
+
+
+sync2(); sync3();
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
