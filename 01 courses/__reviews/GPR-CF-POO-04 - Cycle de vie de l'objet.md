@@ -1,5 +1,5 @@
 ---
-status: To check
+status: Ready
 manual_order: 1
 url_test: http://localhost:56689/cpp/gpr-cf-poo-04/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet]]"
