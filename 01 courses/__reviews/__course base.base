@@ -47,6 +47,7 @@ views:
       - 2026-S38
       - 2026-S39
       - 2026-S40
+      - 2026-S41
   - type: table
     name: Liste
     order:

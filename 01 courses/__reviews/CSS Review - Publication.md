@@ -1,6 +1,6 @@
 ---
-status: To check
-manual_order: 1
+status: Ready
+manual_order: -2.5
 url_test: http://localhost:56689/
 ---
 > [!tip] Revisiter l'ensemble des slides

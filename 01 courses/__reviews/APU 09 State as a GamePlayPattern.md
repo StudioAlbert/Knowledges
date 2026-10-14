@@ -4,7 +4,7 @@ manual_order: 2
 parent:
   - "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:
-  - "[[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|Slides APU-09]]"
+  - "[[GPR-UN-APU-09 - State, un pattern de gameplay|Slides APU-09]]"
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-09 - Observer, State et composition|Exos APU-09]]"
 url_test: http://localhost:56689/unity/gpr-un-apu-09/
@@ -56,7 +56,7 @@ slide Ressources qui lui servait de fin.
 
 ## Traité le 28.09 — à vérifier (séance du 01.10)
 
-- **Deck** réécrit : [[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition]] — 25 slides, `publish: false` à passer à `true` après relecture.
+- **Deck** réécrit : [[GPR-UN-APU-09 - State, un pattern de gameplay]] — 25 slides, `publish: false` à passer à `true` après relecture.
 	- Rappel : problème des booléens, trois mots (état, transition, état courant), schéma du héros de platformer, règles.
 	- Code : `enum` + `switch`, `IState`, `StateMachine`.
 	- Schémas : tour par tour (machine du jeu + machine des unités, liées par `Enter`), navigation d'interface, QTE, quatre autres cas (arme, garde, porte, partie) ; code d'un tour et d'un QTE.

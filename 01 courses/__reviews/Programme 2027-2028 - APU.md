@@ -5,7 +5,7 @@ echeance: rentrée 2027-2028
 slides:
   - "[[01 courses/slides/Unity/GPR-UN-APU-04 - ScriptableObjects — les données hors du code|Slides APU-04]]"
   - "[[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|Slides APU-05]]"
-  - "[[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition|Slides APU-09]]"
+  - "[[GPR-UN-APU-09 - State, un pattern de gameplay|Slides APU-09]]"
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-04 - ScriptableObjects — les données hors du code|Exos APU-04]]"
   - "[[01 courses/exercises/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|Exos APU-05]]"
