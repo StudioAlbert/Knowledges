@@ -76,7 +76,8 @@ Mesuré à 958 x 326 dans le cadre.
 dans `exercises/C++/`, publiée comme l'exercice de la séance. Un stand de tir, cinq armes de cinq types,
 un menu `1`…`5`, et la contrainte qui porte tout : **aucun test sur le type** dans le menu.
 Le test final est d'ajouter une sixième arme sans toucher au menu. La hiérarchie est dessinée
-en `mermaid` dans la note, et l'atelier de fin de deck la reprend en quatre étapes.
+dans `poo06_hierarchie_armes.svg` (le bloc `mermaid` ne se rendait pas sur le site, le 15.10),
+et l'atelier de fin de deck la reprend en quatre étapes.
 
 > [!question] Ton diagramme Mermaid, je ne l'ai pas vu
 > Le lien de partage demande une connexion à mermaid.ai, et je ne me connecte pas à ton

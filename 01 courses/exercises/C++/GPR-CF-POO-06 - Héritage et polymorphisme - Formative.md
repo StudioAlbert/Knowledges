@@ -24,42 +24,13 @@ problème est posé.
 
 ## La hiérarchie à construire
 
-```mermaid
-classDiagram
-    class Weapon {
-        name : String
-        damage : int
-        weight : float
-        Fire()* void
-    }
-    class Firearm {
-        caliber : String
-        magazineCapacity : int
-        Reload() void
-    }
-    class Melee {
-        bladeLength : float
-        Swing() void
-    }
-    class SemiAutomatic {
-        SingleShotMode() void
-    }
-    class FullAuto {
-        burstMode : boolean
-        burstLength : int
-        FireFullAuto() void
-    }
-    Weapon <|-- Firearm
-    Weapon <|-- Melee
-    Firearm <|-- SemiAutomatic
-    Firearm <|-- FullAuto
-```
+![[poo06_hierarchie_armes.svg]]
 
 `Fire()` est **virtuelle pure** sur `Weapon` : toute arme sait tirer, aucune ne tire pareil,
 et `Weapon` ne sait pas comment.
 
-Les attributs sont notés `+` sur le diagramme. Dans le code, ils sont **`protected`** : les
-classes filles s'en servent, l'extérieur non. POO-02 reste vrai.
+Le schéma ne dit rien de la visibilité des attributs. Dans le code, ils sont
+**`protected`** : les classes filles s'en servent, l'extérieur non. POO-02 reste vrai.
 
 ## Pourquoi trois niveaux
 
