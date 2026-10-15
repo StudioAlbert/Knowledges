@@ -278,7 +278,7 @@ Un stand de tir. Cinq armes, cinq types, un menu de `1` à `5`.
 - la contrainte : le menu ne teste **jamais** le type de l'arme
 - le test final : une sixième arme, sans toucher ni la base ni le menu
 
-Énoncé : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]].
+Énoncé : [[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme - Formative|Formative — l'armurerie]].
 
 ---
 

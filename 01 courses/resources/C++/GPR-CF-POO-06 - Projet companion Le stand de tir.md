@@ -36,4 +36,4 @@ Ajoutez une deuxième arme. Puis une troisième. Au bout de deux copier-coller, 
 s'impose — et c'est exactement le sujet de la séance.
 
 L'énoncé complet :
-[[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]].
+[[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme - Formative|Formative — l'armurerie]].

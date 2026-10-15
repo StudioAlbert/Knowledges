@@ -2,7 +2,7 @@
 title: Héritage et polymorphisme
 type: seance
 code: GPR-CF-POO-06
-status: To check
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
@@ -34,17 +34,19 @@ Principe de l'héritage, le code, les deux points à retenir, mode d'héritage, 
 
 > [!done] Deck rédigé le 12.10.2026, à partir de [[04 - OOP Advanced]]
 > - **Deck** : [[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme|Slides POO-06]] — 18 slides,
->   `publish: draft` le temps de la révision. Reprend les tranches *Héritage* et
+>   `publish: online` depuis le 15.10. Reprend les tranches *Héritage* et
 >   *Polymorphisme* du support d'origine ; `static` et les opérateurs restent à POO-05.
 > - **Schéma** : `poo06_diamant.svg` — le diamant, et la base plus interface qui l'évite.
-> - **Formative, et elle seule** : [[01 courses/projects/C++/Formative - OOP - L'armurerie|Formative — l'armurerie]]
+> - **Formative, et elle seule** : [[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme - Formative|Formative — l'armurerie]]
 >   — cinq armes, cinq types, un menu sans un seul test sur le type. Écrite sur la
->   hiérarchie `Weapon` / `Firearm` / `Melee` fournie par l'auteur.
+>   hiérarchie `Weapon` / `Firearm` / `Melee` fournie par l'auteur. Publiée depuis
+>   `exercises/C++/` comme l'exercice de la séance (`seances: GPR-CF-POO-06`).
 > - **Companion** : [[01 courses/resources/C++/GPR-CF-POO-06 - Projet companion Le stand de tir|Projet companion]]
 >   — une arme, une classe sans parent, un menu qui l'appelle. Le point de départ.
 > - **Pas de widget** : `dispatch_widget.html` reste proposé, pas construit — les deux
 >   sorties console du deck sont réelles, vérifiées au compilateur.
-> - **Ni feuille d'exercices, ni atelier** : supprimés le 12.10, la formative les remplace.
+> - **Pas d'atelier** : supprimé le 12.10, la formative le remplace — elle est la seule
+>   feuille de la séance.
 
 ## Matériel
 

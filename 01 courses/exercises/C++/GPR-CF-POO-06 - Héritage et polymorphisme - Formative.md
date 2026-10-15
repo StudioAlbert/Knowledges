@@ -1,3 +1,7 @@
+---
+seances:
+  - GPR-CF-POO-06
+---
 # Formative — OOP — L'armurerie
 
 > Cours associé : [[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme|GPR-CF-POO-06 - Héritage et polymorphisme]]

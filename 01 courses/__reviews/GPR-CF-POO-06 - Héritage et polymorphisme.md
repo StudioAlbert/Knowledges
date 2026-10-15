@@ -3,6 +3,8 @@ status: Ready
 manual_order: -2
 url_test: http://localhost:54573/cpp/gpr-cf-poo-06/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme]]"
+exercices:
+  - "[[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme - Formative|Formative POO-06]]"
 ---
 - [x] Pas d'exercices, pas d'atelier => un seul exercice Formative basé sur le contenu de l'atelier initial
 - [x] se baser sur la hierarchie pour rédiger les étapes de l'exercice
@@ -70,8 +72,8 @@ chaque bout de code est **compilé** avant d'entrer dans une slide.
 **Schéma** `poo06_diamant.svg` : le diamant à gauche, la base plus interface à droite.
 Mesuré à 958 x 326 dans le cadre.
 
-**Formative proposée** : [[01 courses/projects/C++/Formative - OOP - L'armurerie|L'armurerie]],
-dans `projects/C++/` comme les autres formatives. Un stand de tir, cinq armes de cinq types,
+**Formative proposée** : [[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme - Formative|L'armurerie]],
+dans `exercises/C++/`, publiée comme l'exercice de la séance. Un stand de tir, cinq armes de cinq types,
 un menu `1`…`5`, et la contrainte qui porte tout : **aucun test sur le type** dans le menu.
 Le test final est d'ajouter une sixième arme sans toucher au menu. La hiérarchie est dessinée
 en `mermaid` dans la note, et l'atelier de fin de deck la reprend en quatre étapes.
