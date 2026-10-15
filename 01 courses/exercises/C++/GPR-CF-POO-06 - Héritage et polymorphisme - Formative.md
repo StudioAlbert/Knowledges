@@ -47,9 +47,7 @@ recharger. `Firearm` existe pour ça : il porte ce que seules les armes à feu p
 4. **`FullAuto`.** Dériver de `Firearm`. `burstLength_` coups par appui. `FireFullAuto()`.
 5. **`Melee`.** Dériver de `Weapon`. `bladeLength_`, `Swing()`. `Fire()` frappe : aucune
    munition, aucun `Reload()`.
-6. **Le menu.** Un `std::vector<std::unique_ptr<Weapon>>`. Cinq entrées, cinq instances.
-   Aucun test sur le type.
-7. **Le test.** Ajouter une sixième arme. Seule la ligne qui la crée doit changer.
+6. **Le test.** Ajouter une sixième arme. Seule la ligne qui la crée doit changer.
 
 ## Ce qu'on vérifiera
 
