@@ -1,15 +1,16 @@
 ---
-status: To check
-manual_order: 2
+status: Ready
+manual_order: -4.5
 parent:
   - "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:
   - "[[GPR-UN-APU-09 - State, un pattern de gameplay|Slides APU-09]]"
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-09 - Observer, State et composition|Exos APU-09]]"
-url_test: http://localhost:56689/unity/gpr-un-apu-09/
+url_test: http://localhost:54573/unity/gpr-un-apu-09/
 ---
-- [ ] "- reconnaître un comportement qui a des **états**" -> Faire un widget / quizz avec qqes situations de gameplay, La question : quels etats et transitions peut on déduire de cette situation ?
+- [x] "- reconnaître un comportement qui a des **états**" -> Faire un widget / quizz avec qqes situations de gameplay, La question : quels etats et transitions peut on déduire de cette situation ?
+	- [x] Probleme de mise
 - [x] Transformer Slide Ressources en fiche Ressources publiée sur le site
 - [x] Proposer Companion Unity permettant d'explorer les cas d'usage
 	- [x] une scene par cas d'usage

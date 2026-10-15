@@ -1,7 +1,7 @@
 ---
-status: To check
-manual_order: 6
-url_test: http://localhost:56689/cpp/gpr-cf-poo-05/
+status: Ready
+manual_order: 0
+url_test: http://localhost:54573/cpp/gpr-cf-poo-05/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-05 - Static et surcharge d'opérateur]]"
 ---
 - [x] Ajouter contenu issu de (01 courses/lectures/C++/04 - OOP Advanced)
