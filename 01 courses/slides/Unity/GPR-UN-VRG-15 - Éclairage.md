@@ -1,7 +1,6 @@
 ---
 title: GPR-UN-VRG-15 - Éclairage
 type: slides
-status: Backlog
 subject: Unity
 duration_h: 1
 bloc_gsda: VFX, Rendu et Game Feel
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Éclairage

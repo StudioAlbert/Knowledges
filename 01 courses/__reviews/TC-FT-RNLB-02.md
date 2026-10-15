@@ -1,6 +1,4 @@
 ---
-status: Ready
-manual_order: 3
 slides:
   - "[[01 courses/slides/Theory/TC-FT-RNLB-02 - Entiers signés et dépassements|Slides RNLB-02]]"
 exercices:

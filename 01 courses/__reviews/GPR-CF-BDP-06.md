@@ -1,6 +1,4 @@
 ---
-status: Ready
-manual_order: 4
 slides:
   - "[[01 courses/slides/C++/GPR-CF-BDP-06 - Chaînes de caractères|Slides BDP-06]]"
 exercices:

@@ -1,11 +1,8 @@
 ---
-status: Ready
-manual_order: 3
 slides:
   - "[[01 courses/slides/C++/GPR-CF-POO-01 - Structures|Slides POO-01]]"
 exercices:
   - "[[01 courses/exercises/C++/GPR-CF-POO-01 - Structures|Exos POO-01]]"
-url_test: http://localhost:61638/cpp/gpr-cf-poo-01/
 ---
 - [x] Mettre en page ![[{51FD8CFD-4056-4472-BBD2-B1160830090E}.png]]![[{2FC6DF67-646D-4C24-A6D6-668684A9828E}.png]]
 - 

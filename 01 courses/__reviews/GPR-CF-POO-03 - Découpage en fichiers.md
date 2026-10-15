@@ -1,7 +1,4 @@
 ---
-status: Ready
-manual_order: -3.5
-url_test: http://localhost:56689/cpp/gpr-cf-poo-03/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-03 - Découpage en fichiers]]"
 ---
 - [x] Prendre en compte les modifications du companion

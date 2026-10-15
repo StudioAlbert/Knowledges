@@ -2,7 +2,10 @@
 title: Découpage en fichiers
 type: seance
 code: GPR-CF-POO-03
-status: To check
+review:
+  - "[[01 courses/__reviews/GPR-CF-POO-03 - Découpage en fichiers|Review POO-03]]"
+  - "[[01 courses/__reviews/GPR-CF-POO-03|Review POO-03]]"
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet

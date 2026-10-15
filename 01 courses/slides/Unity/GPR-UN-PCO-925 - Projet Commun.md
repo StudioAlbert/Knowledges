@@ -1,7 +1,6 @@
 ---
 title: Projet Commun
 type: slides
-status: En cours
 subject: Unity
 bloc_gsda: Projet Commun
 specialisation: Unity
@@ -13,7 +12,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Projet Commun

@@ -2,7 +2,9 @@
 title: Nombres, puissances et logarithmes
 type: seance
 code: TC-FT-RDE-01
-status: To check
+review:
+  - "[[01 courses/__reviews/TC-FT-RDE-01 - Nombres, puissances et logarithmes|Review RDE-01]]"
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Résolution d'Équation

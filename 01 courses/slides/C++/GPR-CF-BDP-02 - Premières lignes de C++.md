@@ -1,7 +1,6 @@
 ---
 title: Premières lignes de C++
 type: slides
-status: Backlog
 subject: C++
 duration_h: 3
 bloc_gsda: Bases de la Programmation
@@ -15,7 +14,6 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 9
-publish: online
 ---
 # Premières lignes de C++
 <!-- .slide: class="title" -->

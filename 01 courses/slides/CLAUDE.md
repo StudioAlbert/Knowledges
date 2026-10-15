@@ -1,21 +1,23 @@
 # slides/ — écriture des decks
 
 Les decks reveal.js (`type: slides`), nommés par code de département :
-`GPR-CF-BDP-06 - Chaînes de caractères.md`. **C'est ce que lit le site build**, donc
-`publish` se met ici, pas sur la note de séance.
+`GPR-CF-BDP-06 - Chaînes de caractères.md`. **C'est ce que rend le site build**, mais le deck
+ne décide pas de sa publication : il n'a ni `publish` ni `status`.
 
-## publish : trois états
+## La publication se décide dans `lectures/`
 
-| `publish` | Effet |
+C'est le `status` de la note de séance qui publie, par son code :
+
+| `status` de la séance | Effet |
 |---|---|
-| `false` ou absent | non publié, la séance n'existe pas sur le site |
-| `draft` | brouillon : visible du seul serveur de test, avec bandeau « brouillon » et `noindex` |
-| `online` | en ligne, visible des étudiants |
+| `Backlog`, `To prepare` | non publié, la séance n'existe pas sur le site |
+| `To check` | brouillon : visible du seul serveur de test, avec bandeau « brouillon » et `noindex` |
+| `Ready`, `Post-mortem`, `Post-mortem-done` | en ligne, visible des étudiants |
 
-Une séance **en cours de révision passe en `draft`**, jamais directement en `online` : le
-build de production ignore les brouillons, donc un deck laissé en `draft` ne peut pas
-atteindre le site des étudiants. Repasser en `online` est un geste délibéré, une fois la
-révision validée. Détail du contrat dans `site-build/CLAUDE.md`.
+Une séance **neuve en cours de révision est en `To check`**, jamais directement en `Ready` :
+le build de production ignore les brouillons, donc elle ne peut pas atteindre le site des
+étudiants. Une séance déjà donnée, elle, reste en ligne pendant sa révision
+(`Post-mortem` → `Post-mortem-done`). Détail du contrat dans `site-build/CLAUDE.md`.
 
 ## Construction des slides
 

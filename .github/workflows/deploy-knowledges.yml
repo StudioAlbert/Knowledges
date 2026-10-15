@@ -33,7 +33,12 @@ jobs:
           cache: npm
           cache-dependency-path: site-build/package-lock.json
 
+      # GITHUB_TOKEN : le jeton automatique du run, rien à créer. Sans lui, les blocs
+      # `github` des fiches tapent l'API en anonyme (60 req/h par IP, partagée entre
+      # runners) ; au-delà, un dépôt sans clone local voit sa fiche réduite, README perdu.
       - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm ci
           npm run build

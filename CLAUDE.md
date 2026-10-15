@@ -54,14 +54,18 @@ A teaching session is split across one file per kind of support, and the **sessi
 `lectures/` is the centre**: it points to its slides, exercises and resources and says what
 to prepare.
 
-- **`01 courses/lectures/<subject>/`** — the 69 one-hour **session** notes
-  (`type: seance`, carrying `code:`, `date_scheduled`, `classes`, `tache`), which
-  centralise slides + exercises + resources for that hour, *plus* the legacy
+- **`01 courses/lectures/<subject>/`** — the one-hour **session** notes
+  (`type: seance`, carrying `code:`, `status`, `review:`, `date_scheduled`, `classes`,
+  `tache`), which centralise slides + exercises + resources for that hour, *plus* the legacy
   `type: course` decks not yet split into `slides/`. Sessions carry no `duration_h`: an
   hour is not a lecture and must not enter hour totals.
+  **The session's `status` is also what publishes it** — the `__course base` kanban is the
+  single source: `Ready`, `Post-mortem` and `Post-mortem-done` are online, `To check` is a
+  draft served only by the test server, the rest is unpublished
+  (see `site-build/CLAUDE.md`).
 - **`01 courses/slides/<subject>/`** — the reveal.js decks themselves (`type: slides`).
-  **This is what the site build reads**, so `publish: true` goes here, not on the session
-  note.
+  **This is what the site build renders**, but a deck decides nothing: it carries neither
+  `publish` nor `status`.
 
 A session, its deck and its exercise sheet share the **same filename**
 (`<CODE> - <Titre>.md`) across `lectures/`, `slides/` and `exercises/` — that convention,

@@ -1,6 +1,4 @@
 ---
-status: Ready
-manual_order: 2
 slides:
   - "[[01 courses/slides/Theory/TC-FT-RNLB-03 - Flottants IEEE 754|Slides RNLB-03]]"
 exercices:

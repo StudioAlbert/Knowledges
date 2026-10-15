@@ -1,11 +1,8 @@
 ---
-status: Ready
-manual_order: 2.75
 slides:
   - "[[01 courses/slides/C++/GPR-CF-POO-03 - Découpage en fichiers|Slides POO-03]]"
 exercices:
   - "[[01 courses/exercises/C++/GPR-CF-POO-03 - Découpage en fichiers|Exos POO-03]]"
-url_test: http://localhost:61638/cpp/gpr-cf-poo-03/
 ---
 - [x] Mettre en page ![[{16BFE2EF-DA84-4EFD-99D5-FF95AFF94350}.png]]
 ## Traité le 05.10 — à vérifier (séance du 14.10)

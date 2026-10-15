@@ -63,11 +63,11 @@ des liens plutôt qu'à fusionner.
 | Cours importé | Note existante | Angle de la note existante |
 | --- | --- | --- |
 | [[ai_pathfinding]] | [[cpp_a_star_\|A* — Pathfinding en C++ moderne]] | implémentation C++ |
-| [[ai_pathfinding]] | [[ai_pathfinding_nav_mesh]], [[pathfinding_navmeshagent]] | NavMeshAgent Unity |
+| [[ai_pathfinding]] | [[ai_pathfinding_nav_mesh]], [[01 courses/lectures/Unity/_archive/ai_pathfinding_nav_mesh/pathfinding_navmeshagent]] | NavMeshAgent Unity |
 | [[ai_decision_algorithms]] | [[cpp_behaviour_tree_lecture\|Behaviour Trees en C++ moderne]] | implémentation C++ |
-| [[ai_decision_algorithms]] | [[finite_state_machine]], [[behavior_tree]], [[goal_driven_behaviour]] | scripts Unity |
-| [[ai_decision_algorithms]] | [[behavior_graph_tutorial\|Unity Behavior Graph]] | outil Unity 6 |
-| [[ai_steering_behavior]] | [[autonomous_behaviours]] | scripts Unity |
+| [[ai_decision_algorithms]] | [[01 courses/lectures/Unity/_archive/ai_pathfinding_nav_mesh/autonomous_behaviours/finite_state_machine]], [[01 courses/lectures/Unity/_archive/ai_pathfinding_nav_mesh/autonomous_behaviours/behavior_tree]], [[01 courses/lectures/Unity/_archive/ai_pathfinding_nav_mesh/autonomous_behaviours/goal_driven_behaviour]] | scripts Unity |
+| [[ai_decision_algorithms]] | [[01 courses/lectures/Unity/_archive/ai_pathfinding_nav_mesh/autonomous_behaviours/behavior_tree/behavior_graph_tutorial\|Unity Behavior Graph]] | outil Unity 6 |
+| [[ai_steering_behavior]] | [[01 courses/lectures/Unity/_archive/ai_pathfinding_nav_mesh/autonomous_behaviours]] | scripts Unity |
 | [[ai_world_representation]] | [[chapter_1_what_to_sense]], [[chapter_1_perceptions]] | perception, API Unity |
 | [[ai_fundamentals]] | [[unity_ai_core_principles]], [[unity_ai_utility_ai]] | architecture IA Unity |
 | [[pcg_graph_cellular_automaton]] | [[Théorie des Graphes et Recherche de Chemin]] | bloc théorique |

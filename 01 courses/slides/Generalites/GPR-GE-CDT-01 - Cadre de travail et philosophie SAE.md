@@ -1,7 +1,6 @@
 ---
 title: Cadre de travail, philosophie SAE
 type: slides
-status: Backlog
 subject: Generic
 duration_h: 1
 bloc_gsda: Généralités
@@ -15,7 +14,6 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 9
-publish: online
 ---
 
 # Cadre de travail

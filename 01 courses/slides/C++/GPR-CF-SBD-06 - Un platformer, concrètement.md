@@ -1,7 +1,6 @@
 ---
 title: GPR-CF-SBD-06 - Un platformer, concrètement
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: SFML et Box2D
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Un platformer, concrètement

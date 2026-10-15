@@ -1,7 +1,6 @@
 ---
 title: GPR-PE-CD-00 - Physique pour les Nuls
 type: slides
-status: Backlog
 subject: Theory
 duration_h: 1
 bloc_gsda: Cinématique et Dynamique
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Physique pour les Nuls

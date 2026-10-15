@@ -1,11 +1,8 @@
 ---
-status: Ready
-manual_order: 2
 slides:
   - "[[01 courses/slides/Theory/TC-FT-GVM-05 - Interpolation et courbes|Slides GVM-05]]"
 exercices:
   - "[[01 courses/exercises/Theory/TC-FT-GVM-05 - Interpolation et courbes|Exos GVM-05]]"
-url_test: http://localhost:60720/theory/tc-ft-gvm-05/
 ---
 - [x] Slide Smoot start/stop, step proposer schema pour visualiser
 - [x] Ajouter Projet Unity comme companion , ajouter fiche de ressources

@@ -1,7 +1,6 @@
 ---
 title: GPR-UN-APU-05 - Observer, prévenir sans connaître
 type: slides
-status: Backlog
 subject: Unity
 duration_h: 1
 bloc_gsda: Architecture et Patterns Unity
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Observer, prévenir sans connaître

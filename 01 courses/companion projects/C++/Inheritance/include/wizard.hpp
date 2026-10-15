@@ -4,11 +4,18 @@
 
 #ifndef INHERITANCE_WIZARD_HPP
 #define INHERITANCE_WIZARD_HPP
+#include "hero.hpp"
 
 
-class Wizard {
+class Wizard : public Hero {
+
 public:
+    // Wizard(int pv_) : Hero(pv_) {}
+    using Hero::Hero;
     void Spell();
+
+    void TakeDamage(int damage) override;
+
 };
 
 

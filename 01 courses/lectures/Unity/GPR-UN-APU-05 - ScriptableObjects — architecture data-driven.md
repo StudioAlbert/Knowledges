@@ -2,6 +2,8 @@
 title: Observer, prévenir sans connaître
 type: seance
 code: GPR-UN-APU-05
+review:
+  - "[[01 courses/__reviews/APU 05 Observer Pattern|Review APU-05]]"
 status: To prepare
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity

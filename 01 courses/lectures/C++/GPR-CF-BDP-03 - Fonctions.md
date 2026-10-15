@@ -2,7 +2,7 @@
 title: Fonctions
 type: seance
 code: GPR-CF-BDP-03
-status: Ready
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation

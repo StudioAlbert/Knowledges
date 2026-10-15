@@ -4,7 +4,7 @@
 
 #ifndef INHERITANCE_ARCHER_HPP
 #define INHERITANCE_ARCHER_HPP
-#include "../hero.hpp"
+#include "hero.hpp"
 
 
 class Archer : public Hero {
@@ -16,6 +16,9 @@ public:
         std::println("Constructing Archer");
     };
     void Shoot();
+
+    void TakeDamage(int damage) override;
+
 };
 
 

@@ -8,7 +8,12 @@
 
 void Archer::Shoot() {
     if (nb_arrows_ > 0) {
-        std::print("Pffffifiifififiioooooouuu");
+        std::println("Pffffifiifififiioooooouuu");
     }
     nb_arrows_--;
 }
+
+void Archer::TakeDamage(int damage) {
+
+}
+

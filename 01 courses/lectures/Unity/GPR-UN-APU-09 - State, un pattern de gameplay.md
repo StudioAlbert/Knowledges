@@ -2,7 +2,9 @@
 title: State, un pattern de gameplay
 type: seance
 code: GPR-UN-APU-09
-status: To prepare
+review:
+  - "[[01 courses/__reviews/APU 09 State as a GamePlayPattern|Review APU-09]]"
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity

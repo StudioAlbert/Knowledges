@@ -2,6 +2,8 @@
 title: Flottants IEEE 754
 type: seance
 code: TC-FT-RNLB-03
+review:
+  - "[[01 courses/__reviews/TC-FT-RNLB-03|Review RNLB-03]]"
 status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory

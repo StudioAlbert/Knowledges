@@ -1,7 +1,6 @@
 ---
 title: Principes et premier dépôt
 type: course
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Git et Travail en Équipe
@@ -15,7 +14,6 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 8
-publish: online
 ---
 
 # Principes et premier dépôt

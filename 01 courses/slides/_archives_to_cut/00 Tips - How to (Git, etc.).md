@@ -1,7 +1,6 @@
 ---
 title: Setup — Tips & how-to, Git
 type: course
-status: Backlog
 subject: C++
 duration_h: 3
 bloc_gsda: Git et Travail en Équipe

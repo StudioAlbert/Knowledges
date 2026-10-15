@@ -2,6 +2,8 @@
 title: Chaînes de caractères
 type: seance
 code: GPR-CF-BDP-06
+review:
+  - "[[01 courses/__reviews/GPR-CF-BDP-06|Review BDP-06]]"
 status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++

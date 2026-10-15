@@ -3,7 +3,7 @@ seances: [GPR-UN-APU-09]
 ---
 # Ressources — State
 
-Pour aller plus loin que la séance, dans cet ordre : le chapitre de Nystrom d'abord, il
+Pour aller plus loin que la séance, dans cet ordre : le chapitre de Game Programming Patterns d'abord, il
 raconte l'histoire ; les deux suivants donnent le code ; le manuel Unity montre que vous en
 utilisez déjà une sans le savoir.
 

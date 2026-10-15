@@ -1,7 +1,6 @@
 ---
 title: Bases et changements de base
 type: slides
-status: Backlog
 subject: Theory
 duration_h: 1
 bloc_gsda: Représentation des Nombres et Logique Binaire
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Bases et changements de base

@@ -1,7 +1,6 @@
 ---
 title: TC-FT-GVM-02 - Produits scalaire et vectoriel
 type: slides
-status: Backlog
 subject: Theory
 duration_h: 1
 bloc_gsda: Géométrie Vectorielle et Matricielle
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Produits scalaire et vectoriel

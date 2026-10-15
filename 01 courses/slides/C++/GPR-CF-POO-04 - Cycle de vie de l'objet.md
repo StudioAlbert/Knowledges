@@ -1,7 +1,6 @@
 ---
 title: GPR-CF-POO-04 - Cycle de vie de l'objet
 type: slides
-status: To check
 subject: C++
 duration_h: 1
 bloc_gsda: Programmation Orientée Objet
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Cycle de vie de l'objet

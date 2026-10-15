@@ -2,7 +2,7 @@
 title: Premières lignes de C++
 type: seance
 code: GPR-CF-BDP-02
-status: Ready
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation

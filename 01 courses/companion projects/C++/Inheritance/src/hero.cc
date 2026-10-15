@@ -10,7 +10,4 @@ void Hero::Move() {
     std::println("moving hero");
 }
 
-void Hero::TakeDamage(int damage) {
-    pv_ -= damage;
-    std::println("Remaining PV {}", pv_);
-}
+

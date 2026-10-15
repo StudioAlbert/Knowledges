@@ -1,7 +1,6 @@
 ---
 title: GPR-CF-GTE-03 - Travail à plusieurs et fichiers lourds
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Git et Travail en Équipe
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Travail à plusieurs et fichiers lourds

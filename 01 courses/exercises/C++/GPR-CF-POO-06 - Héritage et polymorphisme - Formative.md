@@ -40,7 +40,7 @@ recharger. `Firearm` existe pour ça : il porte ce que seules les armes à feu p
 ## Les étapes
 
 1. **`Weapon`.** Reprendre la classe du companion. Rendre `Fire()` virtuelle pure. Vérifier
-   que `Weapon w;` est refusé, et recopier le message du compilateur.
+   que `Weapon w;` est refusé.
 2. **`Firearm`.** Dériver de `Weapon`. Ajouter `caliber_`, `magazineCapacity_`, `Reload()`.
    `Fire()` consomme une munition et refuse à vide.
 3. **`SemiAutomatic`.** Dériver de `Firearm`. Un coup par appui. `SingleShotMode()`.

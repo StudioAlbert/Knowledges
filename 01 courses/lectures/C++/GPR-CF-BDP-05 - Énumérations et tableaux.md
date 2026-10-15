@@ -2,7 +2,9 @@
 title: Énumérations et tableaux
 type: seance
 code: GPR-CF-BDP-05
-status: Ready
+review:
+  - "[[01 courses/__reviews/GPR-CF-BDP-05 - Énumérations et tableaux|Review BDP-05]]"
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Bases de la Programmation

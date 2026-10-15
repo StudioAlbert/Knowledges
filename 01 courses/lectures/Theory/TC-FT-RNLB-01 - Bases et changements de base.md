@@ -2,7 +2,7 @@
 title: Bases et changements de base
 type: seance
 code: TC-FT-RNLB-01
-status: Ready
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Représentation des Nombres et Logique Binaire

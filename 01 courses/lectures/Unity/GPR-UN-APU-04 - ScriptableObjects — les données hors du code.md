@@ -2,12 +2,15 @@
 title: ScriptableObjects
 type: seance
 code: GPR-UN-APU-04
-status: To prepare
+review:
+  - "[[01 courses/__reviews/APU 04 Scriptable objects|Review APU-04]]"
+status: Post-mortem
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
-classes: [GP-926]
+classes:
+  - GP-926
 manual_order: 56
 estimate: 1h
 tache: adapter + écrire

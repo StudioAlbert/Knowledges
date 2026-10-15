@@ -1,7 +1,6 @@
 ---
 title: TC-FT-RDE-01 - Nombres, puissances et logarithmes
 type: slides
-status: To check
 subject: Theory
 duration_h: 1
 bloc_gsda: Résolution d'Équation
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Nombres, puissances et logarithmes

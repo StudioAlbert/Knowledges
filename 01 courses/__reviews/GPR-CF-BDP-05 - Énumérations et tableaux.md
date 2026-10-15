@@ -1,13 +1,10 @@
 ---
-status: Ready
-manual_order: 2.625
 slides:
   - "[[01 courses/slides/C++/GPR-CF-BDP-05 - Énumérations et tableaux|Slides BDP-05]]"
 exercices:
   - "[[01 courses/exercises/C++/GPR-CF-BDP-05 - Énumérations|Exos BDP-05 — Énumérations]]"
   - "[[01 courses/exercises/C++/GPR-CF-BDP-05 - Tableaux|Exos BDP-05 — Tableaux]]"
   - "[[01 courses/exercises/C++/GPR-CF-BDP-05 - Bilan formatif, le morpion|Exos BDP-05 — Bilan formatif]]"
-url_test: http://localhost:61638/cpp/gpr-cf-bdp-05/
 ---
 - [x] Mettre en page ![[{51DA48AF-01DE-4896-8004-EF54222085F8}.png]]
 - [x] `enum` simple ou `enum class` ? => proposer snippet avec problemes, pousser a 2 slides si besoin

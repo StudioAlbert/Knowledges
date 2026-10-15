@@ -18,7 +18,12 @@ public :
     };
 
     void Move();
-    void TakeDamage(int damage);
+
+    virtual void TakeDamage(int damage);
+    // virtual void TakeDamage(int damage){
+    //     pv_ -= damage;
+    //     std::println("Remaining PV {}", pv_);
+    // }
 
 };
 

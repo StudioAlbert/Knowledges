@@ -6,22 +6,27 @@
 //   00 widgets/                                  → /widgets/ (pages HTML interactives, copiées telles quelles)
 //
 // Le site est organisé par séance (code GPR-CF-BDP-01…). La publication est pilotée
-// par le seul champ `publish` du frontmatter des slides, qui a trois états :
+// par le seul `status` de la note de séance, dans `01 courses/lectures/` : le kanban
+// dit à la fois où en est la préparation et ce qui est publié.
 //
-//   false / (absent)  → non publié : la séance n'existe pas sur le site
-//   draft             → brouillon : rendu avec un bandeau « brouillon » et noindex,
-//                       et UNIQUEMENT si le build est lancé avec `--drafts`
-//                       (`npm run build:draft`, ou `npm run preview` pour enchaîner
-//                       build brouillons + serveur de test)
-//   online            → en ligne, visible des étudiants
-//                       (`true` reste accepté comme alias historique d'`online`)
+//   Backlog, To prepare → non publié : la séance n'existe pas sur le site
+//   To check            → brouillon : bandeau « brouillon » et noindex, et UNIQUEMENT
+//                         si le build est lancé avec `--drafts` (`npm run build:draft`,
+//                         ou `npm run preview` pour enchaîner build + serveur de test)
+//   Ready               → en ligne, visible des étudiants
+//   Post-mortem         → en ligne : séance donnée, révisions à faire pour l'an prochain
+//   Post-mortem-done    → en ligne : séance donnée, rien en attente
 //
-// Toute autre valeur est refusée avec un avertissement et traitée comme non publiée :
-// une faute de frappe ne met rien en ligne par accident.
+// Les trois états en ligne encadrent le cours donné : une révision post-mortem ne fait
+// jamais sortir la séance du site. Une séance neuve, elle, passe par To check, et n'est
+// donc visible que sur le serveur de test tant qu'elle n'est pas Ready.
+//
+// Un code sans note de séance n'est pas publié, et toute autre valeur de `status` est
+// refusée avec un avertissement : une faute de frappe ne met rien en ligne par accident.
 //
 // Le build par défaut (`npm run build`, celui que lance la CI de déploiement) ignore
-// les drafts : un brouillon ne peut donc pas atteindre le site en ligne, même oublié
-// en l'état. Un exercice ou une ressource se rattache à une séance par
+// les brouillons : une séance en révision ne peut donc pas atteindre le site, même
+// oubliée en l'état. Un exercice ou une ressource se rattache à une séance par
 // `seances: [CODE, …]` ou par un nom commençant par le code, et suit le sort de sa
 // séance. Rien d'autre n'est publié.
 //
@@ -50,6 +55,7 @@ import hljs from 'highlight.js';
 const HERE = import.meta.dirname;
 const ROOT = path.resolve(HERE, '..');
 const COURSES = path.join(ROOT, '01 courses');
+const LECTURES = path.join(COURSES, 'lectures');
 const IMAGES = path.join(ROOT, '00 images');
 const CSS = path.join(ROOT, '00 templates', 'css');
 const WIDGETS = path.join(ROOT, '00 widgets');
@@ -65,22 +71,52 @@ const KINDS = [
 
 const IMAGE_EXT = /\.(png|jpe?g|gif|svg|webp|avif)$/i;
 
-// Inclure les séances `publish: draft`. Opt-in via `--drafts` ou KNOWLEDGES_DRAFTS=1 :
-// sans l'un des deux, les brouillons sont exclus, donc un déploiement non modifié ne
-// peut jamais en publier un.
+// Inclure les séances en révision (`status: To check`). Opt-in via `--drafts` ou
+// KNOWLEDGES_DRAFTS=1 : sans l'un des deux, les brouillons sont exclus, donc un
+// déploiement non modifié ne peut jamais en publier un.
 const DRAFTS = process.argv.includes('--drafts') || process.env.KNOWLEDGES_DRAFTS === '1';
 const DRAFT_NOTE = 'Séance en cours de révision : contenu provisoire, non diffusé aux étudiants.';
 
-// `publish` → 'none' | 'draft' | 'online'. Tolère l'alias historique `true` et les
-// valeurs citées par Obsidian ('online', 'draft'). Toute autre valeur est un refus
-// bruyant : seul un état explicitement reconnu peut publier.
-function publishState(deck) {
-  const raw = typeof deck.fm.publish === 'string' ? deck.fm.publish.trim().toLowerCase() : deck.fm.publish;
-  if (raw === 'online' || raw === true) return 'online';
-  if (raw === 'draft') return 'draft';
-  if (raw === false || raw === 'false' || raw === undefined || raw === null || raw === '') return 'none';
-  console.warn(`  ⚠ ${deck.name} : publish: ${JSON.stringify(deck.fm.publish)} inconnu — non publié (attendu false | draft | online)`);
+// Colonnes du kanban des séances → état de publication. Les trois états en ligne
+// encadrent le cours donné ; une colonne absente d'ici ne publie rien.
+const PUBLISH_BY_STATUS = {
+  'backlog': 'none',
+  'to prepare': 'none',
+  'to check': 'draft',
+  'ready': 'online',
+  'post-mortem': 'online',
+  'post-mortem-done': 'online',
+};
+
+// Statut de la note de séance → 'none' | 'draft' | 'online'. Un code sans note, ou un
+// statut hors kanban, est un refus bruyant : seule une colonne connue peut publier.
+function publishState(code, seanceNotes) {
+  const note = seanceNotes.get(code);
+  if (!note) {
+    console.warn(`  ⚠ ${code} : aucune note de séance dans lectures/ — non publié`);
+    return 'none';
+  }
+  const raw = String(note.status ?? '').trim().toLowerCase();
+  const state = PUBLISH_BY_STATUS[raw];
+  if (state) return state;
+  console.warn(`  ⚠ ${code} : status: ${JSON.stringify(note.status)} hors kanban — non publié`);
   return 'none';
+}
+
+// Index des notes de séance par code. `lectures/` contient aussi d'anciennes notes
+// `type: course`, qui portent elles aussi un `status:` : sans le filtre sur
+// `type: seance`, l'une d'elles masquerait la vraie note d'un code et la dépublierait.
+async function loadSeanceNotes() {
+  const byCode = new Map();
+  for (const file of await walk(LECTURES, (n) => n.endsWith('.md'))) {
+    const { data } = matter(await fs.readFile(file, 'utf8'));
+    if (data.type !== 'seance') continue;
+    const code = String(data.code ?? '').trim();
+    if (!code) continue;
+    if (byCode.has(code)) console.warn(`  ⚠ ${code} : deux notes de séance portent ce code`);
+    byCode.set(code, { status: data.status, name: path.basename(file, '.md') });
+  }
+  return byCode;
 }
 
 // ---------------------------------------------------------------------------
@@ -179,10 +215,10 @@ async function collect() {
 }
 
 // Regroupe les documents par séance active et fixe leurs URLs de sortie.
-function buildSeances(items) {
+function buildSeances(items, seanceNotes) {
   const seances = new Map();
   for (const deck of items.filter((it) => it.kind.dir === 'slides' && it.code).sort(byName)) {
-    const state = publishState(deck);
+    const state = publishState(deck.code, seanceNotes);
     if (state === 'none') continue;
     const draft = state === 'draft';
     if (draft && !DRAFTS) {
@@ -213,9 +249,6 @@ function buildSeances(items) {
     }
   }
 
-  for (const s of seances.values()) {
-    if (!s.exercises.length) console.warn(`  ⚠ ${s.code} : aucun exercice rattaché`);
-  }
   return [...seances.values()];
 }
 
@@ -708,7 +741,7 @@ async function main() {
   const themes = new Set(
     (await fs.readdir(path.join(REVEAL, 'dist/theme'))).filter((f) => f.endsWith('.css')).map((f) => f.slice(0, -4)),
   );
-  const seances = buildSeances(items);
+  const seances = buildSeances(items, await loadSeanceNotes());
   const published = items.filter((it) => it.url);
   const resolver = new Resolver(published, imageIndex);
   await loadRepos(published.filter((it) => it.kind.dir !== 'slides'));
@@ -723,7 +756,11 @@ async function main() {
   await copyAssets(resolver);
 
   const drafts = seances.filter((s) => s.draft).length;
+  const sansExercice = seances.filter((s) => !s.exercises.length).length;
   console.log(`\n${seances.length} séance(s) active(s), ${published.length} documents → ${path.relative(ROOT, DIST)}`);
+  // Fréquent et normal (charge des étudiants) : un simple décompte, pas un avertissement —
+  // `⚠` doit rester réservé à ce qui demande une action.
+  if (sansExercice) console.log(`${sansExercice} séance(s) sans exercice.`);
   if (drafts) console.log(`⚠ ${drafts} séance(s) en brouillon incluses : build de prévisualisation, ne pas déployer.`);
   else if (!DRAFTS) console.log('Build de production : aucun brouillon inclus.');
 }

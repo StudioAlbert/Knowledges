@@ -1,7 +1,6 @@
 ---
 title: GPR-CF-BDP-05 - Énumérations et tableaux
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Bases de la Programmation
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Énumérations et tableaux

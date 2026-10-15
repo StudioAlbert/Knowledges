@@ -2,7 +2,9 @@
 title: Static et surcharge d'opérateur
 type: seance
 code: GPR-CF-POO-05
-status: To prepare
+review:
+  - "[[01 courses/__reviews/GPR-CF-POO-05 - Static et surcharge d'opérateur|Review POO-05]]"
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
@@ -53,7 +55,7 @@ Attribut et méthode `static`, ce qu'ils partagent entre instances, surcharge d'
 ## Liens
 
 - Séance précédente : [[GPR-CF-POO-04 - Cycle de vie de l'objet]]
-- Séance suivante : [[GPR-CF-POO-06 - Héritage et polymorphisme]]
+- Séance suivante : [[01 courses/lectures/C++/GPR-CF-POO-06 - Héritage et polymorphisme]]
 
 ## Notes de préparation
 

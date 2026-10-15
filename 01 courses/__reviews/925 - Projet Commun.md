@@ -1,9 +1,6 @@
 ---
-status: Ready
-manual_order: -0.5
 slides:
   - "[[01 courses/slides/Unity/GPR-UN-PCO-925 - Projet Commun|Slides PCO-925]]"
-url_test: http://localhost:3000/unity/gpr-un-pco-925/
 ---
 - [x] Basculer Fiches de ressources en slides
 - [x] Garder une fiche de ressources compilant Overview / Prérequis + Asset pack

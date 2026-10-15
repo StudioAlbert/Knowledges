@@ -1,11 +1,8 @@
 ---
-status: Ready
-manual_order: 3
 slides:
   - "[[01 courses/slides/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|Slides GVM-02]]"
 exercices:
   - "[[01 courses/exercises/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|Exos GVM-02]]"
-url_test: http://localhost:60720/theory/tc-ft-gvm-02/
 ---
 - [x] Mise en page widget dans la formule ![[Pasted image 20261006133612.png]]
 

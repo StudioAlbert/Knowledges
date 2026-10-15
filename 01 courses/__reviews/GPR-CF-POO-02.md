@@ -1,11 +1,8 @@
 ---
-status: Ready
-manual_order: 2.5
 slides:
   - "[[01 courses/slides/C++/GPR-CF-POO-02 - Classes et visibilité|Slides POO-02]]"
 exercices:
   - "[[01 courses/exercises/C++/GPR-CF-POO-02 - Classes et visibilité|Exos POO-02]]"
-url_test: http://localhost:61638/cpp/gpr-cf-poo-02/
 ---
 - [x] Mettre en page![[{9FF7F33E-3D0C-4994-BED5-76417C5EC791}.png]]
 	- (Poser regles css)

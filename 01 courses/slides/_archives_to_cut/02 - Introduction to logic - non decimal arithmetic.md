@@ -1,7 +1,6 @@
 ---
 title: Introduction to logic
 type: course
-status: Backlog
 subject: C++
 duration_h: 3
 bloc_gsda: Bases de la Programmation

@@ -1,7 +1,4 @@
 ---
-status: Ready
-manual_order: -1
-url_test: http://localhost:54573/theory/tc-ft-rde-01/
 slides: "[[01 courses/slides/Theory/TC-FT-RDE-01 - Nombres, puissances et logarithmes]]"
 ---
 - [x]  Slide Nombre premiers, decomposer la multiplication des nombres 1, 2, 3, 4, 5, 8, 13, 18, 19

@@ -1,7 +1,6 @@
 ---
 title: GPR-CF-SDS-04 - Flux de chaînes et formats
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Structures de Données et STL
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Flux de chaînes et formats

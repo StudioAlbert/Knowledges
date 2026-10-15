@@ -1,7 +1,6 @@
 ---
 title: Géométrie du triangle
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Trigonométrie
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: online
 ---
 
 # Géométrie du triangle

@@ -2,6 +2,8 @@
 title: Entiers signés et dépassements
 type: seance
 code: TC-FT-RNLB-02
+review:
+  - "[[01 courses/__reviews/TC-FT-RNLB-02|Review RNLB-02]]"
 status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory

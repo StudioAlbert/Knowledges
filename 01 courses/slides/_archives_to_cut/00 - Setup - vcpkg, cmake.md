@@ -1,7 +1,6 @@
 ---
 title: Setup — vcpkg, CMake
 type: course
-status: Backlog
 subject: C++
 duration_h: 3
 bloc_gsda: Environnement de Développement C++

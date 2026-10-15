@@ -1,7 +1,6 @@
 ---
 title: GPR-CF-SDS-02 - Adaptateurs et conteneurs associatifs
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Structures de Données et STL
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Adaptateurs et conteneurs associatifs

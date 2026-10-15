@@ -1,7 +1,6 @@
 ---
 title: Chaîne d'outils et prérequis
 type: course
-status: Backlog
 subject: C++
 duration_h: 3
 bloc_gsda: Environnement de Développement C++
@@ -15,7 +14,6 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 7
-publish: online
 ---
 
 # Chaîne d'outils et prérequis

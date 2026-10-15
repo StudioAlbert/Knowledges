@@ -1,7 +1,4 @@
 ---
-status: Ready
-manual_order: -2
-url_test: http://localhost:54573/cpp/gpr-cf-poo-06/
 slides: "[[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme]]"
 exercices:
   - "[[01 courses/exercises/C++/GPR-CF-POO-06 - Héritage et polymorphisme - Formative|Formative POO-06]]"

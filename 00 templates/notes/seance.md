@@ -7,6 +7,7 @@ const matiere = tp.file.folder(true).split("/").pop();
 title: <% titre %>
 type: seance
 code: <% code %>
+review:
 status: Backlog
 projet:
 subject: <% matiere %>

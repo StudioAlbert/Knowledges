@@ -2,6 +2,8 @@
 title: Héritage et polymorphisme
 type: seance
 code: GPR-CF-POO-06
+review:
+  - "[[01 courses/__reviews/GPR-CF-POO-06 - Héritage et polymorphisme|Review POO-06]]"
 status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++

@@ -1,7 +1,6 @@
 ---
 title: SOLID Principles in Unity
 type: course
-status: Backlog
 subject: Unity
 duration_h: 3
 bloc_gsda: Architecture et Patterns Unity

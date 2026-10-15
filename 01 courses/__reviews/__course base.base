@@ -2,7 +2,8 @@ filters:
   and:
     - file.inFolder("01 courses/lectures")
     - file.ext == "md"
-    - type != "section"
+    - type == "seance"
+    - '!file.path.contains("/_")'
 formulas:
   semaine: if(date_scheduled, date(date_scheduled).format("GGGG-[S]WW"), "")
 views:
@@ -10,7 +11,7 @@ views:
     name: Kanban
     order:
       - file.name
-      - bloc_gsda
+      - date_scheduled
     sort:
       - property: date_scheduled
         direction: ASC
@@ -20,6 +21,7 @@ views:
       - To check
       - Ready
       - Post-mortem
+      - Post-mortem-done
     calendarMode: false
     triageMode: false
     timelineMode: false
@@ -33,10 +35,12 @@ views:
     calendarRangeOverride: month
     collapsedColumns:
       - Done
+      - __unmapped__
+      - Post-mortem
       - Backlog
+      - Post-mortem-done
     cardSort: property
     laneGrouping: property
-    laneGroupingProperty: formula.semaine
     cardSortProperty: note.date_scheduled
     collapsedLanes:
       - 2026-09-09
@@ -48,17 +52,19 @@ views:
       - 2026-S39
       - 2026-S40
       - 2026-S41
+    showDueCountdown: true
+    countdownSource: scheduled
   - type: table
     name: Liste
     order:
       - file.name
-      - bloc_gsda
-      - tache
       - date_scheduled
+      - status
     sort:
-      - property: file.name
-        direction: DESC
-      - property: tache
+      - property: date_scheduled
         direction: ASC
-      - property: bloc_gsda
+      - property: status
         direction: ASC
+    columnSize:
+      file.name: 476
+      note.date_scheduled: 143

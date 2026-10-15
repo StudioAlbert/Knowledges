@@ -27,16 +27,23 @@ récupérés au build.
 
 ## Le contrat de publication
 
-Le champ `publish` du frontmatter du deck a **trois états**, et c'est le seul levier :
+Le `status` de la **note de séance**, dans `01 courses/lectures/`, est le seul levier. Le
+kanban `__course base` dit à la fois où en est la préparation et ce qui est publié :
 
-| `publish` | Effet |
+| `status` | Effet |
 |---|---|
-| `false` ou absent | non publié : la séance n'existe pas sur le site |
-| `draft` | brouillon : rendu **uniquement** par un build `--drafts`, avec bandeau « brouillon », badge et `noindex` |
-| `online` | en ligne, visible des étudiants |
+| `Backlog`, `To prepare` | non publié : la séance n'existe pas sur le site |
+| `To check` | brouillon : rendu **uniquement** par un build `--drafts`, avec bandeau « brouillon », badge et `noindex` |
+| `Ready` | en ligne, visible des étudiants |
+| `Post-mortem` | en ligne : séance donnée, révisions à faire pour l'an prochain |
+| `Post-mortem-done` | en ligne : séance donnée, rien en attente |
 
-`true` reste accepté comme alias historique d'`online`. Toute autre valeur est refusée avec
-un avertissement et traitée comme non publiée : une faute de frappe ne met rien en ligne.
+Les trois états en ligne encadrent le cours donné : **une révision post-mortem ne fait jamais
+sortir la séance du site**, alors qu'une séance neuve passe par `To check` et n'est visible
+que sur le serveur de test tant qu'elle n'est pas `Ready`.
+
+Un code sans note de séance n'est pas publié, et toute autre valeur de `status` est refusée
+avec un avertissement : une faute de frappe ne met rien en ligne.
 
 L'inclusion des brouillons est **opt-in** (`--drafts` ou `KNOWLEDGES_DRAFTS=1`) : un
 `npm run build` nu ne peut pas publier un brouillon, même oublié en l'état, et la CI ne passe
@@ -44,8 +51,10 @@ jamais le flag. C'est la garantie qu'une séance en révision ne part pas chez l
 
 Les autres règles quand on édite des notes :
 
-- Rien d'autre que `publish` ne déclenche la publication — en particulier pas la note de
-  séance dans `lectures/`.
+- Rien d'autre que le `status` de la note de séance ne déclenche la publication — en
+  particulier plus aucun champ du deck. Le build indexe `lectures/` par le `code:` du
+  frontmatter, et ne retient que les notes `type: seance` : les anciennes notes
+  `type: course` du même dossier sont ignorées.
 - Un exercice ou une ressource s'attache à une séance par `seances: [CODE, …]` en
   frontmatter, ou par un nom de fichier commençant par le code de la séance.
 - Tout dossier dont le nom commence par `_` est ignoré — **sauf** sous `00 widgets/`, qui est

@@ -1,7 +1,6 @@
 ---
 title: Penser comme un programme
 type: slides
-status: Backlog
 subject: C++
 duration_h: 1
 bloc_gsda: Bases de la Programmation
@@ -15,7 +14,6 @@ width: 1280
 height: 720
 margin: 0
 manual_order: 9
-publish: online
 ---
 
 # Penser comme un programme

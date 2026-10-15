@@ -1,11 +1,8 @@
 ---
-status: Ready
-manual_order: -1.5
 slides:
   - "[[01 courses/slides/Theory/TC-FT-GVM-01 - Vecteurs et repères|Slides GVM-01]]"
 exercices:
   - "[[01 courses/exercises/Theory/TC-FT-GVM-01 - Vecteurs et repères|Exos GVM-01]]"
-url_test: http://localhost:61638/theory/tc-ft-gvm-01/
 ---
  - [x] Slide Soustraire => doit parler de la soustraction de VECTEURS (editer la comclusion)
  - [x] Intégrer le widget aprés chaque notion importante

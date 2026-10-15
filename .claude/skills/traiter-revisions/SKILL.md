@@ -1,57 +1,73 @@
 ---
 name: traiter-revisions
-description: Traiter les notes de révision en attente dans 01 courses/__reviews/ — choisir la prochaine note, passer le deck en publish draft, appliquer les corrections aux slides et exercices liés, cocher la checklist, passer le status et rebuilder le serveur de test. À utiliser quand on demande de traiter les révisions, de reprendre le kanban Reviews, ou de s'occuper d'une séance à préparer.
+description: Traiter les séances en attente dans le kanban __course base — choisir la prochaine note de 01 courses/lectures/, appliquer les corrections de sa fiche review aux slides et exercices liés, cocher la checklist, faire avancer le status et rebuilder le serveur de test. À utiliser quand on demande de traiter les révisions, de reprendre le kanban, ou de s'occuper d'une séance à préparer.
 ---
 
 # Traiter les révisions
 
-La base `01 courses/__reviews/Reviews.base` liste les révisions à apporter (colonnes Kanban :
-Backlog, To do, To check, Ready).
+Le kanban `01 courses/__reviews/__course base.base` porte les **notes de séance** de
+`01 courses/lectures/` (colonnes : Backlog, To prepare, To check, Ready, Post-mortem,
+Post-mortem-done). C'est le seul kanban du vault, et son `status` **pilote aussi la
+publication du site** — voir `site-build/CLAUDE.md`. Faire avancer une carte, c'est décider
+de ce que voient les étudiants.
+
+Les fiches de `01 courses/__reviews/` ne sont plus des cartes : ce sont les **checklists**
+du travail à faire, atteintes depuis la séance par sa clé `review:`.
 
 ## Choisir la note
 
-Traiter les notes en statut **To do**, **dans l'ordre du Kanban** — `manual_order` croissant,
-et rien d'autre. L'auteur place lui-même ses révisions et les ordonne : la colonne est déjà
-priorisée. La réordonner sur les dates de séance, ou sur ce qui paraît urgent, lui retire ce
-contrôle.
+Deux files d'entrée, **dans cet ordre** :
 
-Dérouler **toute** la colonne, pas la première note seulement. Et **relire le Kanban après
+1. **To prepare** — séances à venir, à préparer. On vide la colonne entière.
+2. **Post-mortem** — séances déjà données dont la révision prépare l'an prochain.
+
+Une séance à venir passe avant la préparation de l'année suivante. Dans chaque file,
+**l'ordre du kanban** — `manual_order` croissant, et rien d'autre. L'auteur place ses cartes
+et les ordonne : la colonne est déjà priorisée. La réordonner sur les dates de séance, ou sur
+ce qui paraît urgent, lui retire ce contrôle.
+
+Dérouler **toute** la colonne, pas la première note seulement. Et **relire le kanban après
 chaque note** : l'auteur en ajoute, et en rouvre, pendant qu'on travaille.
+
+Une séance sans `review:` n'a pas de checklist : demander à l'auteur ce qu'il attend plutôt
+que de deviner.
 
 ## Traiter
 
-La note de révision est une checklist ; ses notes `slides:` et `exercices:` en frontmatter
-sont les fichiers à modifier.
+La fiche pointée par `review:` est la checklist ; ses notes `slides:` et `exercices:` en
+frontmatter sont les fichiers à modifier.
 
-**Avant d'éditer, passer le deck en brouillon** : dans le deck de `01 courses/slides/`,
-mettre `publish: draft`. Tant qu'il est en `draft`, le deck n'est rendu que par le serveur de
-test (bandeau « brouillon », `noindex`) et le build de production l'ignore — une révision en
-cours ne peut donc pas atteindre le site des étudiants.
-
-Si le deck était `online`, le passer en `draft` **le retire du site en ligne au prochain
-déploiement** : c'est voulu pour une refonte, mais pour une correction mineure sur une séance
-déjà donnée, demander à l'auteur s'il préfère la laisser `online` pendant la révision.
+Rien à basculer avant d'éditer : le deck ne porte plus ni `publish` ni `status`, et c'est le
+statut de la séance, inchangé pendant le travail, qui décide de sa visibilité. Une séance en
+`To prepare` n'est pas publiée ; une séance en `Post-mortem` **reste en ligne pendant sa
+révision**, donc une correction visible par les étudiants arrive dès le prochain
+déploiement — le dire à l'auteur quand la correction est lourde.
 
 - Appliquer les corrections dans les notes liées, en respectant les règles d'écriture de
   `01 courses/slides/CLAUDE.md` (4 bullets max, un schéma ou un exemple de code seul sur sa
   slide).
 - **Poser les questions nécessaires avant de trancher à la place de l'auteur** — c'est du
   matériel pédagogique, un arbitrage silencieux coûte plus cher qu'une question.
-- Cocher dans la note de révision les cases traitées, au fur et à mesure.
+- Cocher dans la fiche review les cases traitées, au fur et à mesure.
 
 ## Clôturer
 
-1. Passer le `status` de la note de révision à **To check**.
+1. Faire avancer le `status` de la **note de séance**, selon la file d'où elle vient :
+
+   | File | Statut en fin de traitement | Effet sur le site |
+   |---|---|---|
+   | `To prepare` | **To check** | la séance passe en brouillon, visible du seul serveur de test |
+   | `Post-mortem` | **Post-mortem-done** | la page reste en ligne, du début à la fin |
+
 2. Rebuilder et lancer le serveur de test, qui inclut les brouillons :
    `preview_start {name: "knowledges-site-draft"}` (voir `site-build/CLAUDE.md`).
-3. Renseigner l'URL de test dans le frontmatter de la note de révision.
-4. **Laisser le deck en `publish: draft`.** Le passage en `online` n'est pas l'affaire de la
-   révision : il appartient à l'auteur, après relecture du statut *To check*. Le signaler
-   dans le compte rendu plutôt que de le faire.
+3. Renseigner `url_test` dans le frontmatter de la **note de séance** (le port change à
+   chaque lancement).
+4. **Ne pas passer la séance en `Ready` soi-même.** C'est la relecture de l'auteur qui
+   tranche : depuis `To check`, il renvoie en `To prepare` pour un nouveau tour ou passe en
+   `Ready` ; depuis `Post-mortem-done`, il rouvre en `Post-mortem` si de nouveaux points
+   apparaissent. Le signaler dans le compte rendu plutôt que de le faire.
 5. Commiter — message en français non accentué, sans mention d'outil ni `Co-Authored-By`.
 
-## Mettre en ligne (étape séparée, sur demande explicite)
-
-Quand l'auteur valide une révision : passer le deck de `draft` à `online`, rebuilder en
-production (`npm run build`, sans `--drafts`) pour vérifier que la séance apparaît bien, puis
-commiter. Ne jamais enchaîner cette étape sur la précédente sans accord.
+`Ready` et `Post-mortem-done` publient en ligne **au prochain push** : il n'y a plus d'étape
+de mise en ligne séparée, le statut suffit.

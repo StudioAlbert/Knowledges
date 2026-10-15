@@ -24,12 +24,3 @@ readme: false
 gh repo fork <DEPOT> --clone --fork-name <NOM-DU-FORK> -- <DOSSIER-LOCAL>
 ```
 
-Les scènes de `Assets/01 - Scenes/` s'ouvrent dans l'ordre : *Hero*, *Guard*, *QTE*,
-*TurnBased*. La machine elle-même tient dans `Assets/03 - Scripts/Core/` — `IState` avec
-`OnEnter` / `OnExit` / `Tick`, et les transitions **déclarées à côté du graphe** plutôt
-qu'écrites dans les états.
-
-Deux pièges à connaître avant de lire les démos : les transitions sont indexées par
-`GetType()`, donc **deux états de la même classe partagent leurs transitions** ; et `Tick`
-prend **la première** condition vraie, les « any » d'abord — l'ordre de déclaration est
-l'ordre de priorité.

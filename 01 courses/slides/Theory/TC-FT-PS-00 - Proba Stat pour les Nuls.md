@@ -1,7 +1,6 @@
 ---
 title: TC-FT-PS-00 - Proba Stat pour les Nuls
 type: slides
-status: Backlog
 subject: Theory
 duration_h: 1
 bloc_gsda: Probabilités et Statistiques
@@ -14,7 +13,6 @@ transition: slide
 width: 1280
 height: 720
 margin: 0
-publish: false
 ---
 
 # Proba Stat pour les Nuls

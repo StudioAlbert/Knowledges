@@ -2,7 +2,9 @@
 title: Interpolation et courbes
 type: seance
 code: TC-FT-GVM-05
-status: Ready
+review:
+  - "[[01 courses/__reviews/TC-FT-GVM-05|Review GVM-05]]"
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle

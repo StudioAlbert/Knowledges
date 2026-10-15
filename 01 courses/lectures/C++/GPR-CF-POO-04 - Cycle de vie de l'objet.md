@@ -2,7 +2,9 @@
 title: Cycle de vie de l'objet
 type: seance
 code: GPR-CF-POO-04
-status: To check
+review:
+  - "[[01 courses/__reviews/GPR-CF-POO-04 - Cycle de vie de l'objet|Review POO-04]]"
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet

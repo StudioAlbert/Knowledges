@@ -1,6 +1,4 @@
 ---
-status: To check
-manual_order: 3
 parent:
   - "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:

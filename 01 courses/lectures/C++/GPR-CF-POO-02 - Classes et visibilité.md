@@ -2,7 +2,9 @@
 title: Classes et visibilité
 type: seance
 code: GPR-CF-POO-02
-status: Ready
+review:
+  - "[[01 courses/__reviews/GPR-CF-POO-02|Review POO-02]]"
+status: Post-mortem
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Programmation Orientée Objet
