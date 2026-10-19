@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1000" height="330" fill="#ffffff"/>
+<text x="20.0" y="30.0" text-anchor="start" font-size="13" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">ENTITÉS — un numéro, rien d'autre</text>
+<rect x="230.0" y="40.0" width="54.0" height="30.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="257.0" y="60.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">1</text>
+<rect x="284.0" y="40.0" width="54.0" height="30.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="311.0" y="60.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">2</text>
+<rect x="338.0" y="40.0" width="54.0" height="30.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="365.0" y="60.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">3</text>
+<rect x="392.0" y="40.0" width="54.0" height="30.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="419.0" y="60.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">4</text>
+<rect x="446.0" y="40.0" width="54.0" height="30.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="473.0" y="60.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">5</text>
+<rect x="500.0" y="40.0" width="54.0" height="30.0" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="527.0" y="60.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="JetBrains Mono, Consolas, monospace">6</text>
+<text x="572.0" y="60.0" text-anchor="start" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">pas de code, pas de données</text>
+<text x="20.0" y="108.0" text-anchor="start" font-size="13" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">COMPOSANTS — un tableau par type, sans trou</text>
+<text x="216.0" y="140.0" text-anchor="end" font-size="14" font-weight="800" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">Position</text>
+<rect x="230.0" y="120.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2b6cb0" stroke-width="2"/>
+<text x="257.0" y="140.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">1</text>
+<rect x="284.0" y="120.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2b6cb0" stroke-width="2"/>
+<text x="311.0" y="140.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">2</text>
+<rect x="338.0" y="120.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2b6cb0" stroke-width="2"/>
+<text x="365.0" y="140.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">3</text>
+<rect x="392.0" y="120.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2b6cb0" stroke-width="2"/>
+<text x="419.0" y="140.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">4</text>
+<rect x="446.0" y="120.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2b6cb0" stroke-width="2"/>
+<text x="473.0" y="140.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">5</text>
+<rect x="500.0" y="120.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2b6cb0" stroke-width="2"/>
+<text x="527.0" y="140.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2b6cb0" font-family="JetBrains Mono, Consolas, monospace">6</text>
+<path d="M230.0,164.0 L554.0,164.0" fill="none" stroke="#2b6cb0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="572.0" y="169.0" text-anchor="start" font-size="13" font-weight="800" fill="#2b6cb0" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Rendu balaie les 6, d'affilée</text>
+<text x="216.0" y="214.0" text-anchor="end" font-size="14" font-weight="800" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace">Vitesse</text>
+<rect x="230.0" y="194.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2e9e5b" stroke-width="2"/>
+<text x="257.0" y="214.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace">1</text>
+<rect x="284.0" y="194.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2e9e5b" stroke-width="2"/>
+<text x="311.0" y="214.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace">2</text>
+<rect x="338.0" y="194.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2e9e5b" stroke-width="2"/>
+<text x="365.0" y="214.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace">4</text>
+<rect x="392.0" y="194.0" width="54.0" height="30.0" rx="4" fill="#f5f5f5" stroke="#2e9e5b" stroke-width="2"/>
+<text x="419.0" y="214.0" text-anchor="middle" font-size="13" font-weight="700" fill="#2e9e5b" font-family="JetBrains Mono, Consolas, monospace">6</text>
+<text x="464.0" y="214.0" text-anchor="start" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">3 et 5 ne bougent pas : ils n'y sont pas</text>
+<path d="M230.0,238.0 L446.0,238.0" fill="none" stroke="#2e9e5b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="464.0" y="243.0" text-anchor="start" font-size="13" font-weight="800" fill="#2e9e5b" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Déplacement balaie les 4, d'affilée</text>
+<text x="500.0" y="312.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">La donnée suivante est déjà dans la ligne de cache : c'est tout ce que l'ECS achète.</text>
+</svg>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hériter ou assembler — le coût des combinaisons</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --vert: #2e9e5b;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 640px; line-height: 1.5; }
+
+.toolbar {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 12px 14px; margin-bottom: 16px;
+}
+.toolbar .lab { font-size: 13px; font-weight: 700; color: var(--muted); margin-right: 4px; }
+.cap {
+    font: 600 14px "Inter", sans-serif; color: var(--sae-black);
+    background: #fff; border: 2px solid var(--line); border-radius: 999px;
+    padding: 7px 15px; cursor: pointer; transition: border-color .12s, background .12s;
+}
+.cap:hover { border-color: var(--muted2); }
+.cap.on { border-color: var(--sae-black); background: var(--sae-black); color: #fff; }
+
+.stage { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px;
+    min-height: 0;
+}
+.card h2 {
+    font-size: 12px; font-weight: 800; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted2); margin-bottom: 4px;
+}
+.card .sous { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.chiffre { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.chiffre small { font-size: 15px; font-weight: 700; margin-left: 8px; letter-spacing: 0; }
+.rouge .chiffre { color: var(--sae-red); }
+.vert .chiffre { color: var(--vert); }
+
+.liste {
+    margin-top: 14px; font-family: "JetBrains Mono", monospace; font-size: 12px;
+    line-height: 1.75; color: var(--muted);
+    max-height: 210px; overflow: hidden;
+}
+.liste div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reste { color: var(--sae-red); font-weight: 800; font-size: 13px; margin-top: 8px; }
+.vert .liste { color: #2b6b45; }
+
+.verdict {
+    margin-top: 16px; padding: 12px 16px; border-radius: var(--radius);
+    background: var(--panel2); border: 1px solid var(--line);
+    font-size: 15px; font-weight: 700; text-align: center;
+}
+.verdict b { color: var(--sae-red); }
+
+footer { margin-top: 22px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .toolbar { margin-bottom: 12px; padding: 9px 12px; }
+html.embed .stage { flex: 1; min-height: 0; }
+html.embed .card { height: 100%; display: flex; flex-direction: column; }
+html.embed .liste { flex: 1; max-height: none; }
+
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>Hériter ou <span class="hl">assembler</span></h1>
+        <p class="sub">Des capacités qui se combinent. À gauche, le nombre de classes que
+            l'héritage exige pour couvrir tous les cas. À droite, le nombre de composants.</p>
+    </div>
+</header>
+
+<div class="toolbar">
+    <span class="lab">Capacités du jeu :</span>
+    <span id="caps"></span>
+</div>
+
+<div class="stage">
+    <div class="card rouge">
+        <h2>Par héritage</h2>
+        <p class="sous">une classe par combinaison possible</p>
+        <p class="chiffre"><span id="nClasses">0</span><small>classes à écrire</small></p>
+        <div class="liste" id="classes"></div>
+        <p class="reste" id="reste"></p>
+    </div>
+
+    <div class="card vert">
+        <h2>Par composition</h2>
+        <p class="sous">un composant par capacité, assemblés à la demande</p>
+        <p class="chiffre"><span id="nComposants">0</span><small>composants à écrire</small></p>
+        <div class="liste" id="composants"></div>
+    </div>
+</div>
+
+<p class="verdict" id="verdict"></p>
+
+<footer>SAE Institute Genève — TC-FT-PCL-04, composition contre héritage.</footer>
+
+</div>
+
+<script>
+(function(){
+
+// nom de la capacité, et l'adjectif qui sert à fabriquer le nom de classe
+const CAPACITES = [
+    {nom: "Voler", adj: "Volant"},
+    {nom: "Tirer", adj: "Tireur"},
+    {nom: "Se soigner", adj: "Soigneur"},
+    {nom: "Invisible", adj: "Invisible"},
+    {nom: "Blindé", adj: "Blinde"},
+    {nom: "Exploser", adj: "Explosif"}
+];
+
+const MAX_AFFICHE = 14;
+const actives = new Set([0, 1]);
+const $ = (id) => document.getElementById(id);
+
+$("caps").innerHTML = CAPACITES.map((c, i) =>
+    '<button class="cap" data-i="' + i + '">' + c.nom + "</button>").join(" ");
+
+function rendre(){
+    const choisies = CAPACITES.filter((_, i) => actives.has(i));
+    const n = choisies.length;
+
+    document.querySelectorAll(".cap").forEach((b) =>
+        b.classList.toggle("on", actives.has(Number(b.dataset.i))));
+
+    // toutes les combinaisons non vides : 2^n - 1
+    const noms = [];
+    for (let masque = 1; masque < (1 << n); masque++) {
+        let nom = "Ennemi";
+        for (let i = 0; i < n; i++) if (masque & (1 << i)) nom += choisies[i].adj;
+        noms.push(nom);
+    }
+
+    $("nClasses").textContent = noms.length;
+    $("nComposants").textContent = n;
+
+    $("classes").innerHTML = noms.slice(0, MAX_AFFICHE).map((x) => "<div>" + x + "</div>").join("");
+    $("reste").textContent = noms.length > MAX_AFFICHE
+        ? "+ " + (noms.length - MAX_AFFICHE) + " autre" + (noms.length - MAX_AFFICHE > 1 ? "s" : "") : "";
+
+    $("composants").innerHTML = choisies.map((c) => "<div>" + c.adj + "</div>").join("")
+        + (n ? '<div style="margin-top:8px">un ennemi = une liste de ceux-ci</div>' : "");
+
+    $("verdict").innerHTML = n === 0
+        ? "Cochez une capacité."
+        : "Une capacité de plus : <b>" + (noms.length * 2 + 1) + " classes</b> au lieu de "
+          + noms.length + ", mais toujours <b>" + (n + 1) + " composants</b>.";
+}
+
+$("caps").addEventListener("click", function(e){
+    const b = e.target.closest(".cap");
+    if (!b) return;
+    const i = Number(b.dataset.i);
+    if (actives.has(i)) actives.delete(i); else actives.add(i);
+    rendre();
+});
+
+if (document.documentElement.classList.contains("embed")){
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+rendre();
+})();
+</script>
+</body>
+</html>
