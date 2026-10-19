@@ -1,0 +1,11 @@
+{
+  "templater-obsidian:00 templates/notes/review.md": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "R"
+    }
+  ]
+}
