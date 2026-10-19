@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quel pattern ? — sept situations</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --vert: #2e9e5b;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 { font-weight: 800; font-size: clamp(22px, 3vw, 34px); letter-spacing: -.01em; line-height: 1; text-transform: uppercase; }
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 640px; line-height: 1.5; }
+.compteur { font: 700 15px "Inter", sans-serif; color: var(--muted); }
+.compteur b { color: var(--sae-red); font-size: 20px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 18px; align-items: start; }
+.card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px;
+}
+.card h2 { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 12px; }
+
+.situation { font-size: 16.5px; line-height: 1.65; }
+.situation b { color: var(--sae-red); }
+pre {
+    margin-top: 14px; background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 12px 14px; overflow-x: auto;
+    font-family: "JetBrains Mono", monospace; font-size: 13px; line-height: 1.6;
+}
+
+.choix { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.choix button {
+    font: 700 14px "Inter", sans-serif; color: var(--sae-black);
+    background: #fff; border: 2px solid var(--line); border-radius: 999px;
+    padding: 9px 17px; cursor: pointer; transition: border-color .12s, background .12s;
+}
+.choix button:hover:not(:disabled) { border-color: var(--muted2); }
+.choix button.bon { border-color: var(--vert); background: #eaf6ef; color: #15502c; }
+.choix button.faux { border-color: var(--sae-red); background: #fdecee; color: #8c1119; }
+.choix button:disabled { cursor: default; }
+
+.actions { display: flex; gap: 10px; margin-top: 16px; }
+button.go { font: 700 14px "Inter", sans-serif; color: #fff; background: var(--sae-red); border: 0; border-radius: var(--radius); padding: 11px 20px; cursor: pointer; }
+button.go:hover { background: #b70510; }
+
+.correction { display: none; }
+.correction.on { display: block; }
+.reponse { font-size: 19px; font-weight: 800; color: var(--sae-red); margin-bottom: 10px; }
+.bloc { margin-top: 14px; }
+.bloc .t { font-size: 11.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--muted2); }
+.bloc .c { font-size: 14.5px; line-height: 1.6; margin-top: 4px; }
+.meta { margin-top: 14px; padding: 12px 14px; background: var(--panel2); border-left: 4px solid var(--sae-red); font-size: 14.5px; line-height: 1.6; font-style: italic; }
+.attente { color: var(--muted2); font-size: 14px; line-height: 1.6; }
+
+footer { margin-top: 22px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .stage { flex: 1; min-height: 0; }
+html.embed .card { max-height: 100%; overflow-y: auto; }
+html.embed .situation { font-size: 15px; }
+
+@media (max-width: 920px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>Quel <span class="hl">pattern</span> ?</h1>
+        <p class="sub">Sept situations. Nommer le problème, puis choisir — et l'une des
+            bonnes réponses est qu'aucun pattern n'est nécessaire.</p>
+    </div>
+    <p class="compteur" id="compteur"></p>
+</header>
+
+<div class="stage">
+    <div class="card">
+        <h2 id="titre">Situation</h2>
+        <p class="situation" id="situation"></p>
+        <pre id="code"></pre>
+        <div class="choix" id="choix"></div>
+        <div class="actions"><button class="go" id="suivant">Situation suivante</button></div>
+    </div>
+
+    <div class="card">
+        <h2>La correction</h2>
+        <p class="attente" id="attente">Choisissez d'abord. La correction dit quel problème
+            était posé, comment le pattern y répond, et donne une métaphore pour le retenir.</p>
+        <div class="correction" id="correction">
+            <p class="reponse" id="reponse"></p>
+            <div class="bloc"><div class="t">Le problème</div><div class="c" id="probleme"></div></div>
+            <div class="bloc"><div class="t">Comment</div><div class="c" id="comment"></div></div>
+            <p class="meta" id="metaphore"></p>
+        </div>
+    </div>
+</div>
+
+<footer>SAE Institute Genève — TC-FT-PCL-03, taxonomie des patterns.</footer>
+
+</div>
+
+<script>
+(function(){
+
+const PATTERNS = ["Observer", "State", "Strategy", "Command", "Object Pool", "Component", "Aucun"];
+
+const SITUATIONS = [
+  {
+    s: "Une barre de vie, un son, une animation et un succès doivent tous réagir quand le joueur perd des points de vie. Le joueur ne doit <b>connaître aucun</b> d'entre eux.",
+    r: "Observer",
+    p: "Un émetteur, un nombre d'intéressés inconnu à l'écriture — et qui change selon la scène.",
+    c: "L'émetteur tient une liste d'abonnés et les prévient. Il ne sait pas qui ils sont, seulement qu'ils veulent être prévenus.",
+    m: "Une liste de diffusion : l'expéditeur écrit une fois, chacun reçoit, et personne n'a à se connaître."
+  },
+  {
+    s: "Un héros saute, atterrit, puis reste au sol. Chaque phase a ses propres règles, l'atterrissage impose un délai, et le code est devenu un tas de booléens qui se contredisent.",
+    r: "State",
+    p: "Un comportement à phases, où chaque phase change les règles — et où deux booléens peuvent décrire un état impossible.",
+    c: "Une classe par état, un seul état courant, et des transitions nommées. Ce qui n'est pas une transition devient interdit.",
+    m: "Un feu tricolore : il n'est jamais vert et rouge à la fois, et on sait exactement ce qui le fait changer."
+  },
+  {
+    s: "Trois IA d'ennemi — agressive, prudente, fuyarde — qu'on veut pouvoir <b>échanger à l'exécution</b> sur le même ennemi, selon ses points de vie.",
+    r: "Strategy",
+    p: "Plusieurs façons de faire la même chose, à choisir pendant que le jeu tourne.",
+    c: "On sort l'algorithme dans un objet à part, derrière une interface. L'ennemi tient une référence et peut en changer.",
+    m: "Un GPS : même trajet, mais « le plus rapide », « le plus court » ou « sans péage » — on change d'avis en route."
+  },
+  {
+    s: "Un jeu au tour par tour doit permettre d'<b>annuler</b> les cinq derniers coups. Et le menu des options doit permettre de réassigner les touches sans toucher au menu.",
+    r: "Command",
+    p: "Une action qu'il faut pouvoir garder, rejouer, défaire — ou brancher sur une autre touche que celle prévue.",
+    c: "L'action devient un objet avec un `Execute` et un `Undo`. On peut alors l'empiler, la stocker, la transmettre.",
+    m: "Une commande au restaurant : le ticket existe indépendamment du client et du cuisinier, et on peut l'annuler."
+  },
+  {
+    s: "Un shoot'em up crée et détruit trois cents projectiles par seconde. Le profileur montre que les allocations font tomber le framerate à chaque vague.",
+    r: "Object Pool",
+    p: "Des objets nombreux, à durée de vie courte, dont la création coûte plus cher que l'usage.",
+    c: "On alloue une réserve une fois, puis on recycle : un objet « détruit » est seulement marqué libre et remis dans la réserve.",
+    m: "La vaisselle d'un restaurant : on ne jette pas l'assiette après chaque service, on la lave."
+  },
+  {
+    s: "Un ennemi volant, un autre qui tire, un troisième qui fait les deux, un quatrième qui vole et se soigne. L'arbre d'héritage a déjà quinze classes.",
+    r: "Component",
+    p: "Des capacités qui se <b>combinent</b> : l'héritage demanderait une classe par combinaison.",
+    c: "Chaque capacité devient un composant qu'on ajoute à une entité neutre. Une entité est une liste, pas un rang dans un arbre.",
+    m: "Des briques : on ne fabrique pas une brique « rouge-plate-à-quatre-tenons », on assemble."
+  },
+  {
+    s: "Deux types d'ennemis à instancier, toujours les mêmes, connus à l'écriture du code. Quelqu'un propose une fabrique abstraite avec une interface et deux fabriques concrètes.",
+    r: "Aucun",
+    p: "Il n'y en a pas. Deux `new` dans une fonction font le travail, et rien n'annonce un troisième type.",
+    c: "Le pattern coûte trois fichiers, un niveau d'indirection et un vocabulaire à expliquer — pour un problème qui n'existe pas encore.",
+    m: "Un marteau : quand on vient d'en apprendre un, tout ressemble à un clou. Nommer le problème d'abord, chercher le pattern ensuite."
+  }
+];
+
+const $ = (id) => document.getElementById(id);
+const st = {i: 0, justes: 0, repondues: 0, fait: false};
+
+$("choix").innerHTML = PATTERNS.map((p) =>
+    '<button data-p="' + p + '">' + (p === "Aucun" ? "Aucun — du code simple suffit" : p) + "</button>").join("");
+
+function rendre(){
+    const q = SITUATIONS[st.i];
+    st.fait = false;
+    $("titre").textContent = "Situation " + (st.i + 1) + " sur " + SITUATIONS.length;
+    $("situation").innerHTML = q.s;
+    $("code").style.display = q.code ? "" : "none";
+    if (q.code) $("code").textContent = q.code;
+    document.querySelectorAll(".choix button").forEach((b) => {
+        b.className = ""; b.disabled = false;
+    });
+    $("correction").className = "correction";
+    $("attente").style.display = "";
+    $("compteur").innerHTML = "<b>" + st.justes + "</b> / " + st.repondues;
+}
+
+$("choix").addEventListener("click", function(e){
+    const b = e.target.closest("button");
+    if (!b || st.fait) return;
+    const q = SITUATIONS[st.i];
+    st.fait = true;
+    st.repondues++;
+    if (b.dataset.p === q.r) st.justes++;
+
+    document.querySelectorAll(".choix button").forEach((x) => {
+        x.disabled = true;
+        if (x.dataset.p === q.r) x.className = "bon";
+        else if (x === b) x.className = "faux";
+    });
+
+    $("reponse").textContent = q.r === "Aucun" ? "Aucun pattern" : q.r;
+    $("probleme").innerHTML = q.p;
+    $("comment").innerHTML = q.c;
+    $("metaphore").textContent = q.m;
+    $("correction").className = "correction on";
+    $("attente").style.display = "none";
+    $("compteur").innerHTML = "<b>" + st.justes + "</b> / " + st.repondues;
+});
+
+$("suivant").addEventListener("click", function(){
+    st.i = (st.i + 1) % SITUATIONS.length;
+    rendre();
+});
+
+if (document.documentElement.classList.contains("embed")){
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+rendre();
+})();
+</script>
+</body>
+</html>
