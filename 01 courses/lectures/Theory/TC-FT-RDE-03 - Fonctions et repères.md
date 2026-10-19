@@ -2,7 +2,7 @@
 title: Fonctions et repères
 type: seance
 code: TC-FT-RDE-03
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Résolution d'Équation
@@ -11,6 +11,7 @@ classes:
   - GP-925
   - WEB-926
 date_scheduled: 2026-10-21
+url_test: http://localhost:3001/theory/tc-ft-rde-03/
 manual_order: 29
 estimate: 1h
 tache: découper

@@ -27,6 +27,7 @@ Ce dossier fait partie du vault `Knowledges` ; il en était un sous-module, il n
 | `_widgets/etats_quizz_widget.html` | Cinq situations de gameplay : trier les étiquettes entre états et non-états — donnée, condition, événement, action — puis révéler la machine attendue et ses transitions | `#porte` `#garde` `#arme` `#dash` `#manche` | GPR-UN-APU-09 |
 | `_widgets/discriminant_widget.html` | Une parabole a, b, c aux curseurs : le discriminant, les racines, et la somme et le produit en vis-a-vis pour verifier | `#parabole` `#deux` `#une` `#aucune` | TC-FT-RDE-02 |
 | `_widgets/equations_quizz_widget.html` | Quizz de resolution : on tape la reponse, la correction donne les etapes et la methode a reconnaitre | `#cours` (5 equations) `#maison` (10) | TC-FT-RDE-02 |
+| `_widgets/fonctions_widget.html` | Six fonctions de jeu aux curseurs — degats par distance, sensibilite, XP, volume en dB, racine, ecart — avec domaine, image, monotonie, racines et extremum lus automatiquement, et composition avec clamp, 1-y ou y2 | `#degats` `#sensibilite` `#xp` `#volume` `#racine` `#ecart` | TC-FT-RDE-03 |
 | `_widgets/composition_widget.html` | Le coût des combinaisons : cocher des capacités, et comparer le nombre de classes qu'exigerait l'héritage (2^n − 1) au nombre de composants (n) | — | TC-FT-PCL-04 |
 | `_widgets/utility_ai.html` | Courbes de réponse pour la décision des PNJ | — | portfolio uniquement |
 

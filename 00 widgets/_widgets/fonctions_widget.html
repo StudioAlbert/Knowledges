@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fonctions de jeu — domaine, image, extremum</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --bleu: #2b6cb0;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 { font-weight: 800; font-size: clamp(22px, 3vw, 34px); letter-spacing: -.01em; line-height: 1; text-transform: uppercase; }
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 600px; line-height: 1.5; }
+.formula { font-family: "JetBrains Mono", monospace; background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; font-size: 15px; white-space: nowrap; }
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.tabs button {
+    font: 600 13px "Inter", sans-serif; color: var(--muted);
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 7px 13px; cursor: pointer;
+}
+.tabs button:hover { color: var(--sae-black); border-color: var(--muted2); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 11px 14px; margin-bottom: 14px;
+}
+.curseur { display: flex; align-items: center; gap: 9px; }
+.curseur label { font: 700 13px "Inter", sans-serif; color: var(--muted); }
+.curseur input { width: 130px; accent-color: var(--sae-red); }
+.curseur .val { font: 700 14px "JetBrains Mono", monospace; min-width: 38px; text-align: right; color: var(--sae-red); }
+.compose { display: flex; align-items: center; gap: 9px; margin-left: auto; }
+.compose label { font: 700 13px "Inter", sans-serif; color: var(--muted); }
+select { font: 600 13px "Inter", sans-serif; padding: 7px 10px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--text); }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 18px; align-items: stretch; }
+.board, .side {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; min-height: 0;
+}
+.board svg { width: 100%; height: auto; display: block; }
+.side h2 { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+.lect { font-size: 14px; line-height: 2.1; }
+.lect .k { color: var(--muted); }
+.lect b { font-family: "JetBrains Mono", monospace; color: var(--sae-black); }
+.lect .rouge { color: var(--sae-red); }
+.quoi { margin-top: 14px; padding: 11px 13px; background: var(--panel2); border-left: 4px solid var(--sae-red); font-size: 13.5px; line-height: 1.6; }
+
+footer { margin-top: 22px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs, html.embed .toolbar { margin-bottom: 10px; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+
+@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>Fonctions <span class="hl">de jeu</span></h1>
+        <p class="sub">Les mêmes courbes qu'au tableau, mais branchées sur ce qu'elles
+            règlent vraiment. Le panneau lit domaine, image, monotonie, racines et extremum.</p>
+    </div>
+    <div class="formula" id="formule"></div>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<div class="toolbar" id="toolbar">
+    <div class="curseur" id="p0"><label id="l0"></label><input type="range" id="s0"><span class="val" id="v0"></span></div>
+    <div class="curseur" id="p1"><label id="l1"></label><input type="range" id="s1"><span class="val" id="v1"></span></div>
+    <div class="compose">
+        <label for="comp">puis</label>
+        <select id="comp">
+            <option value="rien">— rien —</option>
+            <option value="clamp">clamp entre 0 et 1</option>
+            <option value="inv">1 − y</option>
+            <option value="carre">y²</option>
+        </select>
+    </div>
+</div>
+
+<div class="stage">
+    <div class="board"><svg id="svg" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    <div class="side">
+        <h2>Lecture</h2>
+        <div class="lect" id="lect"></div>
+        <p class="quoi" id="quoi"></p>
+    </div>
+</div>
+
+<footer>SAE Institute Genève — TC-FT-RDE-03, fonctions et repères.</footer>
+
+</div>
+
+<script>
+(function(){
+
+// chaque fonction declare son domaine, ses parametres et ce qu'elle regle
+const FONCTIONS = {
+  degats: {
+    nom: "Dégâts", onglet: "Dégâts par distance",
+    dom: [0, 20], px: "distance (m)",
+    params: [{cle: "R", min: 2, max: 20, pas: 0.5, def: 12, lab: "portée R"}],
+    f: (x, p) => Math.max(0, 1 - x / p.R),
+    txt: (p) => "max(0, 1 − d / " + p.R + ")",
+    quoi: "Au-delà de la portée, la fonction vaut 0 et y reste : le max borne la sortie sans test supplémentaire."
+  },
+  sensibilite: {
+    nom: "Sensibilité", onglet: "Sensibilité souris",
+    dom: [0, 1], px: "déplacement brut",
+    params: [{cle: "k", min: 0.4, max: 3, pas: 0.1, def: 1.6, lab: "exposant k"}],
+    f: (x, p) => Math.pow(x, p.k),
+    txt: (p) => "x^" + p.k,
+    quoi: "k > 1 : les petits gestes deviennent très fins, les grands restent rapides. C'est la courbe de réponse d'une souris."
+  },
+  xp: {
+    nom: "XP", onglet: "Courbe d'XP",
+    dom: [1, 20], px: "niveau",
+    params: [{cle: "b", min: 50, max: 400, pas: 10, def: 100, lab: "base"},
+             {cle: "p", min: 1, max: 8, pas: 0.5, def: 4, lab: "palier"}],
+    f: (x, p) => p.b * Math.pow(2, (x - 1) / p.p),
+    txt: (p) => p.b + " · 2^((n−1)/" + p.p + ")",
+    quoi: "Exponentielle : le coût double tous les « palier » niveaux. Le dernier niveau coûte presque autant que tous les précédents."
+  },
+  volume: {
+    nom: "Volume", onglet: "Volume en dB",
+    dom: [0.01, 1], px: "amplitude",
+    params: [],
+    f: (x) => 20 * Math.log10(x),
+    txt: () => "20 · log₁₀(x)",
+    quoi: "Logarithme : diviser l'amplitude par deux retire toujours 6 dB, quelle que soit la valeur de départ. L'oreille, elle, entend en proportions."
+  },
+  racine: {
+    nom: "Racine", onglet: "Racine carrée",
+    dom: [0, 1], px: "charge",
+    params: [],
+    f: (x) => Math.sqrt(x),
+    txt: () => "√x",
+    quoi: "Monte vite au début, puis mollit : utile pour un effet qui doit se voir tout de suite sans exploser ensuite."
+  },
+  ecart: {
+    nom: "Écart", onglet: "Valeur absolue",
+    dom: [0, 1], px: "valeur",
+    params: [{cle: "c", min: 0, max: 1, pas: 0.05, def: 0.5, lab: "cible c"}],
+    f: (x, p) => Math.abs(x - p.c),
+    txt: (p) => "|x − " + p.c + "|",
+    quoi: "L'écart à une cible, sans signe. Le V marque le point où l'écart est nul — c'est le minimum de la fonction."
+  }
+};
+
+const COMPOSE = {
+  rien:  {g: (y) => y, txt: ""},
+  clamp: {g: (y) => Math.max(0, Math.min(1, y)), txt: "clamp(…, 0, 1)"},
+  inv:   {g: (y) => 1 - y, txt: "1 − …"},
+  carre: {g: (y) => y * y, txt: "(…)²"}
+};
+
+const CLES = Object.keys(FONCTIONS);
+const W = 640, H = 400, M = 44;
+const $ = (id) => document.getElementById(id);
+const st = {cle: CLES[0], p: {}, comp: "rien"};
+
+$("tabs").innerHTML = CLES.map((c) =>
+    '<button data-tab="' + c + '">' + FONCTIONS[c].onglet + "</button>").join("");
+
+const arrondi = (v) => Math.abs(v) >= 100 ? Math.round(v) : Math.round(v * 100) / 100;
+
+function echantillons(){
+    const F = FONCTIONS[st.cle], g = COMPOSE[st.comp].g;
+    const [a, b] = F.dom, pts = [];
+    for (let i = 0; i <= 240; i++) {
+        const x = a + (b - a) * i / 240;
+        pts.push([x, g(F.f(x, st.p))]);
+    }
+    return pts;
+}
+
+function rendre(){
+    const F = FONCTIONS[st.cle];
+    document.querySelectorAll(".tabs button").forEach((b) =>
+        b.classList.toggle("on", b.dataset.tab === st.cle));
+
+    // les curseurs de la fonction courante
+    [0, 1].forEach((i) => {
+        const def = F.params[i];
+        $("p" + i).style.display = def ? "" : "none";
+        if (!def) return;
+        $("l" + i).textContent = def.lab;
+        const s = $("s" + i);
+        s.min = def.min; s.max = def.max; s.step = def.pas;
+        s.value = st.p[def.cle];
+        $("v" + i).textContent = st.p[def.cle];
+    });
+
+    const comp = COMPOSE[st.comp].txt;
+    const expr = comp ? comp.replace("…", F.txt(st.p)) : F.txt(st.p);
+    $("formule").innerHTML = "<b>y = " + expr + "</b>";
+
+    const pts = echantillons();
+    const ys = pts.map((p) => p[1]).filter((y) => isFinite(y));
+    const ymin = Math.min(...ys), ymax = Math.max(...ys);
+    const pad = (ymax - ymin) * 0.12 || 1;
+    const lo = ymin - pad, hi = ymax + pad;
+    const [xa, xb] = F.dom;
+
+    const sx = (x) => M + (x - xa) / (xb - xa) * (W - M - 16);
+    const sy = (y) => H - M - (y - lo) / (hi - lo) * (H - M - 20);
+
+    const g = [];
+    g.push('<line x1="' + M + '" y1="' + sy(lo) + '" x2="' + (W - 16) + '" y2="' + sy(lo) + '" stroke="#ececec" stroke-width="1"/>');
+    if (lo < 0 && hi > 0)
+        g.push('<line x1="' + M + '" y1="' + sy(0) + '" x2="' + (W - 16) + '" y2="' + sy(0) + '" stroke="#888" stroke-width="1.5" stroke-dasharray="4 4"/>');
+    g.push('<line x1="' + M + '" y1="' + (H - M) + '" x2="' + (W - 16) + '" y2="' + (H - M) + '" stroke="#888" stroke-width="2"/>');
+    g.push('<line x1="' + M + '" y1="' + (H - M) + '" x2="' + M + '" y2="20" stroke="#888" stroke-width="2"/>');
+
+    for (const v of [xa, (xa + xb) / 2, xb])
+        g.push('<text x="' + sx(v) + '" y="' + (H - M + 17) + '" text-anchor="middle" font-size="11" fill="#888" font-family="Inter, sans-serif">' + arrondi(v) + "</text>");
+    for (const v of [ymin, ymax])
+        g.push('<text x="' + (M - 8) + '" y="' + (sy(v) + 4) + '" text-anchor="end" font-size="11" fill="#888" font-family="Inter, sans-serif">' + arrondi(v) + "</text>");
+    g.push('<text x="' + (W - 16) + '" y="' + (H - 10) + '" text-anchor="end" font-size="12" font-weight="700" fill="#888" font-family="Inter, sans-serif">' + F.px + "</text>");
+
+    g.push('<path d="M ' + pts.filter((p) => isFinite(p[1])).map((p) => sx(p[0]).toFixed(1) + " " + sy(p[1]).toFixed(1)).join(" L ") + '" fill="none" stroke="#E30613" stroke-width="3"/>');
+
+    // extremum et racines, reperes par echantillonnage
+    let iMax = 0, iMin = 0;
+    pts.forEach((p, i) => { if (p[1] > pts[iMax][1]) iMax = i; if (p[1] < pts[iMin][1]) iMin = i; });
+    // un palier a zero ne compte qu'une racine : on ne retient que l'entree dans le zero
+    const racines = [];
+    const nul = (y) => Math.abs(y) < 1e-9;
+    for (let i = 1; i < pts.length; i++) {
+        if (nul(pts[i][1]) && !nul(pts[i - 1][1])) racines.push(pts[i][0]);
+        else if (!nul(pts[i][1]) && !nul(pts[i - 1][1]) && pts[i - 1][1] * pts[i][1] < 0)
+            racines.push((pts[i - 1][0] + pts[i][0]) / 2);
+    }
+    if (nul(pts[0][1])) racines.unshift(pts[0][0]);
+    for (const r of racines.slice(0, 4))
+        g.push('<circle cx="' + sx(r) + '" cy="' + sy(0) + '" r="5" fill="#E30613"/>');
+    for (const i of [iMax, iMin])
+        g.push('<circle cx="' + sx(pts[i][0]) + '" cy="' + sy(pts[i][1]) + '" r="4.5" fill="none" stroke="#2b6cb0" stroke-width="2"/>');
+
+    $("svg").innerHTML = g.join("");
+
+    // monotonie : on regarde le signe des variations
+    let monte = 0, descend = 0;
+    for (let i = 1; i < pts.length; i++) {
+        const d = pts[i][1] - pts[i - 1][1];
+        if (d > 1e-9) monte++; else if (d < -1e-9) descend++;
+    }
+    const mono = monte && descend ? "ni l'un ni l'autre" : (monte ? "croissante" : (descend ? "décroissante" : "constante"));
+
+    $("lect").innerHTML =
+        '<div><span class="k">domaine</span> &nbsp;<b>[' + arrondi(xa) + " ; " + arrondi(xb) + "]</b></div>" +
+        '<div><span class="k">image</span> &nbsp;<b>[' + arrondi(ymin) + " ; " + arrondi(ymax) + "]</b></div>" +
+        '<div><span class="k">monotonie</span> &nbsp;<b>' + mono + "</b></div>" +
+        '<div><span class="k">racines</span> &nbsp;<b class="rouge">' +
+            (racines.length ? racines.slice(0, 3).map(arrondi).join(" · ") : "aucune") + "</b></div>" +
+        '<div><span class="k">maximum</span> &nbsp;<b>' + arrondi(pts[iMax][1]) + "</b> en " + arrondi(pts[iMax][0]) + "</div>" +
+        '<div><span class="k">minimum</span> &nbsp;<b>' + arrondi(pts[iMin][1]) + "</b> en " + arrondi(pts[iMin][0]) + "</div>";
+
+    $("quoi").textContent = F.quoi;
+}
+
+[0, 1].forEach((i) => {
+    $("s" + i).addEventListener("input", function(){
+        const def = FONCTIONS[st.cle].params[i];
+        if (!def) return;
+        st.p[def.cle] = parseFloat(this.value);
+        rendre();
+    });
+});
+$("comp").addEventListener("change", function(){ st.comp = this.value; rendre(); });
+
+function show(name){
+    if (!FONCTIONS[name]) name = CLES[0];
+    st.cle = name;
+    st.p = {};
+    for (const d of FONCTIONS[name].params) st.p[d.cle] = d.def;
+    rendre();
+}
+document.querySelectorAll(".tabs button").forEach((btn) => btn.addEventListener("click", function(){
+    history.replaceState(null, "", "#" + btn.dataset.tab);
+    show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
