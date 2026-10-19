@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le discriminant — où la parabole coupe l'axe</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --vert: #2e9e5b;
+    --bleu: #2b6cb0;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: var(--bg); color: var(--text); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 { font-weight: 800; font-size: clamp(22px, 3vw, 34px); letter-spacing: -.01em; line-height: 1; text-transform: uppercase; }
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace; background: var(--panel2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 10px 14px; font-size: 16px; white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: 600 13px "Inter", sans-serif; color: var(--muted);
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 7px 13px; cursor: pointer;
+}
+.tabs button:hover { color: var(--sae-black); border-color: var(--muted2); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 11px 14px; margin-bottom: 14px;
+}
+.curseur { display: flex; align-items: center; gap: 9px; }
+.curseur label { font: 700 15px "JetBrains Mono", monospace; color: var(--sae-red); }
+.curseur input { width: 150px; accent-color: var(--sae-red); }
+.curseur .val { font: 700 14px "JetBrains Mono", monospace; min-width: 42px; text-align: right; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: stretch; }
+.board, .side {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px;
+    min-height: 0;
+}
+.board svg { width: 100%; height: auto; display: block; }
+
+.side h2 { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+.side + .side, .bloc + .bloc { margin-top: 14px; }
+.ligne { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.9; }
+.ligne b { color: var(--sae-red); }
+.verdict { margin-top: 12px; padding: 10px 12px; border-radius: var(--radius); font-size: 14px; font-weight: 700; line-height: 1.5; }
+.verdict.deux { background: #eaf6ef; color: #15502c; }
+.verdict.une { background: #fff6e5; color: #7a4e00; }
+.verdict.aucune { background: #fdecee; color: #8c1119; }
+.jeu { margin-top: 10px; font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+footer { margin-top: 22px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs, html.embed .toolbar { margin-bottom: 10px; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+
+@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>Le <span class="hl">discriminant</span></h1>
+        <p class="sub">Trois coefficients, une parabole. Le signe de Δ dit combien de fois
+            elle coupe l'axe — et rien d'autre ne le dit plus vite.</p>
+    </div>
+    <div class="formula">Δ = b² − 4<b>a</b>c</div>
+</header>
+
+<nav class="tabs" id="tabs">
+    <button data-tab="parabole">Libre</button>
+    <button data-tab="deux">Δ &gt; 0 — deux racines</button>
+    <button data-tab="une">Δ = 0 — une racine</button>
+    <button data-tab="aucune">Δ &lt; 0 — aucune</button>
+</nav>
+
+<div class="toolbar">
+    <div class="curseur"><label for="a">a</label><input type="range" id="a" min="-3" max="3" step="0.1"><span class="val" id="va"></span></div>
+    <div class="curseur"><label for="b">b</label><input type="range" id="b" min="-8" max="8" step="0.1"><span class="val" id="vb"></span></div>
+    <div class="curseur"><label for="c">c</label><input type="range" id="c" min="-8" max="8" step="0.1"><span class="val" id="vc"></span></div>
+</div>
+
+<div class="stage">
+    <div class="board"><svg id="svg" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    <div class="side">
+        <div class="bloc">
+            <h2>Le calcul</h2>
+            <div class="ligne" id="calcul"></div>
+            <p class="verdict" id="verdict"></p>
+        </div>
+        <div class="bloc">
+            <h2>Vérifier sans recalculer</h2>
+            <div class="ligne" id="sp"></div>
+        </div>
+        <div class="bloc">
+            <h2>Dans un jeu</h2>
+            <p class="jeu" id="jeu"></p>
+        </div>
+    </div>
+</div>
+
+<footer>SAE Institute Genève — TC-FT-RDE-02, équations et inéquations.</footer>
+
+</div>
+
+<script>
+(function(){
+
+const PRESETS = {
+    parabole: {a: 1, b: 0, c: -4},
+    deux:     {a: 1, b: -1, c: -6},
+    une:      {a: 1, b: -4, c: 4},
+    aucune:   {a: 1, b: 1, c: 3}
+};
+
+const XMIN = -7, XMAX = 7, YMIN = -10, YMAX = 10;
+const W = 640, H = 420, M = 16;
+const $ = (id) => document.getElementById(id);
+const st = {a: 1, b: 0, c: -4};
+
+const sx = (x) => M + (x - XMIN) / (XMAX - XMIN) * (W - 2 * M);
+const sy = (y) => H - M - (y - YMIN) / (YMAX - YMIN) * (H - 2 * M);
+const arrondi = (v) => Math.round(v * 100) / 100;
+// un coefficient negatif se parenthese, sinon -1² se lit -(1²)
+const par = (v) => (v < 0 ? "(" + arrondi(v) + ")" : String(arrondi(v)));
+
+function dessiner(racines){
+    const g = [];
+    // la grille, puis les axes
+    for (let x = XMIN + 1; x < XMAX; x++)
+        g.push('<line x1="' + sx(x) + '" y1="' + sy(YMIN) + '" x2="' + sx(x) + '" y2="' + sy(YMAX) + '" stroke="#ececec" stroke-width="1"/>');
+    for (let y = YMIN + 2; y < YMAX; y += 2)
+        g.push('<line x1="' + sx(XMIN) + '" y1="' + sy(y) + '" x2="' + sx(XMAX) + '" y2="' + sy(y) + '" stroke="#ececec" stroke-width="1"/>');
+    g.push('<line x1="' + sx(XMIN) + '" y1="' + sy(0) + '" x2="' + sx(XMAX) + '" y2="' + sy(0) + '" stroke="#888" stroke-width="2"/>');
+    g.push('<line x1="' + sx(0) + '" y1="' + sy(YMIN) + '" x2="' + sx(0) + '" y2="' + sy(YMAX) + '" stroke="#888" stroke-width="2"/>');
+    for (let x = XMIN + 1; x < XMAX; x++) {
+        if (!x) continue;
+        g.push('<text x="' + sx(x) + '" y="' + (sy(0) + 15) + '" text-anchor="middle" font-size="10" fill="#888" font-family="Inter, sans-serif">' + x + "</text>");
+    }
+
+    // la parabole, échantillonnée
+    const pts = [];
+    for (let i = 0; i <= 400; i++) {
+        const x = XMIN + (XMAX - XMIN) * i / 400;
+        const y = st.a * x * x + st.b * x + st.c;
+        if (y < YMIN - 2 || y > YMAX + 2) { pts.push(null); continue; }
+        pts.push(sx(x).toFixed(1) + "," + sy(y).toFixed(1));
+    }
+    let d = "", neuf = true;
+    for (const p of pts) {
+        if (!p) { neuf = true; continue; }
+        d += (neuf ? " M " : " L ") + p.replace(",", " ");
+        neuf = false;
+    }
+    g.push('<path d="' + d + '" fill="none" stroke="#E30613" stroke-width="3"/>');
+
+    for (const r of racines) {
+        if (r < XMIN || r > XMAX) continue;
+        g.push('<circle cx="' + sx(r) + '" cy="' + sy(0) + '" r="6" fill="#E30613"/>');
+        g.push('<text x="' + sx(r) + '" y="' + (sy(0) - 14) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#E30613" font-family="JetBrains Mono, monospace">' + arrondi(r) + "</text>");
+    }
+
+    // le sommet : -b/2a
+    if (st.a !== 0) {
+        const xs = -st.b / (2 * st.a), ys = st.a * xs * xs + st.b * xs + st.c;
+        if (xs >= XMIN && xs <= XMAX && ys >= YMIN && ys <= YMAX)
+            g.push('<circle cx="' + sx(xs) + '" cy="' + sy(ys) + '" r="4" fill="none" stroke="#2b6cb0" stroke-width="2"/>');
+    }
+    $("svg").innerHTML = g.join("");
+}
+
+function rendre(){
+    $("va").textContent = arrondi(st.a);
+    $("vb").textContent = arrondi(st.b);
+    $("vc").textContent = arrondi(st.c);
+    $("a").value = st.a; $("b").value = st.b; $("c").value = st.c;
+
+    if (Math.abs(st.a) < 0.05) {
+        // a = 0 : ce n'est plus un trinôme, et c'est une remarque qui vaut le détour
+        $("calcul").innerHTML = "a = 0 → ce n'est plus du second degré.";
+        $("verdict").className = "verdict une";
+        $("verdict").textContent = "bx + c = 0 : une équation du premier degré.";
+        $("sp").innerHTML = "—";
+        $("jeu").textContent = "Sans terme en x², la trajectoire est une droite : plus de gravité.";
+        dessiner(Math.abs(st.b) > 0.001 ? [-st.c / st.b] : []);
+        return;
+    }
+
+    const delta = st.b * st.b - 4 * st.a * st.c;
+    let racines = [];
+    if (delta > 0.0001) racines = [(-st.b - Math.sqrt(delta)) / (2 * st.a), (-st.b + Math.sqrt(delta)) / (2 * st.a)];
+    else if (delta > -0.0001) racines = [-st.b / (2 * st.a)];
+
+    $("calcul").innerHTML =
+        "Δ = " + par(st.b) + "² − 4·" + par(st.a) + "·" + par(st.c) + "<br>Δ = <b>" + arrondi(delta) + "</b>";
+
+    const v = $("verdict");
+    if (racines.length === 2) {
+        v.className = "verdict deux";
+        v.innerHTML = "Deux racines : " + arrondi(racines[0]) + " et " + arrondi(racines[1]);
+        $("jeu").textContent = "La trajectoire traverse le mur : elle entre en un point et ressort en l'autre.";
+    } else if (racines.length === 1) {
+        v.className = "verdict une";
+        v.innerHTML = "Une racine double : " + arrondi(racines[0]);
+        $("jeu").textContent = "Elle effleure le mur — tangente, elle le touche sans le traverser.";
+    } else {
+        v.className = "verdict aucune";
+        v.textContent = "Aucune racine réelle : la parabole ne coupe jamais l'axe.";
+        $("jeu").textContent = "Elle manque le mur. En code, c'est le test à faire avant toute racine carrée.";
+    }
+
+    $("sp").innerHTML = racines.length === 2
+        ? "S = −b/a = <b>" + arrondi(-st.b / st.a) + "</b> &nbsp; (" + arrondi(racines[0]) + " + " + arrondi(racines[1]) + ")<br>"
+          + "P = c/a = <b>" + arrondi(st.c / st.a) + "</b> &nbsp; (" + arrondi(racines[0]) + " × " + arrondi(racines[1]) + ")"
+        : "S = −b/a = <b>" + arrondi(-st.b / st.a) + "</b><br>P = c/a = <b>" + arrondi(st.c / st.a) + "</b>";
+
+    dessiner(racines);
+}
+
+for (const k of ["a", "b", "c"]) {
+    $(k).addEventListener("input", function(){ st[k] = parseFloat(this.value); rendre(); });
+}
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+    if (!PRESETS[name]) name = "parabole";
+    Object.assign(st, PRESETS[name]);
+    tabBtns.forEach((b) => b.classList.toggle("on", b.dataset.tab === name));
+    rendre();
+}
+tabBtns.forEach((btn) => btn.addEventListener("click", function(){
+    history.replaceState(null, "", "#" + btn.dataset.tab);
+    show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

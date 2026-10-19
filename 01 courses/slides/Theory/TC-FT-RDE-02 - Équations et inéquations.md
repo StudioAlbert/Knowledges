@@ -17,99 +17,288 @@ margin: 0
 
 # Équations et inéquations
 <!-- .slide: class="title" -->
-## TC-FT-RDE-02
 
-<small>Trouver la valeur qui fait que ça marche</small>
+### Trouver la valeur qui fait que ça marche
+
+<small>TC-FT-RDE-02 · Résolution d'Équation</small>
 
 Note:
-**Plan de séance — à développer.** Un titre et une phrase directrice par slide ; widgets et
-schémas décrits seulement.
+RDE-01 a donné les outils de calcul. Ici on s'en sert pour répondre à une
+question précise : quelle valeur de `x` rend l'égalité vraie ? C'est la question
+que pose tout code de collision, de trajectoire et de seuil.
 
 ---
 
 ## Objectifs
 
-Savoir résoudre une équation du premier et du second degré, et manier une inéquation sans se tromper de sens.
+À la fin de la séance, vous savez :
+
+- résoudre une équation du **premier degré**, et dire par quelle méthode
+- **factoriser** pour faire apparaître les solutions
+- lire un **discriminant**, et vérifier par somme et produit
+- manier une **inéquation** sans vous tromper de sens
 
 **Prérequis :** [[01 courses/slides/Theory/TC-FT-RDE-01 - Nombres, puissances et logarithmes|TC-FT-RDE-01]].
 
 ---
 
+# Le premier degré
+<!-- .slide: class="title" -->
+
+---
+
 ## Résoudre, c'est isoler
 
-Chaque opération se défait par son inverse, appliquée des deux côtés.
+```text
+7x − 4 = 2x + 11
+
+7x − 2x = 11 + 4        rassembler : les x d'un côté
+     5x = 15            réduire
+      x = 3             diviser par 5
+```
+
+Chaque opération se défait par son **inverse**, appliquée des **deux** côtés.
+
+---
+
+## Ce qu'on a le droit de faire
+
+- **ajouter** ou **retirer** la même chose des deux côtés — toujours
+- **multiplier** ou **diviser** par un nombre **non nul** — toujours
+- diviser par une **expression** — seulement si on sait qu'elle n'est pas nulle
+- élever au carré — attention, ça peut **inventer** des solutions
+
+Note:
+Le troisième point est celui qui coûte cher. Diviser par `x` fait disparaître la
+solution `x = 0` sans prévenir. D'où le réflexe de la séance : on ne divise pas
+par une expression, on **factorise**.
+
+---
+
+# Factoriser
+<!-- .slide: class="title" -->
+
+---
+
+## Le produit nul
+
+<p class="formule">A × B = 0 &nbsp;&nbsp;⟺&nbsp;&nbsp; A = 0 &nbsp;ou&nbsp; B = 0</p>
+
+C'est la seule règle qui transforme une équation en **liste de solutions**.
+
+Tout l'art consiste donc à ramener l'équation à un **produit égal à zéro**.
 
 ---
 
 ## Les identités remarquables
 
-Trois formes à reconnaître d'un coup d'œil : elles évitent des lignes de calcul.
+$$a^2 - b^2 = (a-b)(a+b)$$
+$$a^2 + 2ab + b^2 = (a+b)^2$$
+$$a^2 - 2ab + b^2 = (a-b)^2$$
+
+Trois formes à reconnaître d'un coup d'œil : elles évitent le discriminant.
+
+Note:
+Le repère pour les deux dernières : le terme constant est un carré, et le terme
+du milieu vaut deux fois le produit des racines. `x² + 6x + 9` : 9 = 3², et
+6 = 2 × 3. C'est `(x + 3)²`.
 
 ---
 
 ## Factoriser pour annuler
 
-Un produit est nul quand l'un de ses facteurs l'est : c'est là que se cachent les solutions.
+```text
+x² − 9 = 0
+
+(x − 3)(x + 3) = 0      identité a² − b²
+x − 3 = 0  ou  x + 3 = 0
+x = 3      ou  x = −3
+```
+
+Ne **jamais** développer un produit déjà factorisé : il est au bon format.
 
 ---
 
-## Le second degré
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/equations_quizz_widget.html#cours" data-background-interactive -->
 
-La forme générale, et ce que représente sa courbe : une parabole.
+Note:
+Cinq équations, à faire ensemble. Laisser chercher trente secondes, prendre une
+réponse à voix haute, puis valider. La correction donne les étapes, mais c'est
+la ligne du bas qu'il faut lire : **la méthode à reconnaître**. La série
+« à la maison » en a dix, et sert de devoir.
+
+---
+
+# Le second degré
+<!-- .slide: class="title" -->
+
+---
+
+## La forme générale
+
+$$ax^2 + bx + c = 0 \qquad a \neq 0$$
+
+- **a** décide si la parabole s'ouvre vers le haut ou vers le bas
+- **c** est la valeur en `x = 0`, donc où elle coupe l'axe vertical
+- les **solutions** sont les points où elle coupe l'axe horizontal
+
+Quand la factorisation ne saute pas aux yeux, on passe au discriminant.
+
+---
+
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/discriminant_widget.html#parabole" data-background-interactive -->
+
+Note:
+Bouger `a` d'abord, seul : la parabole s'ouvre, se referme, se retourne. Puis
+`c`, qui la fait monter et descendre — et faire remarquer que les racines
+apparaissent et disparaissent à ce moment-là. `b` en dernier, c'est le moins
+intuitif : il décale le sommet en diagonale.
 
 ---
 
 ## Le discriminant
 
-Son signe dit tout : deux solutions, une seule, ou aucune.
+$$\Delta = b^2 - 4ac$$
 
-> [!tip] Widget — `discriminant_widget.html`
-> Une parabole avec trois curseurs pour ses coefficients. Le widget affiche le discriminant,
-> les racines, et lit le résultat en langage de jeu : la trajectoire touche le mur en deux
-> points, l'effleure, ou le manque.
+| signe de Δ | racines | la parabole |
+|---|---|---|
+| **Δ > 0** | deux, $x = \dfrac{-b \pm \sqrt{\Delta}}{2a}$ | coupe l'axe en deux points |
+| **Δ = 0** | une seule, $x = \dfrac{-b}{2a}$ | l'effleure au sommet |
+| **Δ < 0** | aucune réelle | ne le touche jamais |
+
+---
+
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/discriminant_widget.html#aucune" data-background-interactive -->
+
+Note:
+Les trois onglets donnent les trois cas. Insister sur le dernier : en code,
+`Δ < 0` n'est pas une erreur, c'est une **réponse** — le rayon manque la sphère.
+Oublier de tester le signe avant la racine carrée donne un `NaN` qui se propage
+silencieusement jusqu'à l'affichage.
 
 ---
 
 ## Somme et produit des racines
 
-Ils se lisent directement sur les coefficients, et permettent de vérifier un résultat sans le recalculer.
+$$S = x_1 + x_2 = \frac{-b}{a} \qquad P = x_1 x_2 = \frac{c}{a}$$
+
+- se lisent **directement** sur les coefficients, sans résoudre
+- vérifient un résultat sans le recalculer
+- `x² − 5x + 6` : S = 5, P = 6 → **2 et 3**, trouvées de tête
+
+Valable dès que **Δ ≥ 0**. Et réciproquement, $x^2 - Sx + P = 0$ reconstruit l'équation.
+
+Note:
+C'est la méthode la plus rapide sur les petits trinômes à coefficients entiers,
+et elle sert surtout de **contrôle** : deux racines sorties du discriminant dont
+la somme ne fait pas `−b/a`, c'est une erreur de calcul, et on le voit en deux
+secondes.
 
 ---
 
 ## À quoi ça sert dans un jeu
 
-Le temps d'impact d'un projectile, l'intersection d'un rayon et d'une sphère, le point de rencontre de deux mobiles.
+- **l'instant d'impact** d'un projectile soumis à la gravité
+- l'**intersection** d'un rayon et d'une sphère — Δ < 0 : on la manque
+- le point de **rencontre** de deux mobiles
+- le temps qu'un tir à vitesse donnée mettra à **rattraper** une cible
+
+Partout où une position est quadratique en temps, le discriminant répond.
 
 ---
 
-## Inéquations
+# Les inéquations
+<!-- .slide: class="title" -->
 
-On résout comme une équation, mais la réponse est un intervalle.
+---
+
+## Résoudre une inéquation
+
+```text
+3x − 2 < 7
+
+3x < 9
+ x < 3            la réponse est un intervalle : ]−∞ ; 3[
+```
+
+On résout **exactement** comme une équation. Seule la réponse change de nature :
+ce n'est plus une valeur, c'est un **ensemble**.
 
 ---
 
 ## Le piège du signe
 
-Multiplier ou diviser par un nombre négatif retourne l'inégalité — c'est l'erreur la plus fréquente.
+```text
+-2x < 6
+
+ x > -3           on divise par -2 : l'inégalité se retourne
+```
+
+Multiplier ou diviser par un nombre **négatif retourne le sens**. C'est l'erreur
+la plus fréquente, et elle ne se voit pas.
+
+Note:
+Le contrôle qui sauve : prendre une valeur de l'intervalle trouvé et la remettre
+dans l'inéquation de départ. Avec `x = 0` : `0 < 6`, vrai, donc 0 doit être dans
+la réponse. `x > −3` le contient. Si on avait gardé `x < −3`, non.
 
 ---
 
 ## Tableau de signes
 
-Un produit ou un quotient change de signe en ses racines, et le tableau évite de tâtonner.
+Un produit change de signe **en ses racines**, et nulle part ailleurs.
+
+```text
+                 -∞        -2         3        +∞
+   x + 2             -      0    +         +
+   x - 3             -           -    0    +
+   (x+2)(x-3)        +      0    -    0    +
+```
+
+Chaque ligne est un facteur, la dernière est leur **produit des signes**.
+
+---
+
+## Lire le tableau
+
+Pour `(x + 2)(x − 3) > 0`, on prend les colonnes où la dernière ligne est **+** :
+
+<p class="formule">x ∈ ]−∞ ; −2[ ∪ ]3 ; +∞[</p>
+
+- **une ligne par facteur**, chacune change de signe à sa racine
+- la dernière ligne multiplie les signes, colonne par colonne
+- un **quotient** se traite pareil — mais la racine du dénominateur est **exclue**
+
+Note:
+C'est ce que le tableau évite : tâtonner avec des valeurs au hasard. Trois
+facteurs, et le tâtonnement devient impraticable, alors que le tableau ne change
+pas de méthode — une ligne de plus.
 
 ---
 
 ## Atelier — 20 min
 
-Calculer à quel instant un projectile atteint sa cible, puis l'intervalle de vitesses pour lequel il la manque.
+Un projectile part à 20 m/s vers le haut, depuis 1,5 m. On prend `g = 10`.
+
+1. écrire sa hauteur en fonction du temps
+2. à quel instant atteint-il **12 m** ? les deux réponses ont-elles un sens ?
+3. pour quel **intervalle de temps** est-il au-dessus de 12 m ?
+4. quelle vitesse de départ le ferait **manquer** 12 m ? (indice : Δ)
 
 ---
 
 ## À retenir
 
-Isoler, factoriser, lire le discriminant, et se souvenir qu'un négatif retourne l'inégalité.
+- **isoler** pour le premier degré, **factoriser** pour faire apparaître les racines
+- un produit nul donne la **liste** des solutions ; ne jamais développer un produit déjà factorisé
+- Δ dit **combien** de racines ; S et P les **vérifient** sans recalcul
+- un négatif **retourne** l'inégalité, et un tableau de signes évite de tâtonner
 
 ---
 
-## Questions ?
+# Questions ?
+<!-- .slide: class="title" -->
+
+### Prochaine séance
+
+<small>[[01 courses/slides/Theory/TC-FT-RDE-03 - Fonctions et repères|TC-FT-RDE-03]] — de l'équation à la courbe.</small>
