@@ -14,6 +14,8 @@ estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-29
+review:
+  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|Review SBD-01]]"
 ---
 
 # Relier physique et graphique

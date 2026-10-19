@@ -15,6 +15,8 @@ manual_order: 26
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
+review:
+  - "[[01 courses/__reviews/TC-FT-RDE-02 - Équations et inéquations|Review RDE-02]]"
 ---
 
 # Équations et inéquations

@@ -7,7 +7,9 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-925, WEB-925]
+classes:
+  - GP-925
+  - WEB-925
 manual_order: 44
 estimate: 1h
 tache: écrire depuis les livres

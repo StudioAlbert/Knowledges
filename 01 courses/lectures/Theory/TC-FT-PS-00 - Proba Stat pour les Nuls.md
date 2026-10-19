@@ -7,7 +7,10 @@ projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Probabilités et Statistiques
 specialisation: "[[Fondamentaux Théoriques]]"
-classes: [GP-926, GP-925, WEB-926]
+classes:
+  - GP-926
+  - GP-925
+  - WEB-926
 date_scheduled:
 manual_order: 33
 estimate: 1h

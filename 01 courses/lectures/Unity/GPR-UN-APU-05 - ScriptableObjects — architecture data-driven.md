@@ -9,7 +9,8 @@ projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
-classes: [GP-926]
+classes:
+  - GP-926
 manual_order: 57
 estimate: 1h
 tache: créer de zéro

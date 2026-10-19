@@ -10,11 +10,13 @@ specialisation: "[[Fondamentaux Théoriques]]"
 classes:
   - GP-926
   - WEB-925
-manual_order: 49
+manual_order: 21
 estimate: 1h
 tache: découper + écrire
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-21
+review:
+  - "[[01 courses/__reviews/TC-FT-PCL-04 - Composition contre héritage|Review PCL-04]]"
 ---
 
 # Composition contre héritage

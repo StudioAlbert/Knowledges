@@ -7,7 +7,8 @@ projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: VFX, Rendu et Game Feel
 specialisation: "[[Unity]]"
-classes: [GP-925]
+classes:
+  - GP-925
 manual_order: 67
 estimate: 1h
 tache: créer de zéro
