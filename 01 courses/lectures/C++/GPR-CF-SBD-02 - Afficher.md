@@ -35,7 +35,7 @@ review:
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
 > - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02 - Afficher]] — 15 slides, `publish: false` · widgets proposés : `vue_camera_widget.html`, `spritesheet_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02 - Afficher]] — 4 courts, 1 complet, 1 difficile.
+> - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 2**.
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
 > exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.

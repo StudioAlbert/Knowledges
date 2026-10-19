@@ -2,7 +2,7 @@
 title: Boucle de jeu et fenêtre
 type: seance
 code: GPR-CF-SBD-01
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D
@@ -14,6 +14,7 @@ estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-28
+url_test: http://localhost:3001/cpp/gpr-cf-sbd-01/
 review:
   - "[[01 courses/__reviews/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|Review SBD-01]]"
 ---
@@ -35,7 +36,7 @@ Monde graphique contre monde physique, ce qu'est un moteur de jeu, sous-système
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
 > - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|GPR-CF-SBD-01 - Boucle de jeu et fenêtre]] — 15 slides, `publish: false` · widgets proposés : `boucle_de_jeu_widget.html`.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|GPR-CF-SBD-01 - Boucle de jeu et fenêtre]] — 4 courts, 1 complet, 1 difficile.
+> - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 1**.
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
 > exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.

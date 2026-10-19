@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La boucle de jeu — par image ou par seconde</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --vert: #2e9e5b;
+    --bleu: #2b6cb0;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 { font-weight: 800; font-size: clamp(22px, 3vw, 34px); letter-spacing: -.01em; line-height: 1; text-transform: uppercase; }
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: 600 13px "Inter", sans-serif; color: var(--muted);
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 7px 13px; cursor: pointer;
+}
+.tabs button:hover { color: var(--sae-black); border-color: var(--muted2); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 11px 14px; margin-bottom: 14px;
+}
+.curseur { display: flex; align-items: center; gap: 9px; }
+.curseur label { font: 700 13px "Inter", sans-serif; color: var(--muted); }
+.curseur input { width: 160px; accent-color: var(--sae-red); }
+.curseur .val { font: 700 14px "JetBrains Mono", monospace; min-width: 56px; text-align: right; color: var(--sae-red); }
+.fps { display: flex; gap: 6px; }
+.fps button {
+    font: 700 13px "JetBrains Mono", monospace; color: var(--sae-black);
+    background: #fff; border: 2px solid var(--line); border-radius: var(--radius);
+    padding: 6px 12px; cursor: pointer;
+}
+.fps button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+button.go { font: 700 14px "Inter", sans-serif; color: #fff; background: var(--sae-red); border: 0; border-radius: var(--radius); padding: 10px 18px; cursor: pointer; margin-left: auto; }
+button.go:hover { background: #b70510; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 18px; align-items: stretch; }
+.board, .side {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; min-height: 0;
+}
+.board svg { width: 100%; height: auto; display: block; }
+.side h2 { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+.lect { font-size: 14px; line-height: 2; }
+.lect .k { color: var(--muted); }
+.lect b { font-family: "JetBrains Mono", monospace; }
+.lect .rouge { color: var(--sae-red); }
+.lect .vert { color: var(--vert); }
+.quoi { margin-top: 14px; padding: 11px 13px; background: var(--panel2); border-left: 4px solid var(--sae-red); font-size: 13.5px; line-height: 1.6; }
+
+footer { margin-top: 22px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs, html.embed .toolbar { margin-bottom: 10px; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+
+@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>La boucle <span class="hl">de jeu</span></h1>
+        <p class="sub">Ce qui se passe dans une image, et pourquoi une vitesse s'exprime
+            toujours par seconde — jamais par image.</p>
+    </div>
+</header>
+
+<nav class="tabs" id="tabs">
+    <button data-tab="frise">Une image, bloc par bloc</button>
+    <button data-tab="course">La course — par image ou par seconde</button>
+</nav>
+
+<div class="toolbar">
+    <div class="curseur" id="boxCalcul">
+        <label for="calcul">temps de calcul</label>
+        <input type="range" id="calcul" min="1" max="40" step="1" value="6">
+        <span class="val" id="vCalcul"></span>
+    </div>
+    <div class="fps" id="fps"></div>
+    <button class="go" id="rejouer">Relancer</button>
+</div>
+
+<div class="stage">
+    <div class="board"><svg id="svg" viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    <div class="side">
+        <h2 id="titreSide">Lecture</h2>
+        <div class="lect" id="lect"></div>
+        <p class="quoi" id="quoi"></p>
+    </div>
+</div>
+
+<footer>SAE Institute Genève — GPR-CF-SBD-01, boucle de jeu et fenêtre.</footer>
+
+</div>
+
+<script>
+(function(){
+
+const $ = (id) => document.getElementById(id);
+const FPS = [30, 60, 144];
+const st = {tab: "frise", calcul: 6, fps: 60, t: 0, xImage: 0, xSeconde: 0, timer: null};
+
+$("fps").innerHTML = FPS.map((f) => '<button data-f="' + f + '">' + f + " fps</button>").join("");
+
+// ---------------------------------------------------------------- la frise
+const BLOCS = [
+    {nom: "entrées", part: 0.08, c: "#2b6cb0"},
+    {nom: "mise à jour", part: 0.32, c: "#E30613"},
+    {nom: "rendu", part: 0.60, c: "#1a1a1a"}
+];
+
+function dessinerFrise(){
+    const budget = 1000 / st.fps;           // le temps dont on dispose
+    const calcul = st.calcul;               // ce que le jeu consomme
+    const attente = Math.max(0, budget - calcul);
+    const depasse = calcul > budget;
+    const total = Math.max(budget, calcul);
+
+    const X0 = 40, X1 = 600, Y = 110, H = 54;
+    const px = (ms) => (ms / total) * (X1 - X0);
+
+    const g = [];
+    g.push('<text x="' + X0 + '" y="' + (Y - 24) + '" font-size="13" font-weight="800" fill="#888" font-family="Inter, sans-serif">UNE IMAGE</text>');
+
+    let x = X0;
+    for (const b of BLOCS) {
+        const w = px(calcul * b.part);
+        g.push('<rect x="' + x + '" y="' + Y + '" width="' + Math.max(1, w) + '" height="' + H + '" fill="' + b.c + '" rx="3"/>');
+        if (w > 48)
+            g.push('<text x="' + (x + w / 2) + '" y="' + (Y + 33) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Inter, sans-serif">' + b.nom + "</text>");
+        x += w;
+    }
+    if (attente > 0.01) {
+        const w = px(attente);
+        g.push('<rect x="' + x + '" y="' + Y + '" width="' + w + '" height="' + H + '" fill="#f5f5f5" stroke="#e2e2e2" rx="3"/>');
+        if (w > 56)
+            g.push('<text x="' + (x + w / 2) + '" y="' + (Y + 33) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#888" font-family="Inter, sans-serif">attente</text>');
+    }
+
+    // le budget, en trait vertical
+    const xb = X0 + px(budget);
+    g.push('<line x1="' + xb + '" y1="' + (Y - 14) + '" x2="' + xb + '" y2="' + (Y + H + 16) + '" stroke="' + (depasse ? "#E30613" : "#2e9e5b") + '" stroke-width="2.5" stroke-dasharray="5 4"/>');
+    g.push('<text x="' + xb + '" y="' + (Y + H + 34) + '" text-anchor="middle" font-size="12.5" font-weight="800" fill="' + (depasse ? "#E30613" : "#2e9e5b") + '" font-family="Inter, sans-serif">budget ' + (Math.round(budget * 10) / 10) + " ms</text>");
+
+    $("svg").innerHTML = g.join("");
+
+    const reel = depasse ? Math.round(1000 / calcul) : st.fps;
+    $("titreSide").textContent = "Lecture";
+    $("lect").innerHTML =
+        '<div><span class="k">visé</span> &nbsp;<b>' + st.fps + " fps</b></div>" +
+        '<div><span class="k">budget</span> &nbsp;<b>' + (Math.round(1000 / st.fps * 10) / 10) + " ms</b></div>" +
+        '<div><span class="k">calcul</span> &nbsp;<b>' + calcul + " ms</b></div>" +
+        '<div><span class="k">attente</span> &nbsp;<b>' + (Math.round(attente * 10) / 10) + " ms</b></div>" +
+        '<div><span class="k">obtenu</span> &nbsp;<b class="' + (depasse ? "rouge" : "vert") + '">' + reel + " fps</b></div>";
+    $("quoi").textContent = depasse
+        ? "Le calcul dépasse le budget : la limite ne sert plus à rien, et le framerate tombe à ce que la machine peut faire."
+        : "Il reste du temps : la limite de framerate le rend au système au lieu de faire tourner le ventilateur pour rien.";
+}
+
+// ---------------------------------------------------------------- la course
+function dessinerCourse(){
+    const X0 = 40, X1 = 600;
+    const g = [];
+    const lignes = [
+        {y: 96, x: st.xImage, c: "#E30613", nom: "position += 2        (par image)"},
+        {y: 196, x: st.xSeconde, c: "#2e9e5b", nom: "position += 120 * dt (par seconde)"}
+    ];
+    for (const l of lignes) {
+        g.push('<text x="' + X0 + '" y="' + (l.y - 26) + '" font-size="13" font-weight="700" fill="' + l.c + '" font-family="JetBrains Mono, monospace">' + l.nom + "</text>");
+        g.push('<line x1="' + X0 + '" y1="' + (l.y + 20) + '" x2="' + X1 + '" y2="' + (l.y + 20) + '" stroke="#e2e2e2" stroke-width="2"/>');
+        const x = Math.min(X1 - 26, X0 + l.x);
+        g.push('<rect x="' + x + '" y="' + (l.y - 10) + '" width="26" height="26" fill="' + l.c + '" rx="4"/>');
+    }
+    g.push('<line x1="' + (X1 - 26) + '" y1="56" x2="' + (X1 - 26) + '" y2="246" stroke="#888" stroke-width="2" stroke-dasharray="5 4"/>');
+    g.push('<text x="' + (X1 - 26) + '" y="268" text-anchor="middle" font-size="12.5" font-weight="800" fill="#888" font-family="Inter, sans-serif">arrivée</text>');
+    $("svg").innerHTML = g.join("");
+
+    $("titreSide").textContent = "Après " + (Math.round(st.t * 10) / 10) + " s";
+    $("lect").innerHTML =
+        '<div><span class="k">framerate</span> &nbsp;<b>' + st.fps + " fps</b></div>" +
+        '<div><span class="k">par image</span> &nbsp;<b class="rouge">' + Math.round(st.xImage) + " px</b></div>" +
+        '<div><span class="k">par seconde</span> &nbsp;<b class="vert">' + Math.round(st.xSeconde) + " px</b></div>";
+    $("quoi").textContent = "Changez le framerate et relancez : le carré vert arrive toujours au même moment, le rouge non.";
+}
+
+function tick(){
+    const dt = 1 / st.fps;
+    st.t += dt;
+    st.xImage += 2;              // deux pixels par image, quelle que soit la machine
+    st.xSeconde += 120 * dt;     // cent vingt pixels par seconde
+    if (st.xImage > 560 && st.xSeconde > 560) arreter();
+    dessinerCourse();
+}
+
+function arreter(){ if (st.timer) { clearInterval(st.timer); st.timer = null; } }
+
+function relancer(){
+    arreter();
+    st.t = 0; st.xImage = 0; st.xSeconde = 0;
+    if (st.tab === "course") {
+        dessinerCourse();
+        st.timer = setInterval(tick, 1000 / st.fps);
+    } else {
+        dessinerFrise();
+    }
+}
+
+$("calcul").addEventListener("input", function(){
+    st.calcul = parseInt(this.value, 10);
+    $("vCalcul").textContent = st.calcul + " ms";
+    if (st.tab === "frise") dessinerFrise();
+});
+$("fps").addEventListener("click", function(e){
+    const b = e.target.closest("button");
+    if (!b) return;
+    st.fps = parseInt(b.dataset.f, 10);
+    document.querySelectorAll("#fps button").forEach((x) => x.classList.toggle("on", x === b));
+    relancer();
+});
+$("rejouer").addEventListener("click", relancer);
+
+const tabBtns = document.querySelectorAll(".tabs button");
+function show(name){
+    if (name !== "course") name = "frise";
+    st.tab = name;
+    tabBtns.forEach((b) => b.classList.toggle("on", b.dataset.tab === name));
+    $("boxCalcul").style.display = name === "frise" ? "" : "none";
+    $("rejouer").style.display = name === "course" ? "" : "none";
+    relancer();
+}
+tabBtns.forEach((btn) => btn.addEventListener("click", function(){
+    history.replaceState(null, "", "#" + btn.dataset.tab);
+    show(btn.dataset.tab);
+}));
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")){
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+$("vCalcul").textContent = st.calcul + " ms";
+document.querySelectorAll("#fps button").forEach((x) => x.classList.toggle("on", +x.dataset.f === st.fps));
+show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

@@ -29,6 +29,7 @@ Ce dossier fait partie du vault `Knowledges` ; il en était un sous-module, il n
 | `_widgets/equations_quizz_widget.html` | Quizz de resolution : on tape la reponse, la correction donne les etapes et la methode a reconnaitre | `#cours` (5 equations) `#maison` (10) | TC-FT-RDE-02 |
 | `_widgets/fonctions_widget.html` | Six fonctions de jeu aux curseurs — degats par distance, sensibilite, XP, volume en dB, racine, ecart — avec domaine, image, monotonie, racines et extremum lus automatiquement, et composition avec clamp, 1-y ou y2 | `#degats` `#sensibilite` `#xp` `#volume` `#racine` `#ecart` | TC-FT-RDE-03 |
 | `_widgets/patterns_quizz_widget.html` | Sept situations de conception, sept reponses dont « aucun — du code simple suffit » ; la correction donne le probleme, le comment et une metaphore | — | TC-FT-PCL-03 |
+| `_widgets/boucle_de_jeu_widget.html` | Les blocs d'une image et le framerate obtenu, puis la course entre un deplacement par image et un deplacement par seconde a 30, 60 ou 144 fps | `#frise` `#course` | GPR-CF-SBD-01 |
 | `_widgets/composition_widget.html` | Le coût des combinaisons : cocher des capacités, et comparer le nombre de classes qu'exigerait l'héritage (2^n − 1) au nombre de composants (n) | — | TC-FT-PCL-04 |
 | `_widgets/utility_ai.html` | Courbes de réponse pour la décision des PNJ | — | portfolio uniquement |
 

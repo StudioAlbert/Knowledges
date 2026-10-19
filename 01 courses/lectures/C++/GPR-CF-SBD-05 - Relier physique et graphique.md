@@ -35,7 +35,7 @@ Copier les valeurs du monde physique vers le monde graphique, déplacer le perso
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
 > - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05 - Relier physique et graphique]] — 13 slides, `publish: false` · widgets proposés : `forces_widget.html` ; 1 schéma à dessiner.
-> - **Overview des exercices** : [[01 courses/exercises/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05 - Relier physique et graphique]] — 4 courts, 1 complet, 1 difficile.
+> - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 5**.
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
 > exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
