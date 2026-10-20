@@ -2,7 +2,7 @@
 title: Espaces et changements de repère
 type: seance
 code: TC-FT-GVM-04
-status: To prepare
+status: Backlog
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Géométrie Vectorielle et Matricielle

@@ -2,7 +2,7 @@
 title: Proba Stat pour les Nuls
 type: seance
 code: TC-FT-PS-00
-status: To prepare
+status: Backlog
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Probabilités et Statistiques

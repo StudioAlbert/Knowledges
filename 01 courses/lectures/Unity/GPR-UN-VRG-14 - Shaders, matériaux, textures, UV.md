@@ -2,7 +2,7 @@
 title: Shaders, matériaux, textures, UV
 type: seance
 code: GPR-UN-VRG-14
-status: To prepare
+status: Backlog
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: VFX, Rendu et Game Feel

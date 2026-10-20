@@ -2,7 +2,7 @@
 title: Travail à plusieurs et fichiers lourds
 type: seance
 code: GPR-CF-GTE-03
-status: To prepare
+status: Backlog
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Git et Travail en Équipe

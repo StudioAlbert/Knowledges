@@ -2,7 +2,7 @@
 title: Singleton générique et persistant
 type: seance
 code: GPR-UN-APU-07
-status: To prepare
+status: Backlog
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity

@@ -2,7 +2,7 @@
 title: Entrées-sorties fichier
 type: seance
 code: GPR-CF-SDS-03
-status: To prepare
+status: Backlog
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: Structures de Données et STL

@@ -2,7 +2,7 @@
 title: Éclairage
 type: seance
 code: GPR-UN-VRG-15
-status: To prepare
+status: Backlog
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Unity
 bloc_gsda: VFX, Rendu et Game Feel
