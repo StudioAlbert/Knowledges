@@ -43,3 +43,6 @@
 [submodule "01 courses/companion projects/C++/GPR-CF-POO-06 - Heritage et polymorphisme"]
 	path = 01 courses/companion projects/C++/GPR-CF-POO-06 - Heritage et polymorphisme
 	url = https://github.com/StudioAlbert/GPR_CF_POO_06_HeritageEtPolymorphisme.git
+[submodule "01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance"]
+	path = 01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance
+	url = https://github.com/StudioAlbert/TC_FT_RDE_03_DegatsSelonLaDistance.git

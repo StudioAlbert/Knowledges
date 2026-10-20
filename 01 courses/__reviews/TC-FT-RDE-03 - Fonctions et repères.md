@@ -1,8 +1,9 @@
 ---
 slides: "[[01 courses/slides/Theory/TC-FT-RDE-03 - Fonctions et repères]]"
-exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-03 - Fonctions et repères]]"
+exercices:
 formatif: "[[01 courses/exercises/Theory/TC-FT-RDE-03 - Formatif, les degats selon la distance]]"
 ---
+
 - [x] Compléter slides essentiellement avec exemples visuels
 - [x] pour la partie ** Combiner**
 	- [x] Montrer le graphe d'une combinaison f .g 
@@ -21,9 +22,9 @@ formatif: "[[01 courses/exercises/Theory/TC-FT-RDE-03 - Formatif, les degats sel
 					- [x] Demander aux eleves de trouver
 						- [x] le calcul le plus approprié
 						- [x] une methode permettant de verifier que le code matche le graphe
-		- [ ] Proposer un projet companion avec une pré-implémentation
-			- [ ] on entre la distance, le programme log le resulat du calcul dans la console
-			- [ ] créer deux fonctions vides DegatsProportionelles, DegatsAmortis. En commentant l'une ou l'autre appel de fonction, on passe d'un mode a l'autre
+		- [x] Proposer un projet companion avec une pré-implémentation
+			- [x] on entre la distance, le programme log le resulat du calcul dans la console
+			- [x] créer deux fonctions vides DegatsProportionelles, DegatsAmortis. En commentant l'une ou l'autre appel de fonction, on passe d'un mode a l'autre
 ## Traité le 20.10 — à vérifier
 
 **Deck**, 21 slides, de 15 titres sans contenu. Comme demandé, le visuel porte la séance :
@@ -153,31 +154,30 @@ tu le demandais. Ce qui manque, c'est le **dépôt** : la convention de ce vault
 public `<CODE>_<Nom>` plus un sous-module ici, et je ne crée pas de dépôt public sans que tu
 le dises. Les trois cases correspondantes restent donc ouvertes.
 
-### Où en est le companion (20.10, fin de session)
+### Le companion est en ligne
 
-Tu as tranché : **dépôt public + sous-module**. Le squelette est écrit et il est posé dans
-`01 courses/_drafts/TC_FT_RDE_03_DegatsSelonLaDistance/` — un dossier préfixé `_`, donc
-ignoré du build et du kanban, le temps que le dépôt existe.
+Dépôt public
+[StudioAlbert/TC_FT_RDE_03_DegatsSelonLaDistance](https://github.com/StudioAlbert/TC_FT_RDE_03_DegatsSelonLaDistance),
+ajouté ici en sous-module sous
+`01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance`.
 
 ```
-CMakeLists.txt                   projet TC_FT_RDE_03_DegatsSelonLaDistance, C++23
-README.md  .gitignore  .clang-format
+CMakeLists.txt                   C++23, une target par repertoire
 01_degats/
-    CMakeLists.txt               une target, un repertoire
-    main.cc                      lit une distance, affiche les degats,
+    main.cc                      lit une distance, affiche les degats ;
                                  l'appel a DegatsAmortis est en commentaire
-    include/degats.h             les trois constantes et les deux signatures
-    src/degats.cc                les deux corps vides, avec la consigne en commentaire
+    include/degats.h             les trois constantes imposees et les deux signatures
+    src/degats.cc                les deux corps vides, la consigne en commentaire
     README.md                    les deux etapes et les tables de verification
 ```
 
-**Ce qui reste, et que je n'ai pas eu le temps de faire :**
+**Compilé et vérifié** avec MSVC (VS 18 Insiders) : `cmake -S . -B build` puis
+`cmake --build build` produisent `01_degats.exe`. Aucun avertissement du compilateur.
 
-1. `gh repo create StudioAlbert/TC_FT_RDE_03_DegatsSelonLaDistance --public --source=. --push`
-   depuis ce dossier ;
-2. `git submodule add` vers
-   `01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance`, puis retirer
-   le dossier de `_drafts/` ;
-3. compiler une fois (`cmake -S . -B build && cmake --build build`) — **le squelette n'a pas
-   encore été compilé** ;
-4. ajouter le lien du companion dans la feuille du formatif.
+La feuille du formatif renvoie maintenant au dépôt, en encadré, avant le listing — les
+étudiants clonent au lieu de recopier.
+
+> [!note] La feuille overview a disparu
+> Tu as supprimé `exercises/Theory/TC-FT-RDE-03 - Fonctions et repères.md` et vidé la clé
+> `exercices:` de cette fiche. La suppression est reprise dans ce commit. **Le formatif est
+> donc le seul exercice de la séance** — c'est aussi ce qui s'est passé sur PCL-01.
