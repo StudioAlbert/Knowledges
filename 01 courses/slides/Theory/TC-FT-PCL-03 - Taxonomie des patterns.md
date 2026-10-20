@@ -49,13 +49,20 @@ l'envie de tout appliquer. La dernière partie est là pour ça.
 
 ## Ce n'est pas une recette
 
-C'est le **nom** donné à une solution qui revient.
+Une **recette** donne des étapes qui mènent au résultat — c'est un algorithme.
+Un **plan** montre ce qu'on obtient, et laisse la construction à qui le lit.
 
-- il ne se copie pas : il se reconnaît, puis s'adapte
-- sa vraie valeur est le **vocabulaire** : dire « c'est un Observer » en trois mots
-- deux personnes qui le connaissent s'épargnent une demi-heure de dessin
+- un pattern est un plan : il se reconnaît, puis s'adapte
+- deux programmes qui l'appliquent n'ont **pas le même code**
+- sa vraie valeur est le **vocabulaire** : « c'est un Observer », en trois mots
 
 Un pattern mal nommé reste un bon code. Un pattern appliqué sans problème est une dette.
+
+Note:
+La distinction patron / algorithme vient de `refactoring.guru`, et c'est la plus
+utile de la séance : ils chercheront tous un bout de code à coller. Leur dire
+qu'une description de patron tient en quatre sections — intention, motivation,
+structure, exemple de code — et que seule la dernière ressemble à du code.
 
 ---
 
@@ -64,8 +71,8 @@ Un pattern mal nommé reste un bon code. Un pattern appliqué sans problème est
 Vingt-trois patrons publiés en **1994** par le *Gang of Four*, pour le C++ et
 Smalltalk de l'époque.
 
-Depuis, **la moitié se sont fondus dans les langages** : ce qui demandait une
-classe est devenu un mot-clé.
+Peter Norvig en a compté **16 sur 23** « invisibles ou plus simples » dans un
+langage plus expressif. Ce qui demandait une classe est souvent devenu un mot-clé.
 
 ---
 
@@ -79,12 +86,16 @@ classe est devenu un mot-clé.
 | **Observer** | `event` en C#, `UnityEvent`, les signaux |
 | **Prototype** | `clone()`, `ICloneable`, les copies de valeur |
 
-L'argument est de Paul Graham : un patron signale souvent ce qui **manque** au langage.
+Paul Graham va plus loin : un patron dans son **propre** code signale une
+abstraction trop faible.
 
 Note:
-C'est la critique que `refactoring.guru` documente. Elle est juste, et elle ne
-disqualifie pas le reste : State, Component et Object Pool n'ont aucun équivalent
-en mot-clé, et c'est pour ça qu'ils sont dans la liste des six.
+C'est la critique que `refactoring.guru` documente, et elle a deux auteurs
+distincts qu'il ne faut pas confondre. Le compte de 16 sur 23 est de **Peter
+Norvig** (1996). La phrase sur l'abstraction trop faible est de **Paul Graham**,
+dans *Revenge of the Nerds* (2002) : voir la fiche de ressources. Elle est juste,
+et elle ne disqualifie pas le reste — State, Component et Object Pool n'ont aucun
+équivalent en mot-clé, et c'est pour ça qu'ils sont dans la liste des six.
 
 ---
 
@@ -127,6 +138,15 @@ Les points de vie baissent : la barre, le son, l'animation et le succès réagis
 
 ---
 
+## Un sujet, quatre abonnés
+<!-- .slide: class="schema" -->
+
+L'émetteur ne connaît aucun des quatre, et le cinquième ne lui coûtera rien.
+
+![[pcl03_observer.svg]]
+
+---
+
 ## State
 
 - **le problème** — un comportement à phases, où chaque phase change les règles
@@ -134,6 +154,15 @@ Les points de vie baissent : la barre, le son, l'animation et le succès réagis
 - **la métaphore** — un feu tricolore : jamais vert et rouge à la fois
 
 Il remplace le tas de booléens qui finissent par décrire un état impossible.
+
+---
+
+## Un état courant, des transitions nommées
+<!-- .slide: class="schema" -->
+
+À gauche l'automate du héros, à droite les booléens qu'il remplace.
+
+![[pcl03_state.svg]]
 
 ---
 
@@ -147,6 +176,15 @@ Trois IA d'ennemi interchangeables selon les points de vie.
 
 ---
 
+## Trois comportements, une seule signature
+<!-- .slide: class="schema" -->
+
+L'ennemi tient un objet derrière une interface — et son code ne change jamais.
+
+![[pcl03_strategy.svg]]
+
+---
+
 ## Command
 
 - **le problème** — une action qu'il faut garder, rejouer, défaire ou réassigner
@@ -154,6 +192,15 @@ Trois IA d'ennemi interchangeables selon les points de vie.
 - **la métaphore** — un ticket de restaurant : il existe sans le client ni le cuisinier
 
 C'est ce qui rend possibles l'annulation et la reconfiguration des touches.
+
+---
+
+## La pile d'annulation
+<!-- .slide: class="schema" -->
+
+Une fois que l'action est un objet, on peut l'empiler, la rejouer et la défaire.
+
+![[pcl03_command.svg]]
 
 ---
 
@@ -167,6 +214,15 @@ Trois cents projectiles par seconde, et le framerate qui tient.
 
 ---
 
+## Seize cases, allouées une fois
+<!-- .slide: class="schema" -->
+
+Pendant la partie, on prend une case libre et on la rend : rien n'est créé ni détruit.
+
+![[pcl03_object_pool.svg]]
+
+---
+
 ## Component
 
 - **le problème** — des capacités qui se **combinent**, et un arbre d'héritage qui explose
@@ -174,6 +230,15 @@ Trois cents projectiles par seconde, et le framerate qui tient.
 - **la métaphore** — des briques : on assemble, on ne fabrique pas la brique parfaite
 
 C'est le sujet entier de [[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage|PCL-04]].
+
+---
+
+## Deux entités, les mêmes pièces
+<!-- .slide: class="schema" -->
+
+« Vie » et « Rendu » sont écrits une fois et servent aux deux ; la caisse n'hérite de rien.
+
+![[pcl03_component.svg]]
 
 ---
 
@@ -191,6 +256,27 @@ Deux ennemis à instancier, toujours les mêmes, connus à l'écriture.
 - le coût, lui, existe : un niveau d'indirection, et un vocabulaire à expliquer
 
 > Si tout ce que vous avez est un marteau, tout ressemble à un clou.
+
+---
+
+## Le principe YAGNI
+
+*You Aren't Gonna Need It* — n'écrire que ce que le projet demande **aujourd'hui**.
+Une fonctionnalité anticipée se paie **quatre fois** :
+
+- **construction** — le temps passé à la penser, l'écrire et la tester
+- **retard** — ce qui n'est pas livré pendant qu'on l'écrit
+- **portage** — tout le reste devient plus lent à modifier
+- **réparation** — la dette : on corrige longtemps une décision prise trop tôt
+
+YAGNI retarde l'implémentation ; il n'interdit pas de **bien concevoir**.
+
+Note:
+Les quatre coûts sont ceux de la page GeeksforGeeks citée dans la fiche de
+ressources, remis en français et en quatre mots. La dernière ligne est la nuance
+que la même page insiste à poser, et c'est elle qu'il faut dire à voix haute :
+retirer une abstraction qui sert **déjà** n'est pas du YAGNI, c'est un
+appauvrissement. YAGNI est le cousin de KISS.
 
 ---
 
@@ -214,11 +300,25 @@ avant de cliquer. La septième est celle qui compte : la bonne réponse est
 
 ---
 
+## Atelier — 20 min
+
+**Concevoir un platformer**, deuxième passe : reprendre le schéma dessiné en
+PCL-01, et y chercher des patterns.
+
+1. une boîte à la fois : **peut-on en reconnaître un ?** Les six, et pas d'autres
+2. pour chacun trouvé, écrire les **trois entrées** — le problème, le comment, la métaphore
+3. trouver au moins **un endroit où la réponse est non**, et dire lequel vous tentait
+4. si vous n'en voyez aucun, dire **ce qui devrait changer** dans le jeu pour qu'il en faille un
+
+Énoncé : [[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]].
+
+---
+
 ## À retenir
 
 - trois familles, trois questions : **qui crée**, **comment s'emboîter**, **comment se parler**
 - six patterns couvrent l'essentiel d'un jeu ; les autres sont sur la carte, pas au programme
-- la moitié des patrons de 1994 sont devenus des **mots-clés**
+- beaucoup des patrons de 1994 sont devenus des **mots-clés**
 - le problème se nomme **avant** la solution — toujours
 
 ---

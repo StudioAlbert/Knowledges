@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1000" height="330" fill="#ffffff"/>
+<rect x="65.0" y="117.0" width="230.0" height="66.0" rx="10" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<text x="180.0" y="148.0" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">Points de vie</text>
+<text x="180.0" y="166.0" text-anchor="middle" font-size="12" font-weight="500" fill="#ffffff">le sujet : il émet</text>
+<rect x="615.0" y="27.0" width="290.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="760.0" y="58.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Barre de vie</text>
+<rect x="615.0" y="95.0" width="290.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="760.0" y="126.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Son de dégât</text>
+<rect x="615.0" y="163.0" width="290.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="760.0" y="194.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Animation de recul</text>
+<rect x="615.0" y="231.0" width="290.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="760.0" y="262.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Succès « survivant »</text>
+<path d="M299.0,129.9 L611.0,77.2" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<path d="M299.0,143.8 L611.0,127.7" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<path d="M299.0,157.8 L611.0,178.2" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<path d="M299.0,171.7 L611.0,228.8" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="470.0" y="32.0" text-anchor="middle" font-size="15" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">prévient ses abonnés</text>
+<text x="180.0" y="232.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">il ne sait pas qui l'écoute,</text>
+<text x="180.0" y="254.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">ni combien ils sont</text>
+<rect x="40.0" y="276.0" width="420.0" height="44.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="250.0" y="304.0" text-anchor="middle" font-size="15" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">un cinquième abonné n'ouvre pas la boîte de gauche</text>
+<text x="760.0" y="310.0" text-anchor="middle" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">chacun s'abonne et se désabonne seul</text>
+</svg>

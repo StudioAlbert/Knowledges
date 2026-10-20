@@ -38,6 +38,33 @@ meilleure entrée francophone. Cinq pages suffisent, dans cet ordre :
 > Ça ne disqualifie pas les six de la séance : `State`, `Component` et `Object Pool` n'ont
 > aucun équivalent en mot-clé.
 
+## À la source
+
+Les deux textes derrière la page *Critiques*, à lire en anglais. Ce sont **deux auteurs
+différents**, et on les confond souvent.
+
+- [Peter Norvig — *Design Patterns in Dynamic Languages*](https://norvig.com/design-patterns/)
+  (présenté en 1996, en ligne depuis 1998). C'est de lui que vient le compte : **16 des 23**
+  patrons sont « invisibles ou plus simples » dans un langage plus expressif. Les planches
+  sont courtes et se lisent d'un trait.
+- [Paul Graham — *Revenge of the Nerds*](https://www.paulgraham.com/icad.html) (2002). Son
+  argument est plus radical : voir un patron se répéter dans son **propre** code est le signe
+  qu'on fait à la main ce qu'une abstraction plus forte ferait toute seule. C'est lui qui
+  cite Norvig, en note de bas de page.
+
+## Ne pas en mettre partout
+
+- [GeeksforGeeks — *YAGNI Principle*](https://www.geeksforgeeks.org/software-engineering/what-is-yagni-principle-you-arent-gonna-need-it/) :
+  les quatre coûts d'une fonctionnalité écrite trop tôt — construction, retard, portage,
+  réparation — et la nuance qui compte : YAGNI **retarde** l'implémentation, il n'excuse pas
+  une mauvaise conception.
+
+## Côté moteur
+
+- [Unity — *Améliorez votre programmation avec des modèles de programmation de jeu*](https://unity.com/fr/resources/level-up-your-code-with-game-programming-patterns) :
+  l'e-book gratuit de Unity, en français, qui reprend les mêmes patrons avec du C# et des
+  exemples de jeu. Le plus proche de ce qu'on fait en atelier.
+
 ## Les six, en détail
 
 Chacun est traité dans une séance du cursus — les fiches de refactoring.guru servent de

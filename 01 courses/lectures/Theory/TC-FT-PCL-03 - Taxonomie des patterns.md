@@ -10,7 +10,7 @@ specialisation: "[[Fondamentaux Théoriques]]"
 classes:
   - GP-926
   - WEB-925
-manual_order: 48
+manual_order: 51.5
 estimate: 1h
 tache: adapter + écrire
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

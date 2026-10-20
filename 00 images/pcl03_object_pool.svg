@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1000" height="330" fill="#ffffff"/>
+<text x="70.0" y="74.0" text-anchor="start" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">LA RÉSERVE — 16 PROJECTILES, ALLOUÉS AU CHARGEMENT</text>
+<rect x="70.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<rect x="128.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<rect x="186.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="244.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="302.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<rect x="360.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="418.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="476.0" y="96.0" width="52.0" height="46.0" rx="8" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<rect x="70.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<rect x="128.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="186.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="244.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="302.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<rect x="360.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="418.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="476.0" y="152.0" width="52.0" height="46.0" rx="8" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="70.0" y="222.0" text-anchor="start" font-size="15" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">6 en vol</text>
+<text x="180.0" y="222.0" text-anchor="start" font-size="15" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">10 libres, prêtes</text>
+<rect x="58.0" y="250.0" width="490.0" height="56.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="303.0" y="274.0" text-anchor="middle" font-size="15" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">pendant la partie : aucune allocation,</text>
+<text x="303.0" y="296.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">aucune destruction</text>
+<rect x="700.0" y="81.0" width="200.0" height="54.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="800.0" y="114.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a1a">Tirer</text>
+<rect x="660.0" y="201.0" width="280.0" height="54.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="800.0" y="234.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Impact ou sortie d'écran</text>
+<path d="M772.1,139.0 L769.6,141.9 L767.4,144.8 L765.4,147.7 L763.7,150.6 L762.3,153.5 L761.1,156.4 L760.2,159.3 L759.6,162.2 L759.2,165.1 L759.0,168.0 L759.2,170.9 L759.6,173.8 L760.2,176.7 L761.1,179.6 L762.3,182.5 L763.7,185.4 L765.4,188.3 L767.4,191.2 L769.6,194.1 L772.1,197.0" fill="none" stroke="#E30613" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="639.0" y="172.0" text-anchor="middle" font-size="15" font-weight="600" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">prendre</text>
+<path d="M827.9,197.0 L830.4,194.1 L832.6,191.2 L834.6,188.3 L836.3,185.4 L837.7,182.5 L838.9,179.6 L839.8,176.7 L840.4,173.8 L840.8,170.9 L841.0,168.0 L840.8,165.1 L840.4,162.2 L839.8,159.3 L838.9,156.4 L837.7,153.5 L836.3,150.6 L834.6,147.7 L832.6,144.8 L830.4,141.9 L827.9,139.0" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="946.0" y="172.0" text-anchor="middle" font-size="15" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">rendre</text>
+<text x="800.0" y="52.0" text-anchor="middle" font-size="14" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">LE CYCLE</text>
+</svg>
