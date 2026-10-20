@@ -17,6 +17,9 @@ ressources: "[[01 courses/resources/Theory/TC-FT-PCL-03 - Ressources]]"
 - [x] Pour chacune des 6 pages des patterns *de base* ajouter un schema pour chacun dans un slide qui fait suite a la definition ecrite
 - [x] Faire suite au slide **le pattern de trop** par **le principe Yagni** (Traduire le passage Importance of following the YAGNI principle de la page geeks for geeks)
 - [x] Intégrer une question "Peut on reconnaitre des patterns parmi la conception du platformer ?" dans l'atelier "Concevoir un platformer" cf autres seances du groupe
+- [x] Slide **Ce n'est pas une recette** : aller à la ligne, et « sans **problème à résoudre** »
+- [x] Slide **Ceux que le langage a avalés** : retirer la phrase sur Paul Graham, renvoyer à la fiche de ressources
+- [x] Schéma **Strategy** : encadrer les trois comportements et les nommer *Stratégies*
 -------------------
 Sources complementaires
 https://refactoring.guru/fr/design-patterns/what-is-pattern
@@ -138,3 +141,19 @@ tableau *Ceux que le langage a avalés* — son argument tient déjà dans la sl
 **2. `patterns_map_widget.html` n'est toujours pas construit.** Le squelette proposait une
 carte cliquable de quinze patterns. Avec six schémas de plus, le besoin a encore baissé — mais
 c'est ton appel.
+
+## Troisième passe, le 20.10 — tes annotations
+
+**Slide *Ce n'est pas une recette*.** La phrase de fin était collée à la précédente, et
+surtout elle se lisait à l'envers : « un pattern appliqué **sans problème** » veut dire
+« appliqué facilement ». C'est maintenant « appliqué sans **problème à résoudre** », sur sa
+propre ligne. Deux mots, et la phrase dit enfin ce qu'elle voulait dire.
+
+**Slide *Ceux que le langage a avalés*.** La ligne sur Paul Graham est retirée du deck ; la
+slide renvoie à
+[[01 courses/resources/Theory/TC-FT-PCL-03 - Ressources|la fiche de ressources]], où Norvig
+et Graham sont distingués et où chacun est cité avec son texte. Le tableau garde toute la
+slide pour lui.
+
+**Schéma *Strategy*.** Les trois comportements sont encadrés en rouge et le groupe porte son
+nom — *Stratégies*. On voit d'un coup ce qui est interchangeable, et ce qui ne l'est pas.

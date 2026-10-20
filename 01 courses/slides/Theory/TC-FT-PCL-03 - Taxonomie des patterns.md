@@ -56,7 +56,9 @@ Un **plan** montre ce qu'on obtient, et laisse la construction à qui le lit.
 - deux programmes qui l'appliquent n'ont **pas le même code**
 - sa vraie valeur est le **vocabulaire** : « c'est un Observer », en trois mots
 
-Un pattern mal nommé reste un bon code. Un pattern appliqué sans problème est une dette.
+Un pattern mal nommé reste un bon code.
+
+Un pattern appliqué sans **problème à résoudre** est une dette.
 
 Note:
 La distinction patron / algorithme vient de `refactoring.guru`, et c'est la plus
@@ -86,8 +88,8 @@ langage plus expressif. Ce qui demandait une classe est souvent devenu un mot-cl
 | **Observer** | `event` en C#, `UnityEvent`, les signaux |
 | **Prototype** | `clone()`, `ICloneable`, les copies de valeur |
 
-Paul Graham va plus loin : un patron dans son **propre** code signale une
-abstraction trop faible.
+Qui dit quoi, et où lire la suite :
+[[01 courses/resources/Theory/TC-FT-PCL-03 - Ressources|la fiche de ressources]].
 
 Note:
 C'est la critique que `refactoring.guru` documente, et elle a deux auteurs

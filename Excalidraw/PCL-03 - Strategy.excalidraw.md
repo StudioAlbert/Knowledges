@@ -21,19 +21,21 @@ Decider(cible) ^el668538499
 
 tient un ^el034231489
 
-Foncer ^el431959079
+Stratégies ^el431959079
 
-Garder ses distances ^el104857603
+Foncer ^el886221894
 
-Fuir ^el516466577
+Garder ses distances ^el594006630
 
-trois mises en œuvre, une seule signature ^el669494850
+Fuir ^el669494850
 
-à 20 % de vie, ^el108018158
+trois mises en œuvre, une seule signature ^el108018158
 
-on échange l'objet ^el838970604
+à 20 % de vie, ^el270035663
 
-son code ne change jamais ^el270035663
+on échange l'objet ^el831422275
+
+son code ne change jamais ^el945557723
 
 %%
 ## Drawing
@@ -331,12 +333,12 @@ son code ne change jamais ^el270035663
     {
       "id": "el279176110",
       "type": "rectangle",
-      "x": 115.0,
-      "y": 243.0,
-      "width": 250.0,
-      "height": 50.0,
+      "x": 105.0,
+      "y": 236.0,
+      "width": 870.0,
+      "height": 64.0,
       "angle": 0,
-      "strokeColor": "#1a1a1a",
+      "strokeColor": "#E30613",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -360,12 +362,12 @@ son code ne change jamais ^el270035663
     {
       "id": "el431959079",
       "type": "text",
-      "x": 213.6,
-      "y": 258.0,
-      "width": 52.8,
-      "height": 20.0,
+      "x": 898.0,
+      "y": 306.0,
+      "width": 77.0,
+      "height": 17.5,
       "angle": 0,
-      "strokeColor": "#1a1a1a",
+      "strokeColor": "#E30613",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -383,6 +385,72 @@ son code ne change jamais ^el270035663
       "updated": 1758499200000,
       "link": null,
       "locked": false,
+      "text": "Stratégies",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 11,
+      "containerId": null,
+      "originalText": "Stratégies",
+      "lineHeight": 1.25,
+      "autoResize": true
+    },
+    {
+      "id": "el729476553",
+      "type": "rectangle",
+      "x": 115.0,
+      "y": 243.0,
+      "width": 250.0,
+      "height": 50.0,
+      "angle": 0,
+      "strokeColor": "#1a1a1a",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 861031039,
+      "version": 1,
+      "versionNonce": 566436434,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1758499200000,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "el886221894",
+      "type": "text",
+      "x": 213.6,
+      "y": 258.0,
+      "width": 52.8,
+      "height": 20.0,
+      "angle": 0,
+      "strokeColor": "#1a1a1a",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "seed": 955098851,
+      "version": 1,
+      "versionNonce": 993645245,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1758499200000,
+      "link": null,
+      "locked": false,
       "text": "Foncer",
       "fontSize": 16,
       "fontFamily": 1,
@@ -395,7 +463,7 @@ son code ne change jamais ^el270035663
       "autoResize": true
     },
     {
-      "id": "el729476553",
+      "id": "el104857603",
       "type": "arrow",
       "x": 298.7341772151899,
       "y": 239.0,
@@ -412,9 +480,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 861031039,
+      "seed": 61991715,
       "version": 1,
-      "versionNonce": 566436434,
+      "versionNonce": 982402715,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -437,7 +505,7 @@ son code ne change jamais ^el270035663
       "endArrowhead": "arrow"
     },
     {
-      "id": "el886221894",
+      "id": "el202207254",
       "type": "rectangle",
       "x": 415.0,
       "y": 243.0,
@@ -456,9 +524,9 @@ son code ne change jamais ^el270035663
       "roundness": {
         "type": 3
       },
-      "seed": 955098851,
+      "seed": 989856454,
       "version": 1,
-      "versionNonce": 993645245,
+      "versionNonce": 290286408,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -466,7 +534,7 @@ son code ne change jamais ^el270035663
       "locked": false
     },
     {
-      "id": "el104857603",
+      "id": "el594006630",
       "type": "text",
       "x": 452.0,
       "y": 258.0,
@@ -483,9 +551,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 61991715,
+      "seed": 26851744,
       "version": 1,
-      "versionNonce": 982402715,
+      "versionNonce": 255050488,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -503,7 +571,7 @@ son code ne change jamais ^el270035663
       "autoResize": true
     },
     {
-      "id": "el202207254",
+      "id": "el516466577",
       "type": "arrow",
       "x": 543.6708860759494,
       "y": 239.0,
@@ -520,9 +588,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 989856454,
+      "seed": 675938939,
       "version": 1,
-      "versionNonce": 290286408,
+      "versionNonce": 631609423,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -545,7 +613,7 @@ son code ne change jamais ^el270035663
       "endArrowhead": "arrow"
     },
     {
-      "id": "el594006630",
+      "id": "el309637071",
       "type": "rectangle",
       "x": 715.0,
       "y": 243.0,
@@ -564,9 +632,9 @@ son code ne change jamais ^el270035663
       "roundness": {
         "type": 3
       },
-      "seed": 26851744,
+      "seed": 360363718,
       "version": 1,
-      "versionNonce": 255050488,
+      "versionNonce": 185686257,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -574,7 +642,7 @@ son code ne change jamais ^el270035663
       "locked": false
     },
     {
-      "id": "el516466577",
+      "id": "el669494850",
       "type": "text",
       "x": 822.4,
       "y": 258.0,
@@ -591,9 +659,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 675938939,
+      "seed": 223408730,
       "version": 1,
-      "versionNonce": 631609423,
+      "versionNonce": 919188358,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -611,7 +679,7 @@ son code ne change jamais ^el270035663
       "autoResize": true
     },
     {
-      "id": "el309637071",
+      "id": "el192677283",
       "type": "arrow",
       "x": 788.6075949367089,
       "y": 239.0,
@@ -628,9 +696,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 360363718,
+      "seed": 236099659,
       "version": 1,
-      "versionNonce": 185686257,
+      "versionNonce": 873969392,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -653,7 +721,7 @@ son code ne change jamais ^el270035663
       "endArrowhead": "arrow"
     },
     {
-      "id": "el669494850",
+      "id": "el108018158",
       "type": "text",
       "x": 402.1,
       "y": 182.0,
@@ -670,9 +738,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 223408730,
+      "seed": 258704187,
       "version": 1,
-      "versionNonce": 919188358,
+      "versionNonce": 179552926,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -690,7 +758,7 @@ son code ne change jamais ^el270035663
       "autoResize": true
     },
     {
-      "id": "el192677283",
+      "id": "el838970604",
       "type": "rectangle",
       "x": 760.0,
       "y": 24.0,
@@ -709,9 +777,9 @@ son code ne change jamais ^el270035663
       "roundness": {
         "type": 3
       },
-      "seed": 236099659,
+      "seed": 781346394,
       "version": 1,
-      "versionNonce": 873969392,
+      "versionNonce": 381967070,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -719,7 +787,7 @@ son code ne change jamais ^el270035663
       "locked": false
     },
     {
-      "id": "el108018158",
+      "id": "el270035663",
       "type": "text",
       "x": 817.2,
       "y": 37.0,
@@ -736,9 +804,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 258704187,
+      "seed": 456632861,
       "version": 1,
-      "versionNonce": 179552926,
+      "versionNonce": 1684837,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -756,7 +824,7 @@ son code ne change jamais ^el270035663
       "autoResize": true
     },
     {
-      "id": "el838970604",
+      "id": "el831422275",
       "type": "text",
       "x": 800.8,
       "y": 61.0,
@@ -773,9 +841,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 781346394,
+      "seed": 880305861,
       "version": 1,
-      "versionNonce": 381967070,
+      "versionNonce": 10393223,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,
@@ -793,7 +861,7 @@ son code ne change jamais ^el270035663
       "autoResize": true
     },
     {
-      "id": "el270035663",
+      "id": "el945557723",
       "type": "text",
       "x": 76.9,
       "y": 181.0,
@@ -810,9 +878,9 @@ son code ne change jamais ^el270035663
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 456632861,
+      "seed": 844075859,
       "version": 1,
-      "versionNonce": 1684837,
+      "versionNonce": 995876887,
       "isDeleted": false,
       "boundElements": null,
       "updated": 1758499200000,

@@ -9,6 +9,8 @@
 <text x="560.0" y="126.0" text-anchor="middle" font-size="12" font-weight="500" fill="#6e6e6e">Decider(cible)</text>
 <path d="M294.0,110.0 L416.0,110.0" fill="none" stroke="#E30613" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
 <text x="355.0" y="98.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">tient un</text>
+<rect x="105.0" y="236.0" width="870.0" height="64.0" rx="12" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
+<text x="975.0" y="320.0" text-anchor="end" font-size="14" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Stratégies</text>
 <rect x="115.0" y="243.0" width="250.0" height="50.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
 <text x="240.0" y="274.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">Foncer</text>
 <path d="M298.7,239.0 L485.1,147.0" fill="none" stroke="#6e6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-grey)"/>

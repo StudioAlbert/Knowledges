@@ -20,6 +20,10 @@ interface = fig.box(560, 110, "ComportementIA", w=280, h=66, muted=True, size=18
 
 fig.arrow(ennemi, interface, "tient un", label_dy=-12, color=RED, width=3)
 
+# Les trois mises en oeuvre sont encadrees et nommees : ce sont *les* strategies.
+fig.rect(105, 236, 870, 64, stroke=RED, fill="#ffffff", width=2.5, radius=12)
+fig.text(975, 320, "Stratégies", anchor="end", size=14, weight=800, color=RED)
+
 strategies = ["Foncer", "Garder ses distances", "Fuir"]
 for i, nom in enumerate(strategies):
     b = fig.box(240 + i * 300, 268, nom, w=250, h=50, size=16)
