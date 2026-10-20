@@ -2,7 +2,7 @@
 title: Le monde Box2D
 type: seance
 code: GPR-CF-SBD-04
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D

@@ -17,19 +17,26 @@ margin: 0
 
 # Relier physique et graphique
 <!-- .slide: class="title" -->
-## GPR-CF-SBD-05
 
-<small>Le pont entre les deux mondes</small>
+### Étape 5 du platformer
+
+<small>GPR-CF-SBD-05 · SFML et Box2D</small>
 
 Note:
-**Plan de séance — à développer.** Un titre et une phrase directrice par slide ; widgets et
-schémas décrits seulement.
+Les deux mondes existent depuis SBD-04 et ne se parlent pas. Cette séance pose
+le pont — dans **un seul sens** — et apprend à écouter les contacts. C'est la
+séance la plus courte à écrire et la plus facile à rater.
 
 ---
 
 ## Objectifs
 
-Savoir afficher ce que la physique calcule, piloter un personnage physique, et réagir aux contacts.
+À la fin de la séance, vous savez :
+
+- écrire **une** classe de conversion, et ne convertir nulle part ailleurs
+- recopier une position physique vers un sprite, **dans le bon sens**
+- écouter les contacts et savoir **qui** a touché quoi
+- dire pourquoi « au sol » n'est pas un contact
 
 **Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-04 - Le monde Box2D|GPR-CF-SBD-04]].
 
@@ -37,72 +44,177 @@ Savoir afficher ce que la physique calcule, piloter un personnage physique, et r
 
 ## Le pont
 
-Après chaque pas de simulation, on recopie les positions physiques dans les sprites — et jamais l'inverse.
+Box2D sait où sont les choses. SFML sait les dessiner. **Rien** ne les relie
+tant que vous n'écrivez pas le pont.
+
+Ce pont tient en trois gestes : convertir l'unité, convertir l'axe, recopier.
+Les trois se trompent facilement, et aucun ne produit d'erreur.
 
 ---
 
-## Dans le bon sens
+## Une seule classe sait convertir
 
-Écrire directement la position d'un sprite qui a un corps, c'est mentir à la physique.
+```cpp
+// conversion.h — le seul endroit du projet qui connaît le facteur
+namespace monde {
+
+inline constexpr float kPixelsParMetre = 32.f;
+
+constexpr float Metres(float pixels) { return pixels / kPixelsParMetre; }
+constexpr float Pixels(float metres) { return metres * kPixelsParMetre; }
+
+}  // namespace monde
+```
+
+Si `32` apparaît ailleurs dans votre code, vous avez déjà le bug : le jour où
+il devient `48`, il n'en changera qu'un sur deux.
 
 ---
 
-## Conversion d'unités
+## Les deux axes Y s'opposent
 
-Multiplier par le facteur d'échelle à l'affichage, diviser à la création : une seule constante, un seul endroit.
+```cpp
+// Box2D : Y monte.  SFML : Y descend.
+sf::Vector2f VersEcran(b2Vec2 p, float hauteurEcran)
+{
+    return { Pixels(p.x), hauteurEcran - Pixels(p.y) };
+}
+```
+
+Un héros qui tombe **vers le haut** de l'écran, c'est ce signe-là. Rangez la
+conversion d'axe avec celle d'unité : même fichier, même geste.
+
+---
+
+## Dans le bon sens, et un seul
+
+```cpp
+const b2Vec2 p = corps_->GetPosition();
+sprite_.setPosition(monde::VersEcran(p, kHauteurEcran));
+```
+
+La copie va **du physique vers le graphique**. Jamais l'inverse.
+
+Déplacer un sprite à la main pendant que Box2D simule donne deux vérités qui
+divergent, et un personnage qui tremble.
 
 ---
 
 ## Les angles
 
-Box2D compte en radians, SFML en degrés : la conversion s'oublie exactement une fois par projet.
+```cpp
+sprite_.setRotation(sf::radians(corps_->GetAngle()));
+```
+
+Box2D compte en **radians**, SFML en **degrés** — et dans le sens opposé, pour
+la même raison que l'axe Y.
+
+Note:
+`sf::radians` et `sf::degrees` existent depuis SFML 3 : `sf::Angle` est un type,
+plus un `float` ambigu. C'est un des rares endroits où SFML 3 rend le code plus
+sûr, pas seulement différent.
 
 ---
 
-## Trois façons de faire bouger
+## Trois façons de faire bouger un corps
 
-Une force pousse progressivement, une impulsion donne un coup sec, imposer la vitesse répond au doigt.
+| Geste | Ce qu'il fait | Quand |
+|---|---|---|
+| `SetTransform` | **téléporte**, sans physique | respawn, téléporteur |
+| `ApplyForce` | pousse progressivement | vent, aimant, tapis roulant |
+| `SetLinearVelocity` | impose la vitesse **tout de suite** | marcher, sauter |
 
-> [!tip] Widget — `forces_widget.html`
-> Un même personnage piloté par trois modes — force, impulsion, vitesse imposée — avec la
-> courbe de sa vitesse tracée en dessous. Un curseur de masse montre pourquoi les jeux de
-> plateforme finissent presque tous par imposer la vitesse horizontale.
+Un platformer utilise surtout le troisième : on veut un contrôle **immédiat**,
+pas une voiture qui glisse.
 
 ---
 
-## Écouter les contacts
+# Les contacts
+<!-- .slide: class="title" -->
 
-Le monde prévient quand deux formes se touchent et quand elles se séparent : à nous d'écouter.
+---
+
+## Écouter
+
+```cpp
+class Ecouteur : public b2ContactListener
+{
+public:
+    void BeginContact(b2Contact* contact) override { /* ils se touchent */ }
+    void EndContact(b2Contact* contact) override   { /* ils se séparent */ }
+};
+
+Ecouteur ecouteur;
+monde.SetContactListener(&ecouteur);
+```
+
+Box2D vous **appelle** pendant `Step`. Ne créez et ne détruisez rien dedans :
+le monde est en train de travailler.
 
 ---
 
 ## Qui a touché qui
 
-Une forme peut porter un pointeur vers l'objet de jeu : c'est ainsi qu'on remonte du contact au gobelin.
+```cpp
+void BeginContact(b2Contact* contact) override
+{
+    auto* a = reinterpret_cast<Objet*>(
+        contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    auto* b = reinterpret_cast<Objet*>(
+        contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+    if (a && b) a->Touche(*b), b->Touche(*a);
+}
+```
+
+`UserData` est le fil qui ramène du corps physique à **votre** objet de jeu.
+Sans lui, vous savez que ça s'est touché, pas ce qui s'est touché.
 
 ---
 
-## Le contact n'est pas le gameplay
+## « Au sol » n'est pas un contact
 
-Pendant la résolution, le monde est verrouillé : on note ce qui s'est passé, on agit après le pas.
+Un contact dit « ces deux formes se touchent ». Il ne dit pas **où**.
 
-> [!tip] Schéma
-> La frise d'une image : pas de simulation, contacts collectés dans une file, puis traitement
-> du gameplay, puis recopie vers les sprites, puis rendu. Une flèche barrée montre la
-> tentation de supprimer un corps au milieu du pas.
+- toucher un mur par le côté, ce n'est **pas** être au sol
+- un seul pied sur l'arête, c'est quand même être au sol
+- `EndContact` arrive aussi quand l'objet touché est détruit
+
+D'où un **capteur** sous les pieds, en SBD-06 — pas un simple booléen de contact.
+
+Note:
+C'est la slide qui prépare toute la séance suivante. Faire le test en direct :
+coller le héros contre un mur, constater que `BeginContact` part, et qu'avec un
+booléen naïf il peut sauter en l'air indéfiniment.
 
 ---
 
-## Atelier — 20 min
+## Mise en œuvre — 1 h
 
-Le personnage physique : déplacement horizontal, saut, sprites synchronisés, et un son au contact du sol.
+**Étape 5 du platformer.** Les deux mondes se rejoignent.
+
+1. la **classe de conversion**, et la seule constante du projet
+2. recopier position et angle vers le sprite, à chaque image, dans un seul sens
+3. brancher le `ContactListener`, afficher un message à chaque contact
+4. `UserData` pour savoir **qui** a touché quoi, puis un booléen `au sol`
+5. reprendre votre schéma de conception et dire ce que la physique a imposé
+
+Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
 
 ---
 
 ## À retenir
 
-La physique décide, le graphique suit, les contacts se collectent et se traitent après le pas.
+- **une** classe sait convertir, et le facteur n'existe nulle part ailleurs
+- Y monte chez Box2D, descend chez SFML — rangez les deux conversions ensemble
+- la copie va du physique vers le graphique, **jamais** l'inverse
+- un contact n'est pas une position : « au sol » demande un capteur
 
 ---
 
-## Questions ?
+# Questions ?
+<!-- .slide: class="title" -->
+
+### Prochaine séance
+
+<small>[[01 courses/slides/C++/GPR-CF-SBD-06 - Les ficelles d'un platformer|GPR-CF-SBD-06]] — tout ce qui rend un saut agréable, et qui ne se déduit d'aucune équation.</small>

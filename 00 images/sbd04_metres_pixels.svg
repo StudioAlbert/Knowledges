@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="340" viewBox="0 0 1040 340" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1040" height="340" fill="#ffffff"/>
+<text x="210.0" y="56.0" text-anchor="middle" font-size="15" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">L'ÉCRAN</text>
+<rect x="70.0" y="74.0" width="280.0" height="190.0" rx="12" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2"/>
+<path d="M84.0,238.0 L336.0,238.0" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="336.0" y="256.0" text-anchor="end" font-size="12" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">le sol</text>
+<rect x="178.5" y="88.0" width="63.0" height="150.0" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+<text x="210.0" y="74.0" text-anchor="middle" font-size="17" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">180 px</text>
+<text x="210.0" y="96.0" text-anchor="middle" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">tout est en pixels</text>
+<text x="830.0" y="56.0" text-anchor="middle" font-size="15" font-weight="800" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">BOX2D</text>
+<rect x="690.0" y="74.0" width="280.0" height="190.0" rx="12" fill="#f5f5f5" stroke="#6e6e6e" stroke-width="2"/>
+<path d="M704.0,238.0 L956.0,238.0" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="956.0" y="256.0" text-anchor="end" font-size="12" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">le sol</text>
+<rect x="798.5" y="88.0" width="63.0" height="150.0" rx="8" fill="#ffffff" stroke="#E30613" stroke-width="3"/>
+<text x="830.0" y="74.0" text-anchor="middle" font-size="17" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1,8 m</text>
+<text x="830.0" y="96.0" text-anchor="middle" font-size="13" font-weight="700" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">tout est en mètres</text>
+<path d="M360.0,150.0 L680.0,150.0" fill="none" stroke="#E30613" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<path d="M680.0,196.0 L360.0,196.0" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<rect x="400.0" y="92.0" width="240.0" height="48.0" rx="10" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
+<text x="520.0" y="122.0" text-anchor="middle" font-size="20" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 m = 32 px</text>
+<text x="520.0" y="176.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">Metres(pixels) = pixels / 32</text>
+<text x="520.0" y="222.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">Pixels(metres) = metres * 32</text>
+<text x="520.0" y="262.0" text-anchor="middle" font-size="14" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">un seul nombre, écrit une seule fois</text>
+<rect x="70.0" y="284.0" width="900.0" height="44.0" rx="10" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
+<text x="520.0" y="312.0" text-anchor="middle" font-size="15" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Oublier la conversion : un héros de 180 mètres, une gravité qui paraît nulle, des forces sans effet.</text>
+</svg>

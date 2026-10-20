@@ -17,104 +17,175 @@ margin: 0
 
 # Le monde Box2D
 <!-- .slide: class="title" -->
-## GPR-CF-SBD-04
 
-<small>Un monde qui calcule, et qui ne dessine rien</small>
+### Étape 4 du platformer
+
+<small>GPR-CF-SBD-04 · SFML et Box2D</small>
 
 Note:
-**Plan de séance — à développer.** Un titre et une phrase directrice par slide ; widgets et
-schémas décrits seulement.
+Une heure sans rien afficher, et c'est **délibéré** : séparer les deux mondes
+avant de les relier est tout le propos de SBD-05. On observe par la console, et
+on apprend à faire confiance à des nombres qu'on ne voit pas.
 
 ---
 
 ## Objectifs
 
-Savoir créer un monde physique, y poser des corps du bon type, et comprendre que ce monde ignore l'écran.
+À la fin de la séance, vous savez :
 
-**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|GPR-CF-SBD-01]].
+- créer un **monde** et le faire avancer à **pas fixe**
+- choisir entre corps **statique**, **cinématique** et **dynamique**
+- décrire une forme et sa **matière**
+- travailler en **mètres**, et convertir une seule fois
+
+**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-03 - Déplacer et animer|GPR-CF-SBD-03]].
 
 ---
 
 ## Un monde parallèle
 
-La physique calcule des positions ; personne ne les voit tant qu'on ne les recopie pas.
+La physique calcule des positions. **Personne ne les voit** tant qu'on ne les
+recopie pas vers les sprites — et c'est la séance suivante.
+
+Pendant cette heure, votre jeu n'affiche rien de neuf, et pourtant il est déjà
+juste.
 
 ---
 
 ## Le monde
 
+```cpp
+b2Vec2 gravite(0.f, -9.81f);     // vers le bas, en mètres par seconde carrée
+b2World monde(gravite);
+```
+
 Une gravité, une liste de corps, et une méthode qui fait avancer le temps.
+C'est tout ce qu'un moteur physique est.
 
 ---
 
 ## Le pas de simulation
 
-Un pas fixe donne des résultats reproductibles ; un pas variable donne des bugs impossibles à rejouer.
+```cpp
+constexpr float kPas = 1.f / 60.f;
+
+accumulateur_ += dt;
+while (accumulateur_ >= kPas)
+{
+    monde.Step(kPas, 8, 3);      // vélocité, position
+    accumulateur_ -= kPas;
+}
+```
+
+Un pas **fixe** donne des résultats reproductibles. Un pas variable donne des
+bugs impossibles à rejouer.
+
+Note:
+C'est exactement le `while` de l'animation en SBD-03, et pour la même raison :
+quand une image dure longtemps, on rattrape plusieurs pas au lieu d'en faire un
+énorme. Passer `dt` directement à `Step` est le bug le plus courant — le jeu
+marche sur votre machine et traverse les murs sur celle d'à côté.
 
 ---
 
 ## Un corps
 
-On décrit d'abord ce qu'on veut, puis le monde le fabrique — et c'est lui qui le possède.
+```cpp
+b2BodyDef def;                      // on décrit ce qu'on veut
+def.type = b2_dynamicBody;
+def.position.Set(4.f, 10.f);        // en mètres
+
+b2Body* heros = monde.CreateBody(&def);   // le monde le fabrique
+```
+
+On décrit d'abord, le monde fabrique ensuite — et **c'est lui qui possède** le
+corps. On ne fait jamais `delete` sur un `b2Body*`.
 
 ---
 
 ## Trois types de corps
 
-Statique pour le décor, cinématique pour ce qu'on pilote à la main, dynamique pour ce que la physique décide.
+| Type | Il bouge | On le pousse | Pour |
+|---|---|---|---|
+| `b2_staticBody` | non | non | le sol, les murs |
+| `b2_kinematicBody` | oui, **vous** le bougez | non | la plateforme mobile |
+| `b2_dynamicBody` | oui, la **physique** le bouge | oui | le héros, les caisses |
 
-> [!tip] Widget — `box2d_corps_widget.html`
-> Un bac à sable avec un corps de chaque type et un curseur de poussée. Le widget montre ce
-> qui bouge, ce qui pousse sans être poussé, et ce qui ignore tout le monde. Des curseurs de
-> densité, friction et restitution changent le comportement en direct.
-
----
-
-## Une forme
-
-Rectangle, cercle, polygone : la forme physique n'a rien à voir avec l'image affichée.
+Une plateforme mobile en dynamique tombe. En statique, elle ne bouge pas.
+**Cinématique** est la seule réponse.
 
 ---
 
-## La fixture
+## Une forme, et sa matière
 
-C'est la forme plus ses propriétés de matière — densité, frottement, rebond ; l'équivalent du collider et de son matériau sous Unity.
+```cpp
+b2PolygonShape boite;
+boite.SetAsBox(0.4f, 0.9f);        // demi-largeur, demi-hauteur, en mètres
+
+b2FixtureDef matiere;
+matiere.shape = &boite;
+matiere.density = 1.f;             // la masse en découle
+matiere.friction = 0.3f;
+matiere.restitution = 0.f;         // 0 : aucun rebond
+
+heros->CreateFixture(&matiere);
+```
+
+`SetAsBox` prend des **demi**-dimensions : un héros de 1,8 m, c'est `0.9f`.
 
 ---
 
 ## Les unités
+<!-- .slide: class="schema" -->
 
-Box2D travaille en mètres et en kilogrammes : un personnage fait 1,8 et non 180.
+Box2D travaille en mètres et en kilogrammes : un personnage fait 1,8, pas 180.
 
-> [!tip] Schéma
-> Deux mondes côte à côte, l'un en pixels et l'autre en mètres, avec le facteur de
-> conversion au milieu et le même personnage dessiné dans chacun — plus la liste des
-> symptômes quand on oublie la conversion.
+![[sbd04_metres_pixels.svg]]
 
----
-
-## Créer un corps dynamique
-
-Définition, corps, forme, fixture : quatre étapes, toujours dans cet ordre.
+Note:
+C'est le piège qui coûte le plus d'heures de la série, et il ne produit aucune
+erreur. Box2D est réglé pour des objets de 0,1 à 10 mètres ; à 180, les forces
+internes saturent et tout devient mou. Le facteur se décide **maintenant** et
+s'écrit **une fois** — la classe de conversion, c'est SBD-05.
 
 ---
 
 ## Ce que le monde fait tout seul
 
-Intégration, détection des contacts, résolution : le travail qu'on ne veut surtout pas écrire.
+- **intégrer** : appliquer les forces, avancer les positions
+- **détecter** : trouver les paires de formes qui se touchent
+- **résoudre** : séparer ce qui se chevauche, sans tout faire exploser
+
+Trois problèmes difficiles que vous n'écrirez pas. C'est pour ça qu'on prend une
+bibliothèque.
 
 ---
 
-## Atelier — 20 min
+## Mise en œuvre — 1 h
 
-Un sol statique, trois caisses dynamiques, une plateforme cinématique qui va et vient, et les positions affichées dans la console.
+**Étape 4 du platformer.** Rien à l'écran, et pourtant tout marche.
+
+1. créer le monde, sa gravité, et le faire avancer à pas fixe
+2. un sol **statique**, un héros **dynamique**
+3. afficher la position du héros à chaque image, et le voir tomber puis s'arrêter
+4. essayer les trois types sur une plateforme mobile, et dire lequel convient
+
+Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
 
 ---
 
 ## À retenir
 
-Un monde, un pas fixe, le bon type de corps, des mètres — et rien à l'écran avant la séance suivante.
+- un pas **fixe**, rattrapé par un `while` — jamais `Step(dt, …)`
+- statique pour le décor, **cinématique** pour ce qu'on pilote, dynamique pour le reste
+- `SetAsBox` prend des **demi**-dimensions, en mètres
+- le monde possède ses corps : aucun `delete` de votre côté
 
 ---
 
-## Questions ?
+# Questions ?
+<!-- .slide: class="title" -->
+
+### Prochaine séance
+
+<small>[[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05]] — on rebranche l'image sur la physique.</small>

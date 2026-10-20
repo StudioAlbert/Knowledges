@@ -17,19 +17,26 @@ margin: 0
 
 # Les ficelles d'un platformer
 <!-- .slide: class="title" -->
-## GPR-CF-SBD-06
 
-<small>Là où la physique rencontre la sensation</small>
+### Étape 6 du platformer
+
+<small>GPR-CF-SBD-06 · SFML et Box2D</small>
 
 Note:
-**Plan de séance — à développer.** Un titre et une phrase directrice par slide ; widgets et
-schémas décrits seulement. Dernière séance du bloc.
+Mini-séance, et la seule de la série qui ne parle pas d'API : un répertoire de
+ficelles techniques et de game design. Aucune ne se déduit d'une équation, et
+c'est précisément ce qu'il faut qu'ils retiennent.
 
 ---
 
 ## Objectifs
 
-Savoir écrire un contrôleur de plateforme correct, et connaître les astuces qui le rendent agréable.
+À la fin de la séance, vous savez :
+
+- détecter « au sol » avec un **capteur**, pas avec un contact
+- nommer et régler **coyote time** et **jump buffer**
+- dire ce qui rend un saut **agréable**, et pas seulement correct
+- citer trois décisions d'**accessibilité** qui ne coûtent presque rien
 
 **Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05]].
 
@@ -37,83 +44,224 @@ Savoir écrire un contrôleur de plateforme correct, et connaître les astuces q
 
 ## Ce qu'on attend d'un contrôleur
 
-De la précision, de la réactivité, et assez d'indulgence pour que le joueur s'accuse lui-même.
+Un corps physique **tombe correctement**. Ça ne suffit pas :
+
+- il saute quand on appuie, pas trois images plus tard
+- il ne saute pas en l'air
+- il ne reste pas accroché à l'arête d'une plateforme
+
+Entre les deux, il n'y a que des ficelles — et elles s'écrivent **en dur**.
 
 ---
 
-## Le vrai problème du saut
-
-Savoir si le personnage est au sol n'est pas une question de position mais de contact.
+# Le sol
+<!-- .slide: class="title" -->
 
 ---
 
 ## Le capteur de sol
 
-Une petite forme sous les pieds répond à la question, et elle seule.
+```cpp
+b2PolygonShape pieds;
+pieds.SetAsBox(0.35f, 0.08f, b2Vec2(0.f, -0.9f), 0.f);   // sous le héros
+
+b2FixtureDef def;
+def.shape = &pieds;
+def.isSensor = true;              // il détecte, il n'arrête rien
+def.userData.pointer = reinterpret_cast<uintptr_t>(&capteurSol_);
+heros->CreateFixture(&def);
+```
+
+Un **capteur** traverse tout et signale ce qu'il traverse. C'est la bonne
+réponse à « est-ce que je touche le sol ».
+
+---
+
+## Compter, ne pas basculer
+
+```cpp
+void BeginContact(...) { ++contactsSol_; }
+void EndContact(...)   { --contactsSol_; }
+
+bool AuSol() const { return contactsSol_ > 0; }
+```
+
+Un booléen casse dès qu'on touche **deux** plateformes à la fois : la première
+qu'on quitte met `false` alors qu'on est toujours posé.
+
+Note:
+Le bug est garanti sur toute arête entre deux tuiles de sol : le héros marche,
+et il perd le droit de sauter une image sur deux. Un compteur règle le cas sans
+rien comprendre de plus.
 
 ---
 
 ## Toucher par le côté
 
-Ce n'est pas le fait de toucher qui compte mais l'orientation du contact.
+Un contact avec un mur n'est **pas** un contact avec le sol.
 
-> [!tip] Schéma
-> Un personnage contre une plateforme dans quatre situations — dessus, dessous, côté gauche,
-> côté droit — avec la normale de contact dessinée et la décision prise dans chaque cas.
+- le capteur sous les pieds l'exclut d'office — c'est pour ça qu'on en met un
+- un capteur latéral, lui, sert au **wall jump**
+- un capteur au-dessus sert à ne pas coller au plafond en montant
+
+Trois capteurs, trois questions. Aucun n'arrête le personnage.
+
+---
+
+# Le saut
+<!-- .slide: class="title" -->
 
 ---
 
 ## Le coyote time
 
-Autoriser le saut quelques centièmes après avoir quitté le bord change tout au ressenti.
+```cpp
+if (AuSol()) coyote_ = kCoyote;        // kCoyote ≈ 0,08 s
+else         coyote_ -= dt;
+
+if (sautDemande_ && coyote_ > 0.f)
+{
+    corps_->SetLinearVelocity({v.x, kImpulsionSaut});
+    coyote_ = 0.f;
+}
+```
+
+Le saut reste possible **quelques centièmes de seconde** après avoir quitté le
+sol. Le joueur ne le remarque jamais ; il remarque son absence.
+
+Note:
+Le nom vient du coyote de Tex Avery, qui court dans le vide avant de tomber.
+Entre 0,05 et 0,15 s selon les jeux. Au-delà, on saute visiblement dans le
+vide ; en dessous de 0,05, personne ne sent la différence.
 
 ---
 
 ## Le saut mis en mémoire
 
-Enregistrer l'appui juste avant l'atterrissage évite le saut perdu d'un cheveu.
+```cpp
+if (toucheSaut_) tampon_ = kTampon;    // kTampon ≈ 0,1 s
+else             tampon_ -= dt;
 
-> [!tip] Widget — `plateforme_widget.html`
-> Un réglage de saut en direct : gravité, impulsion, gravité à la descente, coyote time,
-> mémoire d'appui. La courbe du saut se dessine à côté et trois préréglages montrent des
-> sensations très différentes avec les mêmes formules.
+if (tampon_ > 0.f && AuSol()) { Sauter(); tampon_ = 0.f; }
+```
+
+Une touche pressée **juste avant** l'atterrissage déclenche le saut dès le
+contact, au lieu d'être perdue.
+
+Coyote time et jump buffer sont la même idée, dans les deux sens du temps.
 
 ---
 
 ## Passer d'une plateforme à l'autre
 
-Le personnage doit pouvoir glisser le long d'un bord sans y rester accroché.
+Un personnage qui accroche l'arête d'une tuile, c'est **la forme** qui est en
+cause, pas la physique :
+
+- une boîte à angles vifs accroche les jointures du sol
+- un bas arrondi, ou un capteur un peu plus étroit que le corps, n'accroche plus
+- des tuiles de sol fusionnées en **une** forme suppriment les jointures
+
+Aucune de ces trois réponses n'est un réglage de gravité.
 
 ---
 
 ## La plateforme à sens unique
 
-On traverse par le bas, on se pose par le haut : le contact s'ignore selon le sens du déplacement.
+```cpp
+void PreSolve(b2Contact* contact, const b2Manifold*) override
+{
+    if (EstTraversable(contact) && MonteVersElle(contact))
+        contact->SetEnabled(false);          // on la traverse, cette fois
+}
+```
+
+`PreSolve` est appelé **avant** la résolution : c'est le seul endroit où l'on
+peut annuler un contact au cas par cas.
 
 ---
 
 ## Le wall jump
 
-Détecter le mur, puis composer une impulsion qui repousse autant qu'elle élève.
+- un capteur latéral dit qu'un mur est là
+- le saut applique une vitesse **vers le haut et vers l'opposé**
+- pendant quelques dixièmes, on ignore l'entrée du joueur, sinon il recolle au mur
+
+Ce troisième point est la ficelle : sans elle, le wall jump ne marche pas, et
+rien dans la physique ne l'indique.
+
+---
+
+# Le fun, et tout le monde
+<!-- .slide: class="title" -->
+
+---
+
+## Ce qui rend un saut agréable
+
+| Réglage | Ce que le joueur ressent |
+|---|---|
+| gravité plus forte **en descente** | le saut est nerveux, pas flottant |
+| hauteur variable selon l'appui | il contrôle, au lieu de subir |
+| coyote time + jump buffer | « le jeu a compris ce que je voulais » |
+| une courte accélération au sol | le personnage a du poids |
+
+Aucune de ces lignes n'est dans Box2D. Toutes sont dans votre contrôleur.
+
+---
+
+## L'accessibilité, à trois décisions
+
+- **touches reconfigurables** — une table, pas des `if` codés en dur
+- **aucune combinaison à trois doigts** — ni maintien long obligatoire
+- **le niveau pardonne** — points de reprise fréquents, pas de chute punitive
+
+Ça ne coûte presque rien si on y pense **maintenant**, et ça coûte une refonte
+si on y pense à la fin.
+
+Note:
+Lier au point précédent : coyote time et jump buffer **sont** des mesures
+d'accessibilité avant d'être des astuces de game feel. Un joueur précis ne les
+sent pas ; un joueur moins précis ne joue pas sans.
 
 ---
 
 ## Régler, c'est tester
 
-Aucun de ces nombres ne se déduit : ils se trouvent en jouant, et se notent.
+1. changer **une** valeur à la fois
+2. rejouer **le même** passage, celui qui vous embête
+3. demander à quelqu'un d'autre de jouer, sans rien lui expliquer
+4. noter la valeur retenue et **pourquoi**
+
+Toutes les valeurs vivent dans un seul fichier — c'est ce que la summative
+vérifie.
 
 ---
 
-## Atelier — 20 min
+## Mise en œuvre — 1 h
 
-Ajouter au personnage le capteur de sol, le coyote time, la mémoire d'appui, et une plateforme à sens unique.
+**Étape 6 du platformer.** Le jeu devient jouable.
+
+1. le capteur de sol, et le **compteur** plutôt que le booléen
+2. coyote time, puis jump buffer — et les sentir en jouant
+3. wall jump et plateforme à sens unique
+4. une page : les trois réglages que vous avez touchés, et ce qu'ils changent
+
+Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
 
 ---
 
 ## À retenir
 
-Le sol se détecte par contact, la normale décide, et l'indulgence se règle en centièmes de seconde.
+- « au sol » se mesure avec un **capteur** et un **compteur**, jamais un booléen de contact
+- coyote time et jump buffer : la même idée, dans les deux sens du temps
+- ce qui rend un saut agréable n'est **pas** dans le moteur physique
+- l'accessibilité se décide au début, ou elle coûte une refonte
 
 ---
 
-## Questions ?
+# Questions ?
+<!-- .slide: class="title" -->
+
+### Fin de la série
+
+<small>Le rendu : [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]].</small>

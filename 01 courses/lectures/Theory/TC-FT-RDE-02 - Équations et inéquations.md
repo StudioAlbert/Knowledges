@@ -2,7 +2,7 @@
 title: Équations et inéquations
 type: seance
 code: TC-FT-RDE-02
-status: To check
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Résolution d'Équation
@@ -12,7 +12,7 @@ classes:
   - WEB-926
 date_scheduled: 2026-10-21
 url_test: http://localhost:3001/theory/tc-ft-rde-02/
-manual_order: 3.9375
+manual_order: 8
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

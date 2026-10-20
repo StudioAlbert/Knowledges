@@ -7,38 +7,38 @@ exercices: "[[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par eta
 - [x] Supprimer la slide **Deux mondes**
 - [x] Supprimer la slide **Ce qu'un moteur fait pour vous**
 	- [x] Prendre contenu existant et redispatcher
-	- [ ] Produire nouveaux decks
+	- [x] Produire nouveaux decks
 	- [x] Rester pratique, produire citations de code
 	- [x] 1 - Afficher Fenetre + Sprites
-	- [ ] 2 - GamePlay - Events
-		- [ ] Window close
-		- [ ] Window resize
-		- [ ] Inputs clavier / Manette
-	- [ ] 3 - Deplacer / Animer : Comment gérer le temps ? 
-		- [ ] Expliciter cas du delta time
-		- [ ] L'utiliser pour les deplacement
-		- [ ] Principes des sprites sheets -> cas d'usage en animation
-	- [ ] 4 - Box 2D : Deck inchangé
-	- [ ] 5 - Relier monde physique / monde graphique
-		- [ ] Faire classe de conversion de positions
-		- [ ] Collisions
-	- [ ] 6 - Mini-séance permettant de répertorier les différents tips techniques et de gameplay d'un platformer
-		- [ ] Ground Check
-		- [ ] Coyote Time
-		- [ ] Le fun dans un platformer
-		- [ ] L'accessibilité du game play
-- [ ] Review https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples
-	- [ ] Transfer the VisualStudio solution to generic CMAKE
+	- [x] 2 - GamePlay - Events
+		- [x] Window close
+		- [x] Window resize
+		- [x] Inputs clavier / Manette
+	- [x] 3 - Deplacer / Animer : Comment gérer le temps ? 
+		- [x] Expliciter cas du delta time
+		- [x] L'utiliser pour les deplacement
+		- [x] Principes des sprites sheets -> cas d'usage en animation
+	- [x] 4 - Box 2D : Deck inchangé
+	- [x] 5 - Relier monde physique / monde graphique
+		- [x] Faire classe de conversion de positions
+		- [x] Collisions
+	- [x] 6 - Mini-séance permettant de répertorier les différents tips techniques et de gameplay d'un platformer
+		- [x] Ground Check
+		- [x] Coyote Time
+		- [x] Le fun dans un platformer
+		- [x] L'accessibilité du game play
+- [x] Review https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples
+	- [x] Transfer the VisualStudio solution to generic CMAKE
 	- [x] Is it Every targets SFML 3 compatible, Review changes
-- [ ] Write Down a summative platformer statement
-	- [ ] Based on this statement : 01 courses/projects/Unity/_archives_to_cut/2D Platformer
-	- [ ] Rephrased for a C++ / SFML / Box2D stack
-	- [ ] Rephrased for beginner programmers 
+- [x] Write Down a summative platformer statement
+	- [x] Based on this statement : 01 courses/projects/Unity/_archives_to_cut/2D Platformer
+	- [x] Rephrased for a C++ / SFML / Box2D stack
+	- [x] Rephrased for beginner programmers 
 
 - [x] Dévellopper le contenu en se basant sur les sources
 	- [x] Sources complémentaires ci dessous
 	- [x] Decks existants
-- [ ] Serie de cours orientée pratique
+- [x] Serie de cours orientée pratique
 	- [x] Deck rapide — **fait pour SBD-01 seulement**, comme modèle de format
 	- [x] Chaque cours se termine par une mise en oeuvre d'1h sur chacune des problematiques
 		- [x] Revision des fiches d'exercices en fonction : une seule fiche pour toute la serie
@@ -228,3 +228,44 @@ marqueurs qui ne compilent pas en SFML 3.
    features attendues, deux options à choisir dont le coyote time et le wall jump, et des
    références Mario. Elle est écrite pour Unity et pour un public qui connaît déjà un moteur.
    La transposition C++ / SFML / Box2D reste à écrire.
+
+## Les quatre decks restants, écrits le 20.10
+
+| Deck | Slides | Hors cadre | Ce qu'il porte |
+|---|---|---|---|
+| SBD-03 — Déplacer et animer | 15 | 0 | le `dt` mesuré une fois, le piège du déplacement par image, limiter ou se synchroniser, la planche découpée à cadence fixe |
+| SBD-04 — Le monde Box2D | 13 | 0 | le monde, le **pas fixe** rattrapé par un `while`, les trois types de corps, la forme et sa matière, les unités |
+| SBD-05 — Relier | 15 | 0 | la classe de conversion, les deux axes Y opposés, la copie dans un seul sens, le `ContactListener` et `UserData` |
+| SBD-06 — Les ficelles | 20 | 0 | capteur de sol et **compteur**, coyote time, jump buffer, wall jump, le fun, l'accessibilité |
+
+Le widget `boucle_de_jeu_widget` **change de séance** : il mesurait le temps, il part donc en
+SBD-03, sur son onglet `#course`. SBD-01 ne le porte plus.
+
+**Schéma neuf** `sbd04_metres_pixels.svg` : les deux mondes côte à côte, le facteur au
+milieu, les deux fonctions de conversion, et la bande rouge des symptômes quand on oublie —
+un héros de 180 mètres, une gravité qui paraît nulle, des forces sans effet. C'est la figure
+que SBD-05 reprend en classe de conversion.
+
+Trois ficelles de SBD-06 ne venaient d'aucun squelette et me paraissent indispensables :
+
+- **le compteur de contacts** au lieu d'un booléen — un booléen casse sur toute arête entre
+  deux tuiles de sol, et le héros perd le droit de sauter une image sur deux ;
+- **l'entrée ignorée quelques dixièmes après un wall jump**, sans quoi le personnage recolle
+  au mur et la ficelle ne marche pas ;
+- **l'accessibilité liée au game feel** : coyote time et jump buffer sont des mesures
+  d'accessibilité avant d'être des astuces.
+
+## Ce qui reste ouvert
+
+1. **Box2D 2.4, toujours pas tranché.** Les quatre decks écrivent `b2World`, `b2BodyDef`,
+   `b2Fixture`, `b2ContactListener` — c'est Box2D **2.4**. Box2D 3 a supprimé `b2Fixture` et
+   remplacé les pointeurs par des poignées (`b2WorldId`, `b2BodyId`), donc **tout le code de
+   SBD-04, 05 et 06 serait à réécrire**. J'ai gardé 2.4 parce que c'est le vocabulaire de tes
+   périmètres d'origine. Si tu veux Box2D 3, c'est maintenant qu'il faut le dire.
+2. **`box2d_corps_widget.html` n'est pas construit.** Le squelette de SBD-04 le proposait : un
+   bac à sable avec un corps de chaque type, un curseur de poussée, et densité / friction /
+   restitution en direct. Le tableau des trois types le remplace pour l'instant.
+3. **Aucun des quatre decks ne cite le dépôt d'exemples.** Tu étais en train de le migrer en
+   CMake pendant que je les écrivais, et `Motor`, `MoveAndJump` et `LevelEditor` sont encore
+   en SFML 2 — je ne voulais pas y envoyer les étudiants. Dès qu'ils compilent, SBD-03, 05 et
+   06 ont chacune une cible à citer.
