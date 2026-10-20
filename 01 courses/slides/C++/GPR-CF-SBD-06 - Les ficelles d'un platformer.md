@@ -153,6 +153,18 @@ Coyote time et jump buffer sont la même idée, dans les deux sens du temps.
 
 ---
 
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/saut_fun_widget.html#coyote" data-background-interactive -->
+
+Note:
+Les quatre onglets, dans l'ordre. Les deux premiers décident qui passe et qui
+tombe — c'est la démonstration. Les deux derniers ne font tomber personne :
+*hauteur variable* montre 61 px contre 31 px pour **le même appui**, et
+*gravité asymétrique* montre la même hauteur mais deux courbes différentes.
+Faire remarquer que les deux coureurs reçoivent **la même touche au même
+instant** : la seule variable est la ficelle.
+
+---
+
 ## Passer d'une plateforme à l'autre
 
 Un personnage qui accroche l'arête d'une tuile, c'est **la forme** qui est en

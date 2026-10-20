@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un saut qui fait envie — les ficelles, côte à côte</title>
+<script>if (window.self !== window.top || /[?&]embed(&|=|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --vert: #2e9e5b;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 16px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 {
+    font-weight: 800; font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: -.01em; line-height: 1; text-transform: uppercase;
+}
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 700px; line-height: 1.5; }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: 600 13.5px "Inter", sans-serif; color: var(--muted);
+    background: #fff; border: 2px solid var(--line); border-radius: 999px;
+    padding: 7px 15px; cursor: pointer; transition: border-color .12s, background .12s;
+}
+.tabs button:hover { border-color: var(--muted2); color: var(--sae-black); }
+.tabs button.on { border-color: var(--sae-black); background: var(--sae-black); color: #fff; }
+
+.scene {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px;
+}
+.scene canvas { width: 100%; height: auto; display: block; image-rendering: pixelated; }
+
+.barre {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line);
+}
+.go {
+    font: 800 14px "Inter", sans-serif; color: #fff; background: var(--sae-red);
+    border: none; border-radius: var(--radius); padding: 10px 20px; cursor: pointer;
+}
+.go:hover { filter: brightness(1.08); }
+.consigne { font-size: 13.5px; color: var(--muted); flex: 1; min-width: 240px; }
+.consigne b { color: var(--sae-black); }
+
+.verdict {
+    margin-top: 12px; padding: 11px 16px; border-radius: var(--radius);
+    background: var(--panel2); border: 1px solid var(--line);
+    font-size: 15px; font-weight: 700; text-align: center; min-height: 44px;
+}
+.verdict .rate { color: var(--sae-red); }
+.verdict .passe { color: var(--vert); }
+
+footer { margin-top: 20px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 20px 18px 10px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 9px; padding-bottom: 7px; }
+html.embed h1 { font-size: 23px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .scene { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+html.embed .scene canvas { flex: 1; min-height: 0; object-fit: contain; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>Un saut qui <span class="hl">fait envie</span></h1>
+        <p class="sub">Deux coureurs, le même niveau, <b>la même touche au même instant</b>.
+            Celui du haut n'a aucune ficelle, celui du bas en a une. C'est la seule
+            différence — et elle décide qui passe.</p>
+    </div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="scene">
+    <canvas id="toile" width="900" height="330"></canvas>
+    <div class="barre">
+        <button class="go" id="rejouer">Rejouer</button>
+        <p class="consigne" id="consigne"></p>
+    </div>
+</div>
+
+<p class="verdict" id="verdict">&nbsp;</p>
+
+<footer>SAE Institute Genève — GPR-CF-SBD-06, les ficelles d'un platformer.</footer>
+
+</div>
+
+<script>
+(function(){
+
+// Les trois poses de course, embarquees : le widget reste un fichier unique.
+const POSES = [
+"data:image/png;base64,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",
+"data:image/png;base64,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",
+"data:image/png;base64,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"
+];
+
+const images = POSES.map((src) => { const i = new Image(); i.src = src; return i; });
+
+// ---------------------------------------------------------------- la physique
+const SOL = 250;
+const VX = 190;            // px/s
+const IMPULSION = 430;     // px/s
+const G = 1500;            // px/s²
+const COYOTE = 0.12;       // s
+const TAMPON = 0.15;       // s
+const PAS = 1 / 240;       // le pas des sondes, fixe
+
+function neuf(plats, ficelles) {
+    return {plats, f: ficelles, x: 40, y: SOL, vy: 0, sol: true,
+            coyote: 0, tampon: 0, tombe: false, fini: false, trace: []};
+}
+
+function surPlateforme(c) {
+    return c.plats.some(([a, b]) => c.x >= a && c.x <= b);
+}
+
+function avancer(c, dt, presse, relache) {
+    if (c.fini) return;
+    c.x += VX * dt;
+
+    if (presse) {
+        if (c.sol || (c.f.coyote && c.coyote > 0)) { c.vy = -IMPULSION; c.sol = false; c.coyote = 0; }
+        else if (c.f.buffer) c.tampon = TAMPON;
+    }
+    if (c.tampon > 0 && c.sol) { c.vy = -IMPULSION; c.sol = false; c.tampon = 0; }
+    if (relache && c.f.variable && c.vy < -140) c.vy = -140;
+
+    if (!c.sol) {
+        const g = (c.f.asym && c.vy > 0) ? G * 2.1 : G;
+        c.vy += g * dt;
+        c.y += c.vy * dt;
+        if (c.y >= SOL) {
+            if (surPlateforme(c)) { c.y = SOL; c.vy = 0; c.sol = true; }
+            else if (c.y > SOL + 110) { c.tombe = true; c.fini = true; }
+        }
+    } else if (!surPlateforme(c)) {
+        c.sol = false;
+        c.coyote = COYOTE;
+    }
+
+    if (c.coyote > 0) c.coyote -= dt;
+    if (c.tampon > 0) c.tampon -= dt;
+    if (c.x > 880) c.fini = true;
+    c.trace.push([c.x, c.y]);
+}
+
+// Rejoue une course entiere avec une liste d'appuis, et rend ce qu'on veut savoir.
+function simuler(plats, ficelles, appuis) {
+    const c = neuf(plats, ficelles);
+    let t = 0, quitte = 0, atterrit = 0, sommet = SOL;
+    while (t < 9 && !c.fini) {
+        const avant = t, etaitSol = c.sol;
+        t += PAS;
+        const presse = appuis.some((a) => avant < a.t && t >= a.t);
+        const relache = appuis.some((a) => a.rel != null && t >= a.t + a.rel);
+        avancer(c, PAS, presse, relache);
+        if (etaitSol && !c.sol && !quitte) quitte = avant;
+        if (quitte && !atterrit && !etaitSol && c.sol) atterrit = t;
+        sommet = Math.min(sommet, c.y);
+    }
+    return {c, quitte, atterrit, sommet: Math.round(SOL - sommet)};
+}
+
+// ---------------------------------------------------------------- les scenarios
+// Chaque scenario a son niveau et ses appuis ; les instants sont calcules ici,
+// une fois, par des sondes — rien n'est ecrit en dur.
+const NIVEAUX = {
+    coyote: [[0, 300], [380, 900]],
+    buffer: [[0, 260], [340, 380], [465, 900]],
+    variable: [[0, 900]],
+    asym: [[0, 900]]
+};
+
+function appuisDe(cle) {
+    if (cle === "coyote") {
+        const q = simuler(NIVEAUX.coyote, {}, []).quitte;
+        return [{t: q + 0.08}];                       // 80 ms trop tard
+    }
+    if (cle === "buffer") {
+        const q = simuler(NIVEAUX.buffer, {}, []).quitte;
+        const a = simuler(NIVEAUX.buffer, {}, [{t: q}]).atterrit;
+        return [{t: q}, {t: a - 0.10}];               // le second, 100 ms trop tot
+    }
+    if (cle === "variable") return [{t: 0.6, rel: 0.07}];
+    return [{t: 0.6}];
+}
+
+const SCENARIOS = {
+    coyote: {
+        onglet: "J'ai appuyé trop tard",
+        ficelle: "coyote", nom: "coyote time",
+        consigne: "La touche part <b>80 ms après</b> avoir quitté le bord. Sans coyote time, " +
+                  "le saut n'a jamais lieu : le personnage n'est déjà plus au sol."
+    },
+    buffer: {
+        onglet: "J'ai appuyé trop tôt",
+        ficelle: "buffer", nom: "jump buffer",
+        consigne: "Le second appui part <b>100 ms avant</b> de toucher la plateforme du " +
+                  "milieu. Sans jump buffer, il est perdu — et le trou suivant arrive."
+    },
+    variable: {
+        onglet: "J'ai juste tapé la touche",
+        ficelle: "variable", nom: "hauteur variable",
+        consigne: "La touche est relâchée après <b>70 ms</b>. Sans hauteur variable, le saut " +
+                  "part toujours au maximum : impossible de faire un petit saut."
+    },
+    asym: {
+        onglet: "Le saut est mou",
+        ficelle: "asym", nom: "gravité asymétrique",
+        consigne: "Même impulsion, même appui. Avec une gravité <b>deux fois plus forte à " +
+                  "la descente</b>, la courbe se penche et le saut devient nerveux."
+    }
+};
+
+for (const cle of Object.keys(SCENARIOS)) {
+    SCENARIOS[cle].plats = NIVEAUX[cle];
+    SCENARIOS[cle].appuis = appuisDe(cle);
+}
+
+// ---------------------------------------------------------------- le rendu
+const toile = document.getElementById("toile");
+const ctx = toile.getContext("2d");
+const $ = (id) => document.getElementById(id);
+
+let scenario = "coyote";
+let pistes = [];
+let temps = 0;
+let anim = null;
+
+function lancer() {
+    const s = SCENARIOS[scenario];
+    pistes = [
+        {c: neuf(s.plats, {}), titre: "sans " + s.nom, dy: 0, couleur: "#E30613"},
+        {c: neuf(s.plats, {[s.ficelle]: true}), titre: "avec " + s.nom, dy: 160, couleur: "#2e9e5b"}
+    ];
+    temps = 0;
+    $("verdict").innerHTML = "&nbsp;";
+    if (anim) cancelAnimationFrame(anim);
+    const t0 = performance.now();
+    anim = requestAnimationFrame((t) => boucle(t0, t));
+    dessiner();
+}
+
+function boucle(t0, t1) {
+    const dt = Math.min(0.033, (t1 - t0) / 1000);
+    const avant = temps;
+    temps += dt;
+    const appuis = SCENARIOS[scenario].appuis;
+
+    for (const p of pistes) {
+        const presse = appuis.some((a) => avant < a.t && temps >= a.t);
+        const relache = appuis.some((a) => a.rel != null && temps >= a.t + a.rel);
+        avancer(p.c, dt, presse, relache);
+    }
+    dessiner();
+
+    if (pistes.every((p) => p.c.fini) || temps > 8) { verdict(); return; }
+    anim = requestAnimationFrame((t) => boucle(t1, t));
+}
+
+function dessiner() {
+    ctx.clearRect(0, 0, toile.width, toile.height);
+    for (const p of pistes) piste(p);
+}
+
+function piste(p) {
+    const base = 10 + p.dy;        // haut de la bande, dans la toile
+    const haut = base - (SOL - 150);
+
+    ctx.save();
+    ctx.translate(0, haut);
+
+    ctx.fillStyle = "#1a1a1a";
+    for (const [a, b] of p.c.plats) ctx.fillRect(a, SOL, b - a, 12);
+
+    ctx.strokeStyle = p.couleur;
+    ctx.globalAlpha = 0.4;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    p.c.trace.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    const img = images[Math.floor(temps * 12) % images.length];
+    const h = 44, w = h * ((img.naturalWidth / img.naturalHeight) || 1);
+    if (img.complete && img.naturalWidth) ctx.drawImage(img, p.c.x - w / 2, p.c.y - h, w, h);
+    else { ctx.fillStyle = p.couleur; ctx.fillRect(p.c.x - 11, p.c.y - 38, 22, 38); }
+
+    ctx.restore();
+
+    ctx.fillStyle = p.couleur;
+    ctx.font = "800 14px Inter, sans-serif";
+    ctx.fillText(p.titre, 10, base + 14);
+}
+
+function verdict() {
+    const [sans, avec] = pistes.map((p) => p.c);
+    const s = SCENARIOS[scenario];
+
+    if (scenario === "asym" || scenario === "variable") {
+        const hs = simuler(s.plats, {}, s.appuis).sommet;
+        const ha = simuler(s.plats, {[s.ficelle]: true}, s.appuis).sommet;
+        $("verdict").innerHTML = scenario === "variable"
+            ? "Même appui : <b>" + hs + " px</b> de haut sans la ficelle, <b>" + ha +
+              " px</b> avec. En haut, la touche tapée vaut la touche tenue."
+            : "Même hauteur — <b>" + hs + " px</b> contre <b>" + ha +
+              " px</b> — mais regardez les courbes : celle du bas retombe deux fois plus vite.";
+        return;
+    }
+
+    $("verdict").innerHTML =
+        (sans.tombe ? '<span class="rate">Sans ' + s.nom + " : tombé.</span>"
+                    : "Sans " + s.nom + " : passé.") + " &nbsp;·&nbsp; " +
+        (avec.tombe ? '<span class="rate">Avec : tombé aussi.</span>'
+                    : '<span class="passe">Avec ' + s.nom + " : passé.</span>");
+}
+
+// ---------------------------------------------------------------- les onglets
+$("tabs").innerHTML = Object.entries(SCENARIOS)
+    .map(([k, s]) => '<button data-k="' + k + '">' + s.onglet + "</button>").join("");
+
+function montrer(k) {
+    if (!SCENARIOS[k]) k = "coyote";
+    scenario = k;
+    document.querySelectorAll(".tabs button").forEach((b) => b.classList.toggle("on", b.dataset.k === k));
+    $("consigne").innerHTML = SCENARIOS[k].consigne;
+    lancer();
+}
+
+$("tabs").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    history.replaceState(null, "", "#" + b.dataset.k);
+    montrer(b.dataset.k);
+});
+$("rejouer").addEventListener("click", lancer);
+addEventListener("hashchange", () => montrer(location.hash.slice(1)));
+
+
+
+if (document.documentElement.classList.contains("embed")){
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up", PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+montrer(location.hash.slice(1));
+montrer(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
