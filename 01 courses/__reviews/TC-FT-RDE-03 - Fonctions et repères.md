@@ -145,10 +145,39 @@ en une phrase. C'est la méthode qui est évaluée.
 > générateur `tools/schemas/rde03_degats_amortis.py` qu'il faut changer : il produit la
 > figure **et** la table, donc les deux resteront d'accord.
 
-## Le projet companion reste à décider
+## Le projet companion — squelette écrit, dépôt pas encore créé
 
 Le **contenu** est écrit : le programme de départ est dans la feuille — il lit une distance,
 affiche les dégâts, et porte les deux fonctions vides avec l'appel de l'une commenté, comme
 tu le demandais. Ce qui manque, c'est le **dépôt** : la convention de ce vault veut un dépôt
 public `<CODE>_<Nom>` plus un sous-module ici, et je ne crée pas de dépôt public sans que tu
 le dises. Les trois cases correspondantes restent donc ouvertes.
+
+### Où en est le companion (20.10, fin de session)
+
+Tu as tranché : **dépôt public + sous-module**. Le squelette est écrit et il est posé dans
+`01 courses/_drafts/TC_FT_RDE_03_DegatsSelonLaDistance/` — un dossier préfixé `_`, donc
+ignoré du build et du kanban, le temps que le dépôt existe.
+
+```
+CMakeLists.txt                   projet TC_FT_RDE_03_DegatsSelonLaDistance, C++23
+README.md  .gitignore  .clang-format
+01_degats/
+    CMakeLists.txt               une target, un repertoire
+    main.cc                      lit une distance, affiche les degats,
+                                 l'appel a DegatsAmortis est en commentaire
+    include/degats.h             les trois constantes et les deux signatures
+    src/degats.cc                les deux corps vides, avec la consigne en commentaire
+    README.md                    les deux etapes et les tables de verification
+```
+
+**Ce qui reste, et que je n'ai pas eu le temps de faire :**
+
+1. `gh repo create StudioAlbert/TC_FT_RDE_03_DegatsSelonLaDistance --public --source=. --push`
+   depuis ce dossier ;
+2. `git submodule add` vers
+   `01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance`, puis retirer
+   le dossier de `_drafts/` ;
+3. compiler une fois (`cmake -S . -B build && cmake --build build`) — **le squelette n'a pas
+   encore été compilé** ;
+4. ajouter le lien du companion dans la feuille du formatif.
