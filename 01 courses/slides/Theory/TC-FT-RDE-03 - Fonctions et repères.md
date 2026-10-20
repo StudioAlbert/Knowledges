@@ -181,15 +181,47 @@ puis on applique une courbe à ce temps.
 
 ---
 
-## Valeur absolue et bornage
+## Composer, en trois graphes
+<!-- .slide: class="schema" -->
+
+Une distance entre à gauche, des dégâts sortent à droite — et rien n'est calculé deux fois.
+
+![[rde03_composition.svg]]
+
+Note:
+C'est **l'exemple du formatif**, montré en entier avant qu'ils l'écrivent. Faire
+lire les trois graphes dans l'ordre : `f` ne connaît que des distances et rend un
+nombre entre 0 et 1 ; `g` ne connaît que ce nombre et rend des dégâts. Aucune des
+deux ne connaît l'autre — c'est ce qui permet de changer la courbe du milieu sans
+retoucher les bornes.
+
+---
+
+## Ce qu'il faut vérifier pour composer
+
+- le **domaine** : l'image de `f` doit tenir dans le domaine de `g`
+- la **monotonie** se transmet : deux croissantes donnent une croissante, une décroissante inverse le sens
+- la **normalisation** entre 0 et 1 rend les courbes interchangeables
+- le **bornage** garantit la première ligne — c'est exactement le rôle de `clamp`
+
+Composer sans vérifier le domaine, c'est une racine de négatif ou une division par zéro.
+
+---
+
+## Les deux outils du formatif
 
 ```text
 |x − c|              l'écart à une cible, sans le signe
 clamp(x, 0, 1)       la valeur ramenée dans l'intervalle
 ```
 
-Deux outils omniprésents : le premier mesure, le second **protège**. Un `clamp`
-en sortie de fonction, c'est la garantie qu'aucun réglage absurde ne passe.
+Le premier mesure, le second **protège**. Sans le `clamp`, une distance de
+−2 mètres donnerait des dégâts supérieurs au maximum.
+
+Note:
+À partir d'ici, tout ce qu'on montre sert au formatif. Le `clamp` n'est pas une
+précaution de style : c'est lui qui garantit que l'image de `f` reste dans
+`[0 ; 1]`, donc dans le domaine de `g`. C'est la slide précédente, appliquée.
 
 ---
 
@@ -205,7 +237,7 @@ dégâts(d) = 1                si d ≤ 10
           = 0                si d > 30
 ```
 
-Les dégâts d'un fusil à pompe, et la forme la plus courante dans un jeu.
+La forme la plus courante dans un jeu — et celle du formatif, aux valeurs près.
 
 Note:
 Faire remarquer la continuité aux raccords : en `d = 10`, les deux morceaux
@@ -214,14 +246,33 @@ en jeu comme un saut de dégâts, et c'est le bug qu'on cherche des heures.
 
 ---
 
-## Atelier — 20 min
+## La courbe à retrouver
+<!-- .slide: class="schema" -->
 
-Avec le traceur, régler deux courbes et justifier chaque choix.
+Mêmes règles, deux formes : la proportionnelle perd régulièrement, l'amortie tient puis s'effondre.
 
-1. l'**atténuation** d'un fusil à pompe : à quelle distance les dégâts tombent-ils de moitié ?
-2. la **sensibilité de visée** : quel exposant pour viser fin de près et tourner vite de loin ?
-3. composer la sensibilité avec un `clamp` : qu'est-ce que ça empêche ?
-4. écrire l'atténuation en **fonction par morceaux**, et vérifier les raccords
+![[rde03_degats_amortis.svg]]
+
+Note:
+Les deux bornes sont imposées par le game design — 25 à bout portant, 0 à cinq
+mètres — et c'est **tout** ce qui est imposé. La forme entre les deux est un
+choix, et c'est le choix qu'on leur demande de faire. Ne **pas** donner la
+formule de l'amortie : les cinq points du tableau suffisent à la retrouver, et
+c'est l'exercice.
+
+---
+
+## Formatif — les dégâts selon la distance
+
+Le game designer pose trois règles, et rien d'autre :
+
+- **25 dégâts** à bout portant, soit à moins de 0,25 m
+- **0 dégât** à partir de 5 m
+- entre les deux, ça **descend**
+
+Deux fonctions à écrire : `DegatsProportionnels`, puis `DegatsAmortis`.
+
+Énoncé : [[01 courses/exercises/Theory/TC-FT-RDE-03 - Formatif, les degats selon la distance|les dégâts selon la distance]].
 
 ---
 
