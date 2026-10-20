@@ -1,5 +1,5 @@
 ---
-title: Un platformer, concrètement
+title: Les ficelles d'un platformer
 type: seance
 code: GPR-CF-SBD-06
 status: To prepare
@@ -15,10 +15,10 @@ tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-11-04
 review:
-  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|Review SBD-01]]"
+  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|Review SBD-01]]"
 ---
 
-# Un platformer, concrètement
+# Les ficelles d'un platformer
 
 > [!abstract] Séance d'1 h — `GPR-CF-SBD-06` · bloc GSDA *SFML et Box2D*
 > GP-926 · salle Arve · **2026-11-04** · 09:30–10:50 (Module 1 — 7 sept. → 13 nov. 2026)
@@ -34,7 +34,7 @@ Objectifs d'un contrôleur de plateforme, ne pas sauter en l'air, toucher le sol
 ## Plan et exercices — overview à valider
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-06 - Un platformer, concrètement|GPR-CF-SBD-06 - Un platformer, concrètement]] — 15 slides, `publish: false` · widgets proposés : `plateforme_widget.html` ; 1 schéma à dessiner.
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-06 - Les ficelles d'un platformer|GPR-CF-SBD-06 - Les ficelles d'un platformer]] — 15 slides, `publish: false` · widgets proposés : `plateforme_widget.html` ; 1 schéma à dessiner.
 > - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 6**.
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque

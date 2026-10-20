@@ -15,7 +15,7 @@ tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-29
 review:
-  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|Review SBD-01]]"
+  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|Review SBD-01]]"
 ---
 
 # Le monde Box2D
@@ -48,7 +48,7 @@ Monde physique, `b2World`, `b2Body` et `b2BodyDef`, types de corps statique, cin
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-SBD-03 - Son]]
+- Séance précédente : [[GPR-CF-SBD-03 - Déplacer et animer]]
 - Séance suivante : [[GPR-CF-SBD-05 - Relier physique et graphique]]
 
 ## Notes de préparation

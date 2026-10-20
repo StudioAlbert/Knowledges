@@ -31,74 +31,77 @@ platformer jouable — et vous l'avez écrit en six fois, sans jamais repartir d
 
 ---
 
-## Étape 1 — La fenêtre et la boucle
+## Étape 1 — La fenêtre et les sprites
 
-> Séance [[01 courses/slides/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|GPR-CF-SBD-01]]
+> Séance [[01 courses/slides/C++/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|GPR-CF-SBD-01]]
 
-**Ce qu'on écrit** : une fenêtre qui s'ouvre et se ferme, une boucle `effacer / dessiner /
-afficher`, un `sf::Clock` qui donne le temps écoulé, et un carré pilotable au clavier.
+**Ce qu'on écrit** : une fenêtre qui s'ouvre et se ferme, la boucle `effacer / dessiner /
+afficher`, un décor en formes, et le héros à l'écran.
 
 1. ouvrir la fenêtre **sans** traiter les événements, constater qu'elle ne répond plus,
    puis ajouter la boucle. Dire en une phrase **qui** ferme la fenêtre.
-2. faire varier la couleur de fond avec le temps, puis retirer l'effacement et décrire ce
-   qu'on voit.
-3. déplacer le carré en ajoutant une valeur **par image**, mesurer sa vitesse à 30 puis à
-   144 images par seconde, et corriger en passant par le temps écoulé.
-4. limiter le framerate, puis se synchroniser à l'écran, et afficher le framerate réel dans
-   le titre.
+2. faire varier la couleur de fond, puis retirer l'effacement et décrire ce qu'on voit.
+3. poser un sol et deux plateformes en `sf::RectangleShape`, aux bonnes positions.
+4. charger un PNG et afficher le héros dessus. Provoquer le **carré blanc** exprès en
+   laissant mourir la texture, puis corriger.
 
-**Ce qu'on vérifie** : le carré traverse l'écran en le **même temps** à 30 et à 144 images
-par seconde. C'est la seule recette de l'étape, et elle ne se discute pas.
+**Ce qu'on vérifie** : la fenêtre se ferme à la croix **et** à Échap, et le héros s'affiche
+sans carré blanc.
+
+> [!tip] Le piège
+> `sf::Sprite` ne copie pas la texture, il garde un **pointeur** dessus. Une texture locale
+> qui meurt à la fin de la fonction donne un sprite blanc, sans erreur ni plantage.
+
+---
+
+## Étape 2 — Le gameplay et les événements
+
+> Séance [[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02]]
+
+**Ce qu'on écrit** : tout ce que la fenêtre reçoit — fermeture, redimensionnement, clavier,
+manette — et la différence entre un événement et un état.
+
+1. traiter `Closed` et `Resized` : la vue doit suivre sans déformer le décor.
+2. piloter le héros au **clavier**, d'abord avec `KeyPressed`, puis avec
+   `sf::Keyboard::isKeyPressed`. Dire pourquoi le second convient au déplacement et le
+   premier au saut.
+3. brancher une **manette** : axes pour le déplacement, bouton pour le saut, et un repli
+   propre quand aucune manette n'est branchée.
+4. afficher à l'écran le dernier événement reçu — c'est l'outil de débogage de toute la
+   série.
+
+**Ce qu'on vérifie** : le héros se déplace de la même façon au clavier et à la manette, et
+redimensionner la fenêtre ne déforme rien.
+
+> [!tip] Le piège
+> Un **événement** dit « ça vient de changer », un **état** dit « c'est comme ça maintenant ».
+> Déplacer un personnage sur `KeyPressed` donne le hoquet de la répétition clavier ; le faire
+> sauter sur `isKeyPressed` donne un saut par image.
+
+---
+
+## Étape 3 — Déplacer et animer : le temps
+
+> Séance [[01 courses/slides/C++/GPR-CF-SBD-03 - Déplacer et animer|GPR-CF-SBD-03]]
+
+**Ce qu'on écrit** : un `sf::Clock`, un déplacement qui ne dépend pas de la machine, et une
+animation qui défile à cadence fixe.
+
+1. mesurer le temps écoulé entre deux images, **une seule fois** par tour de boucle.
+2. déplacer le carré en ajoutant une valeur **par image**, mesurer sa vitesse à 30 puis à
+   144 images par seconde, et corriger en passant par le temps écoulé.
+3. limiter le framerate, puis se synchroniser à l'écran, et afficher le framerate réel dans
+   le titre.
+4. découper la sprite sheet avec `setTextureRect` et faire défiler les poses à cadence fixe,
+   **indépendante** du framerate.
+
+**Ce qu'on vérifie** : le héros traverse l'écran en le **même temps** à 30 et à 144 images
+par seconde, et son animation tourne à la même vitesse dans les deux cas.
 
 > [!tip] Le piège
 > `position += vitesse` est faux. C'est `position += vitesse * dt`. Tout le reste de la
 > série en dépend : une physique nourrie d'un `dt` faux donne des sauts qui changent de
 > hauteur selon la machine.
-
----
-
-## Étape 2 — Le héros à l'écran
-
-> Séance [[01 courses/slides/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02]]
-
-**Ce qu'on écrit** : une texture, un sprite, une animation par découpe de sprite sheet, le
-déplacement au clavier, et une vue qui suit le héros.
-
-1. charger une texture et afficher le héros. Le **sortir de sa portée** volontairement, et
-   expliquer le carré blanc.
-2. découper la sprite sheet et faire défiler les images à cadence fixe — indépendante du
-   framerate.
-3. piloter le héros au clavier, en réutilisant le `dt` de l'étape 1.
-4. ajouter une `sf::View` qui le suit, et gérer le redimensionnement de la fenêtre sans
-   déformer l'image.
-
-**Ce qu'on vérifie** : l'animation tourne à la même vitesse quel que soit le framerate, et
-redimensionner la fenêtre ne déforme rien.
-
-> [!tip] Le piège
-> `sf::Sprite` ne copie pas la texture, il garde un **pointeur** dessus. Une texture
-> locale qui meurt à la fin de la fonction donne un sprite blanc — et c'est exactement
-> l'exercice 1.
-
----
-
-## Étape 3 — Le son
-
-> Séance [[01 courses/slides/C++/GPR-CF-SBD-03 - Son|GPR-CF-SBD-03]]
-
-**Ce qu'on écrit** : un bruit de saut, une musique de fond, et la bonne classe pour chacun.
-
-1. jouer un son court au saut avec `sf::Sound`, et une musique de fond avec `sf::Music`.
-2. mesurer la mémoire occupée dans les deux cas, et expliquer l'écart.
-3. inverser volontairement les deux classes — la musique en `sf::Sound` — et décrire ce qui
-   se passe au chargement.
-
-**Ce qu'on vérifie** : vous savez dire, devant un fichier audio, laquelle des deux classes
-l'ouvrir — et pourquoi.
-
-> [!tip] Le piège
-> `sf::Sound` a le même problème que `sf::Sprite` : il pointe vers un `sf::SoundBuffer` qui
-> doit lui survivre. Un buffer local, et le son ne sort pas.
 
 ---
 
@@ -128,16 +131,19 @@ n'existe encore.
 
 > Séance [[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05]]
 
-**Ce qu'on écrit** : la copie des positions du monde physique vers les sprites, et un
-`ContactListener` qui dit quand le héros touche le sol.
+**Ce qu'on écrit** : une classe qui convertit mètres et pixels, la copie des positions vers
+les sprites, et un `ContactListener` qui dit quand le héros touche le sol.
 
-1. à chaque image, recopier position et angle du corps vers le sprite. Dans ce sens
+1. écrire une **classe de conversion** — `Metres(pixels)`, `Pixels(metres)` — et la seule
+   constante du projet qui dit combien de pixels vaut un mètre. Plus aucun calcul à la main
+   ailleurs.
+2. à chaque image, recopier position et angle du corps vers le sprite. Dans ce sens
    **uniquement**.
-2. brancher un `ContactListener`, et afficher un message à chaque contact.
-3. utiliser `UserData` pour retrouver l'objet de jeu depuis le contact, et savoir **quel**
+3. brancher un `ContactListener`, et afficher un message à chaque contact.
+4. utiliser `UserData` pour retrouver l'objet de jeu depuis le contact, et savoir **quel**
    objet a touché quoi.
-4. en déduire un booléen `au sol`, et l'afficher à l'écran.
-5. **reprendre votre schéma de conception** et dire, en deux lignes, ce que la physique a
+5. en déduire un booléen `au sol`, et l'afficher à l'écran.
+6. **reprendre votre schéma de conception** et dire, en deux lignes, ce que la physique a
    imposé que vous n'aviez pas prévu.
 
 **Ce qu'on vérifie** : le sprite suit exactement le corps, et le booléen `au sol` est vrai
@@ -150,26 +156,32 @@ quand le héros est posé, faux quand il est en l'air.
 
 ---
 
-## Étape 6 — Le contrôleur de plateforme
+## Étape 6 — Les ficelles d'un platformer
 
-> Séance [[01 courses/slides/C++/GPR-CF-SBD-06 - Un platformer, concrètement|GPR-CF-SBD-06]]
+> Séance [[01 courses/slides/C++/GPR-CF-SBD-06 - Les ficelles d'un platformer|GPR-CF-SBD-06]]
 
-**Ce qu'on écrit** : ce qui sépare « un corps physique » d'« un personnage de platformer ».
+**Ce qu'on écrit** : ce qui sépare « un corps physique » d'« un personnage agréable à
+jouer ». Aucune de ces ficelles ne se déduit d'une équation.
 
-1. **ne pas sauter en l'air** : le saut n'est possible que si `au sol` est vrai.
-2. **toucher le sol par le côté** : distinguer un contact sous les pieds d'un contact
-   latéral, et ne pas autoriser le saut sur un mur.
-3. **passer d'une plateforme à l'autre** sans rester accroché à l'arête.
-4. **wall jump** : un saut possible au contact d'un mur, qui repousse à l'opposé.
-5. **one way platform** : on la traverse par en dessous, on se pose dessus par en haut.
+1. **ground check** fiable : distinguer un contact sous les pieds d'un contact latéral, et
+   ne pas autoriser le saut sur un mur.
+2. **coyote time** : le saut reste possible quelques centièmes de seconde après avoir quitté
+   le sol. Choisir la valeur qui vous paraît juste, et la justifier.
+3. **jump buffer** : une touche pressée juste avant l'atterrissage déclenche le saut dès le
+   contact.
+4. **wall jump** et **one way platform** : un saut au contact d'un mur, et une plateforme
+   qu'on traverse par en dessous.
+5. écrire en une page **ce qui rend votre saut agréable** : les trois réglages que vous avez
+   touchés, et ce que chacun change pour le joueur.
 
 **Ce qu'on vérifie** : les cinq comportements, un par un, dans un niveau qui les contient
-tous les cinq.
+tous — et quelqu'un d'autre que vous doit pouvoir y jouer sans explication.
 
 > [!tip] Le piège
-> Un platformer agréable n'est jamais de la physique pure. Le *coyote time* — quelques
-> centièmes de seconde pendant lesquels le saut reste possible après avoir quitté le sol —
-> ne se déduit d'aucune équation. C'est une décision de game design, et elle s'écrit en dur.
+> Un platformer agréable n'est jamais de la physique pure. Le *coyote time* ne se déduit
+> d'aucune équation : c'est une décision de game design, et elle s'écrit en dur.
+> L'accessibilité non plus — touches reconfigurables, pas de combinaison à trois doigts, et
+> un niveau qui pardonne.
 
 ---
 
@@ -187,9 +199,9 @@ tous les cinq.
 >
 > | Je sais… | Vérification |
 > |---|---|
-> | écrire une boucle de jeu correcte | la vitesse ne dépend pas du framerate |
-> | afficher et animer | l'animation tourne à cadence fixe, la fenêtre se redimensionne proprement |
-> | choisir sa classe audio | je sais dire pourquoi la musique n'est pas un `sf::Sound` |
+> | ouvrir une fenêtre et afficher | le héros s'affiche, et je sais dire pourquoi un sprite devient blanc |
+> | traiter les entrées | clavier et manette donnent le même déplacement, la fenêtre se redimensionne proprement |
+> | gérer le temps | la vitesse et l'animation ne dépendent pas du framerate |
 > | faire vivre un monde physique | le héros tombe et s'arrête sans sprite |
-> | relier les deux mondes | la copie va dans un seul sens, et `au sol` est fiable |
-> | écrire un contrôleur | les cinq comportements de l'étape 6 marchent dans le même niveau |
+> | relier les deux mondes | la conversion passe par une seule classe, et `au sol` est fiable |
+> | rendre le jeu agréable | coyote time et jump buffer réglés, et je sais dire ce qu'ils changent |

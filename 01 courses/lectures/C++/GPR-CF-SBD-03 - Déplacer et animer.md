@@ -1,5 +1,5 @@
 ---
-title: Son
+title: Déplacer et animer
 type: seance
 code: GPR-CF-SBD-03
 status: To prepare
@@ -16,7 +16,7 @@ source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-28
 ---
 
-# Son
+# Déplacer et animer
 
 > [!abstract] Séance d'1 h — `GPR-CF-SBD-03` · bloc GSDA *SFML et Box2D*
 > GP-926 · salle Arve · **2026-10-28** · 13:30–14:50 (Module 1 — 7 sept. → 13 nov. 2026)
@@ -32,7 +32,7 @@ Jouer un son, `sf::Sound` et `sf::Music`, ce que chacun charge en mémoire, conc
 ## Plan et exercices — overview à valider
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-03 - Son|GPR-CF-SBD-03 - Son]] — 14 slides, `publish: false` · widgets proposés : `audio_memoire_widget.html`.
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-03 - Déplacer et animer|GPR-CF-SBD-03 - Déplacer et animer]] — 14 slides, `publish: false` · widgets proposés : `audio_memoire_widget.html`.
 > - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 3**.
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
@@ -47,7 +47,7 @@ Jouer un son, `sf::Sound` et `sf::Music`, ce que chacun charge en mémoire, conc
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-SBD-02 - Afficher]]
+- Séance précédente : [[GPR-CF-SBD-02 - Gameplay et événements]]
 - Séance suivante : [[GPR-CF-SBD-04 - Le monde Box2D]]
 
 ## Notes de préparation

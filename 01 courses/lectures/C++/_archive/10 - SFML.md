@@ -175,7 +175,7 @@ Liste non exhaustive des événements SFML :
 
 ---
 
-# Afficher
+# Gameplay et événements
 <!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---

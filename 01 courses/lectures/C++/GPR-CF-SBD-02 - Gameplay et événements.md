@@ -1,5 +1,5 @@
 ---
-title: Afficher
+title: Gameplay et événements
 type: seance
 code: GPR-CF-SBD-02
 status: To prepare
@@ -15,10 +15,10 @@ tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-28
 review:
-  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|Review SBD-01]]"
+  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|Review SBD-01]]"
 ---
 
-# Afficher
+# Gameplay et événements
 
 > [!abstract] Séance d'1 h — `GPR-CF-SBD-02` · bloc GSDA *SFML et Box2D*
 > GP-926 · salle Arve · **2026-10-28** · 11:10–12:30 (Module 1 — 7 sept. → 13 nov. 2026)
@@ -34,7 +34,7 @@ review:
 ## Plan et exercices — overview à valider
 
 > [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02 - Afficher]] — 15 slides, `publish: false` · widgets proposés : `vue_camera_widget.html`, `spritesheet_widget.html`.
+> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02 - Gameplay et événements]] — 15 slides, `publish: false` · widgets proposés : `vue_camera_widget.html`, `spritesheet_widget.html`.
 > - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 2**.
 >
 > Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
@@ -49,8 +49,8 @@ review:
 
 ## Liens
 
-- Séance précédente : [[GPR-CF-SBD-01 - Boucle de jeu et fenêtre]]
-- Séance suivante : [[GPR-CF-SBD-03 - Son]]
+- Séance précédente : [[GPR-CF-SBD-01 - Afficher la fenêtre et les sprites]]
+- Séance suivante : [[GPR-CF-SBD-03 - Déplacer et animer]]
 
 ## Notes de préparation
 

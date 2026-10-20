@@ -182,7 +182,7 @@ Avec ce type unique, on peut savoir quel objet entre en collision avec quel autr
 
 ---
 
-# Un platformer, concrètement
+# Les ficelles d'un platformer
 <!-- .slide: data-background="00 images/01_slide_fond_content.jpg" -->
 
 ---

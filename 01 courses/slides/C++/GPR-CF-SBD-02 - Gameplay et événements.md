@@ -1,5 +1,5 @@
 ---
-title: GPR-CF-SBD-02 - Afficher
+title: GPR-CF-SBD-02 - Gameplay et événements
 type: slides
 subject: C++
 duration_h: 1
@@ -15,7 +15,7 @@ height: 720
 margin: 0
 ---
 
-# Afficher
+# Gameplay et événements
 <!-- .slide: class="title" -->
 ## GPR-CF-SBD-02
 
@@ -31,7 +31,7 @@ schémas décrits seulement.
 
 Savoir afficher et déplacer un sprite, cadrer avec une vue, et animer depuis une planche d'images.
 
-**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|GPR-CF-SBD-01]].
+**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|GPR-CF-SBD-01]].
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: GPR-CF-SBD-03 - Son
+title: GPR-CF-SBD-03 - Déplacer et animer
 type: slides
 subject: C++
 duration_h: 1
@@ -15,7 +15,7 @@ height: 720
 margin: 0
 ---
 
-# Son
+# Déplacer et animer
 <!-- .slide: class="title" -->
 ## GPR-CF-SBD-03
 
@@ -31,7 +31,7 @@ schémas décrits seulement. Séance qui clôt le monde graphique du bloc.
 
 Savoir jouer un effet et une musique, choisir lequel des deux, et éviter les deux pièges classiques.
 
-**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-02 - Afficher|GPR-CF-SBD-02]].
+**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02]].
 
 ---
 

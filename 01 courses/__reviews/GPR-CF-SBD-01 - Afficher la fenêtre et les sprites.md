@@ -1,12 +1,15 @@
 ---
-slides: "[[01 courses/slides/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre]]"
+slides: "[[01 courses/slides/C++/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites]]"
 exercices: "[[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape]]"
 ---
-- [ ] Reorganiser toutes la section SBD (Renommer lectures, garder le nombre de séances)
-	- [ ] Prendre contenu existant et redispatcher
+- [x] Reorganiser toutes la section SBD (Renommer lectures, garder le nombre de séances)
+- [x] Slide **Un jeu est une boucle** : citer le snippet SFML de base
+- [x] Supprimer la slide **Deux mondes**
+- [x] Supprimer la slide **Ce qu'un moteur fait pour vous**
+	- [x] Prendre contenu existant et redispatcher
 	- [ ] Produire nouveaux decks
-	- [ ] Rester pratique, produire citations de code
-	- [ ] 1 - Afficher Fenetre + Sprites
+	- [x] Rester pratique, produire citations de code
+	- [x] 1 - Afficher Fenetre + Sprites
 	- [ ] 2 - GamePlay - Events
 		- [ ] Window close
 		- [ ] Window resize
@@ -26,7 +29,7 @@ exercices: "[[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par eta
 		- [ ] L'accessibilité du game play
 - [ ] Review https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples
 	- [ ] Transfer the VisualStudio solution to generic CMAKE
-	- [ ] Is it Every targets SFML 3 compatible, Review changes
+	- [x] Is it Every targets SFML 3 compatible, Review changes
 - [ ] Write Down a summative platformer statement
 	- [ ] Based on this statement : 01 courses/projects/Unity/_archives_to_cut/2D Platformer
 	- [ ] Rephrased for a C++ / SFML / Box2D stack
@@ -150,3 +153,78 @@ qui est une bonne chose mais ajoute une exigence qui n'était pas demandée.
   et sa fiche d'exercices a été supprimée avec les autres ;
 - le dépôt de départ du projet : la feuille parle d'« un projet CMake avec SFML fourni », il
   n'existe pas encore. Un companion `GPR_CF_SBD_Platformer` serait l'endroit logique.
+
+## Traité le 20.10 — la série est réorganisée
+
+### Les six séances, renommées
+
+| Code | Avant | Maintenant |
+|---|---|---|
+| SBD-01 | Boucle de jeu et fenêtre | **Afficher la fenêtre et les sprites** |
+| SBD-02 | Afficher | **Gameplay et événements** |
+| SBD-03 | Son | **Déplacer et animer** |
+| SBD-04 | Le monde Box2D | inchangé |
+| SBD-05 | Relier physique et graphique | inchangé |
+| SBD-06 | Un platformer, concrètement | **Les ficelles d'un platformer** |
+
+Les notes de séance **et** les decks sont renommés, et toutes les références du vault
+suivent : la feuille d'exercices, les archives, le kanban. Aucun lien cassé.
+
+> [!warning] Le son sort du programme
+> SBD-03 s'appelait *Son* et devient *Déplacer et animer*. Ton nouveau plan ne place
+> l'audio nulle part — ni dans les six séances, ni dans la feuille. Le dépôt d'exemples a
+> pourtant deux cibles prêtes, `Audio` et `Sound`, et ce sont **les seules avec HelloWorld
+> et TimeClock à compiler en SFML 3**. Si l'audio doit revenir quelque part, dis où ; sinon
+> je le laisse sorti.
+
+### Le contenu, redispatché
+
+La feuille d'exercices suit le nouveau découpage, étape par étape :
+
+| Étape | Ce qu'on écrit maintenant |
+|---|---|
+| 1 | fenêtre, boucle `effacer / dessiner / afficher`, formes, sprite, et le carré blanc provoqué exprès |
+| 2 | `Closed` et `Resized`, clavier **puis** manette, et la différence événement / état |
+| 3 | `sf::Clock`, le `dt`, le framerate, et la sprite sheet à cadence fixe |
+| 4 | Box2D, inchangé |
+| 5 | **une classe de conversion mètres / pixels**, la copie des positions, le `ContactListener` |
+| 6 | ground check, **coyote time**, **jump buffer**, wall jump, one way — et une page sur ce qui rend le saut agréable |
+
+L'étape 6 gagne l'accessibilité, que ton plan demandait et qui n'était nulle part : touches
+reconfigurables, pas de combinaison à trois doigts, un niveau qui pardonne.
+
+### Le deck SBD-01
+
+Réécrit sur le nouveau périmètre, 16 slides. Il ne parle plus ni de la boucle de jeu
+temporelle ni des deux mondes : **tout le temps part en SBD-03**, et les deux slides que tu
+as barrées — *Deux mondes* et *Ce qu'un moteur fait pour vous* — ont disparu.
+
+Le code est cité, pas paraphrasé : le programme minimal est `HelloWorld` du dépôt
+d'exemples, repris tel quel. Quatre blocs de code SFML 3, un piège par slide.
+
+### Le dépôt d'exemples, audité
+
+`StudioAlbert/GPR-CF-SBD-XX---SFML-Examples`, dix-huit cibles passées au crible des
+marqueurs qui ne compilent pas en SFML 3.
+
+| État | Cibles |
+|---|---|
+| **compile en SFML 3** | `Audio`, `ConstMethods`, `HelloWorld`, `TimeClock` |
+| `sf::Event` déclaré à l'avance, `pollEvent(e)` | `Events-a` à `-d`, `Graphics`, `LevelEditor`, `MoveAndJump`, `Sound`, `Views`, `Views.cpp` |
+| `sprite.setTexture()` | `Animation`, `AnimationClass`, `Events-c`, `Events-d`, `Motor`, `OOPHero`, `Views` |
+| `setPosition(x, y)` / `setOrigin(x, y)` | `Events-a`, `Events-c`, `Events-d`, `Graphics`, `LevelEditor`, `Motor`, `MoveAndJump`, `Views` |
+
+**Quatre sur dix-huit sont propres.** Un détail au passage : `Views.cpp` existe à la racine
+**et** dans `Views/`, en double.
+
+## Ce qui reste, et que je n'ai pas fait
+
+1. **Les decks SBD-02 à SBD-06** — renommés, mais toujours leurs squelettes. Ils sont dans
+   la file, chacun à son tour.
+2. **La migration CMake du dépôt d'exemples** — la solution Visual Studio est toujours là, et
+   quatorze cibles sont à porter en SFML 3. C'est un chantier dans un dépôt externe, pas une
+   révision de séance : dis-moi si je l'ouvre, et dans quel ordre.
+3. **L'énoncé summative** — la source `_archives_to_cut/2D Platformer` est lue : genre,
+   features attendues, deux options à choisir dont le coyote time et le wall jump, et des
+   références Mario. Elle est écrite pour Unity et pour un public qui connaît déjà un moteur.
+   La transposition C++ / SFML / Box2D reste à écrire.

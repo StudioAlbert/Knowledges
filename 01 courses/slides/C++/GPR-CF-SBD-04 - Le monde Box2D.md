@@ -31,7 +31,7 @@ schémas décrits seulement.
 
 Savoir créer un monde physique, y poser des corps du bon type, et comprendre que ce monde ignore l'écran.
 
-**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre|GPR-CF-SBD-01]].
+**Prérequis :** [[01 courses/slides/C++/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|GPR-CF-SBD-01]].
 
 ---
 

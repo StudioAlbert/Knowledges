@@ -1,5 +1,5 @@
 ---
-title: GPR-CF-SBD-06 - Un platformer, concrètement
+title: GPR-CF-SBD-06 - Les ficelles d'un platformer
 type: slides
 subject: C++
 duration_h: 1
@@ -15,7 +15,7 @@ height: 720
 margin: 0
 ---
 
-# Un platformer, concrètement
+# Les ficelles d'un platformer
 <!-- .slide: class="title" -->
 ## GPR-CF-SBD-06
 
