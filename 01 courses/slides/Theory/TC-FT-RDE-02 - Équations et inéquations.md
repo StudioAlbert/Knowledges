@@ -197,13 +197,20 @@ secondes.
 ---
 
 ## À quoi ça sert dans un jeu
+<!-- .slide: class="schema" -->
 
-- **l'instant d'impact** d'un projectile soumis à la gravité
-- l'**intersection** d'un rayon et d'une sphère — Δ < 0 : on la manque
-- le point de **rencontre** de deux mobiles
-- le temps qu'un tir à vitesse donnée mettra à **rattraper** une cible
+Un saut de platformer, c'est **deux** paraboles : on monte doucement, on retombe vite.
 
-Partout où une position est quadratique en temps, le discriminant répond.
+![[rde02_saut_parabole.svg]]
+
+Note:
+Un seul exemple, et il porte toute la séance. La montée et la chute n'ont pas la
+même gravité — c'est ce qui rend un saut agréable, et c'est la raison pour
+laquelle les deux instants ne sont **pas** symétriques autour du sommet.
+Résoudre l'équation donne l'instant où il passe à 8 m ; le discriminant dit
+qu'à 11 m il n'y passe jamais, sans qu'on ait à tracer quoi que ce soit.
+Faire remarquer que la fenêtre de 0,76 s est exactement ce qu'un game designer
+règle à la main.
 
 ---
 
@@ -278,12 +285,16 @@ pas de méthode — une ligne de plus.
 
 ## Atelier — 20 min
 
-Un projectile part à 20 m/s vers le haut, depuis 1,5 m. On prend `g = 10`.
+Un projectile part à 20 m/s vers le haut, depuis 1,5 m, avec `g = 10` :
 
-1. écrire sa hauteur en fonction du temps
-2. à quel instant atteint-il **12 m** ? les deux réponses ont-elles un sens ?
-3. pour quel **intervalle de temps** est-il au-dessus de 12 m ?
-4. quelle vitesse de départ le ferait **manquer** 12 m ? (indice : Δ)
+<p class="formule">h(t) = −5t² + 20t + 1,5</p>
+
+1. à quel instant atteint-il **12 m** ? les deux réponses ont-elles un sens ?
+2. pour quel **intervalle de temps** est-il au-dessus de 12 m ?
+3. quelle **vitesse de départ** le ferait manquer 12 m ? (indice : Δ)
+4. et s'il partait du sol, la réponse à la question 1 changerait-elle **beaucoup** ?
+
+Énoncé et quizz : [[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équations|dix équations à la maison]].
 
 ---
 

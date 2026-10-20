@@ -112,7 +112,8 @@ html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; displ
 html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
 html.embed h1 { font-size: 24px; }
 html.embed .sub, html.embed footer { display: none; }
-html.embed .tabs { margin-bottom: 10px; }
+/* En iframe, la serie est choisie par l'ancre : une seule serie, pas d'onglets. */
+html.embed .tabs { display: none; }
 html.embed .stage { flex: 1; min-height: 0; }
 html.embed .card { max-height: 100%; overflow-y: auto; }
 html.embed .enonce { font-size: 26px; padding: 18px 10px; }

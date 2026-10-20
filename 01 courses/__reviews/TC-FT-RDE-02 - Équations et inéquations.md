@@ -1,6 +1,7 @@
 ---
 slides: "[[01 courses/slides/Theory/TC-FT-RDE-02 - Équations et inéquations]]"
 exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Équations et inéquations]]"
+quizz_maison: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équations]]"
 ---
 - [x] Compléter slides selon slides originels et sources complémentaires
 - [x] Proposer exercices de resolution
@@ -11,10 +12,10 @@ exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Équations et inéquati
 	- [x] La correction propose une solution +un tip sur la methode a utiliser
 - [x] Somme et produit des racines : Trouver sources pedagogiques
 - [x] Tableau de signes : Un produit ou un quotient change de signe en ses racines, et le tableau évite de tâtonner. => Expliciter
-- [ ] Slide **a quoi ca sert dans un jeu ?** citer un seul exemple parabole de saut voir 2 paraboles une montante, une descendante
-- [ ] Quizz : le séparer en deux — un widget pour le cours, une page de l'onglet exercices pour la série maison
-- [ ] Widget du discriminant : pouvoir dézoomer le graphe à la molette
-- [ ] Atelier : fournir l'équation de la hauteur en question 1, les questions suivantes s'appuyant toutes sur cette formule
+- [x] Slide **a quoi ca sert dans un jeu ?** citer un seul exemple parabole de saut voir 2 paraboles une montante, une descendante
+- [x] Quizz : le séparer en deux — un widget pour le cours, une page de l'onglet exercices pour la série maison
+- [x] Widget du discriminant : pouvoir dézoomer le graphe à la molette
+- [x] Atelier : fournir l'équation de la hauteur en question 1, les questions suivantes s'appuyant toutes sur cette formule
 
 
 ### Sources en complément
@@ -92,3 +93,70 @@ veux un corrigé.
 
 La feuille d'exercices reste un **overview** de six pistes. Le quizz couvre maintenant le
 terrain des exercices 1 à 3.
+
+## Deuxième passe, le 20.10 — à vérifier
+
+25 slides, **aucune hors cadre**, aucune image cassée. Les quatre points de ta relecture sont
+faits, et vérifiés sur le serveur de test.
+
+### Un seul exemple de jeu, et c'est le saut
+
+La slide *À quoi ça sert dans un jeu* ne liste plus quatre usages : elle en montre **un**,
+en schéma — `rde02_saut_parabole.svg`.
+
+C'est bien **deux paraboles**, comme tu le demandais, et pour une raison qui tient debout :
+un saut de platformer agréable monte avec une gravité et retombe avec une plus forte. Le
+dessin prend `g = 20` à la montée et `g = 40` à la chute :
+
+| | |
+|---|---|
+| montée | `h(t) = 20t − 10t²` |
+| chute | `h(t) = 10 − 20(t − 1)²` |
+| au-dessus de 8 m | de **0,55 s** à **1,32 s**, soit 0,76 s |
+| à 11 m | `Δ = −0,4` : il n'y arrive jamais |
+
+Deux choses se voient d'un coup : les instants ne sont **pas** symétriques autour du sommet —
+parce que les deux moitiés n'ont pas la même gravité — et le discriminant répond « jamais »
+sans qu'on trace quoi que ce soit.
+
+### Le quizz, séparé en deux
+
+Sans dupliquer le widget : **en iframe, les onglets disparaissent et l'ancre choisit la
+série**. Une seule règle CSS, et chaque endroit n'affiche qu'un quizz.
+
+| Où | Ce qu'on voit |
+|---|---|
+| slide du deck, `#cours` | *Équation 1 sur 5*, pas d'onglet |
+| [[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équations\|page de l'onglet Exercices]] | *Équation 1 sur 10*, pas d'onglet |
+| ouvert en double-clic | les deux onglets, comme avant |
+
+La page d'exercices est une note neuve qui embarque le widget en `<iframe>` — le build
+réécrit déjà le chemin vault, **rien à changer côté `build.mjs`**. Elle porte aussi le
+tableau de ce que les dix couvrent, et le rappel somme-produit pour se vérifier.
+
+### La molette
+
+`discriminant_widget.html` : la molette dézoome et rezoome, le **double-clic** revient au
+cadrage de départ. Le pas de la grille suit — 1, 2, 5, 10 — pour que les graduations restent
+lisibles quand on s'éloigne. Une ligne sous le graphe le dit.
+
+Testé : trois crans en arrière font passer les graduations de `−6…6` au pas de 1 à `−10…10`
+au pas de 2, et le double-clic restaure `−7…6`.
+
+### L'atelier part de l'équation
+
+La question 1 ne demande plus d'écrire la formule, elle la **donne** :
+`h(t) = −5t² + 20t + 1,5`. Les trois questions suivantes s'appuient toutes dessus, et j'en ai
+ajouté une quatrième qui fait varier la hauteur de départ — elle teste si le 1,5 m a vraiment
+été compris comme un paramètre, pas comme un décor.
+
+## Ce qui reste ouvert
+
+**1. L'atelier n'a toujours pas de corrigé.** Même signalement qu'à la première passe. Les
+réponses, si tu les veux : `t = 0,62 s` et `t = 3,38 s` ; au-dessus de 12 m entre les deux ;
+et `v₀ < 14,5 m/s` environ le ferait manquer. À toi de dire si ça va dans la feuille ou si
+ça reste au tableau.
+
+**2. Deux feuilles d'exercices pour RDE-02.** L'overview de six pistes et la page de quizz
+cohabitent dans l'onglet *Exercices*. C'est volontaire — mais l'overview n'est toujours pas
+rédigé.
