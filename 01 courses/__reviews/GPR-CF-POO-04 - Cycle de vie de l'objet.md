@@ -3,14 +3,13 @@ slides: "[[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet]]"
 ---
 - [x] C'est le private de POO-02 pris par l'autre bout — on ferme la porte, puis on installe la seule entrée. => Supprimer
 - [x] Slide "Ce qui se passe vraiment", rappeller snippet de code en une ligne
-- [ ] 
 - [x] Créer companion : mini projet faisant démonstration du sujet
 	- [x] une classe **Entity**  avec constructeur et destructeur et affichage console pour montrer par ou passe le programme
 		- [x] Création d'une entité, destruction d'une entité dans le main
 		- [x] Création d'une entité, destruction d'une entité dans un appel à une fonction (cette fonction a son propre )
 		- [x] Création de deux entités a la suite dans le main
 - [x] Détailler le contenu
-- [ ] Publier — **en attente de toi** : le deck est en `draft`, un mot à changer
+- [x] Publier — fait, et par un autre chemin que prévu (voir ci-dessous)
 
 ## Deuxième passe, le 12.10
 
@@ -66,3 +65,18 @@ deux lignes de commande et le message exact.
   traces du companion couvrent le sujet ; le widget apporterait le pas-à-pas.
 - Le deck est en **`publish: draft`** : la séance est le **14.10**, donc le passage en
   `online` est à faire avant, après ta relecture.
+
+## Relu le 20.10 — l'item « Publier » n'avait plus de sens
+
+Il disait « le deck est en `draft`, un mot à changer ». Ce mot n'existe plus : depuis le
+commit `7664a60` (« Un seul kanban »), **un deck ne porte ni `publish` ni `status`**, et
+c'est le `status` de la note de séance qui publie.
+
+POO-04 est en `Post-mortem`, et `Post-mortem` est un des trois états **en ligne**. Vérifié
+en lançant le build de production, celui qui n'inclut aucun brouillon : la séance y est, avec
+sa feuille d'exercices et son companion. **Elle est donc déjà chez les étudiants**, et
+l'attente notée sur cette fiche n'avait plus d'objet.
+
+Une case vide sans libellé traînait aussi dans la liste ; je l'ai retirée.
+
+La séance passe en `Post-mortem-done` — la page reste en ligne, sans interruption.
