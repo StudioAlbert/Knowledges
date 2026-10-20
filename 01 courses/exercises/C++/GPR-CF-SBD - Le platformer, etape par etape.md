@@ -59,7 +59,8 @@ sans carré blanc.
 > Séance [[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02]]
 
 **Ce qu'on écrit** : tout ce que la fenêtre reçoit — fermeture, redimensionnement, clavier,
-manette — et la différence entre un événement et un état.
+manette — la différence entre un événement et un état, et le son, qui se branche au même
+endroit.
 
 1. traiter `Closed` et `Resized` : la vue doit suivre sans déformer le décor.
 2. piloter le héros au **clavier**, d'abord avec `KeyPressed`, puis avec
@@ -69,14 +70,20 @@ manette — et la différence entre un événement et un état.
    propre quand aucune manette n'est branchée.
 4. afficher à l'écran le dernier événement reçu — c'est l'outil de débogage de toute la
    série.
+5. **le son** : un bruit de saut en `sf::Sound`, une musique de fond en `sf::Music`.
+   Inverser volontairement les deux classes, mesurer la mémoire dans les deux cas, et
+   expliquer l'écart.
 
-**Ce qu'on vérifie** : le héros se déplace de la même façon au clavier et à la manette, et
-redimensionner la fenêtre ne déforme rien.
+**Ce qu'on vérifie** : le héros se déplace de la même façon au clavier et à la manette,
+redimensionner la fenêtre ne déforme rien, et le saut fait du bruit.
 
 > [!tip] Le piège
 > Un **événement** dit « ça vient de changer », un **état** dit « c'est comme ça maintenant ».
 > Déplacer un personnage sur `KeyPressed` donne le hoquet de la répétition clavier ; le faire
 > sauter sur `isKeyPressed` donne un saut par image.
+>
+> Et pour le son, c'est le carré blanc de l'étape 1 qui revient : `sf::Sound` pointe vers son
+> `sf::SoundBuffer`, exactement comme `sf::Sprite` vers sa `sf::Texture`.
 
 ---
 
@@ -187,13 +194,10 @@ tous — et quelqu'un d'autre que vous doit pouvoir y jouer sans explication.
 
 ## Le rendu — summative de la série
 
-À rendre à la fin de la sixième séance, en un seul dépôt :
-
-| | Ce qui est attendu |
-|---|---|
-| **le jeu** | un platformer jouable, avec un niveau qui contient sol, plateformes, un mur à wall-jumper et une plateforme traversable |
-| **le code** | six étapes visibles dans l'historique git — une par séance |
-| **l'écrit** | une page : le facteur mètre/pixel choisi et pourquoi, la façon dont `au sol` est détecté, et ce que vous avez réglé à la main plutôt que par la physique |
+L'énoncé complet est sur sa propre feuille :
+[[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]].
+Lisez-la **maintenant**, pas à la sixième séance : elle dit ce que chaque étape doit vous
+laisser entre les mains.
 
 > [!check] Grille d'auto-évaluation
 >
@@ -201,6 +205,7 @@ tous — et quelqu'un d'autre que vous doit pouvoir y jouer sans explication.
 > |---|---|
 > | ouvrir une fenêtre et afficher | le héros s'affiche, et je sais dire pourquoi un sprite devient blanc |
 > | traiter les entrées | clavier et manette donnent le même déplacement, la fenêtre se redimensionne proprement |
+| choisir sa classe audio | je sais dire pourquoi une musique n'est pas un `sf::Sound` |
 > | gérer le temps | la vitesse et l'animation ne dépendent pas du framerate |
 > | faire vivre un monde physique | le héros tombe et s'arrête sans sprite |
 > | relier les deux mondes | la conversion passe par une seule classe, et `au sol` est fiable |
