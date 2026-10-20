@@ -161,16 +161,22 @@ bibliothèque.
 
 ---
 
-## Mise en œuvre — 1 h
+## Atelier — 1 h
 
 **Étape 4 du platformer.** Rien à l'écran, et pourtant tout marche.
 
-1. créer le monde, sa gravité, et le faire avancer à pas fixe
+1. créer le monde, sa gravité, et le faire avancer à **pas fixe**
 2. un sol **statique**, un héros **dynamique**
 3. afficher la position du héros à chaque image, et le voir tomber puis s'arrêter
 4. essayer les trois types sur une plateforme mobile, et dire lequel convient
 
-Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+**On vérifie** : le héros tombe, touche le sol et s'arrête — sans qu'aucun sprite
+n'existe encore.
+
+Note:
+**Aucune cible du dépôt d'exemples ne fait de Box2D** : c'est la seule séance de
+la série sans démonstration prête. On écrit donc le monde ensemble, au tableau
+puis à l'écran, et la console sert de preuve.
 
 ---
 

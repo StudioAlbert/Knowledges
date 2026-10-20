@@ -2,14 +2,14 @@
 title: Afficher la fenêtre et les sprites
 type: seance
 code: GPR-CF-SBD-01
-status: To check
+status: To prepare
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 4.75
+manual_order: 1
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -17,6 +17,7 @@ date_scheduled: 2026-10-28
 url_test: http://localhost:3001/cpp/gpr-cf-sbd-01/
 review:
   - "[[01 courses/__reviews/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|Review SBD-01]]"
+  - "[[GPR-CF-SBD-xx - SFML]]"
 ---
 
 # Afficher la fenêtre et les sprites

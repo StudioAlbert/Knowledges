@@ -2,18 +2,21 @@
 title: Déplacer et animer
 type: seance
 code: GPR-CF-SBD-03
-status: To check
+status: To prepare
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 4.9375
+manual_order: 3
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-28
+review:
+  - "[[01 courses/__reviews/GPR-CF-SBD-03 - Déplacer et animer|Review SBD-03]]"
+  - "[[GPR-CF-SBD-xx - SFML]]"
 ---
 
 # Déplacer et animer

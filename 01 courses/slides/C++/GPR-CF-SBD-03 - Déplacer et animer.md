@@ -196,7 +196,7 @@ qu'il y a trois cas et qu'ils ne se combinent pas.
 
 ---
 
-## Mise en œuvre — 1 h
+## Atelier — 1 h
 
 **Étape 3 du platformer.** Le héros bouge, et il bouge pareil partout.
 
@@ -205,7 +205,13 @@ qu'il y a trois cas et qu'ils ne se combinent pas.
 3. plafonner, se synchroniser, et afficher le framerate réel dans le titre
 4. découper la planche et faire défiler les poses à cadence fixe
 
-Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+**On vérifie** : le héros traverse l'écran en le **même temps** à 30 et à 144
+images par seconde, et son animation tourne à la même vitesse dans les deux cas.
+
+Note:
+Démonstration : `TimeClock` pour l'horloge, `Animation` pour la planche découpée,
+`AnimationClass` pour la version rangée dans une classe, `MoveAndJump` pour le
+déplacement. Montrer les deux approches d'animation et dire ce que chacune coûte.
 
 ---
 

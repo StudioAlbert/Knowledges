@@ -13,22 +13,6 @@ platformer jouable — et vous l'avez écrit en six fois, sans jamais repartir d
 > dans le bloc *Principes de Conception Logicielle*. Reprenez ce schéma : les classes de
 > votre étape 1 sont celles que vous allez écrire ici.
 
-> [!warning] SFML 3, et rien d'autre
-> La plupart des exemples qui traînent sur le web sont en SFML 2, et **ils ne compilent pas**
-> en SFML 3. Les différences qui vous toucheront :
->
-> | SFML 2 | SFML 3 |
-> |---|---|
-> | `sf::VideoMode(800, 600)` | `sf::VideoMode({800u, 600u})` |
-> | `sf::Event e; while (window.pollEvent(e))` | `while (const std::optional event = window.pollEvent())` |
-> | `e.type == sf::Event::Closed` | `event->is<sf::Event::Closed>()` |
-> | `e.key.code == sf::Keyboard::Escape` | `event->getIf<sf::Event::KeyPressed>()`, puis `->scancode == sf::Keyboard::Scancode::Escape` |
-> | `sf::Sprite s; s.setTexture(t);` | `sf::Sprite s(t);` — la texture est **obligatoire** |
-> | `s.setPosition(10.f, 50.f)` | `s.setPosition({10.f, 50.f})` |
->
-> Référence : [tutoriels SFML 3.1](https://www.sfml-dev.org/tutorials/3.1/) et
-> [documentation 3.1.0](https://www.sfml-dev.org/documentation/3.1.0/).
-
 ---
 
 ## Étape 1 — La fenêtre et les sprites
@@ -47,10 +31,6 @@ afficher`, un décor en formes, et le héros à l'écran.
 
 **Ce qu'on vérifie** : la fenêtre se ferme à la croix **et** à Échap, et le héros s'affiche
 sans carré blanc.
-
-> [!tip] Le piège
-> `sf::Sprite` ne copie pas la texture, il garde un **pointeur** dessus. Une texture locale
-> qui meurt à la fin de la fonction donne un sprite blanc, sans erreur ni plantage.
 
 ---
 
@@ -77,14 +57,6 @@ endroit.
 **Ce qu'on vérifie** : le héros se déplace de la même façon au clavier et à la manette,
 redimensionner la fenêtre ne déforme rien, et le saut fait du bruit.
 
-> [!tip] Le piège
-> Un **événement** dit « ça vient de changer », un **état** dit « c'est comme ça maintenant ».
-> Déplacer un personnage sur `KeyPressed` donne le hoquet de la répétition clavier ; le faire
-> sauter sur `isKeyPressed` donne un saut par image.
->
-> Et pour le son, c'est le carré blanc de l'étape 1 qui revient : `sf::Sound` pointe vers son
-> `sf::SoundBuffer`, exactement comme `sf::Sprite` vers sa `sf::Texture`.
-
 ---
 
 ## Étape 3 — Déplacer et animer : le temps
@@ -105,11 +77,6 @@ animation qui défile à cadence fixe.
 **Ce qu'on vérifie** : le héros traverse l'écran en le **même temps** à 30 et à 144 images
 par seconde, et son animation tourne à la même vitesse dans les deux cas.
 
-> [!tip] Le piège
-> `position += vitesse` est faux. C'est `position += vitesse * dt`. Tout le reste de la
-> série en dépend : une physique nourrie d'un `dt` faux donne des sauts qui changent de
-> hauteur selon la machine.
-
 ---
 
 ## Étape 4 — Le monde physique
@@ -126,11 +93,6 @@ par seconde, et son animation tourne à la même vitesse dans les deux cas.
 
 **Ce qu'on vérifie** : le héros tombe, touche le sol, et s'arrête — sans qu'aucun sprite
 n'existe encore.
-
-> [!tip] Le piège
-> Le monde physique est en **mètres**, l'écran en **pixels**. Décidez le facteur de
-> conversion maintenant, écrivez-le une fois, et ne le recalculez jamais à la main. Un héros
-> de 180 pixels de haut fait 180 mètres pour Box2D : il tombera comme un immeuble.
 
 ---
 
@@ -156,57 +118,9 @@ les sprites, et un `ContactListener` qui dit quand le héros touche le sol.
 **Ce qu'on vérifie** : le sprite suit exactement le corps, et le booléen `au sol` est vrai
 quand le héros est posé, faux quand il est en l'air.
 
-> [!tip] Le piège
-> La copie va **du physique vers le graphique**, jamais l'inverse. Déplacer un sprite à la
-> main pendant que Box2D simule donne deux vérités qui divergent, et un personnage qui
-> tremble.
-
----
-
-## Étape 6 — Les ficelles d'un platformer
-
-> Séance [[01 courses/slides/C++/GPR-CF-SBD-06 - Les ficelles d'un platformer|GPR-CF-SBD-06]]
-
-**Ce qu'on écrit** : ce qui sépare « un corps physique » d'« un personnage agréable à
-jouer ». Aucune de ces ficelles ne se déduit d'une équation.
-
-1. **ground check** fiable : distinguer un contact sous les pieds d'un contact latéral, et
-   ne pas autoriser le saut sur un mur.
-2. **coyote time** : le saut reste possible quelques centièmes de seconde après avoir quitté
-   le sol. Choisir la valeur qui vous paraît juste, et la justifier.
-3. **jump buffer** : une touche pressée juste avant l'atterrissage déclenche le saut dès le
-   contact.
-4. **wall jump** et **one way platform** : un saut au contact d'un mur, et une plateforme
-   qu'on traverse par en dessous.
-5. écrire en une page **ce qui rend votre saut agréable** : les trois réglages que vous avez
-   touchés, et ce que chacun change pour le joueur.
-
-**Ce qu'on vérifie** : les cinq comportements, un par un, dans un niveau qui les contient
-tous — et quelqu'un d'autre que vous doit pouvoir y jouer sans explication.
-
-> [!tip] Le piège
-> Un platformer agréable n'est jamais de la physique pure. Le *coyote time* ne se déduit
-> d'aucune équation : c'est une décision de game design, et elle s'écrit en dur.
-> L'accessibilité non plus — touches reconfigurables, pas de combinaison à trois doigts, et
-> un niveau qui pardonne.
-
----
-
 ## Le rendu — summative de la série
 
 L'énoncé complet est sur sa propre feuille :
 [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]].
 Lisez-la **maintenant**, pas à la sixième séance : elle dit ce que chaque étape doit vous
 laisser entre les mains.
-
-> [!check] Grille d'auto-évaluation
->
-> | Je sais… | Vérification |
-> |---|---|
-> | ouvrir une fenêtre et afficher | le héros s'affiche, et je sais dire pourquoi un sprite devient blanc |
-> | traiter les entrées | clavier et manette donnent le même déplacement, la fenêtre se redimensionne proprement |
-| choisir sa classe audio | je sais dire pourquoi une musique n'est pas un `sf::Sound` |
-> | gérer le temps | la vitesse et l'animation ne dépendent pas du framerate |
-> | faire vivre un monde physique | le héros tombe et s'arrête sans sprite |
-> | relier les deux mondes | la conversion passe par une seule classe, et `au sol` est fiable |
-> | rendre le jeu agréable | coyote time et jump buffer réglés, et je sais dire ce qu'ils changent |

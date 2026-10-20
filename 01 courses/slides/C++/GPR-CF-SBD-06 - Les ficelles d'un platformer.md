@@ -237,16 +237,20 @@ vérifie.
 
 ---
 
-## Mise en œuvre — 1 h
+## Pas d'atelier, une finition
 
-**Étape 6 du platformer.** Le jeu devient jouable.
+Cette séance n'a **pas** d'exercice à elle : les ficelles se posent dans le jeu
+que vous avez déjà, et elles se jugent en jouant.
 
-1. le capteur de sol, et le **compteur** plutôt que le booléen
-2. coyote time, puis jump buffer — et les sentir en jouant
-3. wall jump et plateforme à sens unique
-4. une page : les trois réglages que vous avez touchés, et ce qu'ils changent
+L'heure sert à les essayer une par une, à régler, et à faire jouer le voisin.
 
-Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+Le rendu de la série :
+[[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]].
+
+Note:
+Démonstration : `MoveAndJump` pour le saut, `LevelEditor` pour les tuiles et les
+plateformes. Garder vingt minutes pour faire jouer les projets entre eux — c'est
+le seul test qui dise si le saut est bon.
 
 ---
 

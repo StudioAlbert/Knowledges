@@ -15,7 +15,8 @@ tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-29
 review:
-  - "[[01 courses/__reviews/GPR-CF-SBD-01 - Afficher la fenêtre et les sprites|Review SBD-01]]"
+  - "[[01 courses/__reviews/GPR-CF-SBD-04 - Le monde Box2D|Review SBD-04]]"
+  - "[[GPR-CF-SBD-xx - SFML]]"
 ---
 
 # Le monde Box2D

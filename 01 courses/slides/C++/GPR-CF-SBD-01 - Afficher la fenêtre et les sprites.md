@@ -214,17 +214,23 @@ Faire défiler ces rectangles, c'est l'animation — et c'est
 
 ---
 
-## Mise en œuvre — 1 h
+## Atelier — 1 h
 
 **Étape 1 du platformer.** Une fenêtre, un décor, un héros immobile.
 
-1. la fenêtre qui ne se ferme pas, puis la boucle d'événements
-2. la couleur de fond qui varie, et ce qui arrive **sans** `clear`
-3. un sol et deux plateformes en `RectangleShape`
-4. le héros chargé depuis un PNG, posé sur le sol — et le carré blanc provoqué
-   **exprès**, puis corrigé
+1. ouvrir la fenêtre **sans** traiter les événements, constater qu'elle ne répond
+   plus, puis ajouter la boucle — et dire **qui** ferme la fenêtre
+2. faire varier la couleur de fond, puis retirer `clear` et décrire ce qu'on voit
+3. poser un sol et deux plateformes en `sf::RectangleShape`
+4. charger un PNG, afficher le héros, provoquer le **carré blanc** exprès, corriger
 
-Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+**On vérifie** : la fenêtre se ferme à la croix **et** à Échap, et le héros
+s'affiche sans carré blanc.
+
+Note:
+Démonstration : les cibles `HelloWorld` et `Graphics` du dépôt d'exemples. On les
+lit ensemble et on commente ce qui s'y passe — ce n'est pas un corrigé à copier,
+c'est du code de travail. Chacun écrit ensuite la même chose dans **son** projet.
 
 ---
 

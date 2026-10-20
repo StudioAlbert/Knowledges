@@ -189,17 +189,24 @@ booléen naïf il peut sauter en l'air indéfiniment.
 
 ---
 
-## Mise en œuvre — 1 h
+## Atelier — 1 h
 
 **Étape 5 du platformer.** Les deux mondes se rejoignent.
 
 1. la **classe de conversion**, et la seule constante du projet
 2. recopier position et angle vers le sprite, à chaque image, dans un seul sens
-3. brancher le `ContactListener`, afficher un message à chaque contact
-4. `UserData` pour savoir **qui** a touché quoi, puis un booléen `au sol`
-5. reprendre votre schéma de conception et dire ce que la physique a imposé
+3. brancher le `ContactListener`, puis `UserData` pour savoir **qui** a touché quoi
+4. en déduire un booléen `au sol`, et reprendre votre schéma de conception pour
+   dire ce que la physique a imposé
 
-Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+**On vérifie** : le sprite suit exactement le corps, et `au sol` est vrai posé,
+faux en l'air.
+
+Note:
+Démonstration : `Views` pour la caméra et le passage écran / monde, `Motor` pour
+un projet complet où chaque entité tient son propre couple données / sprite.
+`Motor` est le seul du dépôt à ressembler à un vrai jeu — le lire pour voir où
+la conversion est rangée.
 
 ---
 

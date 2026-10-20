@@ -221,16 +221,23 @@ Vous connaissez déjà ce bug : c'est le carré blanc de SBD-01.
 
 ---
 
-## Mise en œuvre — 1 h
+## Atelier — 1 h
 
 **Étape 2 du platformer.** La fenêtre écoute, le héros obéit.
 
 1. `Closed` et `Resized` : la vue suit, le décor ne se déforme pas
 2. le clavier, d'abord en `KeyPressed`, puis en `isKeyPressed` — et dire pourquoi
 3. la manette : axes, bouton de saut, et un repli propre si elle est absente
-4. un bruit de saut et une musique de fond, chacun dans la bonne classe
+4. un bruit de saut et une musique de fond, chacun dans **sa** classe — puis les
+   inverser volontairement et mesurer la mémoire dans les deux cas
 
-Énoncé : [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+**On vérifie** : clavier et manette donnent le même déplacement, redimensionner
+ne déforme rien, et le saut fait du bruit.
+
+Note:
+Démonstration : `Events-a` à `Events-d` pour les événements, `Audio` et `Sound`
+pour le son. `Events-a` est la plus parlante — elle change la couleur de fond
+quand la fenêtre perd le focus, donc l'effet se voit sans rien lire.
 
 ---
 

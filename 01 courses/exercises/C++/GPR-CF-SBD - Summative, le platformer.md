@@ -104,13 +104,27 @@ Un seul dépôt git, avec :
 
 ## Comment c'est évalué
 
-| | Ce qu'on regarde |
-|---|---|
-| **Ça marche** | le jeu compile, se lance, se termine. Un jeu qui ne compile pas ne s'évalue pas. |
-| **Le saut est bon** | quelqu'un d'autre que vous y joue cinq minutes sans s'énerver. |
-| **Le code se lit** | une classe par responsabilité, le schéma de conception de PCL-01 encore reconnaissable. |
-| **Les réglages sont sortis** | le test de `kImpulsionSaut` ci-dessus passe. |
-| **L'écrit dit quelque chose** | trois décisions expliquées valent mieux que deux pages de description. |
+|                               | Ce qu'on regarde                                                                        |
+| ----------------------------- | --------------------------------------------------------------------------------------- |
+| **Ça marche**                 | le jeu compile, se lance, se termine. Un jeu qui ne compile pas ne s'évalue pas.        |
+| **Le saut est bon**           | quelqu'un d'autre que vous y joue cinq minutes sans s'énerver.                          |
+| **Le code se lit**            | une classe par responsabilité, le schéma de conception de PCL-01 encore reconnaissable. |
+| **Les réglages sont sortis**  | le test de `kImpulsionSaut` ci-dessus passe.                                            |
+| **L'écrit dit quelque chose** | trois décisions expliquées valent mieux que deux pages de description.                  |
+
+## Avant de rendre, cochez
+
+> [!check] Grille d'auto-évaluation
+>
+> | Je sais… | Vérification |
+> |---|---|
+> | ouvrir une fenêtre et afficher | le héros s'affiche, et je sais dire pourquoi un sprite devient blanc |
+> | traiter les entrées | clavier et manette donnent le même déplacement, la fenêtre se redimensionne proprement |
+> | choisir sa classe audio | je sais dire pourquoi une musique n'est pas un `sf::Sound` |
+> | gérer le temps | la vitesse et l'animation ne dépendent pas du framerate |
+> | faire vivre un monde physique | le héros tombe et s'arrête sans sprite |
+> | relier les deux mondes | la conversion passe par une seule classe, et `au sol` est fiable |
+> | rendre le jeu agréable | coyote time et jump buffer réglés, et je sais dire ce qu'ils changent |
 
 > [!tip] Le conseil qui compte
 > Un niveau court et un saut parfaitement réglé valent beaucoup mieux qu'un grand niveau et
