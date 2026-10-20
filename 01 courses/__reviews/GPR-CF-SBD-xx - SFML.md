@@ -20,6 +20,15 @@ exercices:
 	- [ ] ajout du Cmake, recopie depuis le companion
 	- [ ] ajout de vcpkg
 	- [ ] code "hello world" = afficher une fenetre
+- [ ] Reprendre enoncé Summative
+	- [ ] Reprendre depuis la fiche Unity
+		- [ ] Genre Content
+		- [ ] Screenshots de references
+		- [ ] Chapitre des reglages : 
+			- [ ] Simplifier par une simple mention que les reglages du jeu (saut, vitesse, gravité) doivent etre disponilbe dans un seul et mm fichier
+			- [ ] Tenir compte des ratures
+			- [ ] Garder encart de test
+	
 
 -------------------------------
 ### Sources complémentaires
@@ -73,13 +82,48 @@ le voisin.
 > le `>` de la citation. Une seule ligne sans préfixe ferme le bloc **et** le tableau — d'où
 > la moitié de la grille en texte brut. C'est corrigé à la source.
 
-## Deux points à trancher
+## Un point à trancher
 
-**1. La feuille d'étapes n'a plus de lecteur.** Les six decks portent leur atelier et
-**aucun ne la cite plus**. Ce qu'il en reste — cinq étapes sans leurs pièges — fait doublon
-avec les slides, et reste publié dans l'onglet *Exercices* des six séances. Je ne l'ai pas
-supprimée : dis-moi si elle part, et la summative devient le seul exercice de la série.
-
-**2. SBD-04 n'a aucune cible de démonstration.** Le dépôt d'exemples ne contient pas de
+**SBD-04 n'a aucune cible de démonstration.** Le dépôt d'exemples ne contient pas de
 Box2D — c'est la seule séance de la série sans code à montrer. Sa note de présentation le
 dit, et l'heure se fait au tableau. Une cible `Box2D-a` dans le companion réglerait ça.
+
+## Deuxième passe du 20.10 — tes annotations sur SBD-06 et la summative
+
+**La feuille d'étapes est supprimée**, comme tu l'as confirmé. La summative est désormais le
+**seul** exercice de la série : chaque séance n'a plus qu'un document dans son onglet, donc
+il s'affiche directement — la règle de publication posée ce matin s'applique d'elle-même.
+
+### SBD-06
+
+La phrase de fin de *Ce qu'on attend d'un contrôleur* — « entre les deux, il n'y a que des
+ficelles, et elles s'écrivent en dur » — est retirée. La slide s'arrête sur les trois
+exigences, sans préjuger de la façon de les tenir.
+
+### La summative
+
+| Ce que tu as barré ou annoté | Ce qu'elle dit maintenant |
+|---|---|
+| *Et deux options, à choisir* + « deux, pas une, pas quatre » | **Et de quoi rendre le jeu fun** — on pioche dans la liste, **pas de quota** : deux ficelles bien réglées valent mieux que six à moitié faites |
+| `reglages.h` dans *Ce qu'on rend* | **un fichier de réglages** — le nom leur appartient |
+| *l'écrit — une page* | supprimé |
+| *L'écrit dit quelque chose* (évaluation) | supprimé |
+| *Les réglages sont sortis* (évaluation) | **Les ficelles sont là** — les options marchent et se sentent en jouant |
+
+La section **Les réglages ne se cherchent pas dans le code** (celle que tu as entourée) perd
+ce qu'elle avait de prescriptif : plus de nom de fichier imposé, et l'encadré *Le test*
+devient un test que **l'étudiant** se fait à lui-même, au lieu d'un critère de correction —
+puisque la ligne d'évaluation correspondante est partie. Le principe, lui, reste : aucune
+valeur de gameplay écrite en dur ailleurs.
+
+> [!question] Si l'intention était autre
+> Un cercle, dans tes annotations précédentes, signalait un problème à régler — la grille
+> cassée. Ici la section n'avait pas de défaut de rendu : je l'ai donc lue à la lumière des
+> deux autres annotations, qui dé-prescrivent le fichier et retirent le critère. Si tu
+> voulais au contraire la renforcer, ou la supprimer, dis-le.
+
+### Les images
+
+Le dossier `_Resources/sprites/` du companion est signalé dans la summative : planches
+Cuphead, Zelda dans les quatre directions, une planche de personnages, un village, un mur.
+Les étudiants ne perdront pas une soirée à chercher des PNG.

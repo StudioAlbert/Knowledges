@@ -50,8 +50,6 @@ Un corps physique **tombe correctement**. Ça ne suffit pas :
 - il ne saute pas en l'air
 - il ne reste pas accroché à l'arête d'une plateforme
 
-Entre les deux, il n'y a que des ficelles — et elles s'écrivent **en dur**.
-
 ---
 
 # Le sol
@@ -62,14 +60,15 @@ Entre les deux, il n'y a que des ficelles — et elles s'écrivent **en dur**.
 ## Le capteur de sol
 
 ```cpp
-b2PolygonShape pieds;
-pieds.SetAsBox(0.35f, 0.08f, b2Vec2(0.f, -0.9f), 0.f);   // sous le héros
+const b2Polygon pieds =
+    b2MakeOffsetBox(0.35f, 0.08f, {0.f, -0.9f}, b2Rot_identity);
 
-b2FixtureDef def;
-def.shape = &pieds;
+b2ShapeDef def = b2DefaultShapeDef();
 def.isSensor = true;              // il détecte, il n'arrête rien
-def.userData.pointer = reinterpret_cast<uintptr_t>(&capteurSol_);
-heros->CreateFixture(&def);
+def.enableSensorEvents = true;    // sans ça : aucun événement
+def.userData = &capteurSol_;
+
+b2CreatePolygonShape(heros, &def, &pieds);
 ```
 
 Un **capteur** traverse tout et signale ce qu'il traverse. C'est la bonne
@@ -80,8 +79,10 @@ réponse à « est-ce que je touche le sol ».
 ## Compter, ne pas basculer
 
 ```cpp
-void BeginContact(...) { ++contactsSol_; }
-void EndContact(...)   { --contactsSol_; }
+const b2SensorEvents capteurs = b2World_GetSensorEvents(monde);
+
+for (int i = 0; i < capteurs.beginCount; ++i) ++contactsSol_;
+for (int i = 0; i < capteurs.endCount;   ++i) --contactsSol_;
 
 bool AuSol() const { return contactsSol_ > 0; }
 ```
@@ -168,15 +169,22 @@ Aucune de ces trois réponses n'est un réglage de gravité.
 ## La plateforme à sens unique
 
 ```cpp
-void PreSolve(b2Contact* contact, const b2Manifold*) override
+forme.enablePreSolveEvents = true;
+b2World_SetPreSolveCallback(monde, Traversable, nullptr);
+
+// dans le rappel : false annule le contact, cette fois seulement
+bool Traversable(b2ShapeId a, b2ShapeId b, b2Manifold* m, void*)
 {
-    if (EstTraversable(contact) && MonteVersElle(contact))
-        contact->SetEnabled(false);          // on la traverse, cette fois
+    return !(EstPlateforme(a, b) && MonteVersElle(m));
 }
 ```
 
-`PreSolve` est appelé **avant** la résolution : c'est le seul endroit où l'on
-peut annuler un contact au cas par cas.
+C'est le seul endroit où l'on peut annuler un contact au cas par cas — et le
+seul rappel qui reste dans Box2D 3.
+
+Note:
+Le rappel tourne **pendant** la simulation, et Box2D est multithread : on ne
+crée, ne détruit et ne modifie rien dedans. On lit, on répond `true` ou `false`.
 
 ---
 
@@ -232,8 +240,8 @@ sent pas ; un joueur moins précis ne joue pas sans.
 3. demander à quelqu'un d'autre de jouer, sans rien lui expliquer
 4. noter la valeur retenue et **pourquoi**
 
-Toutes les valeurs vivent dans un seul fichier — c'est ce que la summative
-vérifie.
+Toutes les valeurs vivent dans un seul fichier de réglages — doublez-en une,
+recompilez, et vous saurez si elles en sont vraiment sorties.
 
 ---
 

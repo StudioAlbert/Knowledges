@@ -75,7 +75,7 @@ il devient `48`, il n'en changera qu'un sur deux.
 
 ```cpp
 // Box2D : Y monte.  SFML : Y descend.
-sf::Vector2f VersEcran(b2Vec2 p, float hauteurEcran)
+sf::Vector2f VersEcran(b2Pos p, float hauteurEcran)
 {
     return { Pixels(p.x), hauteurEcran - Pixels(p.y) };
 }
@@ -89,7 +89,7 @@ conversion d'axe avec celle d'unité : même fichier, même geste.
 ## Dans le bon sens, et un seul
 
 ```cpp
-const b2Vec2 p = corps_->GetPosition();
+const b2Pos p = b2Body_GetPosition(corps_);
 sprite_.setPosition(monde::VersEcran(p, kHauteurEcran));
 ```
 
@@ -103,7 +103,7 @@ divergent, et un personnage qui tremble.
 ## Les angles
 
 ```cpp
-sprite_.setRotation(sf::radians(corps_->GetAngle()));
+sprite_.setRotation(sf::radians(b2Rot_GetAngle(b2Body_GetRotation(corps_))));
 ```
 
 Box2D compte en **radians**, SFML en **degrés** — et dans le sens opposé, pour
@@ -120,9 +120,9 @@ sûr, pas seulement différent.
 
 | Geste | Ce qu'il fait | Quand |
 |---|---|---|
-| `SetTransform` | **téléporte**, sans physique | respawn, téléporteur |
-| `ApplyForce` | pousse progressivement | vent, aimant, tapis roulant |
-| `SetLinearVelocity` | impose la vitesse **tout de suite** | marcher, sauter |
+| `b2Body_SetTransform` | **téléporte**, sans physique | respawn, téléporteur |
+| `b2Body_ApplyForceToCenter` | pousse progressivement | vent, aimant, tapis roulant |
+| `b2Body_SetLinearVelocity` | impose la vitesse **tout de suite** | marcher, sauter |
 
 Un platformer utilise surtout le troisième : on veut un contrôle **immédiat**,
 pas une voiture qui glisse.
@@ -137,38 +137,43 @@ pas une voiture qui glisse.
 ## Écouter
 
 ```cpp
-class Ecouteur : public b2ContactListener
-{
-public:
-    void BeginContact(b2Contact* contact) override { /* ils se touchent */ }
-    void EndContact(b2Contact* contact) override   { /* ils se séparent */ }
-};
+b2World_Step(monde, kPas, kSousPas);
 
-Ecouteur ecouteur;
-monde.SetContactListener(&ecouteur);
+const b2ContactEvents contacts = b2World_GetContactEvents(monde);
+for (int i = 0; i < contacts.beginCount; ++i)
+{
+    const b2ContactBeginTouchEvent& e = contacts.beginEvents[i];
+    // e.shapeIdA et e.shapeIdB viennent de se toucher
+}
 ```
 
-Box2D vous **appelle** pendant `Step`. Ne créez et ne détruisez rien dedans :
-le monde est en train de travailler.
+Box2D 3 ne vous rappelle plus : il **range les événements** et vous les lisez
+après le pas. Plus de callback au milieu de la simulation.
+
+Note:
+C'est le changement qui simplifie le plus la vie : on lit les contacts là où on
+veut, dans l'ordre qu'on veut, et on peut créer ou détruire des corps sans
+risque — la simulation est finie.
 
 ---
 
 ## Qui a touché qui
 
 ```cpp
-void BeginContact(b2Contact* contact) override
-{
-    auto* a = reinterpret_cast<Objet*>(
-        contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-    auto* b = reinterpret_cast<Objet*>(
-        contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+forme.enableContactEvents = true;          // sinon : aucun événement
 
-    if (a && b) a->Touche(*b), b->Touche(*a);
-}
+auto* a = static_cast<Objet*>(b2Shape_GetUserData(e.shapeIdA));
+auto* b = static_cast<Objet*>(b2Shape_GetUserData(e.shapeIdB));
+if (a && b) { a->Touche(*b); b->Touche(*a); }
 ```
 
-`UserData` est le fil qui ramène du corps physique à **votre** objet de jeu.
-Sans lui, vous savez que ça s'est touché, pas ce qui s'est touché.
+`userData` est le fil qui ramène de la forme physique à **votre** objet de jeu.
+
+Note:
+La première ligne est le piège de Box2D 3 : `enableContactEvents` vaut **false**
+par défaut. Sans elle, la boucle d'événements tourne à vide et on cherche
+pendant une heure une erreur qui n'existe pas. Pareil pour `enableSensorEvents`,
+que SBD-06 utilisera — et là, **les deux** formes doivent l'activer.
 
 ---
 
@@ -195,7 +200,8 @@ booléen naïf il peut sauter en l'air indéfiniment.
 
 1. la **classe de conversion**, et la seule constante du projet
 2. recopier position et angle vers le sprite, à chaque image, dans un seul sens
-3. brancher le `ContactListener`, puis `UserData` pour savoir **qui** a touché quoi
+3. lire `b2World_GetContactEvents` après le pas, puis `userData` pour savoir **qui** a
+   touché quoi — sans oublier `enableContactEvents`
 4. en déduire un booléen `au sol`, et reprendre votre schéma de conception pour
    dire ce que la physique a imposé
 

@@ -23,6 +23,8 @@ margin: 0
 <small>GPR-CF-SBD-04 · SFML et Box2D</small>
 
 Note:
+Tout le code de cette séance est en **Box2D 3** : les pointeurs ont disparu, la
+fixture aussi. Les exemples Box2D 2.4 du web ne compilent pas.
 Une heure sans rien afficher, et c'est **délibéré** : séparer les deux mondes
 avant de les relier est tout le propos de SBD-05. On observe par la console, et
 on apprend à faire confiance à des nombres qu'on ne voit pas.
@@ -55,12 +57,19 @@ juste.
 ## Le monde
 
 ```cpp
-b2Vec2 gravite(0.f, -9.81f);     // vers le bas, en mètres par seconde carrée
-b2World monde(gravite);
+b2WorldDef def = b2DefaultWorldDef();
+def.gravity = {0.f, -9.81f};          // vers le bas, en m/s²
+
+b2WorldId monde = b2CreateWorld(&def);
 ```
 
-Une gravité, une liste de corps, et une méthode qui fait avancer le temps.
+Une gravité, une liste de corps, et une fonction qui fait avancer le temps.
 C'est tout ce qu'un moteur physique est.
+
+Note:
+Box2D 3 ne rend plus de pointeurs mais des **identifiants** — `b2WorldId`,
+`b2BodyId`, `b2ShapeId`. On les copie librement, et on n'en libère aucun à la
+main : `b2DestroyWorld` emporte tout.
 
 ---
 
@@ -68,11 +77,12 @@ C'est tout ce qu'un moteur physique est.
 
 ```cpp
 constexpr float kPas = 1.f / 60.f;
+constexpr int kSousPas = 4;
 
 accumulateur_ += dt;
 while (accumulateur_ >= kPas)
 {
-    monde.Step(kPas, 8, 3);      // vélocité, position
+    b2World_Step(monde, kPas, kSousPas);
     accumulateur_ -= kPas;
 }
 ```
@@ -91,15 +101,19 @@ marche sur votre machine et traverse les murs sur celle d'à côté.
 ## Un corps
 
 ```cpp
-b2BodyDef def;                      // on décrit ce qu'on veut
+b2BodyDef def = b2DefaultBodyDef();   // on part des valeurs par défaut
 def.type = b2_dynamicBody;
-def.position.Set(4.f, 10.f);        // en mètres
+def.position = {4.f, 10.f};           // en mètres
 
-b2Body* heros = monde.CreateBody(&def);   // le monde le fabrique
+b2BodyId heros = b2CreateBody(monde, &def);
 ```
 
-On décrit d'abord, le monde fabrique ensuite — et **c'est lui qui possède** le
-corps. On ne fait jamais `delete` sur un `b2Body*`.
+On décrit d'abord, le monde fabrique ensuite — et il rend un **identifiant**,
+pas un pointeur. Rien à libérer.
+
+Note:
+Toujours partir de `b2DefaultBodyDef()`. Une structure laissée à zéro donne un
+corps sans masse qui traverse tout, et l'erreur ne se voit qu'à l'exécution.
 
 ---
 
@@ -119,19 +133,22 @@ Une plateforme mobile en dynamique tombe. En statique, elle ne bouge pas.
 ## Une forme, et sa matière
 
 ```cpp
-b2PolygonShape boite;
-boite.SetAsBox(0.4f, 0.9f);        // demi-largeur, demi-hauteur, en mètres
+b2Polygon boite = b2MakeBox(0.4f, 0.9f);   // demi-largeur, demi-hauteur
 
-b2FixtureDef matiere;
-matiere.shape = &boite;
-matiere.density = 1.f;             // la masse en découle
-matiere.friction = 0.3f;
-matiere.restitution = 0.f;         // 0 : aucun rebond
+b2ShapeDef forme = b2DefaultShapeDef();
+forme.density = 1.f;                       // la masse en découle
+forme.material.friction = 0.3f;
+forme.material.restitution = 0.f;          // 0 : aucun rebond
 
-heros->CreateFixture(&matiere);
+b2CreatePolygonShape(heros, &forme, &boite);
 ```
 
-`SetAsBox` prend des **demi**-dimensions : un héros de 1,8 m, c'est `0.9f`.
+`b2MakeBox` prend des **demi**-dimensions : un héros de 1,8 m, c'est `0.9f`.
+
+Note:
+Box2D 3 a supprimé la fixture : la forme et sa matière sont une seule structure,
+attachée directement au corps. `friction` et `restitution` sont passées dans
+`material`, parce qu'elles décrivent la surface, pas l'intérieur.
 
 ---
 
@@ -182,10 +199,10 @@ puis à l'écran, et la console sert de preuve.
 
 ## À retenir
 
-- un pas **fixe**, rattrapé par un `while` — jamais `Step(dt, …)`
+- un pas **fixe**, rattrapé par un `while` — jamais `b2World_Step(monde, dt, …)`
 - statique pour le décor, **cinématique** pour ce qu'on pilote, dynamique pour le reste
-- `SetAsBox` prend des **demi**-dimensions, en mètres
-- le monde possède ses corps : aucun `delete` de votre côté
+- `b2MakeBox` prend des **demi**-dimensions, en mètres
+- Box2D 3 rend des **identifiants**, pas des pointeurs : rien à libérer
 
 ---
 

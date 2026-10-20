@@ -9,6 +9,11 @@ zéro : c'est le projet que vous construisez depuis la première heure, étape p
 
 ---
 
+> [!tip] Les images sont fournies
+> Le dépôt d'exemples porte un dossier `_Resources/sprites/` : planches Cuphead, sprites de
+> Zelda dans les quatre directions, une planche de personnages, un décor de village et un
+> mur. De quoi monter un niveau sans passer une soirée à chercher des PNG.
+
 ## Le genre, en deux phrases
 
 Un platformer 2D se joue de profil. On y dirige un personnage de gauche à droite, on saute
@@ -40,9 +45,10 @@ rate de deux pixels. C'est ce réglage-là qui est évalué, pas la quantité de
 
 ---
 
-## Et deux options, à choisir dans cette liste
+## Et de quoi rendre le jeu **fun**
 
-**Deux, pas une, pas quatre.** Choisissez ce que vous saurez finir.
+Piochez dans cette liste ce qui rendra votre jeu agréable à jouer. Il n'y a pas de quota :
+mieux vaut deux ficelles bien réglées que six à moitié faites.
 
 - **Saut maintenu** — la hauteur dépend du temps pendant lequel la touche reste enfoncée.
 - **Coyote time** — le saut reste possible quelques centièmes de seconde après avoir quitté
@@ -65,7 +71,7 @@ cher si on l'ignore.
 mètre/pixel — vivent **à un seul endroit**, et nulle part ailleurs.
 
 ```cpp
-// reglages.h — le seul fichier qu'on ouvre pour régler le jeu
+// un fichier de réglages — le seul qu'on ouvre pour régler le jeu
 namespace reglages {
 
 inline constexpr float kPixelsParMetre = 32.f;
@@ -77,14 +83,14 @@ inline constexpr float kCoyoteTime = 0.08f;       // s
 }  // namespace reglages
 ```
 
-Un fichier de configuration lu au démarrage vaut mieux encore — on règle sans recompiler —
-mais il n'est pas exigé. Ce qui est exigé, c'est qu'**aucune valeur de gameplay ne soit
-écrite en dur ailleurs**.
+Le nom du fichier vous appartient, et un fichier de configuration lu au démarrage vaut mieux
+encore — on règle sans recompiler. Ce qui compte, c'est qu'**aucune valeur de gameplay ne
+soit écrite en dur ailleurs**.
 
-> [!warning] Le test
-> Je prendrai votre `reglages.h`, je doublerai `kImpulsionSaut`, et je recompilerai. Si le
-> personnage saute deux fois plus haut et que rien d'autre ne casse, c'est gagné. Si je dois
-> chercher un `9.f` dans trois fichiers, c'est raté.
+> [!tip] Le test que vous pouvez faire vous-même
+> Doublez la valeur du saut dans votre fichier de réglages, et recompilez. Si le personnage
+> saute deux fois plus haut et que rien d'autre ne casse, c'est gagné. Si vous devez chercher
+> un `9.f` dans trois fichiers, il reste du travail.
 
 ---
 
@@ -96,9 +102,8 @@ Un seul dépôt git, avec :
 |---|---|
 | **le jeu** | il compile en une commande (`cmake -S . -B build`, `cmake --build build`) et se lance sans réglage manuel |
 | **le code** | **six commits au moins**, un par étape, qui racontent la construction |
-| **`reglages.h`** | toutes les valeurs de gameplay, nommées et commentées avec leur unité |
-| **`README.md`** | les touches, les deux options choisies, et comment lancer le jeu |
-| **l'écrit — une page** | le facteur mètre/pixel choisi et pourquoi ; comment `au sol` est détecté ; ce que vous avez réglé **à la main** plutôt que par la physique, et pourquoi |
+| **un fichier de réglages** | toutes les valeurs de gameplay, nommées et commentées avec leur unité |
+| **`README.md`** | les touches, les ficelles que vous avez ajoutées, et comment lancer le jeu |
 
 ---
 
@@ -109,8 +114,7 @@ Un seul dépôt git, avec :
 | **Ça marche**                 | le jeu compile, se lance, se termine. Un jeu qui ne compile pas ne s'évalue pas.        |
 | **Le saut est bon**           | quelqu'un d'autre que vous y joue cinq minutes sans s'énerver.                          |
 | **Le code se lit**            | une classe par responsabilité, le schéma de conception de PCL-01 encore reconnaissable. |
-| **Les réglages sont sortis**  | le test de `kImpulsionSaut` ci-dessus passe.                                            |
-| **L'écrit dit quelque chose** | trois décisions expliquées valent mieux que deux pages de description.                  |
+| **Les ficelles sont là** | les options choisies marchent, et elles se sentent en jouant. |
 
 ## Avant de rendre, cochez
 
