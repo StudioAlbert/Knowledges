@@ -3,6 +3,8 @@ slides: "[[01 courses/slides/Theory/TC-FT-RDE-02 - Équations et inéquations]]"
 exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Équations et inéquations]]"
 quizz_maison: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équations]]"
 ---
+- [ ] Ajouter graphique pour démonstration graphique du premier degré
+- [ ] Séparer les différents quizz des exerices posés en texte = différentes pages
 - [x] Compléter slides selon slides originels et sources complémentaires
 - [x] Proposer exercices de resolution
 	- [x] sujets : equations du premier degre et les diverses methodes de résolution
@@ -16,6 +18,13 @@ quizz_maison: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équat
 - [x] Quizz : le séparer en deux — un widget pour le cours, une page de l'onglet exercices pour la série maison
 - [x] Widget du discriminant : pouvoir dézoomer le graphe à la molette
 - [x] Atelier : fournir l'équation de la hauteur en question 1, les questions suivantes s'appuyant toutes sur cette formule
+- [x] Slide **Ce qu'on a le droit de faire** : expliciter « élever au carré peut inventer des solutions »
+- [x] Schéma du saut : exagérer encore la deuxième parabole
+- [x] Feuille d'exercices, 1 *Combien de potions* : finaliser l'exemple avec des valeurs chiffrées
+- [x] Feuille d'exercices : supprimer 2 *Factoriser*, 3 *Le temps d'impact*, 6 *Rayon contre cercle*
+- [x] Feuille d'exercices : 4 *L'inéquation qui se retourne* part dans un quizz Inéquations
+- [x] Feuille d'exercices : 5 *Le tir qui touche* remplacé par l'énoncé de l'atelier
+- [x] Page de ressources : les formules `$…$` s'affichaient en LaTeX brut sur le site
 
 
 ### Sources en complément
@@ -160,3 +169,69 @@ et `v₀ < 14,5 m/s` environ le ferait manquer. À toi de dire si ça va dans la
 **2. Deux feuilles d'exercices pour RDE-02.** L'overview de six pistes et la page de quizz
 cohabitent dans l'onglet *Exercices*. C'est volontaire — mais l'overview n'est toujours pas
 rédigé.
+
+## Troisième passe, le 20.10 — tes annotations du deck
+
+26 slides, aucune hors cadre, aucune image cassée.
+
+### Élever au carré, expliqué sur sa propre slide
+
+La puce disait « attention, ça peut inventer des solutions » et s'arrêtait là. Une slide la
+démontre maintenant, en entier :
+
+```text
+√(2x + 3) = x   →   x² − 2x − 3 = 0   →   x = 3  ou  x = −1
+x = 3  : √9 = 3        vrai
+x = −1 : √1 = 1 ≠ −1   faux
+```
+
+La leçon est écrite en toutes lettres : le carré **perd le signe**, et toute solution obtenue
+en élevant au carré se vérifie dans l'équation **de départ**. La note de présentation ajoute
+que `−1` n'est pas une faute de calcul — le calcul est juste, c'est l'opération qui a ajouté
+une racine.
+
+### La chute est trois fois plus raide
+
+`g` passe de 40 à **60** à la descente, contre 20 à la montée. Le script calcule désormais
+les deux instants et la fenêtre au lieu de les porter en dur, donc la figure et ses chiffres
+ne peuvent plus diverger : la fenêtre au-dessus de 8 m passe de 0,76 s à **0,71 s**, et le
+second point à 1,26 s au lieu de 1,32 s.
+
+### La feuille d'exercices, réduite à deux
+
+| Avant | Après |
+|---|---|
+| 1 Combien de potions | gardé, et **chiffré** : 12 pièces d'entrée, 7 par potion, 100 en bourse |
+| 2 Factoriser | supprimé |
+| 3 Le temps d'impact | supprimé |
+| 4 L'inéquation qui se retourne | parti dans le quizz |
+| 5 Le tir qui touche | remplacé par l'énoncé de l'atelier |
+| 6 Rayon contre cercle | supprimé |
+
+L'exercice 1 ne s'arrête plus à l'intervalle : il demande le **nombre entier** de potions et
+ce qui reste dans la bourse, avec le piège nommé — `n ⩽ 12,57` n'est pas une réponse.
+
+### Le quizz des inéquations
+
+Une troisième série dans le même widget, `#inequations`, et une
+[[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des inéquations|page dans l'onglet Exercices]].
+
+Une inéquation se répond par un intervalle, donc **on choisit au lieu de taper** : quatre
+écritures proposées, et la bonne est tirée au sort à chaque affichage — sinon elle serait
+toujours la première. Huit questions : trois retournements de sens, deux tableaux de signes,
+un quotient dont la racine du dénominateur est exclue.
+
+Vérifié : les huit bonnes réponses valident, une mauvaise déclenche la correction, et la
+position de la bonne varie bien d'une question à l'autre.
+
+### Les formules ne s'affichaient pas sur le site
+
+C'était un vrai trou, et pas seulement sur RDE-02 : **KaTeX n'était branché que sur les
+decks**. Toutes les notes — ressources, exercices, séances — rendaient leurs `$…$` en LaTeX
+brut.
+
+`pageShell` charge maintenant KaTeX et son `auto-render`, depuis `/assets/katex` comme les
+decks, et **seulement si la page contient un `$`**. Les délimiteurs sont ceux d'Obsidian, et
+`pre` / `code` sont ignorés : un `$VAR` de shell n'est pas une formule.
+
+Vérifié sur la page de RDE-02 : **six formules rendues, aucune erreur**.

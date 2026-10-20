@@ -12,9 +12,7 @@ views:
     order:
       - file.name
       - date_scheduled
-    sort:
-      - property: date_scheduled
-        direction: ASC
+    sort: []
     statuses:
       - Backlog
       - To prepare
@@ -37,11 +35,11 @@ views:
       - Done
       - __unmapped__
       - Post-mortem
-      - Backlog
       - Post-mortem-done
-    cardSort: property
+      - Ready
+      - Backlog
+    cardSort: order
     laneGrouping: property
-    cardSortProperty: note.date_scheduled
     collapsedLanes:
       - 2026-09-09
       - 2026-09-16
@@ -56,6 +54,9 @@ views:
     countdownSource: scheduled
   - type: table
     name: Liste
+    filters:
+      and:
+        - status == "To prepare"
     order:
       - file.name
       - date_scheduled

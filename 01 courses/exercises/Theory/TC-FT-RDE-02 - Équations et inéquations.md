@@ -2,32 +2,38 @@
 
 > Cours associé : [[01 courses/slides/Theory/TC-FT-RDE-02 - Équations et inéquations|TC-FT-RDE-02 - Équations et inéquations]]
 
-> [!todo] Overview à valider
-> Chaque exercice est décrit en deux ou trois lignes. Les énoncés complets, les valeurs
-> numériques et les corrigés viendront après validation de ces pistes.
+Deux exercices sur papier. Les deux quizz, eux, se font à l'écran — voir plus bas dans cet
+onglet.
 
-Exercices 1 à 4 sur papier, 5 et 6 au clavier avec vérification numérique.
+## 1 — Combien de potions
 
-## Courts — valider la compréhension
+Le marchand demande **12 pièces** d'entrée dans sa boutique, puis **7 pièces** par potion.
+Le joueur a **100 pièces**.
 
-### 1 — Combien de potions
-Le marchand propose un prix fixe plus un coût par unité ; le joueur a une bourse donnée. Poser l'équation, isoler, et conclure en nombre entier d'unités.
+1. poser l'inéquation qui dit « le joueur peut payer » ;
+2. l'isoler, et donner l'intervalle des valeurs de `n` qui la vérifient ;
+3. conclure en **nombre entier** de potions, et dire ce qui reste dans la bourse ;
+4. le marchand passe la potion à 9 pièces : combien le joueur en achète-t-il, et combien
+   lui faudrait-il de pièces pour en avoir toujours douze ?
 
-### 2 — Factoriser
-Six expressions de gameplay à factoriser par identité remarquable, puis à annuler. Dire à chaque fois ce que représentent les solutions trouvées.
+> [!tip] Le piège
+> `n ⩽ 12,57` n'est pas une réponse : on n'achète pas 0,57 potion. L'intervalle est le
+> résultat du calcul, le nombre de potions est le résultat de l'**exercice**. Dire lequel
+> des deux on rend, et pourquoi.
 
-### 3 — Le temps d'impact
-Un projectile lancé vers le haut : donner l'instant où il repasse à hauteur du joueur, l'instant du sommet, et vérifier le résultat par la somme des racines.
+## 2 — Le projectile
 
-### 4 — L'inéquation qui se retourne
-Quatre inéquations dont deux imposent une division par un négatif. Donner les intervalles de solutions et signaler explicitement les deux retournements.
+C'est l'énoncé de l'atelier, à reprendre au calme. Un projectile part à 20 m/s vers le haut,
+depuis 1,5 m, avec `g = 10` :
 
-## Complet — reprendre toute la séance
+<p class="formule">h(t) = −5t² + 20t + 1,5</p>
 
-### 5 — Le tir qui touche
-Une cible à distance et hauteur données, un projectile soumis à la gravité. Trouver par le calcul les vitesses initiales qui la touchent, l'intervalle de celles qui la manquent par en dessous, et l'instant d'impact dans chaque cas. Le programme vérifie chaque réponse en simulant la trajectoire image par image et signale tout écart.
+1. à quel instant atteint-il **12 m** ? les deux réponses ont-elles un sens ?
+2. pour quel **intervalle de temps** est-il au-dessus de 12 m ?
+3. quelle **vitesse de départ** le ferait manquer 12 m ? (indice : Δ)
+4. et s'il partait du sol, la réponse à la question 1 changerait-elle **beaucoup** ?
 
-## Difficile — se projeter
-
-### 6 — Rayon contre cercle
-Un rayon de tir et un ennemi circulaire : poser l'équation du second degré de leur intersection, en tirer le cas « touche », « effleure » et « manque », puis le point d'impact le plus proche. Traiter le rayon qui part de l'intérieur du cercle, et le cas de la direction non normalisée. C'est la base du raycast, que reprendra le bloc de physique.
+> [!tip] Vérifier sans recalculer
+> Les deux instants de la question 1 ont pour somme `−b/a` et pour produit `c/a`. Si votre
+> couple ne les vérifie pas, l'erreur est dans le discriminant, et elle se trouve en dix
+> secondes.

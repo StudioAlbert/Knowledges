@@ -31,6 +31,15 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: var(--bg); color: var(--text); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+.choix { display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 0 14px; }
+.choix.on { display: grid; }
+.choix button {
+    font: 700 17px "JetBrains Mono", monospace; color: var(--sae-black);
+    background: #fff; border: 2px solid var(--line); border-radius: var(--radius);
+    padding: 13px 10px; cursor: pointer; transition: border-color .12s;
+}
+.choix button:hover { border-color: var(--sae-black); }
+
 .wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
 
 header {
@@ -136,6 +145,7 @@ html.embed .enonce { font-size: 26px; padding: 18px 10px; }
 <nav class="tabs" id="tabs">
     <button data-tab="cours">En cours — 5 équations</button>
     <button data-tab="maison">À la maison — 10 équations</button>
+    <button data-tab="inequations">Inéquations — 8 intervalles</button>
 </nav>
 
 <div class="stage">
@@ -148,6 +158,8 @@ html.embed .enonce { font-size: 26px; padding: 18px 10px; }
             <input type="text" id="rep" autocomplete="off" spellcheck="false" placeholder="une valeur, ou deux séparées par un espace">
         </div>
         <p class="aide">Pas de solution ? Écrivez <b>aucune</b>.</p>
+
+        <div class="choix" id="choix"></div>
 
         <div class="actions">
             <button class="go" id="valider">Valider</button>
@@ -240,14 +252,69 @@ function lire(txt){
     return m ? [...new Set(m.map(Number))].sort((a, b) => a - b) : null;
 }
 
+// Une inequation se repond par un intervalle : on choisit, on ne tape pas.
+SERIES.inequations = [
+  {e: "3x − 2 < 7", r: 0,
+   choix: ["]−∞ ; 3[", "]3 ; +∞[", "]−∞ ; 3]", "]−∞ ; 5["],
+   s: ["3x − 2 < 7", "3x < 9", "x < 3"],
+   m: "<b>Comme une équation.</b> Seule la réponse change de nature : un intervalle, et la borne est <b>exclue</b> car l'inégalité est stricte."},
+  {e: "−2x < 6", r: 0,
+   choix: ["]−3 ; +∞[", "]−∞ ; −3[", "]−∞ ; −3]", "]3 ; +∞["],
+   s: ["−2x < 6", "x > −3", "on a divisé par −2 : le sens s'inverse"],
+   m: "<b>Le retournement.</b> Diviser par un négatif inverse l'inégalité. Contrôle : x = 0 donne 0 < 6, vrai — donc 0 doit être dans la réponse."},
+  {e: "5 − x ⩾ 2", r: 0,
+   choix: ["]−∞ ; 3]", "[3 ; +∞[", "]−∞ ; 3[", "]−∞ ; 7]"],
+   s: ["5 − x ⩾ 2", "−x ⩾ −3", "x ⩽ 3"],
+   m: "<b>Le retournement, déguisé.</b> Multiplier par −1 inverse le sens. La borne est <b>incluse</b> : l'inégalité est large."},
+  {e: "4x + 1 ⩾ 2x + 9", r: 0,
+   choix: ["[4 ; +∞[", "]−∞ ; 4]", "]4 ; +∞[", "[5 ; +∞["],
+   s: ["4x + 1 ⩾ 2x + 9", "2x ⩾ 8", "x ⩾ 4"],
+   m: "<b>Rassembler d'abord.</b> Aucun négatif n'intervient : le sens ne bouge pas."},
+  {e: "−3x + 6 ⩽ 0", r: 0,
+   choix: ["[2 ; +∞[", "]−∞ ; 2]", "]2 ; +∞[", "]−∞ ; −2]"],
+   s: ["−3x + 6 ⩽ 0", "−3x ⩽ −6", "x ⩾ 2"],
+   m: "<b>Deux signes à suivre.</b> On divise par −3 : le sens s'inverse, et le second membre devient positif."},
+  {e: "(x + 2)(x − 3) > 0", r: 0,
+   choix: ["]−∞ ; −2[ ∪ ]3 ; +∞[", "]−2 ; 3[", "]−∞ ; −2] ∪ [3 ; +∞[", "]−3 ; 2["],
+   s: ["racines : −2 et 3", "tableau de signes : + 0 − 0 +", "on garde les colonnes +"],
+   m: "<b>Tableau de signes.</b> Un produit change de signe en ses racines. Ne pas développer : les racines sont déjà là."},
+  {e: "x² − 4 ⩽ 0", r: 0,
+   choix: ["[−2 ; 2]", "]−∞ ; −2] ∪ [2 ; +∞[", "]−2 ; 2[", "[0 ; 2]"],
+   s: ["x² − 4 ⩽ 0", "(x − 2)(x + 2) ⩽ 0", "−2 ⩽ x ⩽ 2"],
+   m: "<b>Identité remarquable, puis tableau.</b> Entre les racines le produit est négatif : c'est là qu'on cherche."},
+  {e: "(x − 1) / (x + 2) > 0", r: 0,
+   choix: ["]−∞ ; −2[ ∪ ]1 ; +∞[", "]−2 ; 1[", "]−∞ ; −2] ∪ [1 ; +∞[", "]1 ; +∞["],
+   s: ["racines : 1 au numérateur, −2 au dénominateur", "mêmes signes que (x − 1)(x + 2)", "−2 est <b>exclue</b> : on ne divise pas par zéro"],
+   m: "<b>Le quotient.</b> Même tableau que le produit, à une différence près : la racine du dénominateur est toujours exclue, même avec une inégalité large."}
+];
+
 function question(){ return SERIES[st.serie][st.i]; }
+function parChoix(){ return Boolean(question().choix); }
 
 function rendre(){
     const q = question();
     const n = SERIES[st.serie].length;
-    $("titreQ").textContent = "Équation " + (st.i + 1) + " sur " + n;
+    const choix = parChoix();
+    $("titreQ").textContent = (choix ? "Inéquation " : "Équation ") + (st.i + 1) + " sur " + n;
     $("enonce").textContent = q.e;
     $("rep").value = "";
+
+    $("choix").className = choix ? "choix on" : "choix";
+    document.querySelector(".repondre").style.display = choix ? "none" : "";
+    document.querySelector(".aide").style.display = choix ? "none" : "";
+    $("valider").style.display = choix ? "none" : "";
+    // La bonne reponse est toujours ecrite en premier dans la serie : on melange,
+    // sinon le quizz se repond sans lire.
+    if (choix) {
+        st.ordre = q.choix.map((c, i) => i);
+        for (let i = st.ordre.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [st.ordre[i], st.ordre[j]] = [st.ordre[j], st.ordre[i]];
+        }
+    }
+    $("choix").innerHTML = choix
+        ? st.ordre.map((i) => '<button data-i="' + i + '">' + q.choix[i] + "</button>").join("")
+        : "";
     $("resultat").className = "resultat";
     $("correction").className = "correction";
     $("attente").style.display = "";
@@ -263,14 +330,7 @@ function corriger(){
     $("attente").style.display = "none";
 }
 
-$("valider").addEventListener("click", function(){
-    const q = question();
-    const donne = lire($("rep").value);
-    if (donne === null) return;
-    const attendu = [...q.r].sort((a, b) => a - b);
-    const bon = donne.length === attendu.length
-        && donne.every((v, i) => Math.abs(v - attendu[i]) < 0.001);
-
+function trancher(bon){
     st.repondues++;
     if (bon) st.justes++;
     const r = $("resultat");
@@ -278,6 +338,21 @@ $("valider").addEventListener("click", function(){
     r.textContent = bon ? "Juste." : "Pas encore — lisez la méthode, puis reprenez le calcul.";
     $("compteur").innerHTML = "<b>" + st.justes + "</b> / " + st.repondues + " juste" + (st.justes > 1 ? "s" : "");
     corriger();
+}
+
+$("valider").addEventListener("click", function(){
+    const q = question();
+    const donne = lire($("rep").value);
+    if (donne === null) return;
+    const attendu = [...q.r].sort((a, b) => a - b);
+    trancher(donne.length === attendu.length
+             && donne.every((v, i) => Math.abs(v - attendu[i]) < 0.001));
+});
+
+$("choix").addEventListener("click", function(e){
+    const b = e.target.closest("button");
+    if (!b || $("correction").classList.contains("on")) return;
+    trancher(Number(b.dataset.i) === question().r);
 });
 
 $("voir").addEventListener("click", corriger);

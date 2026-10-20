@@ -2,7 +2,7 @@
 title: Composition contre héritage
 type: seance
 code: TC-FT-PCL-04
-status: To check
+status: To prepare
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Principes de Conception Logicielle
@@ -10,7 +10,7 @@ specialisation: "[[Fondamentaux Théoriques]]"
 classes:
   - GP-926
   - WEB-925
-manual_order: 50
+manual_order: 4.701171875
 estimate: 1h
 tache: découper + écrire
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

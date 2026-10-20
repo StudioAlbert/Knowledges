@@ -3,6 +3,10 @@ slides: "[[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage]
 exercices: "[[01 courses/exercises/Theory/TC-FT-PCL-04 - Composition contre héritage]]"
 atelier: "[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer]]"
 ---
+- [ ] Revisiter exercice
+- [ ] Reformulation Etape 3 : voir bloc ci dessous
+
+
 - [x] Rédiger le deck — 22 slides, de 14 titres sans contenu
 - [x] Schéma de l'ECS
 - [x] Basculer les snippets en c++
@@ -18,6 +22,21 @@ atelier: "[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer]]"
 	- [x] Le gain d'accés en mémoire
 - [x] La partie Composition abordera l'ajout de nouveaux membres directement dans une classe
 - [x] Integrer l'atelier "Concevoir un platformer" comme exercice
+
+------------------------
+Nouveau Bloc Etape 3 (REformuler a la marge) 
+### Etape 3 - Identifier les relations 
+
+**Ce qu'on produit** : le schéma final, où chaque flèche d'héritage est justifiée.
+
+1. Il y a t'il des héritages possibles ? Des fonctionnalités partagés entre certains objets du jeu — sauter, tomber, être poussé, être dessiné, faire du bruit, blesse. 
+   Une plateforme mobile est-elle un mur qui bouge, ou un objet qui a un déplacement ?
+2. Pour chaque relation de votre schéma, imaginez la phrase « **X est un Y** » en entier. 
+   Si cette affirmation sonne faux, remplacez la flèche par une composition (fleche `──◆`),
+   Si cette affirmation sonne juste, alors cela peut-être un héritage.
+3. Posez vous cette autre question, si je pose un héritage, celui-ci s'avere problématique, bloquant ou contraignant pour le reste du programme ?
+
+-----
 
 ## Deuxième passe, le 20.10 — à vérifier
 

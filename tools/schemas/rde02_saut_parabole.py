@@ -20,7 +20,7 @@ fig = Figure(1040, 340)
 X0, X1, Y0, Y1 = 86, 606, 288, 50
 TMAX, HMAX = 1.8, 12.0
 
-V0, G_MONTEE, G_CHUTE = 20.0, 20.0, 40.0
+V0, G_MONTEE, G_CHUTE = 20.0, 20.0, 60.0
 T_SOMMET = V0 / G_MONTEE                       # 1 s
 H_SOMMET = V0 * T_SOMMET - G_MONTEE / 2 * T_SOMMET ** 2   # 10 m
 T_FIN = T_SOMMET + math.sqrt(2 * H_SOMMET / G_CHUTE)      # 1,707 s
@@ -59,15 +59,18 @@ fig.line(montee, RED, 3.5)
 fig.line(chute, INK, 3.5)
 
 fig.text(ecran(0.22, 0)[0], ecran(0, 0.8)[1], "montée : g = 20", size=14, weight=800, color=RED)
-fig.text(ecran(1.48, 0)[0], Y1 + 2, "chute : g = 40", size=14, weight=800, color=INK)
+fig.text(ecran(1.42, 0)[0], Y1 + 2, "chute : g = 60", size=14, weight=800, color=INK)
 
 sx, sy = ecran(T_SOMMET, H_SOMMET)
 fig.dot(sx, sy, 6, INK)
 fig.text(sx, sy - 14, "sommet", size=13, weight=800, color=SOFT)
 
 # --------------------------------------------------------------------- la plateforme
-T_A = (2 - math.sqrt(0.8)) / 2                      # 0,553 s, sur la montée
-T_B = T_SOMMET + math.sqrt(0.1)                     # 1,316 s, sur la chute
+H_PLATEFORME = 8.0
+# montee : V0 t - (g/2) t^2 = 8
+T_A = (V0 - math.sqrt(V0 ** 2 - 2 * G_MONTEE * H_PLATEFORME)) / G_MONTEE
+# chute : H_SOMMET - (g/2) (t - t_sommet)^2 = 8
+T_B = T_SOMMET + math.sqrt(2 * (H_SOMMET - H_PLATEFORME) / G_CHUTE)
 
 fig.line([ecran(0, 8), ecran(TMAX, 8)], INK, 2.5, dash=True)
 fig.text(X1, ecran(0, 8)[1] - 10, "plateforme à 8 m", anchor="end",
@@ -92,13 +95,14 @@ fig.text(CX - 180, 112, "h(t) = 20t − 10t²", anchor="start", size=17, weight=
          color=RED, mono=True, halo=False)
 fig.text(CX - 180, 134, "tant qu'il monte", anchor="start", size=13, weight=700, color=SOFT)
 
-fig.text(CX - 180, 172, "h(t) = 10 − 20(t − 1)²", anchor="start", size=17, weight=800,
+fig.text(CX - 180, 172, "h(t) = 10 − 30(t − 1)²", anchor="start", size=17, weight=800,
          color=INK, mono=True, halo=False)
 fig.text(CX - 180, 194, "une fois le sommet passé", anchor="start", size=13, weight=700,
          color=SOFT)
 
 fig.rect(CX - 190, 216, 380, 50, stroke=RED, fill="#ffffff", width=2.5, radius=10)
-fig.text(CX, 246, "au-dessus de 8 m pendant 0,76 s", size=16, weight=800, color=RED)
+fig.text(CX, 246, "au-dessus de 8 m pendant " + ("%.2f" % (T_B - T_A)).replace(".", ",") + " s",
+         size=16, weight=800, color=RED)
 
 fig.text(CX, 292, "À 11 m, Δ = −0,4 : l'équation n'a pas de solution,", size=14,
          weight=700, color=INK)

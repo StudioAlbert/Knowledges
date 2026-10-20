@@ -12,7 +12,7 @@ specialisation: "[[Unity]]"
 classes:
   - GP-925
 date_scheduled: 2026-10-15
-manual_order: 32
+manual_order: 2
 estimate: 1h
 tache: créer de zéro
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

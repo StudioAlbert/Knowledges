@@ -68,6 +68,30 @@ Chaque opération se défait par son **inverse**, appliquée des **deux** côté
 - diviser par une **expression** — seulement si on sait qu'elle n'est pas nulle
 - élever au carré — attention, ça peut **inventer** des solutions
 
+---
+
+## Élever au carré invente des solutions
+
+```text
+√(2x + 3) = x            on élève les deux côtés au carré
+
+2x + 3 = x²
+x² − 2x − 3 = 0          x = 3   ou   x = −1
+
+x = 3  :  √9 = 3         vrai
+x = −1 :  √1 = 1 ≠ −1    faux
+```
+
+Le carré **perd le signe** : il rend vraie une égalité qui ne l'était pas. Toute
+solution obtenue en élevant au carré se vérifie dans l'équation **de départ**.
+
+Note:
+C'est la seule ligne de la slide précédente qui ne se devine pas, d'où cette
+slide à elle seule. Faire remarquer que `−1` n'est pas une erreur de calcul :
+le calcul est juste, c'est l'opération qui a ajouté une solution. Le même piège
+revient avec la valeur absolue, et c'est la raison pour laquelle on vérifie
+toujours.
+
 Note:
 Le troisième point est celui qui coûte cher. Diviser par `x` fait disparaître la
 solution `x = 0` sans prévenir. D'où le réflexe de la séance : on ne divise pas
@@ -96,7 +120,7 @@ $$a^2 - b^2 = (a-b)(a+b)$$
 $$a^2 + 2ab + b^2 = (a+b)^2$$
 $$a^2 - 2ab + b^2 = (a-b)^2$$
 
-Trois formes à reconnaître d'un coup d'œil : elles évitent le discriminant.
+Trois formes à reconnaître d'un coup d'œil : elles évitent la méthode du discriminant.
 
 Note:
 Le repère pour les deux dernières : le terme constant est un carré, et le terme
@@ -228,8 +252,8 @@ règle à la main.
  x < 3            la réponse est un intervalle : ]−∞ ; 3[
 ```
 
-On résout **exactement** comme une équation. Seule la réponse change de nature :
-ce n'est plus une valeur, c'est un **ensemble**.
+On résout **exactement** comme une équation. 
+Seule la réponse change de nature : ce n'est plus une valeur, c'est un **ensemble**.
 
 ---
 
@@ -241,8 +265,8 @@ ce n'est plus une valeur, c'est un **ensemble**.
  x > -3           on divise par -2 : l'inégalité se retourne
 ```
 
-Multiplier ou diviser par un nombre **négatif retourne le sens**. C'est l'erreur
-la plus fréquente, et elle ne se voit pas.
+Multiplier ou diviser par un nombre **négatif retourne le sens**. 
+C'est l'erreur la plus fréquente, et elle ne se voit pas.
 
 Note:
 Le contrôle qui sauve : prendre une valeur de l'intervalle trouvé et la remettre

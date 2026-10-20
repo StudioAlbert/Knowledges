@@ -2,6 +2,36 @@
 slides: "[[01 courses/slides/C++/GPR-CF-SBD-01 - Boucle de jeu et fenêtre]]"
 exercices: "[[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape]]"
 ---
+- [ ] Reorganiser toutes la section SBD (Renommer lectures, garder le nombre de séances)
+	- [ ] Prendre contenu existant et redispatcher
+	- [ ] Produire nouveaux decks
+	- [ ] Rester pratique, produire citations de code
+	- [ ] 1 - Afficher Fenetre + Sprites
+	- [ ] 2 - GamePlay - Events
+		- [ ] Window close
+		- [ ] Window resize
+		- [ ] Inputs clavier / Manette
+	- [ ] 3 - Deplacer / Animer : Comment gérer le temps ? 
+		- [ ] Expliciter cas du delta time
+		- [ ] L'utiliser pour les deplacement
+		- [ ] Principes des sprites sheets -> cas d'usage en animation
+	- [ ] 4 - Box 2D : Deck inchangé
+	- [ ] 5 - Relier monde physique / monde graphique
+		- [ ] Faire classe de conversion de positions
+		- [ ] Collisions
+	- [ ] 6 - Mini-séance permettant de répertorier les différents tips techniques et de gameplay d'un platformer
+		- [ ] Ground Check
+		- [ ] Coyote Time
+		- [ ] Le fun dans un platformer
+		- [ ] L'accessibilité du game play
+- [ ] Review https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples
+	- [ ] Transfer the VisualStudio solution to generic CMAKE
+	- [ ] Is it Every targets SFML 3 compatible, Review changes
+- [ ] Write Down a summative platformer statement
+	- [ ] Based on this statement : 01 courses/projects/Unity/_archives_to_cut/2D Platformer
+	- [ ] Rephrased for a C++ / SFML / Box2D stack
+	- [ ] Rephrased for beginner programmers 
+
 - [x] Dévellopper le contenu en se basant sur les sources
 	- [x] Sources complémentaires ci dessous
 	- [x] Decks existants
@@ -18,6 +48,8 @@ exercices: "[[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par eta
 - https://www.sfml-dev.org/documentation/3.1.0/
 - https://github.com/jayjay1509/platformer
 - https://github.com/StudioAlbert/GPR922_GPR4-1_SFML
+  
+  https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples
 
 ## Traité le 20.10 — à vérifier
 

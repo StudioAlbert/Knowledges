@@ -51,11 +51,10 @@ jeu. Séance volontairement visuelle : on reconnaît avant de calculer.
 
 $$f : x \longmapsto f(x)$$
 
-Une fonction associe à chaque entrée **une seule** sortie. Deux sorties pour la
-même entrée, et ce n'est plus une fonction.
+Une fonction associe à chaque entrée **une seule** sortie. 
+Deux sorties pour la même entrée, et ce n'est plus une fonction.
 
-En code c'est la même exigence : la même distance doit toujours donner les mêmes
-dégâts, sinon le jeu n'est pas reproductible.
+En code c'est la même exigence : les même conditions doivent toujours donner les résultats, sinon le jeu n'est pas reproductible, le joueur est faché.
 
 ---
 

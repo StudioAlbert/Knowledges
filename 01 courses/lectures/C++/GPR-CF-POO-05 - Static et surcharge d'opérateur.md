@@ -13,7 +13,7 @@ classes:
   - GP-926
   - WEB-926
 date_scheduled: 2026-10-15
-manual_order: 24
+manual_order: 1
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

@@ -576,7 +576,19 @@ function versioned(url, file) {
   return `${url}?v=${hashes.get(file)}`;
 }
 
+// Delimiteurs d'Obsidian. `pre` et `code` sont ignores : un $VAR de shell n'est pas une formule.
+const MATH_TAGS = `<link rel="stylesheet" href="/assets/katex/dist/katex.min.css">
+<script defer src="/assets/katex/dist/katex.min.js"></script>
+<script defer src="/assets/katex/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+  delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
+  ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  throwOnError: false
+})"></script>`;
+
 function pageShell(title, body, { crumbs = '', draft = false } = {}) {
+  // Les notes ecrivent leurs formules comme dans Obsidian. KaTeX n'est charge
+  // que si la page en contient, et il est servi en local comme pour les decks.
+  const maths = body.includes('$');
   return `<!doctype html>
 <html lang="fr">
 <head>
@@ -586,6 +598,7 @@ ${draft ? '<meta name="robots" content="noindex, nofollow">' : ''}
 <title>${draft ? '[BROUILLON] ' : ''}${escapeHtml(title)}</title>
 <link rel="stylesheet" href="/assets/hljs.css">
 <link rel="stylesheet" href="${versioned('/assets/site.css', path.join(HERE, 'assets/site.css'))}">
+${maths ? MATH_TAGS : ''}
 </head>
 <body${draft ? ' class="is-draft"' : ''}>
 <header class="topbar"><a href="/">Games Programming</a>${crumbs}</header>

@@ -9,7 +9,7 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 52
+manual_order: 4.9375
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

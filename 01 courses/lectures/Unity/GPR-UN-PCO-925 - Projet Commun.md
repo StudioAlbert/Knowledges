@@ -11,7 +11,7 @@ bloc_gsda: Projet Commun
 specialisation: "[[Unity]]"
 classes:
 date_scheduled:
-manual_order:
+manual_order: 3
 estimate: 1h
 tache:
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
