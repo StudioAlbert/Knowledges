@@ -57,6 +57,9 @@ Les autres règles quand on édite des notes :
   `type: course` du même dossier sont ignorées.
 - Un exercice ou une ressource s'attache à une séance par `seances: [CODE, …]` en
   frontmatter, ou par un nom de fichier commençant par le code de la séance.
+- Un onglet qui ne porte **qu'un document** l'affiche directement. À **plusieurs**, l'onglet
+  devient un **sommaire** — la même liste que l'accueil — et chaque document prend sa page,
+  à `<séance>/<onglet>/<nom>/`.
 - Tout dossier dont le nom commence par `_` est ignoré — **sauf** sous `00 widgets/`, qui est
   copié en entier vers `/widgets/`.
 - Les decks référencent un widget par son chemin **vault**

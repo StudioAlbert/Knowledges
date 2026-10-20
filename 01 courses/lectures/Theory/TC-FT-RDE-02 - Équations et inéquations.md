@@ -12,7 +12,7 @@ classes:
   - WEB-926
 date_scheduled: 2026-10-21
 url_test: http://localhost:3001/theory/tc-ft-rde-02/
-manual_order: 4.6875
+manual_order: 3.9375
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

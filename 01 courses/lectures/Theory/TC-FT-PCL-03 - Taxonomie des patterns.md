@@ -2,7 +2,7 @@
 title: Taxonomie des patterns
 type: seance
 code: TC-FT-PCL-03
-status: To check
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Principes de Conception Logicielle
@@ -10,7 +10,7 @@ specialisation: "[[Fondamentaux Théoriques]]"
 classes:
   - GP-926
   - WEB-925
-manual_order: 4.7080078125
+manual_order: 7
 estimate: 1h
 tache: adapter + écrire
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

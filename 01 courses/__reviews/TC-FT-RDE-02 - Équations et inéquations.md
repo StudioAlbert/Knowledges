@@ -4,7 +4,13 @@ exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Équations et inéquati
 quizz_maison: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équations]]"
 ---
 - [ ] Ajouter graphique pour démonstration graphique du premier degré
-- [ ] Séparer les différents quizz des exerices posés en texte = différentes pages
+- [ ] Séparer les différents quizz des exercices posés en texte = différentes pages
+
+- [x] Nouvelle règle de publication : un document seul s'affiche, plusieurs donnent un sommaire
+>[!Warning] nouvelle régle de publication du site 
+>si une seule page d'exercices est proposée, elle est présentée seule dans l'onglet
+>dans le cas ou il y a plusieurs pages, faire comme le sommaire
+
 - [x] Compléter slides selon slides originels et sources complémentaires
 - [x] Proposer exercices de resolution
 	- [x] sujets : equations du premier degre et les diverses methodes de résolution
@@ -235,3 +241,23 @@ decks, et **seulement si la page contient un `$`**. Les délimiteurs sont ceux d
 `pre` / `code` sont ignorés : un `$VAR` de shell n'est pas une formule.
 
 Vérifié sur la page de RDE-02 : **six formules rendues, aucune erreur**.
+
+## Quatrième passe, le 20.10 — la règle de publication
+
+C'était un changement de `build.mjs`, pas de contenu, et il vaut pour **tout le site** :
+
+- un onglet qui ne porte **qu'un** document l'affiche directement, comme avant ;
+- à **plusieurs**, l'onglet devient un **sommaire** — la même liste que l'accueil — et chaque
+  document prend sa page, à `<séance>/<onglet>/<nom>/`.
+
+Les liens internes suivent : un wikilink vers un document pointe vers sa page quand elle
+existe, et vers l'ancre de l'onglet quand le document est seul. Le fil d'Ariane de chaque
+page ramène à la séance.
+
+RDE-02 en avait besoin plus que les autres : son onglet *Exercices* enchaînait la feuille,
+le quizz des dix équations et le quizz des inéquations en un seul long défilement.
+
+> [!check] Vérifié sur le serveur de test
+> PCL-04, deux documents : sommaire de deux liens, zéro `<article>` dans l'onglet, et chaque
+> page s'ouvre avec son titre et son fil. PCL-01, un seul document : affiché directement,
+> aucun sommaire. La règle est écrite dans `site-build/CLAUDE.md`.

@@ -630,7 +630,30 @@ const TABS_SCRIPT = `(() => {
 })();`;
 
 async function renderSeance(seance, resolver) {
-  const docs = (list) => list.map((it) => `<article>\n${md.render(resolver.markdown(it, it.body))}</article>`).join('\n');
+  const article = (it) => `<article>\n${md.render(resolver.markdown(it, it.body))}</article>`;
+  const fil = ` <span>›</span> ${escapeHtml(seance.category)} <span>›</span> <a href="${seance.url}">${escapeHtml(
+    seance.code,
+  )}</a>`;
+
+  // Règle de publication : un document seul est présenté dans l'onglet ; à plusieurs,
+  // l'onglet devient un sommaire — comme l'accueil — et chacun prend sa page.
+  const docs = async (list, segment) => {
+    if (list.length <= 1) return list.map(article).join('\n');
+    const lis = [];
+    for (const it of list) {
+      const nom = slugify(it.name);
+      await writeFile(
+        path.join(seance.out, segment, nom, 'index.html'),
+        pageShell(`${seance.code} - ${it.title}`, `<p class="code">${escapeHtml(seance.code)}</p>\n${article(it)}`, {
+          crumbs: fil,
+          draft: seance.draft,
+        }),
+      );
+      lis.push(`<li><a href="${segment}/${nom}/">${escapeHtml(it.title)}</a></li>`);
+    }
+    return `<ul class="seance-list">\n${lis.join('\n')}\n</ul>`;
+  };
+
   const panels = [
     {
       id: 'slides',
@@ -639,8 +662,8 @@ async function renderSeance(seance, resolver) {
       html: `<iframe class="deck-frame" src="slides/" title="${escapeHtml(seance.title)}" allowfullscreen></iframe>
 <p class="deck-actions"><a href="slides/" target="_blank" rel="noopener">Plein écran ↗</a></p>`,
     },
-    { id: 'exercices', label: 'Exercices', count: seance.exercises.length, html: docs(seance.exercises) },
-    { id: 'ressources', label: 'Ressources', count: seance.resources.length, html: docs(seance.resources) },
+    { id: 'exercices', label: 'Exercices', count: seance.exercises.length, html: await docs(seance.exercises, 'exercices') },
+    { id: 'ressources', label: 'Ressources', count: seance.resources.length, html: await docs(seance.resources, 'ressources') },
   ];
 
   const tabs = panels
