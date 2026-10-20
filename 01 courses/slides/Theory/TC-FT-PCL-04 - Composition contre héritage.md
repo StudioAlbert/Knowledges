@@ -24,7 +24,8 @@ margin: 0
 
 Note:
 POO-06 a donné l'héritage et montré ce qu'il règle. Cette séance montre où il
-s'arrête — et ce n'est pas une question de goût : c'est une question de compte.
+s'arrête — et pas sur un cas d'école : sur des demandes que le game designer
+pose vraiment, une par une.
 
 ---
 
@@ -33,7 +34,7 @@ s'arrête — et ce n'est pas une question de goût : c'est une question de comp
 À la fin de la séance, vous savez :
 
 - reconnaître une **hiérarchie qui ne tient plus**
-- la remplacer par des **composants**
+- composer, d'abord **dans la classe**, puis par composants
 - dire ce que la séparation **données / traitements** permet
 - nommer le principe de l'**ECS**
 
@@ -48,56 +49,58 @@ s'arrête — et ce n'est pas une question de goût : c'est une question de comp
 
 ## Au début, ça marche
 
-```
-Ennemi
-├── EnnemiTerrestre
-│   ├── Gobelin
-│   └── Golem
-└── EnnemiVolant
-    ├── Chauve-souris
-    └── Dragon
+```text
+Personnage
+├── Guerrier     arme au contact
+├── Magicien     sorts arcaniques
+├── Roublard     furtivité, tir à distance
+└── Clerc        sorts divins, soin
 ```
 
-Une hiérarchie décrit très bien le monde qu'on imaginait au départ.
+Quatre classes, quatre rôles nets. L'arbre décrit très bien le jeu qu'on
+imaginait au départ.
 
 ---
 
 ## Le cas qui ne rentre pas
 
-Le game designer demande un **gobelin volant qui tire**.
+Le designer demande un **Paladin** : il se bat au contact **et** lance des sorts divins.
 
-- il n'est ni `EnnemiTerrestre`, ni tout à fait `EnnemiVolant`
-- « tirer » n'existe nulle part dans l'arbre
-- chaque réponse — dupliquer, remonter la méthode, hériter deux fois — coûte
+- il hérite de `Guerrier`, mais les sorts divins sont chez `Clerc`
+- hériter des deux, c'est le **diamant** de POO-06
+- recopier les sorts divins, c'est le **même code à deux endroits**
 
-L'arbre a été dessiné avant de connaître le jeu. Le jeu a changé.
+Et il ne s'arrêtera pas là : rôdeur, barde, moine, druide.
 
 Note:
-Les trois réponses, à faire proposer : dupliquer le code de vol dans Gobelin ;
-remonter `Voler()` dans `Ennemi`, et tous les ennemis savent voler ; héritage
-multiple, et on retombe sur le diamant de POO-06. Aucune n'est bonne.
+Faire proposer les trois réponses avant de les montrer. Aucune n'est bonne, et
+c'est **la troisième qu'on choisit en vrai** — on recopie, parce que c'est la
+seule qui compile tout de suite. Le coût arrive six demandes plus tard.
 
 ---
 
 <!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/composition_widget.html" data-background-interactive -->
 
 Note:
-Partir à deux capacités : trois classes, ça passe. Ajouter la troisième, puis la
-quatrième — 15 classes — et laisser la salle réagir. Le chiffre de droite,
-lui, ne bouge que de un. C'est tout l'argument de la séance, et il est
-arithmétique, pas esthétique.
+Partir du Paladin seul : une classe de plus, une copie, personne ne s'inquiète.
+Ajouter les demandes une par une et laisser la salle regarder l'arbre se
+remplir de rouge. Finir sur le Druide : c'est **la seule** des huit qui coûte
+quelque chose à droite, parce que la métamorphose n'existait pas encore. Toutes
+les autres ne demandent qu'un nouveau mélange.
 
 ---
 
-## Le compte
+## Ce que coûte chaque demande
+<!-- .slide: class="schema" -->
 
-Pour couvrir **toutes** les combinaisons de `n` capacités :
+Huit demandes réelles, posées l'une après l'autre sur les quatre classes de départ.
 
-<p class="formule">héritage : 2<sup>n</sup> − 1 classes &nbsp;&nbsp;·&nbsp;&nbsp; composition : n composants</p>
+![[pcl04_croissance_classes.svg]]
 
-- 3 capacités → **7** classes, ou 3 composants
-- 6 capacités → **63** classes, ou 6 composants
-- une capacité de plus **double** la première colonne
+Note:
+La courbe noire part **au-dessus** de la rouge : à zéro demande, la composition
+coûte plus cher. C'est honnête, et c'est important — elle se paie d'avance. Le
+croisement a lieu dès la première demande.
 
 ---
 
@@ -106,17 +109,41 @@ Pour couvrir **toutes** les combinaisons de `n` capacités :
 
 ---
 
-## Une capacité devient une pièce
+## Ça commence dans la classe
 
-```csharp
-// au lieu d'une classe par combinaison
-var gobelinVolantTireur = new Entite();
-gobelinVolantTireur.Ajouter(new Vol());
-gobelinVolantTireur.Ajouter(new Tir());
-gobelinVolantTireur.Ajouter(new Vie(30));
+```cpp
+class Personnage
+{
+    Sante sante_;              // « a une » santé
+    Inventaire sac_;           // « a un » sac
+    Deplacement pas_;          // « a un » déplacement
+};
 ```
 
-On n'écrit plus un **rang dans un arbre**, on écrit une **liste**.
+Composer, c'est d'abord **ajouter un membre**. Ni framework, ni moteur : une
+classe qui contient ses pièces.
+
+Note:
+Point à ne pas sauter : la composition ne commence pas à Unity. `Sante`,
+`Inventaire` et `Deplacement` sont trois classes écrites **une fois** et
+réutilisées partout — c'est ce qu'ils font déjà depuis POO-01 sans le nommer.
+Ajouter une capacité au personnage, ici, c'est ajouter une ligne, et aucune
+hiérarchie n'est touchée.
+
+---
+
+## Une capacité devient une pièce
+
+```cpp
+// au lieu d'une classe par croisement demandé
+Entite paladin;
+paladin.Ajouter<ArmeAuContact>();
+paladin.Ajouter<SortsDivins>();
+paladin.Ajouter<Sante>(30);
+```
+
+Quand les pièces doivent changer **en cours de partie**, le membre fixe devient
+une **liste**.
 
 ---
 
@@ -145,24 +172,56 @@ d'office.
 Note:
 C'est la question que l'exercice 3 pose. Trois réponses tenables : un composant
 chef d'orchestre, des événements, ou un système extérieur qui lit les deux
-composants. La troisième mène à l'ECS.
+composants. La troisième mène à l'ECS, qu'on voit en fin d'heure.
 
 ---
 
-# Les données d'un côté
+# Où placer le curseur
 <!-- .slide: class="title" -->
 
 ---
 
-## Orientation données
+## Quand l'héritage reste juste
 
-Séparer ce que l'objet **est** de ce qu'on lui **fait** :
+- une relation **« est un »** vraie, stable, et peu profonde
+- un parent **abstrait** qui fixe un contrat — l'`Arme` de POO-06
+- deux ou trois classes filles qu'on ne croisera jamais
 
-- les **données** : des champs, sans méthode, rangés ensemble
-- les **traitements** : des fonctions qui prennent ces données en lot
-- le même traitement vaut pour **mille** objets, pas pour un
+L'héritage n'est pas une faute. C'est un outil à **un seul axe**.
 
-On arrête de demander à chaque objet de se mettre à jour lui-même.
+---
+
+## Le test, en une question
+
+> Est-ce que mes catégories se **croisent** ?
+
+- **non** → l'héritage les classe très bien
+- **oui** → chaque croisement demandé deviendra une classe de plus
+
+« Guerrier » et « magicien » se croisent : D&D en vit. « Chien » et « chat », non.
+
+---
+
+## Ce que coûte la composition
+
+- plus de petits objets, et plus d'indirections
+- un **ordre d'exécution** à décider explicitement
+- un bug se cherche dans l'assemblage, pas dans une classe
+
+Elle se paie d'avance : six composants avant la première demande. Et c'est moins
+cher que treize classes et huit copies.
+
+---
+
+## Le même principe, à l'échelle du moteur
+
+Unity l'a poussé jusqu'au bout : un personnage n'est pas une classe `Personnage`.
+
+<p class="formule">Personnage = Physique + Rendu + Animation + Gameplay</p>
+
+- quatre morceaux écrits par quatre équipes qui ne se parlent pas
+- aucun ne connaît les trois autres
+- on en retire un, le reste tourne encore
 
 ---
 
@@ -176,72 +235,39 @@ Des entités sans comportement, des composants sans logique, des systèmes qui b
 Note:
 Insister sur le tableau sans trou : une entité qui n'a pas le composant n'occupe
 pas de case. Le système ne teste donc jamais « est-ce que celui-là bouge ? » — il
-parcourt une suite de données toutes utiles. C'est l'exercice 6.
+parcourt une suite de données toutes utiles.
 
 ---
 
-## Ce que l'ECS achète, et à quel prix
+## Le gain : la donnée suivante est déjà là
 
-- **achète** : des parcours rapides, et des lots qu'on peut paralléliser
-- **coûte** : du code moins direct, et un débogage moins évident
-- il devient rentable à **beaucoup d'entités**, pas à douze
+- les composants d'un même type sont **côte à côte** en mémoire
+- un système lit une suite **continue**, pas un objet par-ci par-là
+- le processeur charge une ligne de cache et s'en sert **entièrement**
+- rentable à **beaucoup** d'entités, pas à douze
 
 Unity DOTS, Bevy, Overwatch : le même principe, à des échelles différentes.
 
 ---
 
-# Où placer le curseur
-<!-- .slide: class="title" -->
-
----
-
-## Quand l'héritage reste juste
-
-- une relation **« est un »** vraie, stable, et peu profonde
-- un parent **abstrait** qui fixe un contrat — l'`Arme` de POO-06
-- deux ou trois classes filles qu'on ne combinera jamais
-
-L'héritage n'est pas une faute. C'est un outil à **un seul axe**.
-
----
-
-## Le test, en une question
-
-> Est-ce que mes catégories se **combinent** ?
-
-- **non** → l'héritage classe très bien
-- **oui** → chaque combinaison deviendra une classe, et il y en a 2<sup>n</sup>
-
-« Volant » et « tireur » se combinent. « Chien » et « chat », non.
-
----
-
-## Ce que coûte la composition
-
-- plus de petits objets, et plus d'indirections
-- un **ordre d'exécution** à décider explicitement
-- un bug se cherche dans l'assemblage, pas dans une classe
-
-Ce n'est pas gratuit : c'est seulement moins cher que 63 classes.
-
----
-
 ## Atelier — 20 min
 
-Reprendre la hiérarchie d'ennemis de votre projet.
+**Concevoir un platformer** — celui-là même que vous écrirez ensuite en SFML.
 
-1. compter les classes qu'exigerait **une capacité de plus**
-2. lister les capacités qui se **combinent** vraiment
-3. refaire l'arbre en composants, sur papier
-4. dire qui **coordonne**, maintenant que personne ne le fait d'office
+1. lister les **fonctionnalités** du jeu, sans prononcer le mot « classe »
+2. en déduire les **classes**, et ce que chacune sait faire
+3. tracer les **relations** : qui contient quoi, qui hérite de quoi
+4. rendre **un schéma**, où chaque flèche d'héritage est justifiée par un « est un »
+
+Énoncé : [[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]].
 
 ---
 
 ## À retenir
 
 - l'héritage **classe**, la composition **assemble**
-- dès que les capacités se combinent, le compte tranche : 2<sup>n</sup> contre n
-- l'orientation données sépare ce que l'objet **est** de ce qu'on lui **fait**
+- composer commence par **un membre de plus** dans une classe
+- chaque croisement demandé coûte une classe à l'héritage, **rien** à la composition
 - l'ECS pousse le principe jusqu'à la **disposition mémoire**
 
 ---

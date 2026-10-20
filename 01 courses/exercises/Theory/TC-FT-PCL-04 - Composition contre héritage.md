@@ -8,8 +8,8 @@
 
 ## Courts — valider la compréhension
 
-### 1 — Compter les classes
-Quatre capacités combinables : donner le nombre de classes qu'exigerait l'héritage pour couvrir tous les cas, puis le nombre de composants. Refaire avec six capacités et commenter.
+### 1 — Compter ce que coûte une demande
+Les quatre classes de base du widget et ses huit demandes sont fournies. Pour chacune, dire quelle classe l'héritage ajoute, quel comportement il recopie, et ce que la composition ajoute. Donner les trois totaux, puis nommer la capacité qui finit écrite le plus de fois dans l'arbre.
 
 ### 2 — Convertir une hiérarchie
 Une hiérarchie d'ennemis à trois niveaux est fournie. La remplacer par une entité neutre et des composants, en conservant exactement le comportement observable.

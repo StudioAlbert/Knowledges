@@ -7,6 +7,12 @@ seances: [GPR-CF-SBD-01, GPR-CF-SBD-02, GPR-CF-SBD-03, GPR-CF-SBD-04, GPR-CF-SBD
 une heure de mise en œuvre qui ajoute une couche à ce projet. À la fin, vous avez un
 platformer jouable — et vous l'avez écrit en six fois, sans jamais repartir de zéro.
 
+> [!note] Le jeu a déjà été conçu
+> C'est le platformer que vous avez dessiné en
+> [[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]],
+> dans le bloc *Principes de Conception Logicielle*. Reprenez ce schéma : les classes de
+> votre étape 1 sont celles que vous allez écrire ici.
+
 > [!warning] SFML 3, et rien d'autre
 > La plupart des exemples qui traînent sur le web sont en SFML 2, et **ils ne compilent pas**
 > en SFML 3. Les différences qui vous toucheront :
@@ -131,6 +137,8 @@ n'existe encore.
 3. utiliser `UserData` pour retrouver l'objet de jeu depuis le contact, et savoir **quel**
    objet a touché quoi.
 4. en déduire un booléen `au sol`, et l'afficher à l'écran.
+5. **reprendre votre schéma de conception** et dire, en deux lignes, ce que la physique a
+   imposé que vous n'aviez pas prévu.
 
 **Ce qu'on vérifie** : le sprite suit exactement le corps, et le booléen `au sol` est vrai
 quand le héros est posé, faux quand il est en l'air.

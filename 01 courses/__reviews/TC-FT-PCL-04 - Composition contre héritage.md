@@ -1,56 +1,125 @@
 ---
 slides: "[[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage]]"
 exercices: "[[01 courses/exercises/Theory/TC-FT-PCL-04 - Composition contre héritage]]"
+atelier: "[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer]]"
 ---
 - [x] Rédiger le deck — 22 slides, de 14 titres sans contenu
 - [x] Schéma de l'ECS
+- [x] Basculer les snippets en c++
 - [x] Widget du décompte des combinaisons
-- [ ] Rédiger la feuille d'exercices — toujours à l'état d'overview
+	- [x] Afficher la hierarchie de classes
+	- [x] Eviter le cas du "pire", les situations nouvelles ne sont pas l'ajout d'une feature et l'ouverture de toutes les possibilités mais des cas réels qui imposeraient malgré tout la multiplication des classes :
+		- [x] Prendre des examples dans les classes Donjons et dragons :
+			- [x] Paladin = Wizard + Guerrier
+			- [x] etc...
+- [x] Slide Le compte = résumé des problèmes de combinaisons sans informations chifrées => plutot un graphe montrant l'évolution du nombre de classes au fil des implementations
+- [x] L'ECS doit reduit à la conclusion : 3 Slides
+	- [x] La modularité : prendre un exemple dans Unity : Personnage = Physique + Rendu + Animation + GamePlay
+	- [x] Le gain d'accés en mémoire
+- [x] La partie Composition abordera l'ajout de nouveaux membres directement dans une classe
+- [x] Integrer l'atelier "Concevoir un platformer" comme exercice
 
-## Traité le 19.10 — à vérifier
+## Deuxième passe, le 20.10 — à vérifier
 
-La fiche était **vide** : le template l'avait créée, sans checklist. J'ai pris le brief dans
-la note de séance — « hiérarchie profonde et ses impasses, modèle composant, orientation
-données, principe de l'ECS » — et rédigé le deck sur son squelette. **Si ce n'était pas la
-demande, c'est ici qu'il faut le dire.**
+Le deck fait toujours 22 slides, et **aucune slide de contenu ne sort du cadre** (l'audit
+signale les cinq slides `title`, qui montent volontairement au-dessus de y = 97 : c'est leur
+mise en page, pas un débordement).
 
-**Deck**, 22 slides, en quatre temps : l'arbre qui ne pousse plus, assembler, les données
-d'un côté, où placer le curseur. Aucune slide hors cadre.
+### Le pire cas est parti, remplacé par huit demandes réelles
 
-**Widget** `composition_widget.html` : on coche les capacités du jeu, et deux compteurs se
-répondent — les classes qu'exigerait l'héritage, les composants qu'exige la composition.
-À six capacités : **63 contre 6**. Une capacité de plus double la colonne de gauche et
-ajoute un à celle de droite.
+C'était le point central de ta remarque, et il change le widget, le schéma, deux slides et un
+exercice. Le modèle est maintenant :
 
-**Schéma** `pcl04_ecs.svg` : entités réduites à un numéro, tableaux de composants sans trou,
-et sous chaque tableau la flèche du système qui le balaie. Le tableau dense est l'argument —
-la donnée suivante est déjà dans la ligne de cache.
+| | Départ | Ce que le designer demande |
+|---|---|---|
+| **Héritage** | `Personnage` + Guerrier, Magicien, Roublard, Clerc | une classe de plus **à chaque demande**, et le comportement qu'elle ne peut pas hériter est **recopié** |
+| **Composition** | six capacités | **rien**, sauf si la demande apporte une capacité qui n'existait pas |
 
-## Quatre arbitrages, à confirmer ou à casser
+Les huit demandes sont toutes des classes qui existent dans D&D : **Paladin**, Chevalier
+occulte, Roublard arcane, Rôdeur, Barde, Moine, Prêtre de guerre, **Druide**. Aucune n'ouvre
+« toutes les combinaisons » — chacune est un cas précis, et chacune coûte quand même.
 
-**1. Le compte est `2^n − 1`, toutes combinaisons confondues.** C'est le pire cas : il
-suppose qu'on veut *tous* les mélanges. Un jeu réel n'en veut qu'une poignée, et l'écart se
-réduit. J'ai gardé le pire cas parce que c'est lui qui rend l'argument lisible en trente
-secondes, et parce que c'est le chiffre que l'exercice 1 demande déjà. La slide *Le test, en
-une question* nuance : le problème n'arrive que si les catégories **se combinent**.
+Le compte final, vérifié dans le widget : **13 classes et 8 copies** contre **7 composants et
+aucune copie**. Et la ligne qui tranche : *« sorts arcaniques » est écrit 4 fois dans l'arbre,
+1 fois en composant.*
 
-**2. La source ECS n'existe pas.** `Entity Component System` est un squelette de 160 octets,
-et il est dans `_archive/`. Rien à en extraire : la partie ECS est écrite de zéro. Les trois
-slides concernées sont donc à relire comme du contenu neuf, pas comme une reprise.
+Le Druide est volontairement le dernier : c'est **la seule** des huit à coûter quelque chose à
+droite, parce que la métamorphose n'existait pas encore. C'est ce qui sépare « une combinaison
+nouvelle » de « une capacité nouvelle ».
 
-**3. `solid_principles_in_unity` n'a pas été rouvert.** La note de séance dit que ses quatre
-heures partent à PCL-01, APU-01 et APU-09 — et PCL-04 n'y est pas nommée pour autre chose
-que le thème. J'ai écrit depuis le squelette. **À vérifier** : s'il y avait des schémas de ce
-support à transposer ici, ils manquent.
+### Le widget affiche la hiérarchie
 
-**4. L'exemple de code est en C#, pas en C++.** Le bloc *Une capacité devient une pièce*
-utilise `new Entite()` et `Ajouter(...)`, et la slide suivante parle de `GameObject` et
-d'`AddComponent`. La séance est dans le bloc *Fondamentaux Théoriques*, donc sans langage
-imposé, mais elle suit POO-06 qui est en C++. J'ai choisi C# parce que le modèle composant
-**est** Unity, et que c'est là que les étudiants le rencontreront. À basculer en C++ si tu
-préfères la continuité du bloc.
+`composition_widget.html` est réécrit. À gauche, l'arbre se dessine et se remplit : chaque
+demande apparaît sous son parent le plus proche, avec en rouge ce qu'elle recopie. À droite,
+la liste des composants et l'assemblage de chaque personnage. Les boutons se cochent un par
+un — ou `tout demander` pour la démonstration d'un coup.
 
-## Hors périmètre
+### La slide *Le compte* est devenue un graphe
 
-La feuille d'exercices reste un **overview** : six pistes de deux lignes, rien de rédigé.
-Elle n'était pas dans le brief de la séance, et le deck y renvoie déjà par son atelier.
+`pcl04_croissance_classes.svg`, généré par `tools/schemas/pcl04_croissance_classes.py`. Trois
+tracés : les classes de l'héritage, les copies qu'il accumule, et les composants. Plus aucun
+chiffre dans le titre de la slide.
+
+> [!note] La courbe noire part **au-dessus** de la rouge
+> À zéro demande, la composition coûte plus cher : six composants écrits avant que quoi que
+> ce soit ne soit demandé. C'est volontaire et c'est dit en note de présentation — l'argument
+> perd toute force si on cache que la composition se paie d'avance. Le croisement a lieu dès
+> la **première** demande.
+
+### L'ECS, trois slides, en fin d'heure
+
+La section *Les données d'un côté* est supprimée, et l'ECS arrive maintenant après *Où placer
+le curseur* :
+
+1. **Le même principe, à l'échelle du moteur** — `Personnage = Physique + Rendu + Animation +
+   Gameplay`, quatre morceaux écrits par quatre équipes qui ne se parlent pas ;
+2. **Le principe de l'ECS** — le schéma `pcl04_ecs.svg`, inchangé ;
+3. **Le gain : la donnée suivante est déjà là** — composants contigus, suite continue, ligne
+   de cache utilisée entièrement, et rentable seulement à beaucoup d'entités.
+
+### Composition : ça commence par un membre
+
+Nouvelle slide en tête de la section *Assembler*, avant tout composant :
+
+```cpp
+class Personnage
+{
+    Sante sante_;
+    Inventaire sac_;
+    Deplacement pas_;
+};
+```
+
+La note de présentation insiste : c'est ce qu'ils font depuis POO-01 sans le nommer. La slide
+suivante ne passe à la liste de composants que **parce que les pièces doivent changer en cours
+de partie**.
+
+### Snippets en C++
+
+Les deux blocs sont en C++ (`class Personnage`, `paladin.Ajouter<SortsDivins>()`). La slide
+*Le modèle composant* garde `GameObject` et `AddComponent` : ce sont des noms d'API Unity
+cités, pas du code à compiler.
+
+### L'atelier partagé
+
+[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]]
+est créé, rattaché aux trois séances par `seances:`, et la slide *Atelier* y renvoie. Le
+détail est dans la fiche de PCL-01, qui le définit.
+
+**L'exercice 1 de la feuille overview a été réécrit** : il demandait les 2^n combinaisons,
+il demande maintenant le coût des huit demandes, une par une. Les cinq autres pistes sont
+inchangées.
+
+## Ce qui reste ouvert
+
+**1. La source ECS n'existe toujours pas.** `Entity Component System` est un squelette de
+160 octets dans `_archive/`. Les trois slides ECS sont du contenu neuf, à relire comme tel.
+
+**2. `solid_principles_in_unity` n'a pas été rouvert.** La note de séance dit que ses quatre
+heures partent à PCL-01, APU-01 et APU-09. S'il y avait des schémas de ce support à
+transposer ici, ils manquent encore.
+
+**3. La feuille overview et l'atelier coexistent.** Le site rattache maintenant **deux**
+feuilles d'exercices à PCL-04 : l'atelier partagé et l'overview de six pistes. C'est ce que tu
+as choisi — mais si l'overview n'est jamais rédigé, il faudra décider de le supprimer plutôt
+que de le laisser visible aux étudiants.
