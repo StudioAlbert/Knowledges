@@ -7,17 +7,17 @@ d'exemples, en une ou deux sessions dédiées.
 
 ## 1 — Passer la solution Visual Studio en CMake
 
-- [ ] `CMakeLists.txt` racine : `cmake_minimum_required(VERSION 3.16)`, C++23, `EXTENSIONS OFF`, un `add_subdirectory` par cible
-- [ ] récupérer SFML 3 par `FetchContent` plutôt que par chemin absolu — le dépôt doit se cloner et compiler sans rien installer
-- [ ] un `CMakeLists.txt` par cible, un seul `add_executable`, nommé comme le dossier
-- [ ] copier les `data/` à côté de l'exécutable (`add_custom_command POST_BUILD`), sinon rien ne charge
-- [ ] supprimer les `.vcxproj`, `.vcxproj.filters` et le `.sln` une fois que tout compile
-- [ ] `.gitignore` : `build/`, `cmake-build-*/`, `.vs/`, `out/`
-- [ ] `README.md` racine : la liste des cibles, ce que chacune montre, et les deux commandes
+- [x] `CMakeLists.txt` racine : `cmake_minimum_required(VERSION 3.16)`, C++23, `EXTENSIONS OFF`, un `add_subdirectory` par cible
+- [x] récupérer SFML 3 par `FetchContent` plutôt que par chemin absolu — le dépôt doit se cloner et compiler sans rien installer
+- [x] un `CMakeLists.txt` par cible, un seul `add_executable`, nommé comme le dossier
+- [x] copier les `data/` à côté de l'exécutable (`add_custom_command POST_BUILD`), sinon rien ne charge
+- [x] supprimer les `.vcxproj`, `.vcxproj.filters` et le `.sln` une fois que tout compile
+- [x] `.gitignore` : `build/`, `cmake-build-*/`, `.vs/`, `out/`
+- [x] `README.md` racine : la liste des cibles, ce que chacune montre, et les deux commandes
 
 ## 2 — Porter les quatorze cibles en SFML 3
 
-Audit du 20.10, dix-huit cibles. **Quatre sont déjà propres** et servent de modèle :
+Audit du 20.10, dix-neuf cibles (`LevelEditor` en porte trois). **Quatre sont déjà propres** et servent de modèle :
 `Audio`, `ConstMethods`, `HelloWorld`, `TimeClock`.
 
 ### Les quatre corrections, toujours les mêmes
@@ -34,26 +34,26 @@ Audit du 20.10, dix-huit cibles. **Quatre sont déjà propres** et servent de mo
 
 ### Cible par cible
 
-- [ ] `Events-a` — boucle d'événements, `setPosition(x, y)`
-- [ ] `Events-b` — boucle d'événements, `VideoMode(w, h)`
-- [ ] `Events-c` — les quatre à la fois, plus `sf::Keyboard::Key` sans scancode
-- [ ] `Events-d` — boucle, `VideoMode`, `setPosition`, `setTexture`
-- [ ] `Graphics` — boucle, `switch (event.type)`, `VideoMode`, `setPosition`
-- [ ] `Animation` — `sprite.setTexture()`
-- [ ] `AnimationClass` — `sprite.setTexture()`
-- [ ] `OOPHero` — `sprite.setTexture()`
-- [ ] `Motor` — `setPosition(x, y)`, `setTexture()` (le plus gros : sept paires de fichiers)
-- [ ] `MoveAndJump` — boucle, `VideoMode`, `setOrigin`, `setPosition`, `Keyboard::Key`
-- [ ] `Sound` — boucle, `VideoMode`, `Keyboard::Key`
-- [ ] `Views` — les six marqueurs, le cas le plus abîmé
-- [ ] `LevelEditor` (trois sous-projets) — boucle, `switch`, `VideoMode`, `setPosition`, `Keyboard::Key`
-- [ ] `Views.cpp` à la racine — **doublon** de `Views/Views.cpp` : vérifier lequel fait foi, et supprimer l'autre
+- [x] `Events-a` — boucle d'événements, `setPosition(x, y)`
+- [x] `Events-b` — boucle d'événements, `VideoMode(w, h)`
+- [x] `Events-c` — les quatre à la fois, plus `sf::Keyboard::Key` sans scancode
+- [x] `Events-d` — boucle, `VideoMode`, `setPosition`, `setTexture`
+- [x] `Graphics` — boucle, `switch (event.type)`, `VideoMode`, `setPosition`
+- [x] `Animation` — `sprite.setTexture()`
+- [x] `AnimationClass` — `sprite.setTexture()`
+- [x] `OOPHero` — `sprite.setTexture()`
+- [x] `Motor` — `setPosition(x, y)`, `setTexture()` (le plus gros : sept paires de fichiers)
+- [x] `MoveAndJump` — boucle, `VideoMode`, `setOrigin`, `setPosition`, `Keyboard::Key`
+- [x] `Sound` — boucle, `VideoMode`, `Keyboard::Key`
+- [x] `Views` — les six marqueurs, le cas le plus abîmé
+- [x] `LevelEditor` (trois sous-projets) — boucle, `switch`, `VideoMode`, `setPosition`, `Keyboard::Key`
+- [x] `Views.cpp` à la racine — **doublon** de `Views/Views.cpp` : c'était le squelette vide, supprimé ; `Views/Views.cpp` fait foi
 
 ## 3 — Vérifier
 
-- [ ] chaque cible **compile** et **se lance**, data comprise
+- [x] chaque cible **compile** et **se lance**, data comprise
 - [ ] `Motor` et `LevelEditor` sont les deux seuls à avoir un vrai comportement à vérifier à l'écran
-- [ ] une passe `grep` finale sur les marqueurs du tableau : aucun ne doit subsister
+- [x] une passe `grep` finale sur les marqueurs du tableau : aucun ne doit subsister
 
 ## Ce que ça débloque
 
@@ -75,3 +75,39 @@ Correspondance entre les cibles et le nouveau découpage de la série :
 > Commencer par `Events-a` à `-d` : quatre petits fichiers, les mêmes corrections, et ils
 > servent la séance la plus proche. Finir par `Motor` et `LevelEditor`, qui sont les seuls
 > vrais projets.
+
+## Fait le 20.10
+
+Le dépôt est aplati : les dix-neuf répertoires de cibles sont remontés à la racine, le dossier
+`923-4FSC0PF001-SFML/` a disparu, les `git mv` gardent l'historique. SFML est épinglée en
+**3.1.0**, statique, par `FetchContent` : rien à installer, pas de DLL à copier. Racine :
+`CMakeLists.txt`, `README.md`, `.gitignore`, `.clang-format`.
+
+Vérifié ici, MSVC 14.51 / CMake 4.3 / Ninja : **les dix-neuf cibles compilent**, zéro
+avertissement sur notre code, et **les dix-sept qui ouvrent une fenêtre tournent** avec leur
+`data/` à côté — rien sur `stderr`, donc aucune texture ni aucun son manquant.
+`ConstMethods` et `TimeClock` n'ont pas de fenêtre et sortent en 0. Passe `grep` finale : plus
+un seul marqueur du tableau.
+
+Corrigé en passant, hors portage SFML :
+
+- `ConstMethods` ne compilait pas — `Machin m;` sans constructeur par défaut.
+- `AnimationClass` utilisait `std::filesystem` sans l'inclure, et `Animation.hpp` `std::vector`
+  sans l'inclure.
+- `Views/Views.cpp` dessinait **dans** la boucle d'événements, et son `default:` était imbriqué
+  dans un `if`.
+- `Motor` : `StarshipPlayer::Load(spawnPosition)` ignorait son paramètre et plaçait le vaisseau
+  en `{400, 0}` ; `#include "Motor.h"` au lieu de `motor.h` ; chemins `data\sprites\` en
+  antislashs.
+- `LevelEditor/03_save_load` : `F9` sur un niveau absent passait un `FILE*` nul à `fread`.
+- Sources converties en UTF-8 (trois fichiers étaient en CP1252), `/utf-8` ajouté pour MSVC.
+
+Reste à faire, et ça demande quelqu'un au clavier : jouer `Motor` (tirer, faire apparaître un
+ennemi avec `E`, se faire toucher) et les trois `LevelEditor` (peindre des tuiles, se déplacer
+en `WASD`, `F5` puis `F9`).
+
+> [!note] Deux propositions non faites
+> Les headers de `Motor` et de `AnimationClass` sont en `.hpp` et mélangés aux `.cc`, contre la
+> convention `.h` / `.cc` de la skill `programmation-cpp` ; renommer demande de toucher aux
+> `#include`. Et `/W4 /permissive-` sur nos cibles seulement, pour que les exemples ne passent
+> plus un avertissement sous silence.

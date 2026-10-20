@@ -46,3 +46,6 @@
 [submodule "01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance"]
 	path = 01 courses/companion projects/C++/TC-FT-RDE-03 - Dégâts selon la distance
 	url = https://github.com/StudioAlbert/TC_FT_RDE_03_DegatsSelonLaDistance.git
+[submodule "01 courses/companion projects/C++/GPR-CF-SBD-XX---SFML-Examples"]
+	path = 01 courses/companion projects/C++/GPR-CF-SBD-XX---SFML-Examples
+	url = https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples.git
