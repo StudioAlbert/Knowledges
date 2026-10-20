@@ -1,8 +1,15 @@
 ---
 slides: "[[01 courses/slides/Theory/TC-FT-PCL-01 - Couplage et cohésion]]"
+atelier: "[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer]]"
 ---
 - [x] Pas d'exercices (supprimer note)
 - [x] Illustrer par des cas d'usage tiré des repos indiqués en sources
+- [x] La slide Atelier renvoie a la fiche d'exercices
+	- [x] Proposer un atelier de conception du platformer "Concevoir un platformer"
+		- [x] Decrire les fonctionnalités
+		- [x] Decrire les classes
+		- [x] Definir les relations entre ces classes
+		- [x] Rendu attendu, un schema
 
 -----------------
 ### Sources
@@ -14,7 +21,8 @@ https://github.com/SAE-Geneve/925-4FSC0PF001-SpaceShooter
 
 **Feuille d'exercices supprimée** : `exercises/Theory/TC-FT-PCL-01 - Couplage et cohésion.md`
 n'existe plus, et la clé `exercices:` est retirée du frontmatter de cette fiche. Le site ne
-rattache donc plus d'exercice à PCL-01 — c'est voulu.
+rattache donc plus d'exercice **propre** à PCL-01 — c'est voulu. L'atelier partagé, lui, s'y
+rattache par `seances:`.
 
 **Deck**, 20 slides, de 13 titres sans contenu. Aucune slide hors cadre.
 
@@ -47,13 +55,36 @@ l'inversion de dépendance. **Les flèches ne remontent jamais.**
 **Schéma** `pcl01_direction_dependances.svg` : à gauche l'étoile du SpaceShooter autour de
 `StarshipPlayer`, à droite les trois couches gigognes du CityBuilder.
 
-## Deux arbitrages
+## Deuxième passe, le 20.10 — l'atelier
 
-**1. Le widget `couplage_widget.html` n'est pas construit.** Il était proposé par le
+[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]]
+est créé. **C'est ici qu'il se définit**, et les deux autres séances du bloc le reprennent :
+
+| Séance | Ce qu'elle en fait |
+|---|---|
+| **PCL-01** | étape 1 — fonctionnalités, classes, relations, et le schéma |
+| PCL-03 | étape 2 — y chercher des patterns, et assumer un « non » |
+| PCL-04 | étape 3 — trancher chaque flèche d'héritage |
+
+La feuille commence par **le jeu en six lignes**, pour que tout le monde conçoive le même et
+que les schémas soient comparables. Les trois sortes de flèches sont imposées — `utilise`,
+`contient`, `est un` — parce que c'est exactement le vocabulaire des trois séances.
+
+La **slide Atelier est réécrite** : elle reprend les quatre temps de l'étape 1 et renvoie à
+la feuille. L'ancien atelier — dessiner le graphe de dépendances du SpaceShooter — disparaît
+du deck, mais sa substance est dans l'étape 1 (les relations, et la classe la plus coûteuse à
+changer), et le SpaceShooter reste étudié dans le corps du cours.
+
+> [!check] Vérifié sur le serveur de test
+> La feuille se rattache bien aux trois séances par `seances:` : elle apparaît dans l'onglet
+> *Exercices* de `/theory/tc-ft-pcl-01/`, et le lien de la slide y mène.
+
+## Deux arbitrages, dont un qui tient toujours
+
+**1. Le widget `couplage_widget.html` n'est toujours pas construit.** Il était proposé par le
 squelette, pas par cette fiche, et la direction des dépendances est une image **statique** :
 le schéma la montre entièrement. Ce que le widget ajouterait, c'est le **compte** de ce qu'un
-changement met en danger, en cliquant une classe — ça reste intéressant, et ça reste à faire.
-Dis-le si tu le veux pour le 21.
+changement met en danger, en cliquant une classe. Dis-le si tu le veux.
 
 **2. Le deck nomme un projet d'étudiants comme contre-exemple.** `StarshipPlayer` est lu en
 séance avec ses défauts. La note de présentation le dit explicitement : *ne pas en faire un

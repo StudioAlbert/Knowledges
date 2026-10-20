@@ -234,12 +234,23 @@ C'est pour ça qu'il faut la nommer. Le reste du bloc donne les outils.
 
 ## Atelier — 20 min
 
-Sur un projet du groupe, ou sur `925-4FSC0PF001-SpaceShooter`.
+**Concevoir un platformer.** Première des trois passes du bloc, et c'est celle
+qui dessine.
 
-1. dessiner le **graphe des dépendances** : une boîte par classe, une flèche par `#include`
-2. désigner la classe dont la modification est la **plus coûteuse**, et dire pourquoi
-3. pour la plus grosse classe, lister ses **raisons de changer**
-4. proposer **une** extraction — une seule — et dire ce qu'elle fait tomber
+1. lister les **fonctionnalités** du jeu, sans prononcer le mot « classe »
+2. en déduire les **classes**, chacune décrite par **une phrase sans « et »**
+3. tracer les **relations** — utilise, contient, est un — et désigner la classe
+   dont la modification serait la plus coûteuse
+4. rendre **un schéma**
+
+Énoncé : [[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]].
+
+Note:
+Le même schéma est repris en PCL-03 pour y chercher des patterns, et en PCL-04
+pour trancher chaque flèche d'héritage. GP-926 l'écrira ensuite en SFML : c'est
+le jeu de la série SBD. Insister sur l'ordre — fonctionnalités d'abord, classes
+ensuite. Ceux qui commencent par les classes retrouvent toujours les mêmes
+quatre boîtes qu'ils connaissent déjà.
 
 ---
 

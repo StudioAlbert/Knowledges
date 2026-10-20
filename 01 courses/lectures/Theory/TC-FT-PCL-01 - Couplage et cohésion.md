@@ -10,7 +10,7 @@ specialisation: "[[Fondamentaux Théoriques]]"
 classes:
   - GP-926
   - WEB-925
-manual_order: 47
+manual_order: 50.5
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
