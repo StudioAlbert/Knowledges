@@ -11,12 +11,18 @@ exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Équations et inéquati
 	- [x] La correction propose une solution +un tip sur la methode a utiliser
 - [x] Somme et produit des racines : Trouver sources pedagogiques
 - [x] Tableau de signes : Un produit ou un quotient change de signe en ses racines, et le tableau évite de tâtonner. => Expliciter
+- [ ] Slide **a quoi ca sert dans un jeu ?** citer un seul exemple parabole de saut voir 2 paraboles une montante, une descendante
+- [ ] Quizz : le séparer en deux — un widget pour le cours, une page de l'onglet exercices pour la série maison
+- [ ] Widget du discriminant : pouvoir dézoomer le graphe à la molette
+- [ ] Atelier : fournir l'équation de la hauteur en question 1, les questions suivantes s'appuyant toutes sur cette formule
 
 
 ### Sources en complément
 https://classroom.khanacademy.org/teacher/library/fr/math/all/algebra/one-variable-linear-equations/alg1-intro-equations/a/introduction-to-equations
 
 https://classroom.khanacademy.org/teacher/library/fr/math/all/algebra/one-variable-linear-equations/alg1-one-step-add-sub-equations/a/solving-one-step-addition-and-subtraction-equations
+
+https://youtu.be/hG9SzQxaCm8
 
 ## Traité le 20.10 — à vérifier
 
