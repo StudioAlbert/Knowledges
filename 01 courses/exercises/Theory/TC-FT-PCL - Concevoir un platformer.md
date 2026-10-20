@@ -38,8 +38,8 @@ Rien de plus. Un ennemi, un score, un menu : hors sujet pour cet atelier.
 **Ce qu'on produit** : une liste de fonctionnalités, une liste de classes, et les relations
 entre elles.
 
-1. **Les fonctionnalités**, d'abord — sans prononcer le mot « classe ». Une ligne par chose
-   que le jeu sait faire, du point de vue du joueur. Visez la quinzaine.
+1. **Les fonctionnalités**, d'abord. Une ligne par chose que le jeu sait faire, du point de
+   vue du joueur.
 2. **Les classes** ensuite, déduites de cette liste. Pour chacune, écrivez **une phrase** qui
    dit ce dont elle est responsable. Si la phrase a besoin d'un « et », la classe en fait
    déjà deux.
@@ -47,8 +47,6 @@ entre elles.
    - `A ──▶ B` — A **utilise** B (il l'appelle, il en dépend)
    - `A ──◆ B` — A **contient** B (B est un membre de A)
    - `A ──▷ B` — A **est un** B (héritage)
-4. **La direction** compte autant que la flèche. Désignez la classe qui serait la plus
-   coûteuse à modifier, et dites pourquoi — c'est celle vers qui tout pointe.
 
 > [!tip] Le piège
 > Une classe `Jeu` qui connaît tout le monde n'est pas une conception, c'est la liste des
@@ -75,23 +73,25 @@ entre elles.
 > [!tip] Le piège
 > Un pattern placé parce qu'on vient de l'apprendre est le défaut que la séance vous a
 > montré. Le `State` du héros se défend très bien ; une fabrique abstraite pour deux types
-> de plateformes connues à l'écriture, beaucoup moins.
+> de plateformes **seulement**, beaucoup moins.
 
 ---
 
-## Étape 3 — Trancher chaque flèche
+## Étape 3 — Identifier les relations
 
 > Séance [[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage|TC-FT-PCL-04]] — 20 min
 
 **Ce qu'on produit** : le schéma final, où chaque flèche d'héritage est justifiée.
 
-1. Listez les **capacités** de vos objets — sauter, tomber, être poussé, être dessiné, faire
-   du bruit, blesser — et repérez celles qui **se croisent**. Une plateforme mobile est-elle
-   un mur qui bouge, ou un objet qui a un déplacement ?
-2. Pour chaque `──▷` de votre schéma, écrivez la phrase « **X est un Y** » en entier. Si elle
-   sonne faux, remplacez la flèche par un `──◆`.
-3. Faites l'inverse pour deux relations `──◆` : qu'est-ce que l'héritage aurait apporté là,
-   et qu'est-ce qu'il aurait coûté ?
+1. **Y a-t-il des héritages possibles ?** Cherchez les fonctionnalités partagées entre
+   plusieurs objets du jeu — sauter, tomber, être poussé, être dessiné, faire du bruit,
+   blesser. Une plateforme mobile est-elle un mur qui bouge, ou un objet qui a un
+   déplacement ?
+2. Pour chaque relation de votre schéma, **imaginez la phrase « X est un Y »** en entier.
+   Si elle sonne faux, remplacez la flèche par une composition `──◆` ; si elle sonne juste,
+   l'héritage est envisageable.
+3. Posez-vous alors l'autre question : **cet héritage est-il problématique**, bloquant ou
+   contraignant pour le reste du programme ?
 4. Ajoutez **une fonctionnalité qui n'était pas prévue** — un ennemi volant qui tire, par
    exemple — et dites combien de classes votre schéma doit gagner pour l'accueillir.
 
@@ -104,7 +104,7 @@ entre elles.
 
 ## Le rendu
 
-Un document, à rendre à la fin de la troisième séance :
+Un document :
 
 | | Ce qui est attendu |
 |---|---|
@@ -113,7 +113,7 @@ Un document, à rendre à la fin de la troisième séance :
 | **les justifications** | une ligne par flèche d'héritage, et une ligne pour le pattern que vous n'avez pas mis |
 | **l'ajout** | la fonctionnalité imprévue de l'étape 3, et ce qu'elle coûte à votre schéma |
 
-L'outil est libre : papier photographié, Excalidraw, draw.io, Mermaid. Ce qui est évalué est
+L'outil est libre : Excalidraw, draw.io, Mermaid. Ce qui est évalué est
 la conception, pas la beauté du trait.
 
 > [!check] Grille d'auto-évaluation
@@ -126,11 +126,3 @@ la conception, pas la beauté du trait.
 > | reconnaître un pattern sans en inventer | j'ai au moins un endroit où j'ai répondu « non » |
 > | justifier un héritage | chacune de mes flèches `──▷` tient dans un « est un » qui sonne juste |
 > | mesurer un ajout | je sais dire ce que coûte une fonctionnalité imprévue |
-
----
-
-> [!note] Pour GP-926 — la suite
-> Ce schéma est l'entrée de
-> [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]],
-> qui construit ce jeu en six séances. Gardez-le : à l'étape 5 de cette feuille, vous
-> comparerez ce que vous aviez prévu à ce que la physique vous a imposé.

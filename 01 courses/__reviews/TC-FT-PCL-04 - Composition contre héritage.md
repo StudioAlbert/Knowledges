@@ -3,8 +3,9 @@ slides: "[[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage]
 exercices: "[[01 courses/exercises/Theory/TC-FT-PCL-04 - Composition contre héritage]]"
 atelier: "[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer]]"
 ---
-- [ ] Revisiter exercice
-- [ ] Reformulation Etape 3 : voir bloc ci dessous
+- [x] Revisiter exercice
+- [x] Reformulation Etape 3 : voir bloc ci dessous
+- [x] Slide **Une capacité devient une pièce** : dire *si* les composants changent en cours de jeu
 
 
 - [x] Rédiger le deck — 22 slides, de 14 titres sans contenu
@@ -142,3 +143,33 @@ transposer ici, ils manquent encore.
 feuilles d'exercices à PCL-04 : l'atelier partagé et l'overview de six pistes. C'est ce que tu
 as choisi — mais si l'overview n'est jamais rédigé, il faudra décider de le supprimer plutôt
 que de le laisser visible aux étudiants.
+
+## Troisième passe, le 20.10 — tes annotations
+
+### Slide *Une capacité devient une pièce*
+
+La phrase de fin affirmait. Elle conditionne maintenant, comme ton annotation le demande :
+« **Si** les composants changent en cours de jeu, la suite de membres devient une **liste de
+composants dynamiques**. Sinon, les membres de la slide précédente suffisent. »
+
+### L'atelier, revisité
+
+Six coupes et une réécriture dans
+[[01 courses/exercises/Theory/TC-FT-PCL - Concevoir un platformer|Concevoir un platformer]] :
+
+| Où | Ce qui change |
+|---|---|
+| étape 1, question 1 | « sans prononcer le mot classe » et « Visez la quinzaine » retirés |
+| étape 1 | la question 4 sur la direction des flèches supprimée — l'étape en compte trois |
+| étape 2, le piège | « deux types de plateformes **seulement** », au lieu de « connues à l'écriture » |
+| **étape 3** | retitrée *Identifier les relations* et réécrite sur ton bloc |
+| le rendu | « à la fin de la troisième séance » retiré |
+| le rendu | « papier photographié » retiré des outils acceptés |
+| la fin | l'encadré *Pour GP-926 — la suite* supprimé |
+
+L'étape 3 suit ta formulation : on cherche d'abord **s'il y a des héritages possibles**, on
+teste chaque relation par la phrase « X est un Y » — faux donne une composition, juste rend
+l'héritage *envisageable* — et on pose alors la troisième question, celle qui tranche
+vraiment : **cet héritage est-il problématique, bloquant ou contraignant pour la suite ?**
+J'ai gardé la quatrième question, celle de la fonctionnalité imprévue : c'est elle qui fait
+mesurer ce que l'héritage coûte, et ta reformulation ne la nommait pas.

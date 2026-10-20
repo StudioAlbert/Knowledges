@@ -2,7 +2,7 @@
 title: Composition contre héritage
 type: seance
 code: TC-FT-PCL-04
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: Theory
 bloc_gsda: Principes de Conception Logicielle

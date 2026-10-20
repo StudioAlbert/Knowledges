@@ -142,8 +142,9 @@ paladin.Ajouter<SortsDivins>();
 paladin.Ajouter<Sante>(30);
 ```
 
-Quand les pièces doivent changer **en cours de partie**, le membre fixe devient
-une **liste**.
+**Si** les composants changent en cours de jeu, la suite de membres devient une
+**liste de composants dynamiques**. Sinon, les membres de la slide précédente
+suffisent.
 
 ---
 
