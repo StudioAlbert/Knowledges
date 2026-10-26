@@ -558,3 +558,76 @@ SBD-04, SBD-05 et SBD-06, et chaque slide concernée pointe la sienne.
 est le gros morceau : 1 908 lignes, un petit jeu complet avec gestionnaires de
 missiles, d'astéroïdes et d'explosions. Les deux formatives sont des énoncés
 d'exercice — à porter seulement si tu comptes les redonner.
+
+## Portage Box2D — huit cibles sur dix
+
+| Cible | Pour | Ce qu'elle démontre |
+|---|---|---|
+| `00-Starter` | SBD-04 | le « hello world » en console |
+| `01-Gravity` | SBD-04 | le monde, le pas fixe, un corps dynamique |
+| `02-Bouncing` | SBD-05 | les contacts |
+| `02-BouncingAndCollsions` | SBD-05 | **qui a touché qui** |
+| `03-BouncingAdvanced` | SBD-05 | les plateformes inclinées |
+| `04-ZeroGravity` | SBD-06 | un vrai capteur |
+| `0-Formative-Arkanoid` | — | squelette de casse-briques |
+| `0-Formative-Starship` | — | squelette de shoot'em up |
+
+### Je m'étais trompé sur `02-BouncingAndCollsions`
+
+Ce n'était pas un doublon de `02-Bouncing`. C'est la suite, et elle démontre
+exactement la slide *Qui a touché qui* :
+
+| | `02-Bouncing` | `02-BouncingAndCollsions` |
+|---|---|---|
+| `userData` | sur la bille seule | sur **les deux** formes, avec une étiquette |
+| Reconnaissance | « pointeur non nul ⇒ c'est la bille » | on lit les deux côtés et on sait qui est quoi |
+
+Sa version d'origine avait trois défauts graves, donc je l'ai réécrite sur le
+modèle de la slide — une base `Objet` qui porte son type, posée dans
+`shapeDef.userData` :
+
+> [!bug] Ce qu'elle faisait
+> - un `ContactEvent` alloué par forme, **jamais libéré** ;
+> - l'écouteur castait en aveugle vers `ContactEvent<Ball>` ce qui pouvait être
+>   un `ContactEvent<Bouncer>` — ça marchait par chance, les deux instanciations
+>   ayant la même disposition mémoire ;
+> - `Ball::operator=` **renvoyait une référence sur une variable locale**.
+
+### Le squelette Starship contenait le bug qu'on enseigne
+
+```cpp
+sf::Texture texture;              // une LOCALE du constructeur
+texture.loadFromFile("...");
+_shape.setTexture(texture);       // le sprite pointe dessus
+```
+
+À la sortie du constructeur la texture meurt et le sprite s'affiche en blanc :
+c'est le **carré blanc** de SBD-01, dans le squelette qu'on donne aux étudiants.
+La texture est devenue un membre.
+
+Deux autres : la boîte physique recevait des **pixels** là où Box2D attend des
+mètres — le vaisseau faisait une centaine de mètres de large — et
+`GetAcceleration` rendait une référence sur un temporaire.
+
+### Arkanoid reste un énoncé
+
+Il n'utilise Box2D que pour la raquette ; la balle fait ses collisions à la main.
+Ses deux `TO DO` sont **conservés**, et le `ball_->Update()` reste commenté :
+c'est l'exercice, pas un oubli. Le README le dit.
+
+### De l'hygiène
+
+- **Trois sources étaient en cp1252**, pas en UTF-8 : `ball.cpp` et `game.cpp`
+  d'Arkanoid, `game.cpp` de Starship. Converties.
+- `SfmlToBox2d.h` et `SFML_Vectors.h` définissaient des fonctions **non-inline
+  dans un header** : deux fichiers qui les incluent, et l'édition de liens
+  échoue. Elles ne marchaient que parce qu'un seul fichier les incluait.
+- `Normalize` divisait par zéro sur un vecteur nul.
+- `_Utilities/src/RNG.cpp` était **vide**.
+
+### Ce qui reste
+
+`05-SpriteMovement` seulement : 1 908 lignes, un petit jeu complet avec
+gestionnaires de missiles, d'astéroïdes, d'explosions et de sons. C'est le seul
+du dépôt à ressembler à un vrai jeu, et le seul qui ne soit indispensable à
+aucune séance.

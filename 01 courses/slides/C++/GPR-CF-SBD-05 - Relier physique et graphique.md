@@ -172,6 +172,8 @@ if (a && b) { a->Touche(*b); b->Touche(*a); }
 
 `userData` est le fil qui ramène de la forme physique à **votre** objet de jeu.
 
+<small>Exemple : [02-BouncingAndCollsions](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/02-BouncingAndCollsions)</small>
+
 Note:
 La première ligne est le piège de Box2D 3 : `enableContactEvents` vaut **false**
 par défaut. Sans elle, la boucle d'événements tourne à vide et on cherche
