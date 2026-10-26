@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le premier degré — résoudre, c'est lire une abscisse</title>
+<script>if (window.self !== window.top || /[?&]embed\b/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+    --sae-red: #E30613;
+    --sae-black: #1a1a1a;
+    --sae-white: #ffffff;
+    --sae-gray: #888888;
+
+    --bg: var(--sae-white);
+    --panel: #ffffff;
+    --panel2: #f5f5f5;
+    --line: #e2e2e2;
+    --line-soft: #ececec;
+
+    --text: var(--sae-black);
+    --muted: #555555;
+    --muted2: var(--sae-gray);
+    --vert: #2e9e5b;
+    --bleu: #2b6cb0;
+
+    --shadow: 0 1px 2px rgba(26, 26, 26, .04), 0 4px 12px rgba(26, 26, 26, .06);
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: var(--bg); color: var(--text); font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 28px 22px 40px; }
+
+header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap; margin-bottom: 18px;
+    padding-bottom: 14px; border-bottom: 3px solid var(--sae-red);
+}
+h1 { font-weight: 800; font-size: clamp(22px, 3vw, 34px); letter-spacing: -.01em; line-height: 1; text-transform: uppercase; }
+h1 .hl { color: var(--sae-red); }
+.sub { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 620px; line-height: 1.5; }
+.formula {
+    font-family: "JetBrains Mono", monospace; background: var(--panel2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 10px 14px; font-size: 16px; white-space: nowrap;
+}
+.formula b { color: var(--sae-red); }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.tabs button {
+    font: 600 13px "Inter", sans-serif; color: var(--muted);
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 7px 13px; cursor: pointer;
+}
+.tabs button:hover { color: var(--sae-black); border-color: var(--muted2); }
+.tabs button.on { background: var(--sae-black); border-color: var(--sae-black); color: #fff; }
+
+.toolbar {
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 11px 14px; margin-bottom: 14px;
+}
+.curseur { display: flex; align-items: center; gap: 9px; }
+.curseur.cache { display: none; }
+.curseur label { font: 700 15px "JetBrains Mono", monospace; color: var(--sae-red); }
+.curseur.bleu label { color: var(--bleu); }
+.curseur input { width: 136px; accent-color: var(--sae-red); }
+.curseur.bleu input { accent-color: var(--bleu); }
+.curseur input:disabled { accent-color: var(--muted2); }
+.curseur .val { font: 700 14px "JetBrains Mono", monospace; min-width: 42px; text-align: right; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: stretch; }
+.board, .side {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px;
+    min-height: 0;
+}
+.board svg { width: 100%; height: auto; display: block; }
+.board .molette { margin-top: 6px; font-size: 12px; color: var(--muted2); text-align: right; }
+
+.side h2 { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+.side + .side, .bloc + .bloc { margin-top: 14px; }
+.ligne { font-family: "JetBrains Mono", monospace; font-size: 14px; line-height: 1.9; }
+.ligne b { color: var(--sae-red); }
+.ligne .pale { color: var(--muted2); }
+.verdict { margin-top: 12px; padding: 10px 12px; border-radius: var(--radius); font-size: 14px; font-weight: 700; line-height: 1.5; }
+.verdict.une { background: #eaf6ef; color: #15502c; }
+.verdict.toutes { background: #fff6e5; color: #7a4e00; }
+.verdict.aucune { background: #fdecee; color: #8c1119; }
+.jeu { margin-top: 10px; font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+footer { margin-top: 22px; color: var(--muted2); font-size: 12.5px; }
+
+html.embed, html.embed body { height: 100%; overflow: hidden; }
+html.embed .wrap { height: 100%; max-width: none; padding: 24px 18px 12px; display: flex; flex-direction: column; }
+html.embed header { margin-bottom: 10px; padding-bottom: 8px; }
+html.embed h1 { font-size: 24px; }
+html.embed .sub, html.embed footer { display: none; }
+html.embed .tabs, html.embed .toolbar { margin-bottom: 10px; }
+html.embed .stage { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+html.embed .board { display: flex; flex-direction: column; min-height: 0; }
+html.embed .board svg { flex: 1; height: auto; min-height: 0; }
+html.embed .side { overflow-y: auto; min-height: 0; }
+
+@media (max-width: 900px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+    <div>
+        <h1>Le <span class="hl">premier degré</span></h1>
+        <p class="sub">Résoudre une équation du premier degré, c'est lire une abscisse :
+            celle où la droite croise l'axe. Tout le reste n'est qu'une façon de la calculer
+            sans dessiner.</p>
+    </div>
+    <div class="formula" id="formule"><b>a</b>x + b = 0</div>
+</header>
+
+<nav class="tabs" id="tabs">
+    <button data-tab="resoudre">ax + b = 0</button>
+    <button data-tab="comparer">ax + b = cx + d</button>
+    <button data-tab="inequation">ax + b &gt; 0</button>
+    <button data-tab="degenere">Quand a = 0</button>
+</nav>
+
+<div class="toolbar">
+    <div class="curseur" id="ca"><label for="a">a</label><input type="range" id="a" min="-3" max="3" step="0.1"><span class="val" id="va"></span></div>
+    <div class="curseur" id="cb"><label for="b">b</label><input type="range" id="b" min="-8" max="8" step="0.1"><span class="val" id="vb"></span></div>
+    <div class="curseur bleu cache" id="cc"><label for="c">c</label><input type="range" id="c" min="-3" max="3" step="0.1"><span class="val" id="vc"></span></div>
+    <div class="curseur bleu cache" id="cd"><label for="d">d</label><input type="range" id="d" min="-8" max="8" step="0.1"><span class="val" id="vd"></span></div>
+</div>
+
+<div class="stage">
+    <div class="board"><svg id="svg" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg"></svg>
+        <p class="molette">Molette : dézoomer quand la droite sort du cadre. Double-clic : revenir au cadrage.</p></div>
+    <div class="side">
+        <div class="bloc">
+            <h2>Le calcul</h2>
+            <div class="ligne" id="calcul"></div>
+            <p class="verdict" id="verdict"></p>
+        </div>
+        <div class="bloc">
+            <h2>Ce que montre le dessin</h2>
+            <p class="jeu" id="lecture"></p>
+        </div>
+        <div class="bloc">
+            <h2>Dans un jeu</h2>
+            <p class="jeu" id="jeu"></p>
+        </div>
+    </div>
+</div>
+
+<footer>SAE Institute Genève — TC-FT-RDE-02, équations et inéquations du premier degré.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+
+// ------------------------------------------------------------------ l'etat
+const PRESETS = {
+    resoudre:   {a: 1.5, b: -3, c: 0, d: 0},
+    comparer:   {a: 1.5, b: -3, c: -0.5, d: 4},
+    inequation: {a: -1.2, b: 3.6, c: 0, d: 0},
+    degenere:   {a: 0, b: 2.5, c: 0, d: 0}
+};
+
+const st = {onglet: "resoudre", a: 1.5, b: -3, c: 0, d: 0, zoom: 1};
+
+// ------------------------------------------------------------------ le cadre
+const PLOT = {x: 46, y: 14, w: 578, h: 356};   // la zone de trace, dans le viewBox
+
+function fenetre() {
+    const e = 10 * st.zoom;
+    return {x0: -e, x1: e, y0: -e, y1: e};
+}
+
+function versEcran(x, y) {
+    const f = fenetre();
+    return [
+        PLOT.x + (x - f.x0) / (f.x1 - f.x0) * PLOT.w,
+        PLOT.y + (f.y1 - y) / (f.y1 - f.y0) * PLOT.h
+    ];
+}
+
+// Le pas de grille suit le zoom : jamais plus de ~14 traits.
+function pasGrille(etendue) {
+    const brut = etendue / 14;
+    const p = Math.pow(10, Math.floor(Math.log10(brut)));
+    const n = brut / p;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p;
+}
+
+// Le moins typographique, pas le trait d'union : c'est de l'arithmetique affichee.
+function fmt(v, n) {
+    const d = n === undefined ? 2 : n;
+    if (!isFinite(v)) return "∞";
+    const s = Math.abs(v) < 5e-5 ? 0 : v;
+    return Number(s.toFixed(d)).toString().replace(".", ",").replace("-", "−");
+}
+
+// Un negatif entre parentheses, pour ne jamais ecrire « 4 − −3 ».
+function par(v) {
+    return v < 0 ? "(" + fmt(v) + ")" : fmt(v);
+}
+
+// ------------------------------------------------------------------ le dessin
+function el(nom, attrs, texte) {
+    const n = document.createElementNS(NS, nom);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (texte !== undefined) n.textContent = texte;
+    return n;
+}
+
+function grille(svg) {
+    const f = fenetre();
+    const pas = pasGrille(f.x1 - f.x0);
+
+    for (let v = Math.ceil(f.x0 / pas) * pas; v <= f.x1 + 1e-9; v += pas) {
+        const [sx] = versEcran(v, 0);
+        svg.appendChild(el("line", {x1: sx, y1: PLOT.y, x2: sx, y2: PLOT.y + PLOT.h,
+                                    stroke: Math.abs(v) < 1e-9 ? "#1a1a1a" : "#ececec",
+                                    "stroke-width": Math.abs(v) < 1e-9 ? 1.8 : 1}));
+        if (Math.abs(v) > 1e-9) {
+            const [, sy] = versEcran(0, 0);
+            svg.appendChild(el("text", {x: sx, y: Math.min(sy + 15, PLOT.y + PLOT.h - 3),
+                                        "text-anchor": "middle", "font-size": 10.5,
+                                        "font-family": "JetBrains Mono, monospace",
+                                        fill: "#888888"}, fmt(v, 1)));
+        }
+    }
+    for (let v = Math.ceil(f.y0 / pas) * pas; v <= f.y1 + 1e-9; v += pas) {
+        const [, sy] = versEcran(0, v);
+        svg.appendChild(el("line", {x1: PLOT.x, y1: sy, x2: PLOT.x + PLOT.w, y2: sy,
+                                    stroke: Math.abs(v) < 1e-9 ? "#1a1a1a" : "#ececec",
+                                    "stroke-width": Math.abs(v) < 1e-9 ? 1.8 : 1}));
+        if (Math.abs(v) > 1e-9) {
+            svg.appendChild(el("text", {x: PLOT.x - 7, y: sy + 3.5, "text-anchor": "end",
+                                        "font-size": 10.5, "font-family": "JetBrains Mono, monospace",
+                                        fill: "#888888"}, fmt(v, 1)));
+        }
+    }
+    svg.appendChild(el("text", {x: PLOT.x + PLOT.w - 2, y: versEcran(0, 0)[1] - 8,
+                                "text-anchor": "end", "font-size": 12, "font-weight": 700,
+                                fill: "#888888"}, "x"));
+}
+
+// Une droite y = px + q, coupee au cadre.
+function droite(svg, p, q, couleur, epaisseur) {
+    const f = fenetre();
+    const [x1, y1] = versEcran(f.x0, p * f.x0 + q);
+    const [x2, y2] = versEcran(f.x1, p * f.x1 + q);
+    svg.appendChild(el("line", {x1: x1, y1: y1, x2: x2, y2: y2, stroke: couleur,
+                                "stroke-width": epaisseur || 2.6, "stroke-linecap": "round"}));
+}
+
+function racine(svg, x0, couleur, etiquette) {
+    const f = fenetre();
+    if (!isFinite(x0) || x0 < f.x0 || x0 > f.x1) return;
+    const [sx, sy] = versEcran(x0, 0);
+    svg.appendChild(el("circle", {cx: sx, cy: sy, r: 6, fill: "#ffffff",
+                                  stroke: couleur, "stroke-width": 3}));
+    if (etiquette) {
+        svg.appendChild(el("text", {x: sx, y: sy + 28, "text-anchor": "middle",
+                                    "font-size": 13, "font-weight": 800,
+                                    "font-family": "JetBrains Mono, monospace",
+                                    fill: couleur}, etiquette));
+    }
+}
+
+function rendre() {
+    const svg = $("svg");
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(el("rect", {x: PLOT.x, y: PLOT.y, width: PLOT.w, height: PLOT.h,
+                                fill: "#ffffff", stroke: "#e2e2e2"}));
+
+    const f = fenetre();
+    const a = st.a, b = st.b, c = st.c, d = st.d;
+
+    // L'inequation colore d'abord la bande des x qui conviennent.
+    if (st.onglet === "inequation" && Math.abs(a) > 1e-9) {
+        const x0 = -b / a;
+        const [gx, gy] = versEcran(a > 0 ? x0 : f.x0, 0);
+        const [hx] = versEcran(a > 0 ? f.x1 : x0, 0);
+        svg.appendChild(el("rect", {x: Math.min(gx, hx), y: PLOT.y,
+                                    width: Math.abs(hx - gx), height: PLOT.h,
+                                    fill: "#2e9e5b", opacity: 0.1}));
+    }
+
+    grille(svg);
+
+    if (st.onglet === "comparer") {
+        droite(svg, a, b, "#E30613");
+        droite(svg, c, d, "#2b6cb0");
+        if (Math.abs(a - c) > 1e-9) {
+            const x0 = (d - b) / (a - c);
+            const [sx, sy] = versEcran(x0, a * x0 + b);
+            svg.appendChild(el("line", {x1: sx, y1: sy, x2: sx, y2: versEcran(x0, 0)[1],
+                                        stroke: "#1a1a1a", "stroke-width": 1.4,
+                                        "stroke-dasharray": "4 4"}));
+            svg.appendChild(el("circle", {cx: sx, cy: sy, r: 6.5, fill: "#1a1a1a"}));
+            racine(svg, x0, "#1a1a1a", "x = " + fmt(x0));
+        }
+    } else {
+        droite(svg, a, b, "#E30613");
+        if (Math.abs(a) > 1e-9) {
+            const x0 = -b / a;
+            const [sx] = versEcran(x0, 0);
+            svg.appendChild(el("line", {x1: sx, y1: PLOT.y, x2: sx, y2: PLOT.y + PLOT.h,
+                                        stroke: "#E30613", "stroke-width": 1.4,
+                                        "stroke-dasharray": "4 4", opacity: 0.55}));
+            racine(svg, x0, "#E30613", "x = " + fmt(x0));
+        }
+    }
+
+    panneau();
+}
+
+// ------------------------------------------------------------------ le panneau
+function panneau() {
+    const a = st.a, b = st.b, c = st.c, d = st.d;
+    const signe = (v) => (v < 0 ? "− " + fmt(-v) : "+ " + fmt(v));
+
+    if (st.onglet === "comparer") {
+        const dp = a - c, dq = d - b;
+        $("calcul").innerHTML =
+            fmt(a) + "x " + signe(b) + " = " + fmt(c) + "x " + signe(d) + "<br>" +
+            "(" + fmt(a) + " − " + par(c) + ")x = " + fmt(d) + " − " + par(b) + "<br>" +
+            fmt(dp) + "x = " + fmt(dq);
+        if (Math.abs(dp) > 1e-9) {
+            const x0 = dq / dp;
+            $("calcul").innerHTML += "<br>x = <b>" + fmt(x0) + "</b>";
+            verdict("une", "Une solution : x = " + fmt(x0) + ". Les deux droites se croisent une fois.");
+            $("lecture").textContent = "Le point noir est l'intersection. Son abscisse est la solution, " +
+                "son ordonnée la valeur commune des deux membres : " + fmt(a * x0 + b) + ".";
+        } else if (Math.abs(dq) > 1e-9) {
+            verdict("aucune", "Aucune solution : les pentes sont égales, les droites sont parallèles.");
+            $("lecture").textContent = "Deux droites parallèles ne se croisent jamais. Le x disparaît du calcul " +
+                "et il reste une égalité fausse.";
+        } else {
+            verdict("toutes", "Tous les réels : c'est deux fois la même droite.");
+            $("lecture").textContent = "Les deux droites sont confondues. Tout x convient, ce qui n'est pas " +
+                "la même chose que « pas de solution ».";
+        }
+        $("jeu").textContent = "Deux projectiles de vitesses différentes : l'abscisse du croisement est " +
+            "l'instant où ils sont au même endroit. Pentes égales, ils ne se rattrapent jamais.";
+        return;
+    }
+
+    if (st.onglet === "inequation") {
+        $("calcul").innerHTML =
+            fmt(a) + "x " + signe(b) + " &gt; 0<br>" +
+            fmt(a) + "x &gt; " + fmt(-b);
+        if (Math.abs(a) > 1e-9) {
+            const x0 = -b / a;
+            const sens = a > 0 ? "&gt;" : "&lt;";
+            const inter = a > 0 ? "]" + fmt(x0) + " ; +∞[" : "]−∞ ; " + fmt(x0) + "[";
+            $("calcul").innerHTML += "<br>x " + sens + " <b>" + fmt(x0) + "</b><br>" +
+                '<span class="pale">soit ' + inter + "</span>";
+            verdict("une", a > 0
+                ? "a est positif : le sens ne change pas."
+                : "a est négatif : diviser par a RETOURNE le sens.");
+            $("lecture").textContent = "La bande verte est l'ensemble des x qui conviennent : " +
+                "exactement ceux où la droite passe au-dessus de l'axe. C'est tout ce que dit une inéquation.";
+        } else {
+            verdict(b > 0 ? "toutes" : "aucune", b > 0
+                ? "La droite est horizontale au-dessus de l'axe : tous les réels conviennent."
+                : "La droite est horizontale sur l'axe ou dessous : aucun x ne convient.");
+            $("lecture").textContent = "Sans x, il n'y a plus d'inconnue : l'inégalité est vraie partout " +
+                "ou fausse partout.";
+        }
+        $("jeu").textContent = "« À partir de quelle distance les dégâts tombent-ils à zéro ? » " +
+            "La réponse est un intervalle, pas un nombre — et c'est le signe de a qui dit de quel côté.";
+        return;
+    }
+
+    // resoudre et degenere partagent le meme calcul
+    $("calcul").innerHTML = fmt(a) + "x " + signe(b) + " = 0<br>" +
+                            fmt(a) + "x = " + fmt(-b);
+    if (Math.abs(a) > 1e-9) {
+        const x0 = -b / a;
+        $("calcul").innerHTML += "<br>x = " + fmt(-b) + " / " + fmt(a) + " = <b>" + fmt(x0) + "</b>";
+        verdict("une", "Une solution, et une seule : x = " + fmt(x0) + ".");
+        $("lecture").textContent = "Le cercle marque l'endroit où la droite croise l'axe. Son abscisse " +
+            "est la solution. Une droite non horizontale croise l'axe exactement une fois — d'où " +
+            "l'unicité, sans rien calculer.";
+    } else if (Math.abs(b) > 1e-9) {
+        $("calcul").innerHTML += '<br><span class="pale">0 × x = ' + fmt(-b) + ", impossible</span>";
+        verdict("aucune", "Aucune solution : 0 fois quelque chose ne vaut jamais " + fmt(-b) + ".");
+        $("lecture").textContent = "La droite est horizontale et ne touche pas l'axe. Il n'y a rien à lire, " +
+            "donc rien à résoudre.";
+    } else {
+        $("calcul").innerHTML += '<br><span class="pale">0 × x = 0, toujours vrai</span>';
+        verdict("toutes", "Tous les réels : n'importe quel x convient.");
+        $("lecture").textContent = "La droite EST l'axe. Elle le touche partout, donc tout x est solution. " +
+            "C'est le seul cas où « résoudre » ne donne pas un nombre.";
+    }
+    $("jeu").textContent = st.onglet === "degenere"
+        ? "Un coefficient calculé qui tombe à zéro, et la division plante ou rend l'infini. " +
+          "C'est pour ça qu'on teste a avant de diviser, jamais après."
+        : "Une barre de vie qui descend de a points par seconde depuis b : la solution est " +
+          "l'instant de la mort. Pente négative, elle finit par croiser zéro.";
+}
+
+function verdict(classe, texte) {
+    const v = $("verdict");
+    v.className = "verdict " + classe;
+    v.innerHTML = texte;
+}
+
+// ------------------------------------------------------------------ les reglages
+const CURSEURS = ["a", "b", "c", "d"];
+
+function synchroniser() {
+    for (const k of CURSEURS) {
+        $(k).value = st[k];
+        $("v" + k).textContent = fmt(st[k], 1);
+    }
+    const duo = st.onglet === "comparer";
+    $("cc").classList.toggle("cache", !duo);
+    $("cd").classList.toggle("cache", !duo);
+    // Dans l'onglet degenere, a est bloque a zero : c'est le sujet de l'onglet.
+    $("a").disabled = st.onglet === "degenere";
+    $("formule").innerHTML = duo ? "<b>a</b>x + b = <b>c</b>x + d"
+        : st.onglet === "inequation" ? "<b>a</b>x + b &gt; 0" : "<b>a</b>x + b = 0";
+}
+
+for (const k of CURSEURS) {
+    $(k).addEventListener("input", function(){
+        st[k] = parseFloat(this.value);
+        $("v" + k).textContent = fmt(st[k], 1);
+        rendre();
+    });
+}
+
+$("svg").addEventListener("wheel", function(e){
+    e.preventDefault();
+    st.zoom = Math.min(8, Math.max(0.4, st.zoom * (e.deltaY > 0 ? 1.18 : 1 / 1.18)));
+    rendre();
+}, {passive: false});
+
+$("svg").addEventListener("dblclick", function(){ st.zoom = 1; rendre(); });
+
+// ------------------------------------------------------------------ les onglets
+const boutons = [...document.querySelectorAll(".tabs button")];
+
+function montrer(nom) {
+    if (!PRESETS[nom]) nom = "resoudre";
+    st.onglet = nom;
+    Object.assign(st, PRESETS[nom]);
+    st.zoom = 1;
+    boutons.forEach((b) => b.classList.toggle("on", b.dataset.tab === nom));
+    synchroniser();
+    rendre();
+}
+
+boutons.forEach((b) => b.addEventListener("click", function(){
+    history.replaceState(null, "", "#" + b.dataset.tab);
+    montrer(b.dataset.tab);
+}));
+addEventListener("hashchange", () => montrer(location.hash.slice(1)));
+
+if (document.documentElement.classList.contains("embed")) {
+    document.addEventListener("keydown", function(e){
+        if (e.target.closest("input, select, textarea")) return;
+        const m = {ArrowRight: "right", ArrowLeft: "left", ArrowDown: "down", ArrowUp: "up",
+                   PageDown: "next", PageUp: "prev"}[e.key];
+        if (!m) return;
+        e.preventDefault();
+        try { window.parent.postMessage(JSON.stringify({method: m, args: []}), "*"); } catch (_) {}
+    });
+}
+
+montrer(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>

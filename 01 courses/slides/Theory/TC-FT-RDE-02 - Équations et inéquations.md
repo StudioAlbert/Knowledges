@@ -61,6 +61,22 @@ Chaque opération se défait par son **inverse**, appliquée des **deux** côté
 
 ---
 
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/premier_degre_widget.html#resoudre" data-background-interactive -->
+
+Note:
+**Le même calcul, en image.** La droite `y = ax + b` croise l'axe en un point, et
+son abscisse est la solution. Bouger `a` et `b` : le point se déplace, mais il y
+en a toujours **exactement un** — c'est l'unicité, vue au lieu d'être démontrée.
+
+Enchaîner sur l'onglet `ax + b = cx + d` : résoudre une équation à deux membres,
+c'est chercher où deux droites se croisent. Beaucoup comprennent le « rassembler
+les x d'un côté » seulement ici.
+
+Garder le dernier onglet pour la fin de la slide suivante : quand `a = 0`, la
+droite devient horizontale et il n'y a plus rien à croiser.
+
+---
+
 ## Ce qu'on a le droit de faire
 
 - **ajouter** ou **retirer** la même chose des deux côtés — toujours
@@ -272,6 +288,20 @@ Note:
 Le contrôle qui sauve : prendre une valeur de l'intervalle trouvé et la remettre
 dans l'inéquation de départ. Avec `x = 0` : `0 < 6`, vrai, donc 0 doit être dans
 la réponse. `x > −3` le contient. Si on avait gardé `x < −3`, non.
+
+---
+
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/premier_degre_widget.html#inequation" data-background-interactive -->
+
+Note:
+**Le piège du signe, rendu visible.** La bande verte est l'ensemble des `x` qui
+conviennent : ceux où la droite passe au-dessus de l'axe. Faire passer `a` du
+négatif au positif et laisser la bande basculer de l'autre côté — c'est ça, le
+sens qui se retourne.
+
+Demander l'intervalle **avant** de le montrer, puis vérifier. La réponse d'une
+inéquation est un intervalle, pas un nombre : c'est la deuxième chose qu'ils
+oublient après le signe.
 
 ---
 

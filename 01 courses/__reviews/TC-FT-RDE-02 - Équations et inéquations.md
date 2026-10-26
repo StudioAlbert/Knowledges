@@ -3,8 +3,8 @@ slides: "[[01 courses/slides/Theory/TC-FT-RDE-02 - Équations et inéquations]]"
 exercices: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Équations et inéquations]]"
 quizz_maison: "[[01 courses/exercises/Theory/TC-FT-RDE-02 - Quizz des dix équations]]"
 ---
-- [ ] Ajouter graphique pour démonstration graphique du premier degré
-- [ ] Séparer les différents quizz des exercices posés en texte = différentes pages
+- [x] Ajouter graphique pour démonstration graphique du premier degré
+- [x] Séparer les différents quizz des exercices posés en texte = différentes pages
 
 - [x] Nouvelle règle de publication : un document seul s'affiche, plusieurs donnent un sommaire
 >[!Warning] nouvelle régle de publication du site 
@@ -261,3 +261,41 @@ le quizz des dix équations et le quizz des inéquations en un seul long défile
 > PCL-04, deux documents : sommaire de deux liens, zéro `<article>` dans l'onglet, et chaque
 > page s'ouvre avec son titre et son fil. PCL-01, un seul document : affiché directement,
 > aucun sommaire. La règle est écrite dans `site-build/CLAUDE.md`.
+
+## Traité le 26.10 — le premier degré, en image
+
+### Le widget qui manquait
+
+`premier_degre_widget.html`. Le deck avait le discriminant pour le second degré et
+rien pour le premier : c'est comblé.
+
+| Onglet | Ce qu'il montre |
+|---|---|
+| `#resoudre` | `ax + b = 0` : la droite croise l'axe **une fois**, et cette abscisse est la solution |
+| `#comparer` | `ax + b = cx + d` : résoudre, c'est croiser deux droites — parallèles, pas de solution ; confondues, tous les réels |
+| `#inequation` | `ax + b > 0` : la bande verte est l'ensemble des `x`, et elle **bascule** quand `a` change de signe |
+| `#degenere` | `a = 0` : la droite s'aplatit, il n'y a plus rien à croiser |
+
+Deux slides l'utilisent : `#resoudre` après *Résoudre, c'est isoler*, et
+`#inequation` après *Le piège du signe*. Cette slide-là disait d'elle-même que
+l'erreur « ne se voit pas » — maintenant elle se voit.
+
+> [!check] Vérifié, cas limites compris
+> Les quatre onglets et les six cas dégénérés sont rejoués dans le navigateur :
+> `1,5x − 3 = 0 → x = 2` ; `1,5x − 3 = −0,5x + 4 → x = 3,5` ; pentes égales → `0x = 7`,
+> aucune solution ; droites confondues → `0x = 0`, tous les réels ;
+> `−1,2x + 3,6 > 0 → x < 3`, soit `]−∞ ; 3[` avec le sens retourné ;
+> `2x − 4 > 0 → x > 2`, soit `]2 ; +∞[` sans retournement.
+
+### Les quizz étaient déjà séparés
+
+Trois documents distincts dans l'onglet *Exercices*, donc un sommaire et une page
+chacun — c'est la règle de publication posée le 20.10, qui s'applique d'elle-même :
+
+- `TC-FT-RDE-02 - Équations et inéquations`
+- `TC-FT-RDE-02 - Quizz des dix équations`
+- `TC-FT-RDE-02 - Quizz des inéquations`
+
+> [!warning] Cette séance est en `Ready`
+> Elle est **en ligne**. Les deux slides et le widget partiront chez les étudiants
+> au prochain push. Rien n'est retiré ni déplacé : les ajouts sont additifs.
