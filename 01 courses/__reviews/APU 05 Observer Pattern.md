@@ -2,11 +2,14 @@
 parent:
   - "[[APU 04 APU 05 APU 09 deviennent]]"
 slides:
-  - "[[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|Slides APU-05]]"
+  - "[[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|Slides APU-05]]"
 exercices:
-  - "[[01 courses/exercises/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|Exos APU-05]]"
+  - "[[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|Exos APU-05]]"
 ---
-- [x] Faire propositions dans cette note des différentes situations dans un jeu de voiture qui permettent d'utiliser le pattern; relier ces situations a une implementation parmi les 3 identifiées 
+- [ ] Proposer Atelier
+	- [ ] Proposition
+		- [ ] le jeu est un platformer
+- [x]  Faire propositions dans cette note des différentes situations dans un jeu de voiture qui permettent d'utiliser le pattern; relier ces situations a une implementation parmi les 3 identifiées 
 
 - Sources :
 	- https://learn.unity.com/tutorial/create-modular-and-maintainable-code-with-the-observer-pattern
@@ -18,7 +21,7 @@ exercices:
 
 ## Traité le 28.09 — à vérifier
 
-- **Deck** réécrit : [[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven]] — *Observer, prévenir sans connaître*, 21 slides, `publish: false`.
+- **Deck** réécrit : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître]] — *Observer, prévenir sans connaître*, 21 slides, `publish: false`.
 	- Problème (branche `01-srp` : `PlayerHealth → HealthBar`), schéma avant / après, le pattern.
 	- Trois façons : `event Action` (sujet, observateur), `UnityEvent`, canal en SO (schéma + `GenericEventChannelSO` et `AlertManager` de MallLife), tableau de choix.
 	- Pièges : abonné fantôme (la lambda de `QuestManager`), `event` ou pas, traçabilité ; `Observable<T>` d'après le gist.
@@ -26,8 +29,15 @@ exercices:
 - Sources : toutes lues sauf le dépôt MallLife en ligne (robots.txt) — lu en local dans `D:\_dev\repos\unity\MallLifeStealthGame`.
 - **Refactoring.Guru** n'a pas pu être relu (lien conservé tel quel).
 
-> [!warning] Renommer dans Obsidian
-> Fichiers `… - ScriptableObjects — architecture data-driven.md` (lectures, slides, exercises) → `GPR-UN-APU-05 - Observer, prévenir sans connaître`.
+> [!done] Renommage terminé le 26.10
+> Les trois fichiers portent le même nom : `GPR-UN-APU-05 - Observer, prévenir sans
+> connaître.md` dans `lectures/`, `slides/` et `exercises/`. Tu avais renommé les deux
+> premiers ; j'ai fait le troisième et repris les liens.
+>
+> **17 références, 4 cibles, aucun lien mort.** La table de
+> [[Programme 2027-2028 - APU]] garde *ScriptableObjects — architecture data-driven* : ce
+> n'est pas un lien, c'est le titre du programme GSDA, cité exprès en face de ce qu'on
+> enseigne vraiment.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 

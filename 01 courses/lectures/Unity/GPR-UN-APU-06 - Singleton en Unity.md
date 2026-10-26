@@ -44,7 +44,7 @@ Restreindre une classe à une instance, fournir un point d'accès global, ce que
 
 ## Liens
 
-- Séance précédente : [[GPR-UN-APU-05 - ScriptableObjects — architecture data-driven]]
+- Séance précédente : [[01 courses/lectures/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître]]
 - Séance suivante : [[GPR-UN-APU-07 - Singleton générique et persistant]]
 
 ## Notes de préparation

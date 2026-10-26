@@ -4,14 +4,14 @@ type: seance
 code: GPR-UN-APU-05
 review:
   - "[[01 courses/__reviews/APU 05 Observer Pattern|Review APU-05]]"
-status: Backlog
+status: To prepare
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
 classes:
   - GP-926
-manual_order: 57
+manual_order: 1
 estimate: 1h
 tache: créer de zéro
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -33,8 +33,8 @@ Le pattern Observer : sujet, observateurs, abonnement ; `event Action`, `UnityEv
 
 **Deck créé le 28.09** à partir des sources de la révision — plus rien à découper dans `scriptable_objects`.
 
-- **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - Observer, prévenir sans connaître]] — 21 slides, `publish: false`, 2 schémas générés (`tools/schemas/apu05_*.py`).
-- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|atelier]] rédigé (Dungeon Crawler, branche `01-srp`) ; pistes 2 à 6 en overview.
+- **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]] — 21 slides, `publish: false`, 2 schémas générés (`tools/schemas/apu05_*.py`).
+- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|atelier]] rédigé (Dungeon Crawler, branche `01-srp`) ; pistes 2 à 6 en overview.
 - **Widget proposé, non fait** : `observer_bus_widget.html` — un sujet, un bus, quatre abonnés qui s'allument ; désabonner, détruire sans désabonner (abonné fantôme).
 
 ## Matériel

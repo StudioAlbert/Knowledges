@@ -450,4 +450,4 @@ une cible et son `TowerState`, les glisser dans la scène.
 - [Separate game data and logic with ScriptableObjects — Unity](https://unity.com/how-to/separate-game-data-logic-scriptable-objects)
 - [Unite Austin 2017 — Game Architecture with Scriptable Objects](https://www.youtube.com/watch?v=raQ3iHhE_Kk) (Ryan Hipple)
 - Projet de la séance : [GPR_UN_APU_04_ScriptableObjects](https://github.com/StudioAlbert/GPR_UN_APU_04_ScriptableObjects)
-- Suite : [[GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 — Observer]], où les ScriptableObjects deviennent des canaux d'événement
+- Suite : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 — Observer]], où les ScriptableObjects deviennent des canaux d'événement

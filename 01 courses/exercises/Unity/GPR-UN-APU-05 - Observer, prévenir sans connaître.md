@@ -1,6 +1,6 @@
 # Exercices — GPR-UN-APU-05 — Observer, prévenir sans connaître
 
-> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - Observer, prévenir sans connaître]]
+> Cours associé : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]]
 
 Terrain de jeu : le **Dungeon Crawler** de [[GPR-UN-APU-01 - SOLID en Unity|GPR-UN-APU-01]], branche `01-srp`, où `PlayerHealth` appelle directement `HealthBar`.
 

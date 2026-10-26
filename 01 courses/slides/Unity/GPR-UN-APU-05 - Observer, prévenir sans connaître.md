@@ -369,7 +369,7 @@ rien.
 Sur la branche `01-srp` du Dungeon Crawler : couper le lien `PlayerHealth → HealthBar` avec un événement, puis ajouter un son sans toucher à `PlayerHealth`.
 
 Note:
-Énoncé : [[01 courses/exercises/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|exercice 1]].
+Énoncé : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|exercice 1]].
 Critère de réussite : `PlayerHealth` ne contient plus aucune référence à
 une classe d'UI ou d'audio, et désactiver la barre de vie en jeu ne
 déclenche aucune erreur.

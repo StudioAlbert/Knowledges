@@ -72,7 +72,7 @@ rappel, pas de cours.
 
 | Pattern | Où il est traité |
 |---|---|
-| Observer | [[01 courses/slides/Unity/GPR-UN-APU-05 - ScriptableObjects — architecture data-driven\|APU-05]] |
+| Observer | [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître\|APU-05]] |
 | State | [[01 courses/slides/Unity/GPR-UN-APU-09 - Observer, State et composition\|APU-09]] |
 | Strategy | [[01 courses/slides/Unity/GPR-UN-APU-08 - Strategy pattern en Unity\|APU-08]] |
 | Component | [[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage\|PCL-04]] |

@@ -47,7 +47,7 @@ Ce qu'est un `ScriptableObject`, asset contre instance de scène, `[CreateAssetM
 ## Liens
 
 - Séance précédente : [[GPR-UN-APU-01 - SOLID en Unity — SRP et OCP, LSP et ISP, DIP et atelier]]
-- Séance suivante : [[GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - Observer, prévenir sans connaître]]
+- Séance suivante : [[01 courses/lectures/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]]
 
 ## Notes de préparation
 

@@ -800,7 +800,7 @@ SOLID sert à **diagnostiquer** un code qui résiste au changement. Ce n'est pas
 ## Pour aller plus loin
 
 - Strategy (styles d'attaque, IA) : [[GPR-UN-APU-08 - Strategy pattern en Unity]]
-- Observer : [[GPR-UN-APU-05 - ScriptableObjects — architecture data-driven|GPR-UN-APU-05 - Observer]]
+- Observer : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer]]
 - State : [[GPR-UN-APU-09 - State, un pattern de gameplay|GPR-UN-APU-09 - State, un pattern de gameplay]]
 - Couplage et cohésion : [[TC-FT-PCL-01 - Couplage et cohésion]]
 - Composition contre héritage : [[TC-FT-PCL-04 - Composition contre héritage]]
