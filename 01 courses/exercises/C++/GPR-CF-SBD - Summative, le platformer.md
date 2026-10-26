@@ -3,8 +3,7 @@ seances: [GPR-CF-SBD-01, GPR-CF-SBD-02, GPR-CF-SBD-03, GPR-CF-SBD-04, GPR-CF-SBD
 ---
 # Summative — le platformer
 
-**Le rendu de la série**, à remettre à la fin de la sixième séance. Vous ne partez pas de
-zéro : c'est le projet que vous construisez depuis la première heure, un atelier par séance.
+**Le rendu de la série**, à remettre à la fin du module.
 
 ---
 
@@ -25,16 +24,23 @@ d'une plateforme à l'autre, on évite ce qui blesse, et on atteint une sortie.
 Tout le plaisir tient dans **le saut** : sa hauteur, sa durée, ce qui arrive quand on le
 rate de deux pixels. C'est ce réglage-là qui est évalué, pas la quantité de contenu.
 
-> [!info] Ce que vous écrivez vous-même
-> En moteur, le personnage, la gravité et les collisions existent déjà. Ici, **vous écrivez
-> la boucle, le temps, la liaison entre la physique et l'image, et le contrôleur**. C'est
-> plus long, et c'est le but : vous saurez ce qu'un moteur fait à votre place.
-
 ---
 
 ## À quoi ça ressemble
 
 Avant d'écrire une ligne, regardez ce que vous visez.
+
+![[ref_mario_platformer.jpg]]
+
+***New Super Mario Bros. U*** — tout le vocabulaire du genre sur une seule image : un sol,
+des plateformes à atteindre, un trou entre les deux, des ennemis qui traversent, des pièces
+à ramasser, un compteur en haut.
+
+![[ref_celeste_platformer.jpg]]
+
+***Celeste*** — la même grammaire, trente ans plus tard : des pointes qui tuent, des blocs
+qui portent, et un saut réglé au centième. C'est la référence du game feel **et** de
+l'accessibilité.
 
 | | |
 |---|---|
@@ -48,25 +54,24 @@ Deux vidéos qui valent une heure de cours :
 - [**5 Tips for Better Platformers**](https://www.youtube.com/watch?v=8QPmhDYn6rk) — en Unity, mais les idées se transposent telles quelles.
 
 > [!tip] Regardez les cartes avant de dessiner votre niveau
-> Un niveau de Mario introduit **une** idée, la répète, puis la complique. C'est la
-> recette de la montée en difficulté qu'on vous demande, et elle se lit mieux sur une
-> carte que dans un cours.
+> Un niveau de Mario introduit **une** idée, la donne à tester et comprendre au joueur avant
+> d'en faire une réelle difficulté.
 
 ---
 
 ## Ce qui est attendu de tous
 
-| | Attendu | Vu en |
-|---|---|---|
-| **Déplacement** | le personnage se déplace horizontalement, au clavier **et** à la manette | SBD-02 |
-| **Temps** | vitesses et animations identiques à 30 et à 144 images par seconde | SBD-03 |
-| **Corps physique** | le personnage est un corps **dynamique** Box2D ; le décor est **statique** | SBD-04 |
-| **Saut** | une touche, une impulsion, et **jamais** de saut en l'air | SBD-04, SBD-06 |
-| **Plateformes** | au moins trois sortes : fixe, mobile, et traversable par en dessous | SBD-05, SBD-06 |
-| **Obstacles** | au moins un danger qui fait perdre — pointes, vide, ou ennemi | SBD-05 |
-| **Niveau** | un niveau lisible, qui monte en difficulté, et qui contient tout ce qui précède | — |
-| **Reprise** | au moins un point de reprise : on ne recommence pas tout | — |
-| **Score** | un compteur visible : pièces, temps, ou les deux | — |
+|                    | Attendu                                                                                           | Vu en          |
+| ------------------ | ------------------------------------------------------------------------------------------------- | -------------- |
+| **Déplacement**    | le personnage se déplace horizontalement, au clavier **et** à la manette                          | SBD-02         |
+| **Temps**          | vitesses et animations identiques à 30 et à 144 images par seconde                                | SBD-03         |
+| **Corps physique** | le personnage est un corps **dynamique** Box2D ; le décor est **statique**                        | SBD-04         |
+| **Saut**           | une touche, une impulsion, et **jamais** de double saut                                           | SBD-04, SBD-06 |
+| **Plateformes**    | au minimum : des plateformes fixes<br>si possible : mobile, et traversable par en dessous         | SBD-05, SBD-06 |
+| **Obstacles**      | un danger qui fait perdre;<br>au minimum : tomber dans le vide<br>si possible : pointes, ennemies | SBD-05         |
+| **Niveau**         | un niveau lisible, qui monte en difficult                                                         | —              |
+| **Reprise**        | mettre des checkpoints                                                                            | —              |
+| **Score**          | un compteur visible : pièces, temps, ou les deux                                                  | —              |
 
 ---
 

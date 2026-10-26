@@ -9,7 +9,7 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 2
+manual_order: 0.5
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -28,6 +28,11 @@ review:
 ## À couvrir
 
 `sf::Texture`, dessiner un sprite, positionnement, déplacer un sprite au clavier, caméra et vue, gérer le redimensionnement proprement, framebuffer, animation par découpe de sprite sheet
+
+## Résumé proposé pour Aurora
+
+> [!quote] À recopier dans Aurora — remplace le *À couvrir* ci-dessus
+> La boucle d'événements et `event->is<T>()`, le focus perdu et retrouvé, redimensionner sans déformer avec `sf::View`, événement contre état — `KeyPressed` et `isKeyPressed`, la manette et sa zone morte, `sf::Sound` et `sf::Music` et ce que chacun charge en mémoire
 
 ## Ce qu'il y a à faire
 

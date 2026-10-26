@@ -232,7 +232,7 @@ Aucune de ces trois réponses n'est un réglage de gravité.
 
 ```cpp
 forme.enablePreSolveEvents = true;
-b2World_SetPreSolveCallback(monde, Traversable, nullptr);
+b2World_SetPreSolveCallback(monde, Traversable, nullptr, nullptr);
 
 // zéro point de contact = pas de collision, cette image seulement
 void Traversable(b2ShapeId a, b2ShapeId b, b2Manifold* m, void*)
@@ -282,13 +282,9 @@ l'éteindre. La semaine prochaine, tout le monde joue à tout le monde.
 [[01 courses/exercises/C++/GPR-CF-SBD-06 - Formative, un saut qui fait envie|Un saut qui fait envie]]
 · [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]]
 
-Note:
-Démonstration :
-[`MoveAndJump`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/MoveAndJump/MoveAndJump.cpp)
-pour le saut, et
-[`LevelEditor`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/tree/main/LevelEditor)
-— ses trois étapes — pour les tuiles et les plateformes.
+<small>Exemples : [MoveAndJump.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/MoveAndJump/MoveAndJump.cpp) · [LevelEditor](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/tree/main/LevelEditor)</small>
 
+Note:
 Garder vingt minutes pour faire jouer les projets entre eux — c'est le seul test
 qui dise si le saut est bon.
 

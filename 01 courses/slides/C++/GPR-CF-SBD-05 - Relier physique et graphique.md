@@ -208,16 +208,11 @@ booléen naïf il peut sauter en l'air indéfiniment.
 **On vérifie** : le sprite suit exactement le corps, et `au sol` est vrai posé,
 faux en l'air.
 
-Note:
-Démonstration :
-[`Views`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp)
-pour la caméra et le passage écran / monde, et
-[`Motor`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/main.cpp)
-pour un projet complet où chaque entité tient son propre couple données / sprite.
+<small>Exemples : [Views.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp) · [Motor/main.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/main.cpp) · [motor.h](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/motor.h)</small>
 
+Note:
 `Motor` est le seul du dépôt à ressembler à un vrai jeu — le lire pour voir où la
-conversion est rangée. Sa classe est dans
-[`motor.h`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/motor.h).
+conversion est rangée.
 
 ---
 

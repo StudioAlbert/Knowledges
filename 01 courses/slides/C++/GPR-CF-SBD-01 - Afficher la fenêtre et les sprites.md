@@ -64,9 +64,9 @@ int main()
 }
 ```
 
-Six lignes, et une fenêtre noire qui ne répond pas encore. C'est
-[`HelloWorld`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/HelloWorld/HelloWorld.cpp)
-du dépôt d'exemples.
+Six lignes, et une fenêtre noire qui ne répond pas encore.
+
+<small>Exemple : [HelloWorld.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/HelloWorld/HelloWorld.cpp)</small>
 
 Note:
 Le lancer tel quel, et laisser quelqu'un essayer de la fermer. Elle ne se ferme
@@ -227,13 +227,12 @@ Faire défiler ces rectangles, c'est l'animation — et c'est
 **On vérifie** : la fenêtre se ferme à la croix **et** à Échap, et le héros
 s'affiche sans carré blanc.
 
+<small>Exemples : [HelloWorld.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/HelloWorld/HelloWorld.cpp) · [Graphics.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Graphics/Graphics.cpp)</small>
+
 Note:
-Démonstration : les cibles
-[`HelloWorld`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/HelloWorld/HelloWorld.cpp)
-et [`Graphics`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Graphics/Graphics.cpp)
-du dépôt d'exemples. On les lit ensemble et on commente ce qui s'y passe — ce
-n'est pas un corrigé à copier, c'est du code de travail. Chacun écrit ensuite la
-même chose dans **son** projet.
+On lit les deux cibles ensemble et on commente ce qui s'y passe — ce n'est pas un
+corrigé à copier, c'est du code de travail. Chacun écrit ensuite la même chose
+dans **son** projet.
 
 ---
 

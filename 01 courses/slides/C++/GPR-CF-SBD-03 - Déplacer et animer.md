@@ -137,12 +137,13 @@ hero.setTextureRect(sf::IntRect({64, 0}, kCase));       // la pose 1
 Une **sprite sheet** est une seule texture qui contient toutes les poses. On
 n'en montre qu'un rectangle à la fois.
 
+<small>Exemple : [AnimationClass.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/AnimationClass/AnimationClass.cpp)</small>
+
 Note:
 Une seule texture pour seize poses, c'est un seul chargement et un seul envoi à
-la carte graphique. L'alternative — un PNG par pose, comme la cible
-[`AnimationClass`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/AnimationClass/AnimationClass.cpp)
-du dépôt d'exemples — est plus simple à écrire et plus lente à
-tout : seize fichiers, seize textures, seize allers-retours.
+la carte graphique. L'alternative — un PNG par pose, comme `AnimationClass` —
+est plus simple à écrire et plus lente à tout : seize fichiers, seize textures,
+seize allers-retours.
 
 ---
 
@@ -211,17 +212,9 @@ qu'il y a trois cas et qu'ils ne se combinent pas.
 **On vérifie** : le héros traverse l'écran en le **même temps** à 30 et à 144
 images par seconde, et son animation tourne à la même vitesse dans les deux cas.
 
-Note:
-Démonstration :
-[`TimeClock`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/TimeClock/TimeClock.cpp)
-pour l'horloge,
-[`Animation`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Animation/Animation.cpp)
-pour la planche découpée,
-[`AnimationClass`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/AnimationClass/AnimationClass.cpp)
-pour la version rangée dans une classe, et
-[`MoveAndJump`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/MoveAndJump/MoveAndJump.cpp)
-pour le déplacement.
+<small>Exemples : [TimeClock.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/TimeClock/TimeClock.cpp) · [Animation.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Animation/Animation.cpp) · [AnimationClass.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/AnimationClass/AnimationClass.cpp) · [MoveAndJump.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/MoveAndJump/MoveAndJump.cpp)</small>
 
+Note:
 Montrer les deux approches d'animation et dire ce que chacune coûte.
 
 ---

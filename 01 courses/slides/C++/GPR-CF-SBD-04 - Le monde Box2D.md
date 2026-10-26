@@ -190,10 +190,15 @@ bibliothèque.
 **On vérifie** : le héros tombe, touche le sol et s'arrête — sans qu'aucun sprite
 n'existe encore.
 
+<small>Exemple : [01-Gravity](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/01-Gravity)</small>
+
 Note:
-**Aucune cible du dépôt d'exemples ne fait de Box2D** : c'est la seule séance de
-la série sans démonstration prête. On écrit donc le monde ensemble, au tableau
-puis à l'écran, et la console sert de preuve.
+`01-Gravity` est dans le **second** dépôt d'exemples, celui de Box2D. Une bille
+dynamique qui tombe, et le clic la téléporte sous la souris : c'est l'atelier,
+en quarante lignes.
+
+Elle affiche sa position en console à chaque image — montrer que la physique
+tourne avant qu'il n'y ait quoi que ce soit à l'écran.
 
 ---
 

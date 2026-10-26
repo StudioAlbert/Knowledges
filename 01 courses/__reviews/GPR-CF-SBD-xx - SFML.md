@@ -3,8 +3,13 @@ slides:
 exercices:
 ---
 - [ ] Porter le companion Box2D
-	- [ ] Verifier veracité des slides
+	- [x] importer comme submodule https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples.git
+	- [x] Verifier veracité des slides
 - [x] Citer les exemples des differents companion (lien github du fichier concerné) dans les sildes
+	- [x] Pas de texte cité de facon implicite dans le slide, mais un lien ecrit en petit en bas des slides (cf annotation)
+- [x] intégrer (Embdede) les images de référence de l'énoncé Unity 
+- [x] Pour les 6 seances SBD, proposer résumé du contenu au format Aurora (Plateforme de planning GSDA)
+	- [x] Ex d'intitulé : Monde graphique contre monde physique, ce qu'est un moteur de jeu, sous-systèmes de SFML et ce qu'ils valent, `sf::RenderWindow`, boucle de jeu, événements, limitation du framerate
 - [x] Ne plus citer la prochaine seance dans les slides de fin (**Review de tout le vault**)
 - [x] Le widget est buggé, bouton Rejouer
 	- [x] , sur ce widget eviter les interactions, privilégiez les indications graphiques, stop and go dans l'animation pour prouver le point, etc....
@@ -47,6 +52,9 @@ exercices:
   
   https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples
   https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples
+
+Enoncé Unity : [[2D Platformer]]
+
 
 ## Traité le 20.10 — les ateliers rentrent dans les decks
 
@@ -336,3 +344,107 @@ Attention à un piège évité : en SBD-02, `Sound` désigne tantôt la cible, t
 
 « C'est la seule concession de SFML à la simplicité, et elle est assumée » est
 retirée. La slide s'arrête sur *Trois rôles dans un seul objet.*
+
+## Troisième passe du 26.10 — le code des decks compile enfin
+
+### La véracité des slides, prouvée par le compilateur
+
+J'ai recopié **chaque extrait de code** de SBD-04, SBD-05 et SBD-06 dans un seul
+fichier, et je l'ai compilé contre Box2D 3.2.0 et SFML 3.1.0. Il compile.
+
+> [!bug] Ce que la compilation a attrapé
+> `b2World_SetPreSolveCallback` prend **quatre** arguments, pas trois :
+>
+> ```cpp
+> b2World_SetPreSolveCallback(monde, Traversable, nullptr, nullptr);
+> ```
+>
+> Le troisième est le rappel *pre-continuous* — c'est précisément là qu'il vit.
+> La slide est corrigée.
+
+Ce qui est désormais vérifié, et non plus lu dans la doc : le monde et son pas
+fixe, le corps et ses trois types, `b2MakeBox` avec `material.friction`, `b2Pos`
+et `b2Body_GetPosition`, `sf::radians(b2Rot_GetAngle(b2Body_GetRotation(...)))`,
+les trois gestes de déplacement, `b2World_GetContactEvents` avec
+`b2Shape_GetUserData`, le capteur de sol et son compteur, le coyote time, le jump
+buffer, et la plateforme à sens unique avec `pointCount = 0`.
+
+### Le dépôt Box2D, premier étage
+
+Importé en sous-module, et `01-Gravity` est porté : **il compile et il tourne**.
+C'est la démonstration qui manquait à SBD-04 — une bille dynamique qui tombe, que
+le clic téléporte sous la souris.
+
+| Avant | Après |
+|---|---|
+| projets `.vcxproj` | `CMakeLists.txt` racine + une cible par dossier, par vcpkg |
+| `b2World monde(gravite)` | `b2DefaultWorldDef` puis `b2CreateWorld` |
+| `b2Body*`, `CreateFixture` | `b2BodyId`, `b2CreateCircleShape` |
+| `bodyDef.fixedRotation` | `bodyDef.motionLocks.angularZ` |
+| `world_.Step(dt, 6, 2)` | `b2World_Step(monde, dt, 4)` |
+| `sf::Event event; pollEvent(event)` | `while (const std::optional event = ...)` |
+
+Son facteur de conversion était déjà **100 px/m** — ce qui confirme le chiffre
+retenu pour les decks.
+
+> [!warning] Neuf cibles restent en Box2D 2 et SFML 2
+> `00-Starter`, `02-Bouncing`, `02-BouncingAndCollsions`, `03-BouncingAdvanced`,
+> `04-ZeroGravity`, `05-SpriteMovement` et les deux formatives. Seul `01-Gravity`
+> est dans le `CMakeLists.txt` racine ; les autres y entreront au fur et à mesure.
+>
+> La prochaine utile est **`02-Bouncing`** : elle démontre les contacts, donc
+> SBD-05. Puis `04-ZeroGravity`, qui a un capteur — SBD-06.
+
+### Ton vcpkg est passé à box2d 3.2.0
+
+Il était à **3.1.1**, et la base de versions ne connaissait pas la 3.2.0 : le
+`builtin-baseline` ne suffisait pas, il fallait le `git pull`. Fait, 56 commits.
+
+J'ai vérifié avant : **SFML et gtest ne sont pas touchés** par cette mise à jour,
+donc `cpp-exam-925` ne bouge pas.
+
+> [!question] Et chez les étudiants ?
+> Un étudiant dont le vcpkg date d'avant le 22.10 aura exactement la même erreur,
+> sans le message qui explique pourquoi. Deux façons de l'éviter : leur dire de
+> faire `git pull` dans vcpkg avant SBD-04, ou récupérer box2d par `FetchContent`
+> au tag `v3.2.0` dans leur projet. Dis-moi laquelle tu préfères et je l'écris
+> dans la fiche *Mon premier projet SFML*.
+
+### Les exemples cités en petit, en bas de slide
+
+Comme ton annotation le demande. Plus de citation fondue dans la prose : la phrase
+s'arrête, et le lien vient dessous.
+
+> Six lignes, et une fenêtre noire qui ne répond pas encore.
+> <small>Exemple : HelloWorld.cpp</small>
+
+Neuf slides portent maintenant leur ligne d'exemples : les six ateliers, plus les
+slides du son, de la planche de sprites et du programme minimal. Les notes de
+présentation gardent le commentaire, plus les liens.
+
+### Les images de référence sont embarquées
+
+Deux des trois URL de la fiche Unity sont vivantes :
+
+| | |
+|---|---|
+| `ref_mario_platformer.jpg` | *New Super Mario Bros. U* — 800 × 450 |
+| `ref_celeste_platformer.jpg` | *Celeste* — 1920 × 1080 |
+
+La troisième, chez Micromania, **ne renvoie pas une image** mais une page HTML de
+952 octets. Elle est abandonnée.
+
+Les fichiers sont copiés dans `00 images/` plutôt que pointés chez leur hébergeur :
+un lien direct vers le serveur d'un tiers casse le jour où il déplace son fichier,
+et consomme sa bande passante à chaque visite.
+
+### Les résumés Aurora
+
+Les six `À couvrir` étaient périmés — SBD-02 annonçait des sprites alors que le
+deck fait les événements, SBD-03 annonçait le son alors qu'il fait le temps, et
+SBD-04 comme SBD-05 citaient `b2Fixture` et `ContactListener`, disparus en Box2D 3.
+
+Chaque note porte maintenant un **Résumé proposé pour Aurora**, tiré de ce que son
+deck enseigne vraiment, dans le même format d'une ligne. L'`À couvrir` d'origine
+est gardé au-dessus : c'est ce qu'Aurora contient aujourd'hui, jusqu'à ce que tu
+colles le nouveau.

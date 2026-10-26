@@ -49,3 +49,7 @@
 [submodule "01 courses/companion projects/C++/GPR-CF-SBD-XX---SFML-Examples"]
 	path = 01 courses/companion projects/C++/GPR-CF-SBD-XX---SFML-Examples
 	url = https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples.git
+[submodule "01 courses/companion projects/C++/GPR-CF-SBD-XX---Box2D-Examples"]
+	path = 01 courses/companion projects/C++/GPR-CF-SBD-XX---Box2D-Examples
+	url = https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples.git
+	branch = master

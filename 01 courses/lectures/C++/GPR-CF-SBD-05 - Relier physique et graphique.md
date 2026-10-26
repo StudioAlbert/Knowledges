@@ -9,7 +9,7 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 4.5
+manual_order: 0.8125
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -28,6 +28,11 @@ review:
 ## À couvrir
 
 Copier les valeurs du monde physique vers le monde graphique, déplacer le personnage, `ContactListener`, `UserData` pour retrouver l'objet de jeu depuis un contact
+
+## Résumé proposé pour Aurora
+
+> [!quote] À recopier dans Aurora — remplace le *À couvrir* ci-dessus
+> Une seule classe de conversion mètres-pixels, les deux axes Y qui s'opposent, recopier position et angle du physique vers le graphique, `b2Body_SetTransform` `ApplyForceToCenter` et `SetLinearVelocity`, lire `b2World_GetContactEvents` après le pas, `userData` pour retrouver l'objet de jeu, pourquoi « au sol » n'est pas un contact
 
 ## Ce qu'il y a à faire
 

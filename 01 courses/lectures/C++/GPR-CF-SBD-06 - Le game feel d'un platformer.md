@@ -9,7 +9,7 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 4
+manual_order: 1
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -28,6 +28,11 @@ review:
 ## À couvrir
 
 Objectifs d'un contrôleur de plateforme, ne pas sauter en l'air, toucher le sol par le côté, passer d'une plateforme à une autre, wall jump, one way platform
+
+## Résumé proposé pour Aurora
+
+> [!quote] À recopier dans Aurora — remplace le *À couvrir* ci-dessus
+> Ce qui rend un saut agréable, coyote time et jump buffer, hauteur variable et gravité asymétrique, le wall jump, l'accessibilité en trois décisions, le capteur de sol et son compteur, la plateforme à sens unique avec `b2World_SetPreSolveCallback`, régler en jouant et faire jouer le voisin
 
 ## Ce qu'il y a à faire
 

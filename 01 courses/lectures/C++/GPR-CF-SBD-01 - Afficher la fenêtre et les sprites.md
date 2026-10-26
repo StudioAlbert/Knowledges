@@ -9,7 +9,7 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 1
+manual_order: 0
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -28,6 +28,11 @@ review:
 ## À couvrir
 
 Monde graphique contre monde physique, ce qu'est un moteur de jeu, sous-systèmes de SFML et ce qu'ils valent, `sf::RenderWindow`, boucle de jeu, événements, limitation du framerate
+
+## Résumé proposé pour Aurora
+
+> [!quote] À recopier dans Aurora — remplace le *À couvrir* ci-dessus
+> Les trois rôles de `sf::RenderWindow`, la boucle de jeu dans le bon ordre, les événements en SFML 3 et leur `std::optional`, `sf::RectangleShape`, `sf::Texture` et `sf::Sprite`, le piège de la texture morte, afficher un morceau de planche avec `setTextureRect`
 
 ## Ce qu'il y a à faire
 

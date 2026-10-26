@@ -9,7 +9,7 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 5
+manual_order: 0.78125
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
@@ -29,6 +29,11 @@ review:
 
 Monde physique, `b2World`, `b2Body` et `b2BodyDef`, types de corps statique, cinématique et dynamique, `b2Shape`, `b2Fixture` et son équivalent Unity, créer un vrai corps dynamique
 
+## Résumé proposé pour Aurora
+
+> [!quote] À recopier dans Aurora — remplace le *À couvrir* ci-dessus
+> Le monde physique parallèle au monde graphique, `b2WorldDef` et `b2CreateWorld`, le pas de simulation fixe, `b2BodyId` et `b2CreateBody`, corps statique cinématique et dynamique, `b2Polygon` et `b2ShapeDef` — la fixture a disparu en Box2D 3, mètres contre pixels et le facteur écrit une seule fois
+
 ## Ce qu'il y a à faire
 
 Le découpage est fait et le deck est rédigé. Le support d'origine reste cité sous
@@ -38,7 +43,7 @@ Le découpage est fait et le deck est rédigé. Le support d'origine reste cité
 
 > [!done] Rédigé — relu le 2026-10-26
 > - **Deck** : [[01 courses/slides/C++/GPR-CF-SBD-04 - Le monde Box2D|GPR-CF-SBD-04 - Le monde Box2D]] — 13 slides, atelier d'1 h compris · schéma `sbd04_metres_pixels.svg`.
-> - **Démonstration** : aucune cible pour l'instant — le dépôt Box2D attend son portage en 3.2.
+> - **Démonstration** : cible `01-Gravity` du dépôt d'exemples Box2D, portée en 3.2.
 > - **Rendu** : [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]], le seul exercice de la série.
 
 ## Matériel

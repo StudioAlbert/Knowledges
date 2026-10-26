@@ -36,8 +36,8 @@ views:
       - __unmapped__
       - Post-mortem
       - Post-mortem-done
-      - Ready
       - Backlog
+      - Ready
     cardSort: order
     laneGrouping: property
     collapsedLanes:
