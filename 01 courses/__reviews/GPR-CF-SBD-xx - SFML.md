@@ -500,3 +500,61 @@ les trois portées couvrent SBD-04, SBD-05 et SBD-06. `05-SpriteMovement` est le
 gros morceau, 1 908 lignes, et c'est un petit jeu complet.
 
 **Rien n'est poussé** côté Box2D : deux commits en attente.
+
+## Portage Box2D — cinq cibles sur dix
+
+| Cible | Pour | Ce qu'elle démontre |
+|---|---|---|
+| `00-Starter` | SBD-04 | le « hello world » en console : une caisse tombe et s'arrête |
+| `01-Gravity` | SBD-04 | le monde, le pas fixe, un corps dynamique |
+| `02-Bouncing` | SBD-05 | les contacts |
+| `03-BouncingAdvanced` | SBD-05 | des plateformes **inclinées** — le seul exemple avec une rotation |
+| `04-ZeroGravity` | SBD-06 | un vrai capteur |
+
+### Une incohérence dans la slide *Les angles*
+
+Elle disait « dans le sens opposé, pour la même raison que l'axe Y », et son code
+ne l'appliquait pas :
+
+```cpp
+sprite_.setRotation(sf::radians(b2Rot_GetAngle(b2Body_GetRotation(corps_))));
+```
+
+Y descend à l'écran, donc ce qui tourne dans un sens chez Box2D tourne dans
+l'autre chez SFML. Il manque le signe. `03-BouncingAdvanced` le fait, lui — c'est
+en le portant que c'est apparu. La slide porte maintenant `-b2Rot_GetAngle(...)`
+et un commentaire qui dit pourquoi.
+
+> [!warning] SBD-05 est en `Ready`
+> Cette correction et le lien d'exemple partiront chez les étudiants au prochain
+> déploiement.
+
+### `00-Starter` ne tombait pas
+
+Son pas valait `0.0001f` sur 3000 tours, soit **0,3 seconde simulée** : la caisse
+bougeait de quelques millimètres et le programme crachait 3000 lignes identiques.
+Il passe au pas canonique, 1/60 s sur quatre-vingt-dix tours.
+
+> [!check] Vérifié à l'exécution, pas seulement compilé
+> La caisse part de `y = 4` et se pose à **`y = 0,99991`** — la demi-hauteur
+> attendue, puisque le sol s'arrête à zéro et qu'elle fait un mètre de demi-haut.
+
+### Trois défauts de plus
+
+- **L'origine du cercle** valait la moitié du rayon au lieu du rayon : la bille
+  était décalée d'un demi-rayon par rapport à son corps physique, en permanence.
+- Les plateformes vivaient dans un `std::vector` **par valeur** — le même piège
+  que les capteurs de `04-ZeroGravity`.
+- `using namespace std;` et `using namespace sf;` étaient dans un **header**,
+  donc imposés à tout fichier qui l'incluait.
+
+### Ce qui reste
+
+Trois cibles : `02-BouncingAndCollsions`, `05-SpriteMovement` et les deux
+formatives. Aucune n'est nécessaire à une séance — les cinq portées couvrent
+SBD-04, SBD-05 et SBD-06, et chaque slide concernée pointe la sienne.
+
+`02-BouncingAndCollsions` fait doublon avec `02-Bouncing`. `05-SpriteMovement`
+est le gros morceau : 1 908 lignes, un petit jeu complet avec gestionnaires de
+missiles, d'astéroïdes et d'explosions. Les deux formatives sont des énoncés
+d'exercice — à porter seulement si tu comptes les redonner.

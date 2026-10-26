@@ -103,11 +103,14 @@ divergent, et un personnage qui tremble.
 ## Les angles
 
 ```cpp
-sprite_.setRotation(sf::radians(b2Rot_GetAngle(b2Body_GetRotation(corps_))));
+// Le signe moins : Y descend a l'ecran, donc la rotation s'y lit a l'envers.
+sprite_.setRotation(sf::radians(-b2Rot_GetAngle(b2Body_GetRotation(corps_))));
 ```
 
 Box2D compte en **radians**, SFML en **degrés** — et dans le sens opposé, pour
 la même raison que l'axe Y.
+
+<small>Exemple : [03-BouncingAdvanced](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/03-BouncingAdvanced)</small>
 
 Note:
 `sf::radians` et `sf::degrees` existent depuis SFML 3 : `sf::Angle` est un type,

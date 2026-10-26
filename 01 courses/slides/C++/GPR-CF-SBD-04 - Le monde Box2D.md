@@ -190,7 +190,7 @@ bibliothèque.
 **On vérifie** : le héros tombe, touche le sol et s'arrête — sans qu'aucun sprite
 n'existe encore.
 
-<small>Exemple : [01-Gravity](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/01-Gravity)</small>
+<small>Exemples : [00-Starter](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/00-Starter) · [01-Gravity](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/01-Gravity)</small>
 
 Note:
 `01-Gravity` est dans le **second** dépôt d'exemples, celui de Box2D. Une bille
