@@ -699,3 +699,17 @@ maintenant dans un deck :
 
 Ce n'est pas une coïncidence : ce sont les trois erreurs que le modèle de Box2D
 rend faciles, et c'est pour ça qu'elles ont chacune leur slide.
+
+### Les formatives sortent de `master`
+
+Les deux squelettes d'exercice vivent maintenant sur la branche **`formatives`** du
+dépôt Box2D. `master` ne garde que les exemples du cours : un étudiant qui parcourt
+le dépôt ne tombe plus sur l'énoncé avant l'heure.
+
+```bash
+git switch formatives
+```
+
+Les deux cibles sont intactes et compilables sur leur branche. Sur `master`, les
+**sept** cibles restantes ont été reconstruites après le retrait pour vérifier que
+rien n'en dépendait.
