@@ -652,7 +652,6 @@ un scale naïf.
 
 ## Pour aller plus loin
 
-- Séance suivante : [[01 courses/slides/Theory/TC-FT-TRG-02 - Cercle trigonométrique et unités|TC-FT-TRG-02 - Cercle trigonométrique et unités]]
 - Widgets : [Droites remarquables](<00 widgets/_widgets/droites_remarquables_widget.html>) · [Pythagore — démonstration graphique](<00 widgets/_widgets/pythagore_widget.html>) · [Thalès — proportionnalité](<00 widgets/_widgets/thales_widget.html>)
 - [Théorème de Pythagore — Wikipédia](https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_de_Pythagore)
 - [Théorème de Thalès — Wikipédia](https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_de_Thal%C3%A8s)

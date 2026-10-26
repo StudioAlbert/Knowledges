@@ -417,7 +417,3 @@ Et on vérifie toujours **dans quel repère** on travaille.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/Theory/TC-FT-GVM-02 - Produits scalaire et vectoriel|TC-FT-GVM-02]] — deux vecteurs, un angle : qui voit qui, et de quel côté.</small>

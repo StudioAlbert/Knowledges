@@ -363,7 +363,3 @@ Un projectile part à 20 m/s vers le haut, depuis 1,5 m, avec `g = 10` :
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/Theory/TC-FT-RDE-03 - Fonctions et repères|TC-FT-RDE-03]] — de l'équation à la courbe.</small>

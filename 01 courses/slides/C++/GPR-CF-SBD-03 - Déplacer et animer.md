@@ -94,6 +94,19 @@ suivante le montre côte à côte.
 
 ---
 
+<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/boucle_de_jeu_widget.html#course" data-background-interactive -->
+
+Note:
+Onglet *course* : deux carrés, l'un déplacé par image, l'autre par seconde, à
+30, 60 ou 144 fps. **C'est la démonstration de la séance** — à 144 fps le rouge
+est à l'arrivée quand le vert est au tiers.
+
+Laisser venir la question « on n'a qu'à bloquer le framerate ? ». C'est la slide
+suivante, et sa réponse est non : l'onglet *frise* montre qu'il suffit d'un pic
+de calcul pour que la limite ne tienne plus. Le `dt` reste la seule réponse.
+
+---
+
 ## Limiter, ou se synchroniser
 
 - `setFramerateLimit(60)` — SFML attend pour vous
@@ -102,17 +115,6 @@ suivante le montre côte à côte.
 
 Sans limite, la boucle tourne aussi vite qu'elle peut et fait chauffer la
 machine pour rien.
-
----
-
-<!-- .slide: class="widget" data-background-iframe="00 widgets/_widgets/boucle_de_jeu_widget.html#course" data-background-interactive -->
-
-Note:
-Onglet *course* : deux carrés, l'un déplacé par image, l'autre par seconde, à
-30, 60 ou 144 fps. **C'est la démonstration de la séance** — à 144 fps le rouge
-est à l'arrivée quand le vert est au tiers. Passer ensuite à l'onglet *frise* :
-monter le temps de calcul jusqu'à dépasser le budget, et montrer que la limite
-ne sert plus à rien.
 
 ---
 
@@ -138,7 +140,8 @@ n'en montre qu'un rectangle à la fois.
 Note:
 Une seule texture pour seize poses, c'est un seul chargement et un seul envoi à
 la carte graphique. L'alternative — un PNG par pose, comme la cible
-`AnimationClass` du dépôt d'exemples — est plus simple à écrire et plus lente à
+[`AnimationClass`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/AnimationClass/AnimationClass.cpp)
+du dépôt d'exemples — est plus simple à écrire et plus lente à
 tout : seize fichiers, seize textures, seize allers-retours.
 
 ---
@@ -209,9 +212,17 @@ qu'il y a trois cas et qu'ils ne se combinent pas.
 images par seconde, et son animation tourne à la même vitesse dans les deux cas.
 
 Note:
-Démonstration : `TimeClock` pour l'horloge, `Animation` pour la planche découpée,
-`AnimationClass` pour la version rangée dans une classe, `MoveAndJump` pour le
-déplacement. Montrer les deux approches d'animation et dire ce que chacune coûte.
+Démonstration :
+[`TimeClock`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/TimeClock/TimeClock.cpp)
+pour l'horloge,
+[`Animation`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Animation/Animation.cpp)
+pour la planche découpée,
+[`AnimationClass`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/AnimationClass/AnimationClass.cpp)
+pour la version rangée dans une classe, et
+[`MoveAndJump`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/MoveAndJump/MoveAndJump.cpp)
+pour le déplacement.
+
+Montrer les deux approches d'animation et dire ce que chacune coûte.
 
 ---
 
@@ -226,7 +237,3 @@ déplacement. Montrer les deux approches d'animation et dire ce que chacune coû
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-SBD-04 - Le monde Box2D|GPR-CF-SBD-04]] — une heure sans rien afficher, et c'est voulu.</small>

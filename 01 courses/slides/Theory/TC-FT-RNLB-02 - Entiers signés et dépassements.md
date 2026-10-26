@@ -490,7 +490,6 @@ un peu plus de 248 jours.
 
 ## Pour aller plus loin
 
-- Séance suivante : [[01 courses/slides/Theory/TC-FT-RNLB-03 - Flottants IEEE 754|TC-FT-RNLB-03 - Flottants IEEE 754]]
 - [Complément à deux — Wikipédia](https://fr.wikipedia.org/wiki/Compl%C3%A9ment_%C3%A0_deux)
 - [Fixed width integer types — cppreference](https://en.cppreference.com/w/cpp/types/integer)
 - [Arithmetic operators — cppreference](https://en.cppreference.com/w/cpp/language/operator_arithmetic) : section *Overflows*

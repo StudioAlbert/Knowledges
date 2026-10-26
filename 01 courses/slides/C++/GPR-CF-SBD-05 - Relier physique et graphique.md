@@ -209,10 +209,15 @@ booléen naïf il peut sauter en l'air indéfiniment.
 faux en l'air.
 
 Note:
-Démonstration : `Views` pour la caméra et le passage écran / monde, `Motor` pour
-un projet complet où chaque entité tient son propre couple données / sprite.
-`Motor` est le seul du dépôt à ressembler à un vrai jeu — le lire pour voir où
-la conversion est rangée.
+Démonstration :
+[`Views`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp)
+pour la caméra et le passage écran / monde, et
+[`Motor`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/main.cpp)
+pour un projet complet où chaque entité tient son propre couple données / sprite.
+
+`Motor` est le seul du dépôt à ressembler à un vrai jeu — le lire pour voir où la
+conversion est rangée. Sa classe est dans
+[`motor.h`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/motor.h).
 
 ---
 
@@ -227,7 +232,3 @@ la conversion est rangée.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-SBD-06 - Le game feel d'un platformer|GPR-CF-SBD-06]] — tout ce qui rend un saut agréable, et qui ne se déduit d'aucune équation.</small>

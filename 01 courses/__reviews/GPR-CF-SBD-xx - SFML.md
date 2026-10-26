@@ -2,6 +2,12 @@
 slides:
 exercices:
 ---
+- [ ] Porter le companion Box2D
+	- [ ] Verifier veracité des slides
+- [x] Citer les exemples des differents companion (lien github du fichier concerné) dans les sildes
+- [x] Ne plus citer la prochaine seance dans les slides de fin (**Review de tout le vault**)
+- [x] Le widget est buggé, bouton Rejouer
+	- [x] , sur ce widget eviter les interactions, privilégiez les indications graphiques, stop and go dans l'animation pour prouver le point, etc....
 - [x] Le repo companion est pret, reprendre citations de code des decks depuis celui-ci
 - [x] Les exercices retournent en tant qu'ateliers de chaque Deck
 	- [x] Ceux ci sont amendés depuis la session Claude
@@ -20,10 +26,10 @@ exercices:
 	- [x] ajout du Cmake, recopie depuis le companion
 	- [x] ajout de vcpkg
 	- [x] code "hello world" = afficher une fenetre
-- [ ] Reprendre enoncé Summative
-	- [ ] Reprendre depuis la fiche Unity
+- [x] Reprendre enoncé Summative
+	- [x] Reprendre depuis la fiche Unity
 		- [x] Genre Content
-		- [ ] Screenshots de references
+		- [x] Screenshots de references
 		- [x] Chapitre des reglages : 
 			- [x] Simplifier par une simple mention que les reglages du jeu (saut, vitesse, gravité) doivent etre disponilbe dans un seul et mm fichier
 			- [x] Tenir compte des ratures
@@ -237,3 +243,96 @@ septembre, en attente de validation` devenu entièrement faux : « 15 slides,
 `publish: false` », « Rien n'est rédigé », un widget `plateforme_widget.html` qui
 n'a jamais existé. Remplacé par l'état réel — deck, nombre de slides, cible de
 démonstration, rendu. Ce bloc n'est pas publié : il ne te gênait que dans Obsidian.
+
+## Deuxième passe du 26.10 — tes points rouverts
+
+### La summative, depuis la fiche Unity
+
+`01 courses/projects/Unity/_archives_to_cut/2D Platformer` trouvée. Son cahier des
+charges est **déjà couvert point par point** par la summative : déplacement, corps
+physique, saut, plateformes, obstacles, level design, checkpoints, score, et les
+options — power-ups, ennemis, saut maintenu, coyote time, jump buffer, wall jump,
+glissade murale. Rien à reprendre de ce côté.
+
+Ce qui manquait, c'était sa section **Screenshots / References**. Elle devient le
+chapitre *À quoi ça ressemble* :
+
+| | |
+|---|---|
+| Super Mario Bros, du début à la fin | le genre dans sa forme la plus pure |
+| Les cartes des niveaux de Mario | la montée en difficulté qui se **voit** |
+| Celeste | la référence actuelle du saut bien réglé |
+| *Building a Better Jump* (GDC) | d'où viennent la gravité asymétrique et la hauteur variable |
+| *5 Tips for Better Platformers* | en Unity, mais les idées se transposent |
+
+J'ai vérifié chaque titre YouTube plutôt que de les deviner d'après l'identifiant.
+
+> [!info] Des liens, pas des images
+> La fiche Unity encadre des captures de Celeste et de Mario, hébergées chez
+> Micromania et JustForGames. Cette summative-là est **publiée** : y recopier les
+> images reviendrait à les servir depuis notre site. Donc des liens.
+
+Les packs **Kenney** (CC0) rejoignent l'encadré des images, à côté du
+`_Resources/sprites/` du companion.
+
+### Le widget du saut
+
+Deux vrais bugs, dont un que j'avais introduit :
+
+> [!bug] Deux boucles d'animation en parallèle
+> `montrer(location.hash.slice(1))` était écrit **deux fois** à la fin du fichier.
+> Deux boucles avançaient la même simulation, d'où le mouvement saccadé. Le bouton
+> *Rejouer* pouvait en démarrer une troisième.
+
+Comme tu le demandes, **plus rien à cliquer** : le bouton est supprimé et la
+démonstration tourne seule, en **stop and go**.
+
+| Moment | Ce qui se passe |
+|---|---|
+| l'appui | **gel 1,4 s** — un trait vertical relie les deux coureurs, une étiquette dit ce qui part |
+| le résultat | **gel 2,6 s** — qui est passé, qui est tombé |
+| puis | la démonstration recommence, en boucle |
+
+`buffer` fige deux fois, un gel par appui. Les trois autres une fois. Le trait
+vertical est le cœur du propos : les deux coureurs sont à la même abscisse, donc au
+même instant.
+
+> [!check] Vérifié en pompant la boucle à la main
+> Le panneau tourne en arrière-plan et y gèle `requestAnimationFrame` ; j'ai donc
+> appelé la boucle image par image. **Trois cycles complets observés**, période
+> 8,5 s, boucle toujours vivante. Un second bug trouvé là : `!etat.gel` est faux
+> quand `gel` vaut `−0,003`, donc la simulation restait figée après le premier gel.
+
+### Plus de « prochaine séance » dans les slides de fin
+
+**Dix-neuf decks** nettoyés, deux formes :
+
+- **14** avec `### Prochaine séance` et son lien sur la slide `# Questions ?` — retirés en entier ;
+- **5** avec une puce `- Séance suivante :` en tête de *Pour aller plus loin* — la puce seule est retirée, les autres liens restent.
+
+Les fins en *Fin du bloc* et *Fin de la série* ne citent pas de séance suivante :
+elles sont gardées.
+
+### Les exemples sont cités avec leur lien
+
+**Vingt liens** vers le fichier exact, dans les notes de présentation et dans deux
+slides. SBD-04 n'en a aucun : il n'a toujours pas de cible.
+
+Attention à un piège évité : en SBD-02, `Sound` désigne tantôt la cible, tantôt
+`sf::Sound`. Les liens ne sont posés que là où il s'agit de la cible.
+
+> [!danger] Ces liens renvoient 404, et ce n'est pas la faute des liens
+> **Le dépôt d'exemples n'a jamais été poussé.** Son `main` distant en est encore à
+> l'ancien dossier `923-4FSC0PF001-SFML`. Deux commits attendent en local :
+> `9735d1e` — ton portage CMake et SFML 3 — et `ee44c51`, le passage à vcpkg.
+>
+> Conséquence plus grave que les liens : **le vault poussé référence `9735d1e`**,
+> un commit qui n'existe pas sur GitHub. Un `git clone --recurse-submodules` du
+> vault **échoue déjà aujourd'hui**, et pas à cause de cette session.
+>
+> Un `git push` dans le companion répare les deux d'un coup.
+
+### La slide de SBD-01 que tu as barrée
+
+« C'est la seule concession de SFML à la simplicité, et elle est assumée » est
+retirée. La slide s'arrête sur *Trois rôles dans un seul objet.*

@@ -575,7 +575,6 @@ long d = std::lround(-2.5f);       // -3
 
 ## Pour aller plus loin
 
-- Séance suivante : [[01 courses/slides/Theory/TC-FT-RNLB-04 - Algèbre de Boole et opérations bit à bit|TC-FT-RNLB-04 - Algèbre de Boole et opérations bit à bit]]
 - [Float Converter — h-schmidt.net](https://www.h-schmidt.net/FloatConverter/IEEE754.html) : voir les bits d'un `float`
 - [The Floating-Point Guide](https://floating-point-gui.de/) : l'essentiel, en court
 - [Comparing Floating Point Numbers, 2012 Edition — Bruce Dawson](https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/)

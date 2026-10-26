@@ -208,7 +208,3 @@ puis à l'écran, et la console sert de preuve.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05]] — on rebranche l'image sur la physique.</small>

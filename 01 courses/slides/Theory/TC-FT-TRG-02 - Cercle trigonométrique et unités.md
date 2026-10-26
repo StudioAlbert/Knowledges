@@ -454,7 +454,6 @@ cos = −√3/2, sin = −1/2. (3) amplitude 0,5 ; période 2π/2 = π ≈ 3,14 
 ## Pour aller plus loin
 
 - Séance précédente : [[01 courses/slides/Theory/TC-FT-TRG-01 - Géométrie du triangle|TC-FT-TRG-01 - Géométrie du triangle]]
-- Séance suivante : [[01 courses/lectures/Theory/TC-FT-TRG-03 - Résolution de triangles et applications|TC-FT-TRG-03 - Résolution de triangles et applications]]
 - Widget : [Cercle trigonométrique](https://studioalbert.github.io/widgets/_widgets/cercle_trigo_widget.html)
 - Lengyel, *Mathematics for 3D Game Programming*, annexe B §B.1–B.3
 - [Cercle trigonométrique — Wikipédia](https://fr.wikipedia.org/wiki/Cercle_trigonom%C3%A9trique)

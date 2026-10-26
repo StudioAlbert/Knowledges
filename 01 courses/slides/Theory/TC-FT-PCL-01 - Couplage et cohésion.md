@@ -265,7 +265,3 @@ quatre boîtes qu'ils connaissent déjà.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/Theory/TC-FT-PCL-03 - Taxonomie des patterns|TC-FT-PCL-03]] — les réponses déjà écrites à ces problèmes.</small>

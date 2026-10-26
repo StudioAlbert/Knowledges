@@ -32,7 +32,7 @@ Ce dossier fait partie du vault `Knowledges` ; il en était un sous-module, il n
 | `_widgets/patterns_quizz_widget.html` | Sept situations de conception, sept reponses dont « aucun — du code simple suffit » ; la correction donne le probleme, le comment et une metaphore | — | TC-FT-PCL-03 |
 | `_widgets/boucle_de_jeu_widget.html` | Les blocs d'une image et le framerate obtenu, puis la course entre un deplacement par image et un deplacement par seconde a 30, 60 ou 144 fps | `#frise` `#course` | GPR-CF-SBD-01 |
 | `_widgets/composition_widget.html` | Huit demandes réelles du game designer, toutes des classes de Donjons et Dragons : l'arbre d'héritage grandit et recopie, la liste de composants ne bouge que sur une capacité neuve | — | TC-FT-PCL-04 |
-| `_widgets/saut_fun_widget.html` | Deux coureurs, le meme niveau, la meme touche au meme instant : l'un sans la technique, l'autre avec. Coyote time, jump buffer, hauteur variable, gravite asymetrique | `#coyote` `#buffer` `#variable` `#asym` | GPR-CF-SBD-06 |
+| `_widgets/saut_fun_widget.html` | Deux coureurs, le meme niveau, la meme touche au meme instant : l'un sans la technique, l'autre avec. Tourne seul, sans rien a cliquer : se fige a chaque appui avec un trait qui relie les deux coureurs, puis sur le resultat, puis recommence. Coyote time, jump buffer, hauteur variable, gravite asymetrique | `#coyote` `#buffer` `#variable` `#asym` | GPR-CF-SBD-06 |
 | `_widgets/utility_ai.html` | Courbes de réponse pour la décision des PNJ | — | portfolio uniquement |
 
 ## Dans une slide

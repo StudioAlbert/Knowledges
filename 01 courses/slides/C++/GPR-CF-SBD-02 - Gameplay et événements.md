@@ -201,7 +201,9 @@ musique.play();
 `loadFromFile` **charge**, `openFromFile` **ouvre** : tout est là.
 
 Note:
-C'est le code de la cible `Audio` du dépôt d'exemples, qui est déjà en SFML 3.
+C'est le code de la cible
+[`Audio`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Audio/src/main.cpp)
+du dépôt d'exemples, qui est déjà en SFML 3.
 Un buffer de musique de trois minutes, c'est une trentaine de mégaoctets en
 mémoire — d'où `sf::Music`, qui ne garde qu'une fenêtre de lecture.
 
@@ -235,9 +237,17 @@ Vous connaissez déjà ce bug : c'est le carré blanc de SBD-01.
 ne déforme rien, et le saut fait du bruit.
 
 Note:
-Démonstration : `Events-a` à `Events-d` pour les événements, `Audio` et `Sound`
-pour le son. `Events-a` est la plus parlante — elle change la couleur de fond
-quand la fenêtre perd le focus, donc l'effet se voit sans rien lire.
+Démonstration, les événements :
+[`Events-a`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Events-a/Events-a.cpp) ·
+[`Events-b`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Events-b/Events-b.cpp) ·
+[`Events-c`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Events-c/Events-c.cpp) ·
+[`Events-d`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Events-d/Events-d.cpp).
+Le son :
+[`Audio`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Audio/src/main.cpp)
+et [`Sound`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Sound/src/main.cpp).
+
+`Events-a` est la plus parlante — elle change la couleur de fond quand la fenêtre
+perd le focus, donc l'effet se voit sans rien lire.
 
 ---
 
@@ -252,7 +262,3 @@ quand la fenêtre perd le focus, donc l'effet se voit sans rien lire.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-SBD-03 - Déplacer et animer|GPR-CF-SBD-03]] — le temps, le `dt`, et les planches de sprites.</small>

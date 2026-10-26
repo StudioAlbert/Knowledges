@@ -278,9 +278,14 @@ l'éteindre. La semaine prochaine, tout le monde joue à tout le monde.
 · [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]]
 
 Note:
-Démonstration : `MoveAndJump` pour le saut, `LevelEditor` pour les tuiles et les
-plateformes. Garder vingt minutes pour faire jouer les projets entre eux — c'est
-le seul test qui dise si le saut est bon.
+Démonstration :
+[`MoveAndJump`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/MoveAndJump/MoveAndJump.cpp)
+pour le saut, et
+[`LevelEditor`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/tree/main/LevelEditor)
+— ses trois étapes — pour les tuiles et les plateformes.
+
+Garder vingt minutes pour faire jouer les projets entre eux — c'est le seul test
+qui dise si le saut est bon.
 
 L'interrupteur est le point à insister : une technique qu'on ne peut pas
 éteindre ne se démontre pas au playtest.

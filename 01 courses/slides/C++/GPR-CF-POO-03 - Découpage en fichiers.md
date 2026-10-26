@@ -315,7 +315,3 @@ et d'une ligne, l'éditeur de liens d'un `.obj` et d'un symbole.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-POO-04 - Cycle de vie de l'objet|GPR-CF-POO-04]] — naître et mourir proprement.</small>

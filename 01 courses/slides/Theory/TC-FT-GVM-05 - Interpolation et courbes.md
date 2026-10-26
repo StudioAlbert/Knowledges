@@ -399,7 +399,3 @@ vient.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/Theory/TC-FT-GVM-03 - Matrices et transformations|TC-FT-GVM-03]] — ranger une rotation, une translation et une échelle dans un seul objet.</small>

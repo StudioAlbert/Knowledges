@@ -12,6 +12,10 @@ zéro : c'est le projet que vous construisez depuis la première heure, un ateli
 > Le dépôt d'exemples porte un dossier `_Resources/sprites/` : planches Cuphead, sprites de
 > Zelda dans les quatre directions, une planche de personnages, un décor de village et un
 > mur. De quoi monter un niveau sans passer une soirée à chercher des PNG.
+>
+> S'il vous en faut d'autres, Kenney les donne en CC0 — aucune condition, pas même la
+> mention : [Platformer Pack Redux](https://kenney.nl/assets/platformer-pack-redux) et
+> [Pixel Platformer](https://www.kenney.nl/assets/pixel-platformer).
 
 ## Le genre, en deux phrases
 
@@ -25,6 +29,28 @@ rate de deux pixels. C'est ce réglage-là qui est évalué, pas la quantité de
 > En moteur, le personnage, la gravité et les collisions existent déjà. Ici, **vous écrivez
 > la boucle, le temps, la liaison entre la physique et l'image, et le contrôleur**. C'est
 > plus long, et c'est le but : vous saurez ce qu'un moteur fait à votre place.
+
+---
+
+## À quoi ça ressemble
+
+Avant d'écrire une ligne, regardez ce que vous visez.
+
+| | |
+|---|---|
+| [Super Mario Bros, du début à la fin](https://www.youtube.com/watch?v=cWOkHQXw0JQ) | le genre dans sa forme la plus pure — un bouton, un saut, et quarante ans de descendance |
+| [Les cartes des niveaux de Mario](http://nintendoforever.free.fr/Nes/SuperMarioBros1/SuperMarioBros1_Dossier/SuperMarioBros1_Cartes.php) | chaque niveau à plat : la montée en difficulté se **voit** |
+| [Celeste](https://www.celestegame.com/) | la référence actuelle du saut bien réglé, et de l'accessibilité |
+
+Deux vidéos qui valent une heure de cours :
+
+- [**Building a Better Jump**](https://www.youtube.com/watch?v=hG9SzQxaCm8) — GDC. D'où viennent la gravité asymétrique et le saut à hauteur variable, démontrés au tableau.
+- [**5 Tips for Better Platformers**](https://www.youtube.com/watch?v=8QPmhDYn6rk) — en Unity, mais les idées se transposent telles quelles.
+
+> [!tip] Regardez les cartes avant de dessiner votre niveau
+> Un niveau de Mario introduit **une** idée, la répète, puis la complique. C'est la
+> recette de la montée en difficulté qu'on vous demande, et elle se lit mieux sur une
+> carte que dans un cours.
 
 ---
 

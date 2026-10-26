@@ -335,7 +335,3 @@ Le companion écrit une ligne à chaque naissance et à chaque mort.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-POO-05 - Static et surcharge d'opérateur|GPR-CF-POO-05]] — ce qui appartient à la classe plutôt qu'à l'objet.</small>

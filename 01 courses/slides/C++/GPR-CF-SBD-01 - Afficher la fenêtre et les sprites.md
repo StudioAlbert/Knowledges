@@ -65,7 +65,8 @@ int main()
 ```
 
 Six lignes, et une fenêtre noire qui ne répond pas encore. C'est
-`HelloWorld` du dépôt d'exemples.
+[`HelloWorld`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/HelloWorld/HelloWorld.cpp)
+du dépôt d'exemples.
 
 Note:
 Le lancer tel quel, et laisser quelqu'un essayer de la fermer. Elle ne se ferme
@@ -81,8 +82,7 @@ du web.
 - une **cible de dessin** : tout ce qu'on affiche passe par elle
 - une **source d'événements** : clavier, souris, redimensionnement
 
-Trois rôles dans un seul objet. C'est la seule concession de SFML à la
-simplicité, et elle est assumée.
+Trois rôles dans un seul objet.
 
 ---
 
@@ -228,9 +228,12 @@ Faire défiler ces rectangles, c'est l'animation — et c'est
 s'affiche sans carré blanc.
 
 Note:
-Démonstration : les cibles `HelloWorld` et `Graphics` du dépôt d'exemples. On les
-lit ensemble et on commente ce qui s'y passe — ce n'est pas un corrigé à copier,
-c'est du code de travail. Chacun écrit ensuite la même chose dans **son** projet.
+Démonstration : les cibles
+[`HelloWorld`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/HelloWorld/HelloWorld.cpp)
+et [`Graphics`](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Graphics/Graphics.cpp)
+du dépôt d'exemples. On les lit ensemble et on commente ce qui s'y passe — ce
+n'est pas un corrigé à copier, c'est du code de travail. Chacun écrit ensuite la
+même chose dans **son** projet.
 
 ---
 
@@ -245,7 +248,3 @@ c'est du code de travail. Chacun écrit ensuite la même chose dans **son** proj
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02]] — le clavier, la manette, et la fenêtre qu'on redimensionne.</small>

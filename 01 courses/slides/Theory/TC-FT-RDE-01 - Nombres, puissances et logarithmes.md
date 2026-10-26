@@ -306,7 +306,3 @@ Sans calculatrice, et en notation scientifique.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/Theory/TC-FT-RDE-02 - Équations et inéquations|TC-FT-RDE-02]] — résoudre, et savoir quand on n'a pas le droit.</small>

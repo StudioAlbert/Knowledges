@@ -280,7 +280,3 @@ Reprendre `Vector2`, et lui donner ce qui lui manque.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/C++/GPR-CF-POO-06 - Héritage et polymorphisme|GPR-CF-POO-06]] — écrire une fois ce que plusieurs classes ont en commun.</small>

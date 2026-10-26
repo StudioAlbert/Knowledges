@@ -69,11 +69,6 @@ h1 .hl { color: var(--sae-red); }
     display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
     margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line);
 }
-.go {
-    font: 800 14px "Inter", sans-serif; color: #fff; background: var(--sae-red);
-    border: none; border-radius: var(--radius); padding: 10px 20px; cursor: pointer;
-}
-.go:hover { filter: brightness(1.08); }
 .consigne { font-size: 13.5px; color: var(--muted); flex: 1; min-width: 240px; }
 .consigne b { color: var(--sae-black); }
 
@@ -113,7 +108,6 @@ html.embed .scene canvas { flex: 1; min-height: 0; object-fit: contain; }
 <div class="scene">
     <canvas id="toile" width="900" height="330"></canvas>
     <div class="barre">
-        <button class="go" id="rejouer">Rejouer</button>
         <p class="consigne" id="consigne"></p>
     </div>
 </div>
@@ -230,25 +224,29 @@ const SCENARIOS = {
         onglet: "J'ai appuyé trop tard",
         technique: "coyote", nom: "coyote time",
         consigne: "La touche part <b>80 ms après</b> avoir quitté le bord. Sans coyote time, " +
-                  "le saut n'a jamais lieu : le personnage n'est déjà plus au sol."
+                  "le saut n'a jamais lieu : le personnage n'est déjà plus au sol.",
+        appui: "La touche part ici — 80 ms trop tard"
     },
     buffer: {
         onglet: "J'ai appuyé trop tôt",
         technique: "buffer", nom: "jump buffer",
         consigne: "Le second appui part <b>100 ms avant</b> de toucher la plateforme du " +
-                  "milieu. Sans jump buffer, il est perdu — et le trou suivant arrive."
+                  "milieu. Sans jump buffer, il est perdu — et le trou suivant arrive.",
+        appui: "La touche part ici — 100 ms trop tôt"
     },
     variable: {
         onglet: "J'ai juste tapé la touche",
         technique: "variable", nom: "hauteur variable",
         consigne: "La touche est relâchée après <b>70 ms</b>. Sans hauteur variable, le saut " +
-                  "part toujours au maximum : impossible de faire un petit saut."
+                  "part toujours au maximum : impossible de faire un petit saut.",
+        appui: "Touche tapée, puis relâchée après 70 ms"
     },
     asym: {
         onglet: "Le saut est mou",
         technique: "asym", nom: "gravité asymétrique",
         consigne: "Même impulsion, même appui. Avec une gravité <b>deux fois plus forte à " +
-                  "la descente</b>, la courbe se penche et le saut devient nerveux."
+                  "la descente</b>, la courbe se penche et le saut devient nerveux.",
+        appui: "Même touche, même instant, même impulsion"
     }
 };
 
@@ -266,6 +264,14 @@ let scenario = "coyote";
 let pistes = [];
 let temps = 0;
 let anim = null;
+let etat = null;
+
+// Le widget tourne seul : rien a cliquer. Il se fige aux deux instants qui
+// prouvent quelque chose — l'appui, puis le resultat — et il recommence.
+// Le meme pas que les sondes : l'animation rejoue exactement la simulation qui a
+// calcule les instants d'appui.
+const GEL_APPUI = 1.4;    // s
+const GEL_FIN = 2.6;      // s
 
 function lancer() {
     const s = SCENARIOS[scenario];
@@ -274,33 +280,96 @@ function lancer() {
         {c: neuf(s.plats, {[s.technique]: true}), titre: "avec " + s.nom, dy: 160, couleur: "#2e9e5b"}
     ];
     temps = 0;
+    etat = {gel: 0, note: "", fini: false, vus: 0, dernier: 0};
     $("verdict").innerHTML = "&nbsp;";
     if (anim) cancelAnimationFrame(anim);
-    const t0 = performance.now();
-    anim = requestAnimationFrame((t) => boucle(t0, t));
     dessiner();
+    anim = requestAnimationFrame(boucle);
 }
 
-function boucle(t0, t1) {
-    const dt = Math.min(0.033, (t1 - t0) / 1000);
-    const avant = temps;
-    temps += dt;
-    const appuis = SCENARIOS[scenario].appuis;
+function boucle(ts) {
+    const dt = etat.dernier ? Math.min(0.05, (ts - etat.dernier) / 1000) : 0;
+    etat.dernier = ts;
 
-    for (const p of pistes) {
-        const presse = appuis.some((a) => avant < a.t && temps >= a.t);
-        const relache = appuis.some((a) => a.rel != null && temps >= a.t + a.rel);
-        avancer(p.c, dt, presse, relache);
+    if (etat.gel > 0) {
+        etat.gel -= dt;
+        if (etat.gel <= 0) {
+            etat.gel = 0;                                       // sinon il reste negatif
+            if (etat.fini) { lancer(); return; }                // la demonstration reprend
+        }
+        dessiner();
+        anim = requestAnimationFrame(boucle);
+        return;
     }
-    dessiner();
 
-    if (pistes.every((p) => p.c.fini) || temps > 8) { verdict(); return; }
-    anim = requestAnimationFrame((t) => boucle(t1, t));
+    const appuis = SCENARIOS[scenario].appuis;
+    let reste = dt;
+    while (reste > 1e-6 && etat.gel <= 0 && !etat.fini) {
+        const pas = Math.min(PAS, reste);
+        reste -= pas;
+        const avant = temps;
+        temps += pas;
+
+        for (const p of pistes) {
+            const presse = appuis.some((a) => avant < a.t && temps >= a.t);
+            const relache = appuis.some((a) => a.rel != null && temps >= a.t + a.rel);
+            avancer(p.c, pas, presse, relache);
+        }
+
+        // Un appui vient de partir : on fige pour montrer qu'il part au meme
+        // instant pour les deux coureurs.
+        const franchis = appuis.filter((a) => a.t <= temps).length;
+        if (franchis > etat.vus) {
+            etat.vus = franchis;
+            etat.gel = GEL_APPUI;
+            etat.note = SCENARIOS[scenario].appui;
+        } else if (pistes.every((p) => p.c.fini) || temps > 8) {
+            etat.fini = true;
+            etat.gel = GEL_FIN;
+            etat.note = "";
+            verdict();
+        }
+    }
+
+    dessiner();
+    anim = requestAnimationFrame(boucle);
 }
 
 function dessiner() {
     ctx.clearRect(0, 0, toile.width, toile.height);
     for (const p of pistes) piste(p);
+    if (etat && etat.gel > 0 && etat.note) annotation(etat.note);
+}
+
+// Pendant un gel : un trait vertical qui relie les deux coureurs — ils sont a la
+// meme abscisse, donc au meme instant — et l'etiquette qui dit quoi regarder.
+function annotation(texte) {
+    const x = pistes[0].c.x;
+
+    ctx.save();
+    ctx.strokeStyle = "#1a1a1a";
+    ctx.globalAlpha = 0.35;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(x, 22);
+    ctx.lineTo(x, toile.height - 6);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.font = "800 15px Inter, sans-serif";
+    const l = ctx.measureText(texte).width + 26;
+    const gx = Math.max(6, Math.min(toile.width - l - 6, x - l / 2));
+
+    ctx.fillStyle = "#1a1a1a";
+    ctx.beginPath();
+    ctx.roundRect(gx, 6, l, 28, 6);
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center";
+    ctx.fillText(texte, gx + l / 2, 25);
+    ctx.textAlign = "left";
 }
 
 function piste(p) {
@@ -373,7 +442,6 @@ $("tabs").addEventListener("click", (e) => {
     history.replaceState(null, "", "#" + b.dataset.k);
     montrer(b.dataset.k);
 });
-$("rejouer").addEventListener("click", lancer);
 addEventListener("hashchange", () => montrer(location.hash.slice(1)));
 
 
@@ -388,7 +456,6 @@ if (document.documentElement.classList.contains("embed")){
     });
 }
 
-montrer(location.hash.slice(1));
 montrer(location.hash.slice(1));
 })();
 </script>

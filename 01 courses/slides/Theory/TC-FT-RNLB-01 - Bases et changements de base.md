@@ -372,6 +372,5 @@ Note:
 
 ## Pour aller plus loin
 
-- Séance suivante : [[01 courses/slides/Theory/TC-FT-RNLB-02 - Entiers signés et dépassements|TC-FT-RNLB-02 - Entiers signés et dépassements]]
 - [Système hexadécimal — Wikipédia](https://fr.wikipedia.org/wiki/Syst%C3%A8me_hexad%C3%A9cimal)
 - [Integer literal — cppreference](https://en.cppreference.com/w/cpp/language/integer_literal)

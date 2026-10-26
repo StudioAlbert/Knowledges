@@ -327,7 +327,3 @@ PCL-01, et y chercher des patterns.
 
 # Questions ?
 <!-- .slide: class="title" -->
-
-### Prochaine séance
-
-<small>[[01 courses/slides/Theory/TC-FT-PCL-04 - Composition contre héritage|TC-FT-PCL-04]] — le pattern Component, en entier.</small>
