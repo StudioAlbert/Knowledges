@@ -128,3 +128,18 @@ Les en-têtes de **Box2D 3.2.0** sont clonés et lus, pas cités de mémoire.
 Elle affirmait « cette séance n'a **pas** d'exercice à elle » alors que la
 formative existe et est liée depuis la note. Elle présente maintenant la
 formative et le playtest, et garde le lien vers la summative.
+
+> [!bug] Correction du 26.10 — ma propre formulation
+> J'avais remplacé « le seul rappel qui reste » par « le seul endroit où l'on
+> intervient **pendant** la simulation ». C'était faux aussi : les rappels de
+> friction et de restitution tournent eux aussi pendant le solveur.
+>
+> Vérifié dans `box2d.h` de la 3.2.0, il reste **quatre** poseurs de rappel au
+> niveau du monde : `b2World_SetCustomFilterCallback`,
+> `b2World_SetPreSolveCallback`, `b2World_SetFrictionCallback` et
+> `b2World_SetRestitutionCallback`.
+>
+> La slide dit maintenant ce qui est vrai et sert le propos : le pre-solve est le
+> seul endroit où l'on peut **annuler un contact au cas par cas**. Ce qui a
+> disparu de la version 2, c'est le `b2ContactListener` — les contacts se lisent
+> après le pas au lieu d'être reçus.

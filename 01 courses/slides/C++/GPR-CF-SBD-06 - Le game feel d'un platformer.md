@@ -241,7 +241,7 @@ void Traversable(b2ShapeId a, b2ShapeId b, b2Manifold* m, void*)
 }
 ```
 
-C'est le seul endroit où l'on intervient **pendant** la simulation.
+C'est le seul endroit où l'on peut **annuler** un contact au cas par cas.
 
 Note:
 Attention, le rappel a changé en Box2D **3.2** : il renvoie `void`, et on annule
@@ -251,6 +251,11 @@ un `bool` — un exemple trouvé en ligne ne compilera pas ici.
 Le rappel tourne pendant la simulation, et Box2D est multithread : on ne crée,
 ne détruit et ne modifie rien dedans. On lit le manifold, on le neutralise ou
 non.
+
+Box2D 3 garde quatre rappels au niveau du monde — filtrage personnalisé,
+pre-solve, friction, restitution. Ce qui a disparu, c'est le `b2ContactListener`
+de la version 2 : les contacts se **lisent** après le pas, ils ne se reçoivent
+plus.
 
 ---
 
