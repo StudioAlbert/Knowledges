@@ -448,3 +448,55 @@ Chaque note porte maintenant un **Résumé proposé pour Aurora**, tiré de ce q
 deck enseigne vraiment, dans le même format d'une ligne. L'`À couvrir` d'origine
 est gardé au-dessus : c'est ce qu'Aurora contient aujourd'hui, jusqu'à ce que tu
 colles le nouveau.
+
+## Portage Box2D — trois cibles sur dix
+
+| Cible | Pour | Ce qu'elle démontre |
+|---|---|---|
+| `01-Gravity` | SBD-04 | le monde, le pas fixe, un corps dynamique qui tombe |
+| `02-Bouncing` | SBD-05 | les contacts : la bille change de couleur à chaque choc |
+| `04-ZeroGravity` | SBD-06 | un vrai capteur : la bille le traverse et il s'allume |
+
+**Les trois compilent.** Chaque deck de la série a maintenant sa démonstration, et
+le lien est en bas de la slide concernée.
+
+### Un choix que je signale
+
+Dans `04-ZeroGravity`, les cercles s'appelaient `MySensor` **sans en être** : des
+obstacles solides qui changeaient de couleur au contact. Je les ai faits *vrais*
+capteurs — `isSensor`, la bille les traverse, ils s'allument. Ce n'est donc pas un
+portage fidèle, c'est l'exemple que SBD-06 réclame, sous le nom qu'il portait déjà.
+Si tu préférais les garder solides, dis-le, c'est trois lignes.
+
+### Ce que le header m'a appris, et qui n'était dans aucun deck
+
+> `enableContactEvents` — « Only applies to kinematic and dynamic bodies. **Only
+> one** shape involved needs this flag set to true. »
+>
+> `enableSensorEvents` — « **Both** shapes involved must have this flag set to
+> true. False by default, even for sensors. »
+
+Donc dans `02-Bouncing` le drapeau de contact ne peut aller que sur la bille : la
+plateforme est statique. Les slides disaient déjà « les deux formes » pour les
+capteurs ; elles ne disaient pas que pour les contacts une seule suffit, ni que
+le corps doit bouger.
+
+### Trois défauts corrigés en passant
+
+- **Le pas de temps était variable** dans `04-ZeroGravity` — `world_.Step(elapsed, 6, 2)`.
+  C'est exactement ce que SBD-04 déconseille. Il devient fixe, avec accumulateur.
+- **Des adresses qui pendaient.** Les capteurs vivaient dans un `std::vector` par
+  valeur, et leur `this` était donné à Box2D en `userData`. Au premier
+  agrandissement du vecteur, les objets se déplacent et l'adresse ne vaut plus
+  rien. Ils passent en `unique_ptr`.
+- `user_data.h` et `SFML_Utilities.cpp` n'étaient référencés par rien — c'est une
+  partie des « obsolete files » que le README annonçait. Supprimés.
+
+### Ce qui reste
+
+Sept cibles : `00-Starter`, `02-BouncingAndCollsions`, `03-BouncingAdvanced`,
+`05-SpriteMovement` et les deux formatives. Aucune n'est nécessaire à une séance —
+les trois portées couvrent SBD-04, SBD-05 et SBD-06. `05-SpriteMovement` est le
+gros morceau, 1 908 lignes, et c'est un petit jeu complet.
+
+**Rien n'est poussé** côté Box2D : deux commits en attente.

@@ -208,7 +208,7 @@ booléen naïf il peut sauter en l'air indéfiniment.
 **On vérifie** : le sprite suit exactement le corps, et `au sol` est vrai posé,
 faux en l'air.
 
-<small>Exemples : [Views.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp) · [Motor/main.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/main.cpp) · [motor.h](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/motor.h)</small>
+<small>Exemples : [02-Bouncing](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/02-Bouncing) · [Views.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp) · [Motor/main.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Motor/main.cpp)</small>
 
 Note:
 `Motor` est le seul du dépôt à ressembler à un vrai jeu — le lire pour voir où la

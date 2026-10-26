@@ -43,6 +43,12 @@ ligne que vous n'aurez plus à écrire.
 > -DCMAKE_TOOLCHAIN_FILE=C:/chemin/vers/vcpkg/scripts/buildsystems/vcpkg.cmake
 > ```
 
+> [!warning] Gardez votre vcpkg à jour
+> À partir de **SBD-04** vous ajouterez Box2D, et il vous faut la version **3.2**. vcpkg ne
+> la connaît que depuis le 22 octobre 2026 : si la configuration échoue sur
+> `no version database entry for box2d at 3.2.0`, c'est que votre vcpkg est trop vieux.
+> Un `git pull` dans son dossier règle le cas.
+
 ---
 
 ## 3 — Déclarer SFML
