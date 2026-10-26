@@ -2,7 +2,7 @@
 slides:
 exercices:
 ---
-- [ ] Porter le companion Box2D
+- [x] Porter le companion Box2D
 	- [x] importer comme submodule https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples.git
 	- [x] Verifier veracité des slides
 - [x] Citer les exemples des differents companion (lien github du fichier concerné) dans les sildes
@@ -631,3 +631,71 @@ c'est l'exercice, pas un oubli. Le README le dit.
 gestionnaires de missiles, d'astéroïdes, d'explosions et de sons. C'est le seul
 du dépôt à ressembler à un vrai jeu, et le seul qui ne soit indispensable à
 aucune séance.
+
+## Le portage Box2D est terminé
+
+**Les neuf programmes du dépôt compilent.** Les dix-neuf `.vcxproj` et le `.sln`
+sont retirés : la construction passe par CMake et vcpkg.
+
+| Cible | Pour | Ce qu'elle démontre |
+|---|---|---|
+| `00-Starter` | SBD-04 | le « hello world », en console |
+| `01-Gravity` | SBD-04 | le monde, le pas fixe, un corps dynamique |
+| `02-Bouncing` | SBD-05 | les contacts |
+| `02-BouncingAndCollsions` | SBD-05 | qui a touché qui |
+| `03-BouncingAdvanced` | SBD-05 | les plateformes inclinées |
+| `04-ZeroGravity` | SBD-06 | un vrai capteur |
+| `05-SpriteMovement` | SBD-05 | un petit jeu complet |
+| `0-Formative-Arkanoid` | — | squelette de casse-briques |
+| `0-Formative-Starship` | — | squelette de shoot'em up |
+
+### `05-SpriteMovement`, et le point qui change tout
+
+Un vaisseau en apesanteur, des astéroïdes qui tombent, des missiles. C'est le
+seul du dépôt qui ressemble à un vrai jeu — plusieurs types d'entités, chacune
+reconnaissable au contact.
+
+> [!important] Le missile est un capteur
+> Il est déclaré `isSensor`, donc en Box2D 3 il **ne produit plus de contact**
+> mais un **événement de capteur**. Les deux files se lisent séparément après le
+> pas, et `enableSensorEvents` doit être posé sur le missile **et** sur
+> l'astéroïde — alors que `enableContactEvents` ne demande qu'une forme.
+>
+> C'est la différence que SBD-05 et SBD-06 enseignent, et elle est ici dans un
+> même programme : le choc vaisseau / astéroïde passe par les contacts, le tir
+> par les capteurs.
+
+### Sept défauts corrigés
+
+- **L'astéroïde convertissait deux fois en mètres** : son rayon valait cent fois
+  trop peu. Et son angle de départ était tiré entre 0 et 360 puis passé en
+  radians — cinquante-sept tours.
+- **Les dégâts du vaisseau arrivaient dans `EndContact`** : il encaissait en
+  s'éloignant de l'astéroïde, pas en le percutant.
+- `Bouncer::createFixture` **détruisait une fixture jamais créée**, et passait la
+  taille entière là où `b2MakeBox` attend des demi-dimensions : les bords
+  débordaient de moitié hors de la fenêtre.
+- `UserData` était alloué par `new` et **jamais libéré** — un par entité, à
+  chaque astéroïde et à chaque missile. Il devient un membre par valeur, et les
+  entités perdent copie et affectation puisque Box2D garde son adresse.
+- `TextureManager` cherchait `Asteroid.png` alors que le fichier s'appelle
+  `asteroid.png`. Windows s'en moque, Linux non.
+- `SoundManager` gardait **un seul `sf::Sound` par effet** : deux tirs rapprochés
+  se coupaient l'un l'autre. Il tient maintenant une liste des sons en vol.
+- `Asteroid::operator=` renvoyait une copie **partageant le même corps**.
+
+Retirés parce que référencés par rien : `shape`, `explosion` et son gestionnaire.
+
+### Ce qui s'est confirmé au fil du portage
+
+Les mêmes trois pièges revenaient dans presque chaque cible, et chacun est
+maintenant dans un deck :
+
+| Piège | Combien de fois | Où c'est enseigné |
+|---|---|---|
+| un pas de temps **variable** | 4 cibles | SBD-04, *Le pas de simulation* |
+| une adresse donnée à `userData` depuis un `vector` **par valeur** | 3 cibles | SBD-05, *Qui a touché qui* |
+| des **pixels** passés là où Box2D attend des mètres | 3 cibles | SBD-04, *Les unités* |
+
+Ce n'est pas une coïncidence : ce sont les trois erreurs que le modèle de Box2D
+rend faciles, et c'est pour ça qu'elles ont chacune leur slide.
