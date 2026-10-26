@@ -37,7 +37,7 @@ ScriptableObject y sont la troisième façon de faire, d'où le lien avec APU-04
 - choisir entre `event`, `UnityEvent` et canal en ScriptableObject
 - éviter l'abonné fantôme
 
-**Prérequis :** [[01 courses/slides/Unity/GPR-UN-APU-04 - ScriptableObjects — les données hors du code|GPR-UN-APU-04]] — ScriptableObjects ; Dungeon Crawler, branche `01-srp`.
+**Prérequis :** [[01 courses/slides/Unity/GPR-UN-APU-04 - ScriptableObjects — les données hors du code|GPR-UN-APU-04]] — ScriptableObjects.
 
 ---
 
@@ -254,6 +254,57 @@ observateur peut être le sujet d'autres observateurs.
 
 ---
 
+## Et Unity l'a mis dans ses graphes
+
+Le paquet **Behavior** fait communiquer ses graphes par… un canal d'événement.
+
+- **Send Event Message** publie ; **Start On** et **Wait for Event Message** écoutent
+- le canal naît dans le Blackboard : `+` › *Events* › *Create new event channel type*
+- pour relier **deux graphes**, un asset partagé : *Create › Behavior › Event Channels*
+- la classe générée dérive de `EventChannel<T>` — donc d'un **ScriptableObject**
+
+Note:
+`com.unity.behavior`, 1.0.16 pour Unity 6.3. Le point à faire passer : le canal
+en ScriptableObject n'est pas une astuce de forum, c'est l'architecture que
+Unity a retenue pour son propre outil de comportement. La même idée que la
+slide précédente, livrée dans la boîte.
+
+Un graphe qui écoute avec *Start On Event Message* démarre quand l'annonce
+tombe ; *Wait for* met la branche en pause jusque-là. C'est l'Observer, avec
+une boîte à la place du `+=`.
+
+---
+
+## Le canal de Behavior, vu du C#
+
+```csharp
+// Unity.Behavior : EventChannel<T> derive de EventChannelBase : ScriptableObject
+// La classe generee par le graphe en herite.
+
+[SerializeField] private ItemCollecte canal;   // l'asset, glisse dans l'Inspector
+
+void OnEnable()  => canal.Event += Afficher;
+void OnDisable() => canal.Event -= Afficher;
+
+private void Afficher(int restantes) { /* … */ }
+
+// publier depuis un script, vers tous les graphes abonnes :
+canal.SendEventMessage(restantes);
+```
+
+Un asset, un `event`, `+=` et `-=` : **exactement** le canal de la slide précédente.
+
+Note:
+`public event EventChannel<T0>.EventHandlerDelegate Event`, et le délégué est
+`void EventHandlerDelegate(T0 value0)`. Côté graphe, les nœuds passent par
+`RegisterListener` / `UnregisterListener`, qui sont la même chose vue depuis
+des `Delegate` non typés.
+
+L'intérêt pour eux : un designer câble son graphe, un programmeur écoute le
+même canal en C#, et aucun des deux n'a besoin de l'autre pour avancer.
+
+---
+
 ## Laquelle choisir ?
 
 | | `event Action` | `UnityEvent` | Canal en SO |
@@ -366,13 +417,20 @@ rien.
 
 ## Atelier — 20 min
 
-Sur la branche `01-srp` du Dungeon Crawler : couper le lien `PlayerHealth → HealthBar` avec un événement, puis ajouter un son sans toucher à `PlayerHealth`.
+Un platformer où l'on ramasse cinq gemmes, branche `01-depart` : **tout y est couplé**. On démonte, dans l'ordre des trois mécanismes.
+
+<small>[[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|Énoncé]] · [GPR-UN-APU-05 — Observer](https://github.com/StudioAlbert/GPR-UN-APU-05---Observer)</small>
 
 Note:
-Énoncé : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|exercice 1]].
-Critère de réussite : `PlayerHealth` ne contient plus aucune référence à
-une classe d'UI ou d'audio, et désactiver la barre de vie en jeu ne
-déclenche aucune erreur.
+Les trois étapes : `Item` annonce au lieu d'appeler ; le panneau de fin
+passe en `UnityEvent` câblé dans l'Inspector ; le son arrive par un canal
+en SO.
+
+Le critère de réussite est la **troisième** étape : ils ajoutent un système
+entier sans rouvrir `Item.cs` ni `ItemManager.cs`. C'est la seule chose
+qu'ils doivent retenir du TP, et elle ne se démontre qu'en la faisant.
+
+La branche `main` est le corrigé — ne la montrer qu'à la fin.
 
 ---
 

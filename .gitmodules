@@ -53,3 +53,7 @@
 	path = 01 courses/companion projects/C++/GPR-CF-SBD-XX---Box2D-Examples
 	url = https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples.git
 	branch = main
+[submodule "01 courses/companion projects/Unity/GPR-UN-APU-05---Observer"]
+	path = 01 courses/companion projects/Unity/GPR-UN-APU-05---Observer
+	url = https://github.com/StudioAlbert/GPR-UN-APU-05---Observer.git
+	branch = main

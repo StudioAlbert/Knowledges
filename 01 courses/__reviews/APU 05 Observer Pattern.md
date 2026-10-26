@@ -6,9 +6,21 @@ slides:
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|Exos APU-05]]"
 ---
-- [ ] Proposer Atelier
-	- [ ] Proposition
-		- [ ] le jeu est un platformer
+- [x] Ajouter les events du Behaviour Graph dans les slides
+- [x] Proposer Atelier
+	- [x] Proposition
+		- [x] le jeu est un platformer
+		- [ ] Assets 2D : https://pixelfrog-assets.itch.io/treasure-hunters — **non récupéré** : vérification anti-bot Cloudflare sur itch.io, que je ne contourne pas. Monté avec [Kenney Pixel Platformer](https://kenney.nl/assets/pixel-platformer), CC0 lui aussi. L'échange tient en un remplacement de sprites sur `Gemme.prefab`, le joueur et les plateformes.
+		- [x] Assets audio : https://kenney.nl/assets/rpg-audio
+		- [x] un personnage basique peut collecter des items
+		- [x] Une fois collecté l'ensemble des items, on affiche un panneau Finish
+	- [x] Montage / Implémentation
+		- [x] Sound Manager
+		- [x] Item to Item Manager : C# Action
+		- [x] Item Manager : Unity Event
+		- [x] Generalisation via Scriptable Events : ouverture aux autres systèmes
+	- [x] Créer le jeu companion via Unity CLI, l'ajouter dans le Vaultcomm sub module (git url : https://github.com/StudioAlbert/GPR-UN-APU-05---Observer.git)
+	- [x] Rédiger Fiche exercices en fonction
 - [x]  Faire propositions dans cette note des différentes situations dans un jeu de voiture qui permettent d'utiliser le pattern; relier ces situations a une implementation parmi les 3 identifiées 
 
 - Sources :
@@ -38,6 +50,28 @@ exercices:
 > [[Programme 2027-2028 - APU]] garde *ScriptableObjects — architecture data-driven* : ce
 > n'est pas un lien, c'est le titre du programme GSDA, cité exprès en face de ce qu'on
 > enseigne vraiment.
+
+## Traité le 27.10 — l'atelier a son companion
+
+**[GPR-UN-APU-05 — Observer](https://github.com/StudioAlbert/GPR-UN-APU-05---Observer)**, sous-module, Unity 6000.3.25f1 en URP 2D. Un platformer où l'on ramasse cinq gemmes ; quand il n'en reste plus, un panneau s'affiche.
+
+Deux branches : `01-depart` est la version **tout couplée**, `main` le corrigé. Entre les deux, les trois mécanismes du cours, dans l'ordre où l'atelier les pose.
+
+| Étape | Mécanisme | Ce qu'elle démontre |
+|---|---|---|
+| 1 | `event Action` | `Item` annonce au lieu d'appeler |
+| 2 | `UnityEvent` | le panneau de fin, câblé dans l'Inspector, **sans un script** |
+| 3 | canal en SO | le son s'ajoute **sans rouvrir** `Item.cs` ni `ItemManager.cs` |
+
+La troisième étape est le critère de réussite : c'est la seule qui ne se démontre qu'en la faisant.
+
+- **Vérifié dans l'éditeur**, sur les deux branches : les cinq gemmes se ramassent, le compteur descend, le panneau s'allume à zéro, zéro erreur console.
+- **Deck** : deux slides ajoutées sur les canaux d'événement du **Behavior Graph** (`com.unity.behavior` 1.0.16) — les nœuds *Send / Start On / Wait for Event Message*, puis le pont C# `canal.Event += …`. L'argument : `EventChannelBase` dérive de `ScriptableObject`, donc Unity a retenu **exactement** l'architecture de la slide précédente.
+- **Atelier** réécrit : trois étapes en classe, cinq pistes à la maison. Le Dungeon Crawler n'est plus le terrain de jeu — les slides qui y renvoyaient ont été repointées.
+- Assets : deux packs **CC0** de Kenney, commités dans le dépôt comme pour le Dungeon Crawler.
+
+> [!question] À trancher
+> Le widget `observer_bus_widget.html` reste proposé et non fait. L'atelier le rend moins utile — ils voient désormais la chaîne tourner dans un vrai jeu.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 

@@ -4,7 +4,8 @@ type: seance
 code: GPR-UN-APU-05
 review:
   - "[[01 courses/__reviews/APU 05 Observer Pattern|Review APU-05]]"
-status: To prepare
+status: To check
+url_test: http://localhost:3000/unity/gpr-un-apu-05/
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
@@ -31,10 +32,11 @@ Le pattern Observer : sujet, observateurs, abonnement ; `event Action`, `UnityEv
 
 ## Ce qu'il y a à faire
 
-**Deck créé le 28.09** à partir des sources de la révision — plus rien à découper dans `scriptable_objects`.
+**Deck créé le 28.09**, **atelier monté le 27.10** sur son propre companion.
 
-- **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]] — 21 slides, `publish: false`, 2 schémas générés (`tools/schemas/apu05_*.py`).
-- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|atelier]] rédigé (Dungeon Crawler, branche `01-srp`) ; pistes 2 à 6 en overview.
+- **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]] — 23 slides, 2 schémas générés (`tools/schemas/apu05_*.py`). Les deux dernières ajoutées : les canaux d'événement du **Behavior Graph**.
+- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|atelier]] réécrit sur le companion — trois étapes en classe, cinq pistes à la maison.
+- **Companion** : [[01 courses/companion projects/Unity/GPR-UN-APU-05---Observer/README|GPR-UN-APU-05 — Observer]], sous-module. `01-depart` est la version couplée, `main` le corrigé.
 - **Widget proposé, non fait** : `observer_bus_widget.html` — un sujet, un bus, quatre abonnés qui s'allument ; désabonner, détruire sans désabonner (abonné fantôme).
 
 ## Matériel
