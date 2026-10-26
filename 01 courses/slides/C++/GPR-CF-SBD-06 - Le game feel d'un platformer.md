@@ -150,7 +150,7 @@ b2CreatePolygonShape(heros, &def, &pieds);
 Un **capteur** traverse tout et signale ce qu'il traverse. C'est la bonne
 réponse à « est-ce que je touche le sol ».
 
-<small>Exemple : [04-ZeroGravity](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/04-ZeroGravity)</small>
+<small>Exemple : [04-ZeroGravity](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/main/04-ZeroGravity)</small>
 
 ---
 

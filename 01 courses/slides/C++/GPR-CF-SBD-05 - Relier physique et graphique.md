@@ -110,7 +110,7 @@ sprite_.setRotation(sf::radians(-b2Rot_GetAngle(b2Body_GetRotation(corps_))));
 Box2D compte en **radians**, SFML en **degrés** — et dans le sens opposé, pour
 la même raison que l'axe Y.
 
-<small>Exemple : [03-BouncingAdvanced](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/03-BouncingAdvanced)</small>
+<small>Exemple : [03-BouncingAdvanced](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/main/03-BouncingAdvanced)</small>
 
 Note:
 `sf::radians` et `sf::degrees` existent depuis SFML 3 : `sf::Angle` est un type,
@@ -172,7 +172,7 @@ if (a && b) { a->Touche(*b); b->Touche(*a); }
 
 `userData` est le fil qui ramène de la forme physique à **votre** objet de jeu.
 
-<small>Exemple : [02-BouncingAndCollsions](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/02-BouncingAndCollsions)</small>
+<small>Exemple : [02-BouncingAndCollsions](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/main/02-BouncingAndCollsions)</small>
 
 Note:
 La première ligne est le piège de Box2D 3 : `enableContactEvents` vaut **false**
@@ -213,7 +213,7 @@ booléen naïf il peut sauter en l'air indéfiniment.
 **On vérifie** : le sprite suit exactement le corps, et `au sol` est vrai posé,
 faux en l'air.
 
-<small>Exemples : [02-Bouncing](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/02-Bouncing) · [05-SpriteMovement](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/master/05-SpriteMovement) · [Views.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp)</small>
+<small>Exemples : [02-Bouncing](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/main/02-Bouncing) · [05-SpriteMovement](https://github.com/StudioAlbert/GPR-CF-SBD-XX---Box2D-Examples/tree/main/05-SpriteMovement) · [Views.cpp](https://github.com/StudioAlbert/GPR-CF-SBD-XX---SFML-Examples/blob/main/Views/Views.cpp)</small>
 
 Note:
 `Motor` est le seul du dépôt à ressembler à un vrai jeu — le lire pour voir où la
