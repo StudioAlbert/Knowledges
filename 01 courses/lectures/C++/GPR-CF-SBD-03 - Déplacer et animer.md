@@ -2,7 +2,7 @@
 title: Déplacer et animer
 type: seance
 code: GPR-CF-SBD-03
-status: To check
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D

@@ -2,14 +2,14 @@
 title: Le monde Box2D
 type: seance
 code: GPR-CF-SBD-04
-status: To check
+status: Ready
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 0.78125
+manual_order: 0.875
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault

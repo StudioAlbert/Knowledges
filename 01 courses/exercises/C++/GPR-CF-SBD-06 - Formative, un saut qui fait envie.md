@@ -39,7 +39,7 @@ comptent autant.
 2. **Elle est réglable** : ses valeurs sont dans votre fichier de réglages, nommées, avec
    leur unité. Pas de nombre magique au milieu du contrôleur.
 3. **Vous l'avez réglée en jouant**, pas en calculant. 
-4. On doit pouvoir **activer/désactiver** l'amélioration une fois le jeu lancé grâce à une Touche afin d'en faire la démonstration lors des playtests.
+4. On doit pouvoir **activer/désactiver** l'amélioration une fois le jeu lancé grâce à une touche afin d'en faire la démonstration lors des playtests.
 
 > [!warning] Le point qui coûte des points
 > Une technique qu'on ne peut pas éteindre ne se démontre pas. Si personne ne peut jouer
