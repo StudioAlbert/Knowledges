@@ -1,6 +1,7 @@
 ---
 slides: "[[01 courses/slides/C++/GPR-CF-SBD-04 - Le monde Box2D]]"
 ---
+- [x] la conversion est fausse 180px <-> 1,8 m = 100px/m et non 32px/m
 - [x] Aller sur Box2D la plus recente, adapter les decks, creer 2 exemples dans le companion (Physique simple + Contacts)
 
 ## Traité le 20.10 — Box2D 3.2
@@ -48,3 +49,34 @@ les decks.
 > donc aucun moyen de l'essayer. Les signatures viennent de la doc 3.2, mais une ligne qui
 > se lit bien n'est pas une ligne qui compile — en particulier `b2Pos` et
 > `b2World_SetPreSolveCallback`, dont je n'ai lu que la déclaration.
+
+## Traité le 26.10 — la conversion passe à 100 px/m
+
+Tu avais raison, et le chiffre était le tien : `180 / 1,8 = 100`, pas 32. Le schéma
+montrait un héros de 180 px en face d'un héros de 1,8 m, et annonçait un facteur de
+32 px/m juste entre les deux.
+
+J'ai gardé **100 px/m** plutôt que de rapetisser le héros à 57,6 px. Deux raisons :
+
+- un mètre vaut cent pixels, donc la conversion se vérifie de tête, sans calculette ;
+- les sprites fournis dans `_Resources/sprites/` sont grands — à 32 px/m, un
+  personnage Cuphead mesurerait cinq mètres.
+
+| Fichier | Ce qui change |
+|---|---|
+| `tools/schemas/sbd04_metres_pixels.py` | `1 m = 100 px`, et les deux formules |
+| `00 images/sbd04_metres_pixels.svg` | régénéré, 23 éléments |
+| Deck SBD-05, *Une seule classe sait convertir* | `kPixelsParMetre = 100.f` |
+| Summative, *Les réglages* | `kPixelsParMetre = 100.f` |
+
+La phrase « le jour où il devient `48` » devient « le jour où il devient `64` » :
+48 était un multiple de 32, il ne voulait plus rien dire à côté de 100.
+
+Le reste du deck SBD-04 est juste : `b2MakeBox(0.4f, 0.9f)` décrit bien un héros de
+0,8 m sur 1,8 m, puisque ce sont des **demi**-dimensions.
+
+> [!done] Les deux exemples du companion
+> La case « creer 2 exemples dans le companion » était cochée mais les cibles
+> n'existaient pas. Le dépôt `GPR-CF-SBD-XX---Box2D-Examples` existe en revanche,
+> et tu l'as poussé le 26.10 — voir la fiche générale `GPR-CF-SBD-xx - SFML` pour
+> son état et son portage.

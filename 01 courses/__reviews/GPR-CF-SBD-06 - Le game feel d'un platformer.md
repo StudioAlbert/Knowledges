@@ -1,6 +1,9 @@
 ---
-slides: "[[01 courses/slides/C++/GPR-CF-SBD-06 - Les ficelles d'un platformer]]"
+slides: "[[01 courses/slides/C++/GPR-CF-SBD-06 - Le game feel d'un platformer]]"
 ---
+- [x] intégrer widget dans les slides 
+- [x] ficelle ???? le terme est mal traduit (Astuces ? Features ?)
+- [x] Présenter dans l'ordre suivant GamePlay avec slides de widget -> Exemples de code box2D
 - [x] Rajouter animation faisant demonstration avec des différents principes
 	- [x] Trouver le sprite le plus adapté parmi ceux fournis dans la sesson Code ou les ressources du companion (si possible CupHead)
 - [x] Atelier : rédigé une fiche qui sera donné en formative
@@ -59,3 +62,69 @@ questions à chaque poste, trente secondes avec la ficelle **éteinte**, et chac
 avec les remarques écrites par les autres. Le rendu final tient en six lignes — les valeurs
 essayées, et ce qui a changé après le playtest. C'est ce dernier point qui est le vrai
 exercice.
+
+## Traité le 26.10 — le mot, l'ordre, et un rappel qui avait changé
+
+### « ficelle » devient « game feel »
+
+Tu as tranché pour le terme du métier. Le concept est **le game feel**, et chaque
+élément est **une technique** — un mot dénombrable, ce que « game feel » n'est pas.
+
+Trois fichiers renommés, et la séance avec :
+
+| Avant | Après |
+|---|---|
+| `GPR-CF-SBD-06 - Les ficelles d'un platformer` | `GPR-CF-SBD-06 - Le game feel d'un platformer` |
+| « une ficelle », « sept ficelles » | « une technique », « sept techniques » |
+| « Les ficelles sont là » *(summative)* | « Le game feel est là » |
+
+Touchés : la note de séance, le deck, cette fiche, la summative, la formative, le
+widget et l'inventaire `00 widgets/README.md`. **Plus aucune occurrence** du mot
+hors `_archive/`, qu'on ne touche pas.
+
+### L'ordre que tu demandais
+
+Le deck est en **deux moitiés**, gameplay puis code, comme demandé.
+
+**Ce que le joueur sent** — aucune ligne de C++ :
+
+- le widget, qui ouvre maintenant la séance
+- ce qui rend un saut agréable
+- le wall jump
+- l'accessibilité
+
+**Et dans le code** — Box2D, une fois qu'ils ont vu :
+
+- « au sol » n'est pas un contact
+- le capteur de sol, puis le compteur
+- le coyote time, puis le jump buffer
+- l'arête des tuiles, puis la plateforme à sens unique
+
+Vingt slides au lieu de vingt-et-une : les trois titres de section — *Le sol*, *Le
+saut*, *Le fun* — deviennent deux. La note de présentation de la slide du widget
+dit de ne rien coder à ce moment-là.
+
+### Deux erreurs de code trouvées en vérifiant
+
+Les en-têtes de **Box2D 3.2.0** sont clonés et lus, pas cités de mémoire.
+
+> [!bug] Le saut ne compilait pas
+> La slide du coyote time appelait `corps_->SetLinearVelocity(...)` — de la
+> syntaxe Box2D **2.x**, avec une variable `v` qui n'existait nulle part. C'est
+> maintenant `b2Body_GetLinearVelocity` puis `b2Body_SetLinearVelocity`.
+
+> [!bug] Le rappel pre-solve a changé en 3.2
+> Il renvoyait un `bool` en 3.0 et 3.1 ; en **3.2 il renvoie `void`**, et on annule
+> la collision en mettant `manifold->pointCount` à zéro. La slide de la plateforme
+> à sens unique est corrigée, et sa note prévient que les exemples trouvés en ligne
+> ne compileront pas.
+>
+> Au passage, « le seul rappel qui reste dans Box2D 3 » était faux : il reste aussi
+> le filtrage personnalisé et le pre-continuous. La slide dit maintenant ce qui est
+> vrai — c'est le seul endroit où l'on intervient **pendant** la simulation.
+
+### La slide de fin disait le contraire de la formative
+
+Elle affirmait « cette séance n'a **pas** d'exercice à elle » alors que la
+formative existe et est liée depuis la note. Elle présente maintenant la
+formative et le playtest, et garde le lien vers la summative.

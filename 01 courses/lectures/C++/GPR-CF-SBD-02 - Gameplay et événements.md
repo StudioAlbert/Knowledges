@@ -2,7 +2,7 @@
 title: Gameplay et événements
 type: seance
 code: GPR-CF-SBD-02
-status: To prepare
+status: To check
 projet: Module 1 — 7 sept. → 13 nov. 2026
 subject: C++
 bloc_gsda: SFML et Box2D
@@ -14,6 +14,7 @@ estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-28
+url_test: http://localhost:3001/cpp/gpr-cf-sbd-02/
 review:
   - "[[01 courses/__reviews/GPR-CF-SBD-02 - Gameplay et événements|Review SBD-02]]"
   - "[[GPR-CF-SBD-xx - SFML]]"
@@ -30,16 +31,15 @@ review:
 
 ## Ce qu'il y a à faire
 
-**Découper un deck existant.** `10 - SFML` (10,3 ko) porte 3 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-SBD-01`, `GPR-CF-SBD-03` — les découper en une seule passe évite de rouvrir le deck 3 fois.
+Le découpage est fait et le deck est rédigé. Le support d'origine reste cité sous
+*Matériel*.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02 - Gameplay et événements]] — 15 slides, `publish: false` · widgets proposés : `vue_camera_widget.html`, `spritesheet_widget.html`.
-> - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 2**.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Rédigé — relu le 2026-10-26
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-SBD-02 - Gameplay et événements|GPR-CF-SBD-02 - Gameplay et événements]] — 18 slides, atelier d'1 h compris.
+> - **Démonstration** : cibles `Events-a` à `-d`, `Audio` et `Sound` du dépôt d'exemples SFML.
+> - **Rendu** : [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]], le seul exercice de la série.
 
 ## Matériel
 

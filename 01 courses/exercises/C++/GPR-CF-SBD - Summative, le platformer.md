@@ -4,8 +4,7 @@ seances: [GPR-CF-SBD-01, GPR-CF-SBD-02, GPR-CF-SBD-03, GPR-CF-SBD-04, GPR-CF-SBD
 # Summative — le platformer
 
 **Le rendu de la série**, à remettre à la fin de la sixième séance. Vous ne partez pas de
-zéro : c'est le projet que vous construisez depuis la première heure, étape par étape, dans
-[[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]].
+zéro : c'est le projet que vous construisez depuis la première heure, un atelier par séance.
 
 ---
 
@@ -48,7 +47,7 @@ rate de deux pixels. C'est ce réglage-là qui est évalué, pas la quantité de
 ## Et de quoi rendre le jeu **fun**
 
 Piochez dans cette liste ce qui rendra votre jeu agréable à jouer. Il n'y a pas de quota :
-mieux vaut deux ficelles bien réglées que six à moitié faites.
+mieux vaut deux techniques bien réglées que six à moitié faites.
 
 - **Saut maintenu** — la hauteur dépend du temps pendant lequel la touche reste enfoncée.
 - **Coyote time** — le saut reste possible quelques centièmes de seconde après avoir quitté
@@ -64,28 +63,8 @@ mieux vaut deux ficelles bien réglées que six à moitié faites.
 
 ## Les réglages ne se cherchent pas dans le code
 
-C'est l'exigence qui vient du cahier des charges d'origine, et c'est celle qui coûte le plus
-cher si on l'ignore.
-
-**Toutes** les valeurs de gameplay — vitesse, hauteur de saut, gravité, coyote time, facteur
-mètre/pixel — vivent **à un seul endroit**, et nulle part ailleurs.
-
-```cpp
-// un fichier de réglages — le seul qu'on ouvre pour régler le jeu
-namespace reglages {
-
-inline constexpr float kPixelsParMetre = 32.f;
-inline constexpr float kVitesseMarche = 6.f;      // m/s
-inline constexpr float kImpulsionSaut = 9.f;      // m/s
-inline constexpr float kGravite = 24.f;           // m/s²
-inline constexpr float kCoyoteTime = 0.08f;       // s
-
-}  // namespace reglages
-```
-
-Le nom du fichier vous appartient, et un fichier de configuration lu au démarrage vaut mieux
-encore — on règle sans recompiler. Ce qui compte, c'est qu'**aucune valeur de gameplay ne
-soit écrite en dur ailleurs**.
+Les réglages du jeu — saut, vitesse, gravité — vivent dans **un seul et même fichier**. Le
+nom de ce fichier vous appartient.
 
 > [!tip] Le test que vous pouvez faire vous-même
 > Doublez la valeur du saut dans votre fichier de réglages, et recompilez. Si le personnage
@@ -103,7 +82,7 @@ Un seul dépôt git, avec :
 | **le jeu** | il compile en une commande (`cmake -S . -B build`, `cmake --build build`) et se lance sans réglage manuel |
 | **le code** | **six commits au moins**, un par étape, qui racontent la construction |
 | **un fichier de réglages** | toutes les valeurs de gameplay, nommées et commentées avec leur unité |
-| **`README.md`** | les touches, les ficelles que vous avez ajoutées, et comment lancer le jeu |
+| **`README.md`** | les touches, les techniques que vous avez ajoutées, et comment lancer le jeu |
 
 ---
 
@@ -114,7 +93,7 @@ Un seul dépôt git, avec :
 | **Ça marche**                 | le jeu compile, se lance, se termine. Un jeu qui ne compile pas ne s'évalue pas.        |
 | **Le saut est bon**           | quelqu'un d'autre que vous y joue cinq minutes sans s'énerver.                          |
 | **Le code se lit**            | une classe par responsabilité, le schéma de conception de PCL-01 encore reconnaissable. |
-| **Les ficelles sont là** | les options choisies marchent, et elles se sentent en jouant. |
+| **Le game feel est là** | les options choisies marchent, et elles se sentent en jouant. |
 
 ## Avant de rendre, cochez
 

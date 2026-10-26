@@ -27,11 +27,11 @@ le sol ^el729476553
 
 tout est en mètres ^el202207254
 
-1 m = 32 px ^el669494850
+1 m = 100 px ^el669494850
 
-Metres(pixels) = pixels / 32 ^el192677283
+Metres(pixels) = pixels / 100 ^el192677283
 
-Pixels(metres) = metres * 32 ^el108018158
+Pixels(metres) = metres * 100 ^el108018158
 
 un seul nombre, écrit une seule fois ^el838970604
 
@@ -657,9 +657,9 @@ Oublier la conversion : un héros de 180 mètres, une gravité qui paraît nulle
     {
       "id": "el669494850",
       "type": "text",
-      "x": 459.5,
+      "x": 454.0,
       "y": 102.0,
-      "width": 121.0,
+      "width": 132.0,
       "height": 25.0,
       "angle": 0,
       "strokeColor": "#E30613",
@@ -680,23 +680,23 @@ Oublier la conversion : un héros de 180 mètres, une gravité qui paraît nulle
       "updated": 1758499200000,
       "link": null,
       "locked": false,
-      "text": "1 m = 32 px",
+      "text": "1 m = 100 px",
       "fontSize": 20,
       "fontFamily": 3,
       "textAlign": "left",
       "verticalAlign": "top",
       "baseline": 16,
       "containerId": null,
-      "originalText": "1 m = 32 px",
+      "originalText": "1 m = 100 px",
       "lineHeight": 1.25,
       "autoResize": true
     },
     {
       "id": "el192677283",
       "type": "text",
-      "x": 412.2,
+      "x": 408.4,
       "y": 162.0,
-      "width": 215.6,
+      "width": 223.3,
       "height": 17.5,
       "angle": 0,
       "strokeColor": "#555555",
@@ -717,23 +717,23 @@ Oublier la conversion : un héros de 180 mètres, une gravité qui paraît nulle
       "updated": 1758499200000,
       "link": null,
       "locked": false,
-      "text": "Metres(pixels) = pixels / 32",
+      "text": "Metres(pixels) = pixels / 100",
       "fontSize": 14,
       "fontFamily": 3,
       "textAlign": "left",
       "verticalAlign": "top",
       "baseline": 11,
       "containerId": null,
-      "originalText": "Metres(pixels) = pixels / 32",
+      "originalText": "Metres(pixels) = pixels / 100",
       "lineHeight": 1.25,
       "autoResize": true
     },
     {
       "id": "el108018158",
       "type": "text",
-      "x": 412.2,
+      "x": 408.4,
       "y": 208.0,
-      "width": 215.6,
+      "width": 223.3,
       "height": 17.5,
       "angle": 0,
       "strokeColor": "#555555",
@@ -754,14 +754,14 @@ Oublier la conversion : un héros de 180 mètres, une gravité qui paraît nulle
       "updated": 1758499200000,
       "link": null,
       "locked": false,
-      "text": "Pixels(metres) = metres * 32",
+      "text": "Pixels(metres) = metres * 100",
       "fontSize": 14,
       "fontFamily": 3,
       "textAlign": "left",
       "verticalAlign": "top",
       "baseline": 11,
       "containerId": null,
-      "originalText": "Pixels(metres) = metres * 32",
+      "originalText": "Pixels(metres) = metres * 100",
       "lineHeight": 1.25,
       "autoResize": true
     },

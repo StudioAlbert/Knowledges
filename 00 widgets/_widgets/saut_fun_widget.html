@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Un saut qui fait envie — les ficelles, côte à côte</title>
+<title>Un saut qui fait envie — le game feel, côte à côte</title>
 <script>if (window.self !== window.top || /[?&]embed(&|=|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap");
@@ -103,7 +103,7 @@ html.embed .scene canvas { flex: 1; min-height: 0; object-fit: contain; }
     <div>
         <h1>Un saut qui <span class="hl">fait envie</span></h1>
         <p class="sub">Deux coureurs, le même niveau, <b>la même touche au même instant</b>.
-            Celui du haut n'a aucune ficelle, celui du bas en a une. C'est la seule
+            Celui du haut n'a aucune technique, celui du bas en a une. C'est la seule
             différence — et elle décide qui passe.</p>
     </div>
 </header>
@@ -120,7 +120,7 @@ html.embed .scene canvas { flex: 1; min-height: 0; object-fit: contain; }
 
 <p class="verdict" id="verdict">&nbsp;</p>
 
-<footer>SAE Institute Genève — GPR-CF-SBD-06, les ficelles d'un platformer.</footer>
+<footer>SAE Institute Genève — GPR-CF-SBD-06, le game feel d'un platformer.</footer>
 
 </div>
 
@@ -145,8 +145,8 @@ const COYOTE = 0.12;       // s
 const TAMPON = 0.15;       // s
 const PAS = 1 / 240;       // le pas des sondes, fixe
 
-function neuf(plats, ficelles) {
-    return {plats, f: ficelles, x: 40, y: SOL, vy: 0, sol: true,
+function neuf(plats, techniques) {
+    return {plats, f: techniques, x: 40, y: SOL, vy: 0, sol: true,
             coyote: 0, tampon: 0, tombe: false, fini: false, trace: []};
 }
 
@@ -185,8 +185,8 @@ function avancer(c, dt, presse, relache) {
 }
 
 // Rejoue une course entiere avec une liste d'appuis, et rend ce qu'on veut savoir.
-function simuler(plats, ficelles, appuis) {
-    const c = neuf(plats, ficelles);
+function simuler(plats, techniques, appuis) {
+    const c = neuf(plats, techniques);
     let t = 0, quitte = 0, atterrit = 0, sommet = SOL;
     while (t < 9 && !c.fini) {
         const avant = t, etaitSol = c.sol;
@@ -228,25 +228,25 @@ function appuisDe(cle) {
 const SCENARIOS = {
     coyote: {
         onglet: "J'ai appuyé trop tard",
-        ficelle: "coyote", nom: "coyote time",
+        technique: "coyote", nom: "coyote time",
         consigne: "La touche part <b>80 ms après</b> avoir quitté le bord. Sans coyote time, " +
                   "le saut n'a jamais lieu : le personnage n'est déjà plus au sol."
     },
     buffer: {
         onglet: "J'ai appuyé trop tôt",
-        ficelle: "buffer", nom: "jump buffer",
+        technique: "buffer", nom: "jump buffer",
         consigne: "Le second appui part <b>100 ms avant</b> de toucher la plateforme du " +
                   "milieu. Sans jump buffer, il est perdu — et le trou suivant arrive."
     },
     variable: {
         onglet: "J'ai juste tapé la touche",
-        ficelle: "variable", nom: "hauteur variable",
+        technique: "variable", nom: "hauteur variable",
         consigne: "La touche est relâchée après <b>70 ms</b>. Sans hauteur variable, le saut " +
                   "part toujours au maximum : impossible de faire un petit saut."
     },
     asym: {
         onglet: "Le saut est mou",
-        ficelle: "asym", nom: "gravité asymétrique",
+        technique: "asym", nom: "gravité asymétrique",
         consigne: "Même impulsion, même appui. Avec une gravité <b>deux fois plus forte à " +
                   "la descente</b>, la courbe se penche et le saut devient nerveux."
     }
@@ -271,7 +271,7 @@ function lancer() {
     const s = SCENARIOS[scenario];
     pistes = [
         {c: neuf(s.plats, {}), titre: "sans " + s.nom, dy: 0, couleur: "#E30613"},
-        {c: neuf(s.plats, {[s.ficelle]: true}), titre: "avec " + s.nom, dy: 160, couleur: "#2e9e5b"}
+        {c: neuf(s.plats, {[s.technique]: true}), titre: "avec " + s.nom, dy: 160, couleur: "#2e9e5b"}
     ];
     temps = 0;
     $("verdict").innerHTML = "&nbsp;";
@@ -339,9 +339,9 @@ function verdict() {
 
     if (scenario === "asym" || scenario === "variable") {
         const hs = simuler(s.plats, {}, s.appuis).sommet;
-        const ha = simuler(s.plats, {[s.ficelle]: true}, s.appuis).sommet;
+        const ha = simuler(s.plats, {[s.technique]: true}, s.appuis).sommet;
         $("verdict").innerHTML = scenario === "variable"
-            ? "Même appui : <b>" + hs + " px</b> de haut sans la ficelle, <b>" + ha +
+            ? "Même appui : <b>" + hs + " px</b> de haut sans la technique, <b>" + ha +
               " px</b> avec. En haut, la touche tapée vaut la touche tenue."
             : "Même hauteur — <b>" + hs + " px</b> contre <b>" + ha +
               " px</b> — mais regardez les courbes : celle du bas retombe deux fois plus vite.";

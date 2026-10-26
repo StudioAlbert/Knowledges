@@ -9,11 +9,12 @@ bloc_gsda: SFML et Box2D
 specialisation: "[[C++ Fondamentaux]]"
 classes:
   - GP-926
-manual_order: 5
+manual_order: 4.5
 estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-29
+url_test: http://localhost:3001/cpp/gpr-cf-sbd-05/
 review:
   - "[[01 courses/__reviews/GPR-CF-SBD-05 - Relier physique et graphique|Review SBD-05]]"
   - "[[GPR-CF-SBD-xx - SFML]]"
@@ -30,16 +31,15 @@ Copier les valeurs du monde physique vers le monde graphique, déplacer le perso
 
 ## Ce qu'il y a à faire
 
-**Découper un deck existant.** `11 - Box 2D` (9,5 ko) porte 3 heures de ce lot : en extraire la tranche d'1 h correspondant au contenu ci-dessus. Les autres tranches vont à `GPR-CF-SBD-04`, `GPR-CF-SBD-06` — les découper en une seule passe évite de rouvrir le deck 3 fois.
+Le découpage est fait et le deck est rédigé. Le support d'origine reste cité sous
+*Matériel*.
 
-## Plan et exercices — overview à valider
+## Plan et exercices
 
-> [!todo] Produit les 27 et 28 septembre 2026, en attente de validation
-> - **Plan du deck** : [[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05 - Relier physique et graphique]] — 13 slides, `publish: false` · widgets proposés : `forces_widget.html` ; 1 schéma à dessiner.
-> - **Exercices** : une seule feuille pour toute la série — [[01 courses/exercises/C++/GPR-CF-SBD - Le platformer, etape par etape|Le platformer, étape par étape]]. Cette séance en est l'**étape 5**.
->
-> Rien n'est rédigé : chaque slide ne porte qu'un titre et une phrase directrice, chaque
-> exercice qu'une piste de deux ou trois lignes. C'est la base des développements à venir.
+> [!done] Rédigé — relu le 2026-10-26
+> - **Deck** : [[01 courses/slides/C++/GPR-CF-SBD-05 - Relier physique et graphique|GPR-CF-SBD-05 - Relier physique et graphique]] — 15 slides, atelier d'1 h compris.
+> - **Démonstration** : cibles `Views` et `Motor` du dépôt d'exemples SFML.
+> - **Rendu** : [[01 courses/exercises/C++/GPR-CF-SBD - Summative, le platformer|Summative — le platformer]], le seul exercice de la série.
 
 ## Matériel
 
@@ -50,7 +50,7 @@ Copier les valeurs du monde physique vers le monde graphique, déplacer le perso
 ## Liens
 
 - Séance précédente : [[GPR-CF-SBD-04 - Le monde Box2D]]
-- Séance suivante : [[GPR-CF-SBD-06 - Les ficelles d'un platformer]]
+- Séance suivante : [[GPR-CF-SBD-06 - Le game feel d'un platformer]]
 
 ## Notes de préparation
 

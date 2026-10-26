@@ -39,11 +39,11 @@ fig.arrow((360, 150), (680, 150), width=3, color=RED)
 fig.arrow((680, 196), (360, 196), width=3, color=INK)
 
 fig.rect(400, 92, 240, 48, stroke=RED, fill="#ffffff", width=2.5, radius=10)
-fig.text(520, 122, "1 m = 32 px", size=20, weight=800, color=RED, mono=True)
+fig.text(520, 122, "1 m = 100 px", size=20, weight=800, color=RED, mono=True)
 
-fig.text(520, 176, "Metres(pixels) = pixels / 32", size=14, weight=700,
+fig.text(520, 176, "Metres(pixels) = pixels / 100", size=14, weight=700,
          color=SOFT, mono=True, halo=False)
-fig.text(520, 222, "Pixels(metres) = metres * 32", size=14, weight=700,
+fig.text(520, 222, "Pixels(metres) = metres * 100", size=14, weight=700,
          color=SOFT, mono=True, halo=False)
 
 fig.text(520, 262, "un seul nombre, écrit une seule fois", size=14, weight=800, color=INK)

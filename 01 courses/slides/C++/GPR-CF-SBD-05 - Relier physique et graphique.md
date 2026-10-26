@@ -58,7 +58,7 @@ Les trois se trompent facilement, et aucun ne produit d'erreur.
 // conversion.h — le seul endroit du projet qui connaît le facteur
 namespace monde {
 
-inline constexpr float kPixelsParMetre = 32.f;
+inline constexpr float kPixelsParMetre = 100.f;
 
 constexpr float Metres(float pixels) { return pixels / kPixelsParMetre; }
 constexpr float Pixels(float metres) { return metres * kPixelsParMetre; }
@@ -66,8 +66,8 @@ constexpr float Pixels(float metres) { return metres * kPixelsParMetre; }
 }  // namespace monde
 ```
 
-Si `32` apparaît ailleurs dans votre code, vous avez déjà le bug : le jour où
-il devient `48`, il n'en changera qu'un sur deux.
+Si `100` apparaît ailleurs dans votre code, vous avez déjà le bug : le jour où
+il devient `64`, il n'en changera qu'un sur deux.
 
 ---
 
@@ -230,4 +230,4 @@ la conversion est rangée.
 
 ### Prochaine séance
 
-<small>[[01 courses/slides/C++/GPR-CF-SBD-06 - Les ficelles d'un platformer|GPR-CF-SBD-06]] — tout ce qui rend un saut agréable, et qui ne se déduit d'aucune équation.</small>
+<small>[[01 courses/slides/C++/GPR-CF-SBD-06 - Le game feel d'un platformer|GPR-CF-SBD-06]] — tout ce qui rend un saut agréable, et qui ne se déduit d'aucune équation.</small>

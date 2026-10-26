@@ -18,9 +18,9 @@
 <path d="M360.0,150.0 L680.0,150.0" fill="none" stroke="#E30613" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
 <path d="M680.0,196.0 L360.0,196.0" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
 <rect x="400.0" y="92.0" width="240.0" height="48.0" rx="10" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
-<text x="520.0" y="122.0" text-anchor="middle" font-size="20" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 m = 32 px</text>
-<text x="520.0" y="176.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">Metres(pixels) = pixels / 32</text>
-<text x="520.0" y="222.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">Pixels(metres) = metres * 32</text>
+<text x="520.0" y="122.0" text-anchor="middle" font-size="20" font-weight="800" fill="#E30613" font-family="JetBrains Mono, Consolas, monospace" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 m = 100 px</text>
+<text x="520.0" y="176.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">Metres(pixels) = pixels / 100</text>
+<text x="520.0" y="222.0" text-anchor="middle" font-size="14" font-weight="700" fill="#555555" font-family="JetBrains Mono, Consolas, monospace">Pixels(metres) = metres * 100</text>
 <text x="520.0" y="262.0" text-anchor="middle" font-size="14" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">un seul nombre, écrit une seule fois</text>
 <rect x="70.0" y="284.0" width="900.0" height="44.0" rx="10" fill="#ffffff" stroke="#E30613" stroke-width="2.5"/>
 <text x="520.0" y="312.0" text-anchor="middle" font-size="15" font-weight="800" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Oublier la conversion : un héros de 180 mètres, une gravité qui paraît nulle, des forces sans effet.</text>
