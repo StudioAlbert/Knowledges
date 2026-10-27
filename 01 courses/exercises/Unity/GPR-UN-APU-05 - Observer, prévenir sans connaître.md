@@ -9,6 +9,8 @@
 
 On démonte le couplage dans l'ordre, une technique par étape. **Le jeu doit marcher après chacune.**
 
+![[apu05_dependances.svg]]
+
 ### 1 — Prendre le terrain
 
 ```bash
@@ -33,7 +35,7 @@ Repérez le bouton **Recommencer** du HUD : `ResetButton` appelle `ItemManager.R
 
 `ItemManager` connaît encore l'objet du panneau. Il n'a aucune raison de le connaître.
 
-1. Remplacer le champ `panneauFin` par `[SerializeField] private UnityEvent allCollected;`, invoqué quand le compte tombe à zéro.
+1. Remplacer le champ `endPanel` par `[SerializeField] private UnityEvent allCollected;`, invoqué quand le compte tombe à zéro.
 2. Dans l'Inspector, glisser le panneau dans la liste et choisir `GameObject.SetActive`, coché.
 3. Faire de même pour le retour en arrière : un second `UnityEvent reset`, décoché, invoqué par `ResetItems()`.
 4. Supprimer le script du panneau s'il en restait un : il n'en faut aucun.

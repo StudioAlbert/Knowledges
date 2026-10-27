@@ -44,7 +44,7 @@ Le pattern Observer : sujet, observateurs, abonnement ; `event Action`, `UnityEv
 
 - Sources (révision) : [Unity Learn — observer pattern](https://learn.unity.com/tutorial/create-modular-and-maintainable-code-with-the-observer-pattern), [gist Observer<T> d'Adam Myhre](https://gist.github.com/adammyhre/353195d4870e8fd0cc0028659e66f208), [unitydesignpatterns.com](https://www.unitydesignpatterns.com/patterns/observer), [Game Programming Patterns](https://gameprogrammingpatterns.com/observer.html), [Refactoring.Guru](https://refactoring.guru/design-patterns/observer)
 - Scriptable Events : `MallLifeStealthGame/MallLife-UnityProject/Assets/03 - Scripts/Core/Events/GenericEventChannelSO.cs`, assets dans `_Datas/Events`, abonné `Alarm/AlertManager.cs`
-- Schémas : `00 images/apu05_couplage.svg`, `00 images/apu05_canal_so.svg`
+- Schémas : `00 images/apu05_couplage.svg`, `00 images/apu05_canal_so.svg`, `00 images/apu05_dependances.svg`
 - Fiche du bloc : `_GSDA_Tech_Vault/Bloc/Architecture et Patterns Unity.md`, ligne `05`
 
 ## Liens

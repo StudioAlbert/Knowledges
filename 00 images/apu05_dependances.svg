@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="395" viewBox="0 0 1080 395" font-family="Inter, Segoe UI, system-ui, sans-serif">
+<defs><marker id="head-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker><marker id="head-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6e6e6e"/></marker></defs>
+<rect width="1080" height="395" fill="#ffffff"/>
+<text x="15.0" y="32.0" text-anchor="start" font-size="15" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">AVANT — branche 01-depart</text>
+<rect x="410.0" y="110.0" width="100.0" height="40.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="460.0" y="136.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">HUD</text>
+<rect x="15.0" y="179.0" width="100.0" height="42.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="65.0" y="206.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Item</text>
+<rect x="235.0" y="177.0" width="150.0" height="46.0" rx="10" fill="#E30613" stroke="#E30613" stroke-width="2.5"/>
+<text x="310.0" y="206.0" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">ItemManager</text>
+<rect x="405.0" y="250.0" width="110.0" height="40.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="460.0" y="276.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">EndPanel</text>
+<rect x="15.0" y="285.0" width="130.0" height="40.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="80.0" y="311.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">ResetButton</text>
+<path d="M119.0,211.8 L124.6,212.9 L130.2,214.0 L135.8,214.9 L141.4,215.8 L147.0,216.5 L152.6,217.1 L158.2,217.6 L163.8,218.0 L169.4,218.3 L175.0,218.5 L180.6,218.5 L186.2,218.5 L191.8,218.3 L197.4,218.0 L203.0,217.6 L208.6,217.1 L214.2,216.5 L219.8,215.8 L225.4,215.0 L231.0,214.0" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="175.0" y="240.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">ItemCollected()</text>
+<path d="M367.9,173.0 L408.6,154.0" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="372.2" y="155.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">champ</text>
+<path d="M367.9,227.0 L408.6,246.0" fill="none" stroke="#E30613" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-red)"/>
+<text x="370.2" y="252.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">champ</text>
+<path d="M231.0,186.0 L225.4,185.0 L219.8,184.2 L214.2,183.5 L208.6,182.9 L203.0,182.4 L197.4,182.0 L191.8,181.7 L186.2,181.5 L180.6,181.5 L175.0,181.5 L169.4,181.7 L163.8,182.0 L158.2,182.4 L152.6,182.9 L147.0,183.5 L141.4,184.2 L135.8,185.1 L130.2,186.0 L124.6,187.1 L119.0,188.2" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="175.0" y="167.5" text-anchor="middle" font-size="13" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">liste items</text>
+<path d="M132.6,281.0 L250.9,227.0" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="227.7" y="268.0" text-anchor="middle" font-size="13" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">ResetItems()</text>
+<text x="20.0" y="372.0" text-anchor="start" font-size="13" font-weight="600" fill="#E30613" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">Tout est un champ : ajouter un son = rouvrir ItemManager.</text>
+<path d="M545.0,20.0 L545.0,378.0" fill="none" stroke="#6e6e6e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.35"/>
+<text x="575.0" y="32.0" text-anchor="start" font-size="15" font-weight="800" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">APRÈS — branche main</text>
+<rect x="970.0" y="110.0" width="100.0" height="40.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="1020.0" y="136.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">HUD</text>
+<rect x="575.0" y="179.0" width="100.0" height="42.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="625.0" y="206.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Item</text>
+<rect x="795.0" y="177.0" width="150.0" height="46.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="870.0" y="206.0" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a">ItemManager</text>
+<rect x="965.0" y="250.0" width="110.0" height="40.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="1020.0" y="276.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">EndPanel</text>
+<rect x="575.0" y="285.0" width="130.0" height="40.0" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="640.0" y="311.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">ResetButton</text>
+<path d="M679.0,211.8 L684.6,212.9 L690.2,214.0 L695.8,214.9 L701.4,215.8 L707.0,216.5 L712.6,217.1 L718.2,217.6 L723.8,218.0 L729.4,218.3 L735.0,218.5 L740.6,218.5 L746.2,218.5 L751.8,218.3 L757.4,218.0 L763.0,217.6 L768.6,217.1 L774.2,216.5 L779.8,215.8 L785.4,215.0 L791.0,214.0" fill="none" stroke="#6e6e6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-grey)"/>
+<text x="735.0" y="240.5" text-anchor="middle" font-size="13" font-weight="600" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 · Collected</text>
+<path d="M927.9,173.0 L968.6,154.0" fill="none" stroke="#6e6e6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-grey)"/>
+<text x="932.2" y="155.5" text-anchor="middle" font-size="13" font-weight="600" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">3 · canal</text>
+<path d="M927.9,227.0 L968.6,246.0" fill="none" stroke="#6e6e6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#head-grey)"/>
+<text x="930.2" y="252.5" text-anchor="middle" font-size="13" font-weight="600" fill="#6e6e6e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">2 · UnityEvent</text>
+<path d="M791.0,186.0 L785.4,185.0 L779.8,184.2 L774.2,183.5 L768.6,182.9 L763.0,182.4 L757.4,182.0 L751.8,181.7 L746.2,181.5 L740.6,181.5 L735.0,181.5 L729.4,181.7 L723.8,182.0 L718.2,182.4 L712.6,182.9 L707.0,183.5 L701.4,184.2 L695.8,185.1 L690.2,186.0 L684.6,187.1 L679.0,188.2" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="735.0" y="167.5" text-anchor="middle" font-size="13" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">liste items</text>
+<path d="M692.6,281.0 L810.9,227.0" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#head-ink)"/>
+<text x="787.7" y="268.0" text-anchor="middle" font-size="13" font-weight="600" fill="#555555" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">ResetItems()</text>
+<text x="580.0" y="372.0" text-anchor="start" font-size="13" font-weight="600" fill="#1a1a1a" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round">1 event Collected · 2 UnityEvent · 3 canal GemmesRestantes</text>
+</svg>
