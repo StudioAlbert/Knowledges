@@ -12,7 +12,7 @@ exercices:
 	- [x] Restore collected gemms (trough A public method on item manager)
 	- [x] Reset the counter (through an event Reset)
 - [x] Less platforms
-- [ ] Edit a diagram in my excalidraw account with the before / after dependencies — **pour toi** : c'est ton compte, je n'y touche pas. Dis-moi si tu préfères un SVG généré par `tools/schemas/` à la place.
+- [x] Edit a diagram in my excalidraw account with the before / after dependencies — `tools/schemas/apu05_dependances.py`, qui écrit le SVG publié **et** la copie `Excalidraw/` éditable. Embarqué sous le titre *Atelier* de la fiche.
 	- [ ] embed it in the exercice sheet
 - [x] Supprimer la section Pour aller plus loin
 
@@ -118,10 +118,31 @@ de forme.
 > slides du Behavior Graph. La **traçabilité** n'est plus nulle part — à décider si elle
 > revient en slide ou si elle tombe pour cette année.
 
+> [!note] Le schéma avant / après
+> `tools/schemas/apu05_dependances.py` : **les mêmes cinq blocs des deux côtés**, seules les
+> flèches changent de nature — et celle du bouton ne change pas du tout. Deux flèches restent
+> noires dans les deux moitiés, la liste que le gestionnaire assume et le bouton qui a le droit
+> de piloter le jeu ; les trois autres passent du rouge plein aux tirets.
+
+## Traité le 27.10 (3) — La scène reprend des noms anglais
+
+Les GameObjects étaient francisés : `Niveau`, `Decor`, `Lumiere globale`, `GestionDesItems`,
+`Joueur`, `Coffre`, `Gemme 1`… Ils reprennent les noms d'origine — `Level`, `Background`,
+`GlobalLight`, `ItemManager`, `Player`, `Chest`, `Gem1` — sur **les deux branches**, prefab
+`Gem.prefab` compris (le GUID est conservé, aucune référence n'est perdue).
+
+Sur `01-depart`, trois identifiants C# suivaient la même pente et changent aussi :
+`panneauFin` → `endPanel`, `ItemRamasse()` → `ItemCollected()`, `Afficher()` → `Show()`. La
+branche `main` était déjà en anglais, donc l'atelier ne fait plus changer la langue du code en
+cours de route. Le champ sérialisé a été recâblé après le renommage, et les deux branches sont
+revérifiées en play mode : cinq gemmes ramassées, panneau de fin, vrai clic sur *Recommencer*,
+zéro erreur console.
+
 > [!question] Reste de ton côté
-> Le schéma Excalidraw avant / après : c'est ton compte, je n'y touche pas. Si tu préfères, je
-> le produis en SVG par un script de `tools/schemas/`, comme les deux autres figures de la
-> séance — dis-moi.
+> Les noms qui restent en français hors de la scène : les deux canaux `GemmeRamassee` et
+> `GemmesRestantes` (cités tels quels dans la fiche, étape 4), les ids UXML `compteur` et
+> `recommencer`, et les sprites dérivés `Terre.png`, `Plateforme.png`, `Panneau.png`,
+> `Bouton.png`. Un mot et je les passe à l'anglais aussi — ça touche la fiche et le README.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 
