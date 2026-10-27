@@ -4,15 +4,14 @@ type: seance
 code: GPR-UN-APU-05
 review:
   - "[[01 courses/__reviews/APU 05 Observer Pattern|Review APU-05]]"
-status: To check
-url_test: http://localhost:3001/unity/gpr-un-apu-05/
+status: Ready
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
 specialisation: "[[Unity]]"
 classes:
   - GP-926
-manual_order: 1
+manual_order: -1
 estimate: 1h
 tache: créer de zéro
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
