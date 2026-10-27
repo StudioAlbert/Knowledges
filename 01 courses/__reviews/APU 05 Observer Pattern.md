@@ -13,7 +13,7 @@ exercices:
 	- [x] Reset the counter (through an event Reset)
 - [x] Less platforms
 - [x] Edit a diagram in my excalidraw account with the before / after dependencies — `tools/schemas/apu05_dependances.py`, qui écrit le SVG publié **et** la copie `Excalidraw/` éditable. Embarqué sous le titre *Atelier* de la fiche.
-	- [ ] embed it in the exercice sheet
+	- [x] embed it in the exercice sheet
 - [x] Supprimer la section Pour aller plus loin
 
 - [x] Ajouter les events du Behaviour Graph dans les slides
@@ -32,6 +32,13 @@ exercices:
 	- [x] Créer le jeu companion via Unity CLI, l'ajouter dans le Vaultcomm sub module (git url : https://github.com/StudioAlbert/GPR-UN-APU-05---Observer.git)
 	- [x] Rédiger Fiche exercices en fonction
 - [x]  Faire propositions dans cette note des différentes situations dans un jeu de voiture qui permettent d'utiliser le pattern; relier ces situations a une implementation parmi les 3 identifiées 
+- [x] slide 17 : Il y a t'il une situation concrète identifiée permettant de faire la demonstration du problème ? — oui, le companion, en trente secondes ; la manip est dans les notes de la slide.
+- [x] Ajouter slide avec Inspector, citer le cas du player input — *Câblé, vu de l'Inspector*, capture réelle de l'`ItemManager` du companion ; `PlayerInput` cité en notes.
+- [x] Slide 14, Screenshot du Behaviour Graph ci dessous — la slide C# a été remplacée par la capture, `00 images/apu05_behavior_graph.png`.
+
+Screenshots :
+- Reception Event
+  ![[apu05_behavior_graph.png]]
 
 - Sources :
 	- https://learn.unity.com/tutorial/create-modular-and-maintainable-code-with-the-observer-pattern
@@ -170,6 +177,36 @@ Revérifié en play mode sur les deux branches, console à zéro.
 > y compris les noms d'assets qu'ils citent, mis à jour mais toujours dans des phrases
 > françaises. Si tu voulais aussi la fiche d'exercices en anglais, dis-le : c'est un autre
 > chantier, et ça sort le document du reste du site.
+
+## Traité le 27.10 (5) — Les annotations du deck
+
+Le deck garde **23 slides** : deux supprimées, deux ajoutées.
+
+| Slide annotée | Ce qui a été fait |
+|---|---|
+| 9 · *UnityEvent, câbler dans l'Inspector* | deux points ajoutés : le lien vit **dans la scène**, et c'est le **game designer** qui câble, à l'intégration |
+| 14 · *Le canal de Behavior, vu du C#* | **supprimée**, remplacée par la capture du graphe (ton screenshot) |
+| 15 · *Laquelle choisir ?* | cellules surlignées en rouge : les trois « personne » du sujet, le « personne » de l'observateur, et toute la ligne *Retrouver les liens* |
+| 18 · *`event` ou pas `event`* | **explicité** : les quatre affirmations deviennent six lignes de code — les deux déclarations, puis `+=`, `=` et `.Invoke()` vus du dehors, avec ce que chacun fait |
+| 20 · *Une valeur qui prévient quand elle change* | **supprimée** |
+
+Deux slides neuves prennent leur place :
+
+- **10 · *Câblé, vu de l'Inspector*** — capture réelle de l'`ItemManager` du companion :
+  `All Collected ()` → *Runtime Only* → `EndPanel` → `GameObject.SetActive`, coché. En notes,
+  le cas **`PlayerInput`** en mode *Invoke Unity Events* : l'Observer est déjà dans leurs
+  projets, ils ne l'avaient pas nommé.
+- **15 · *Un graphe publie, un autre écoute*** — ta capture du Behavior Graph, les deux
+  branches reliées par un seul asset de canal.
+
+La question ouverte sur la slide de l'**abonné fantôme** a sa réponse, en notes : dans
+`CounterLabel`, remplacer la méthode nommée par une lambda, désactiver le HUD en jeu, ramasser
+une gemme — `MissingReferenceException`. Remettre la méthode nommée, refaire le geste : plus
+rien. C'est exactement le critère « désactiver le HUD ne déclenche aucune erreur » de la fiche.
+
+> [!question] Reste de ton côté
+> La **traçabilité** (ancienne piste maison n° 7) n'est toujours nulle part : à décider si elle
+> revient en slide ou si elle tombe pour cette année.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 

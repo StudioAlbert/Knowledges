@@ -164,6 +164,9 @@ rien. `TMP_Text` demande `using TMPro;`.
 
 Même principe, mais les abonnés se branchent à la souris, sans code.
 
+- le lien vit **dans la scène**, pas dans le code
+- c'est le **game designer** qui câble, à l'intégration
+
 ```csharp
 using UnityEngine.Events;
 
@@ -181,6 +184,29 @@ choisit `Door.Open`. Idéal pour les level designers. Coût : un peu plus
 lent qu'un `event` C#, et les liens sont invisibles dans le code — on ne
 les trouve qu'en ouvrant la scène. Exemple réel : `FactionQuestCollector`
 de MallLife expose `_onCollected`, `_onCollectFailed`, `_onQuestComplete`.
+
+---
+
+## Câblé, vu de l'Inspector
+<!-- .slide: class="schema" -->
+
+`All Collected ()` appelle `GameObject.SetActive` sur `EndPanel` : le panneau n'a pas de script.
+
+![[apu05_inspector_unityevent.png]]
+
+Note:
+C'est l'`ItemManager` du companion de l'atelier. Une seule entrée dans la
+liste : *Runtime Only*, l'objet `EndPanel`, la méthode `GameObject.SetActive`,
+case cochée. Personne n'a écrit de script pour ce panneau, et le gestionnaire
+ne connaît pas son existence — il invoque un `UnityEvent`, point.
+
+Le composant que tout le monde a déjà vu, c'est **`PlayerInput`** : en mode
+*Behavior › Invoke Unity Events*, il expose un `UnityEvent` par action
+(`On Move`, `On Jump`, …) qu'on câble exactement comme celui-ci. L'Observer
+est déjà dans leurs projets, ils ne l'avaient pas nommé.
+
+Les deux emplacements du dessus, *Remaining Channel* et *Item Collected
+Channel*, sont le troisième mécanisme : on y arrive dans deux slides.
 
 ---
 
@@ -275,33 +301,23 @@ une boîte à la place du `+=`.
 
 ---
 
-## Le canal de Behavior, vu du C#
+## Un graphe publie, un autre écoute
+<!-- .slide: class="schema" -->
 
-```csharp
-// Unity.Behavior : EventChannel<T> derive de EventChannelBase : ScriptableObject
-// La classe generee par le graphe en herite.
+À gauche *Send Event Message*, à droite *On EventChannel* : ni l'un ni l'autre ne se connaissent.
 
-[SerializeField] private ItemCollecte canal;   // l'asset, glisse dans l'Inspector
-
-void OnEnable()  => canal.Event += Afficher;
-void OnDisable() => canal.Event -= Afficher;
-
-private void Afficher(int restantes) { /* … */ }
-
-// publier depuis un script, vers tous les graphes abonnes :
-canal.SendEventMessage(restantes);
-```
-
-Un asset, un `event`, `+=` et `-=` : **exactement** le canal de la slide précédente.
+![[apu05_behavior_graph.png]]
 
 Note:
-`public event EventChannel<T0>.EventHandlerDelegate Event`, et le délégué est
-`void EventHandlerDelegate(T0 value0)`. Côté graphe, les nœuds passent par
-`RegisterListener` / `UnregisterListener`, qui sont la même chose vue depuis
-des `Delegate` non typés.
+Deux branches du même graphe, reliées par un seul asset de canal. Celle de
+gauche publie « Empty Event received » toutes les 0,5 à 1 seconde ; celle de
+droite démarre sur l'annonce et écrit dans la console. Remplacer l'une ne
+demande pas de toucher à l'autre — c'est l'Observer, avec une boîte à la
+place du `+=`.
 
-L'intérêt pour eux : un designer câble son graphe, un programmeur écoute le
-même canal en C#, et aucun des deux n'a besoin de l'autre pour avancer.
+Côté C#, la classe générée dérive de `EventChannel<T>`, donc d'un
+ScriptableObject : un script s'abonne au même asset avec `+=`, et publie avec
+`SendEventMessage`. Designer et programmeur avancent sans s'attendre.
 
 ---
 
@@ -310,10 +326,10 @@ même canal en C#, et aucun des deux n'a besoin de l'autre pour avancer.
 | | `event Action` | `UnityEvent` | Canal en SO |
 |---|---|---|---|
 | Qui câble | le code | l'Inspector | l'Inspector (asset) |
-| Le sujet connaît, dans son code | personne | personne | personne |
-| L'observateur connaît | le sujet | personne | l'asset |
+| Le sujet connaît, dans son code | **personne** | **personne** | **personne** |
+| L'observateur connaît | le sujet | **personne** | l'asset |
 | Entre deux scènes | non | non | **oui** |
-| Retrouver les liens | « Find usages » | ouvrir la scène | chercher l'asset |
+| Retrouver les liens | **« Find usages »** | **ouvrir la scène** | **chercher l'asset** |
 
 Note:
 Règle pratique : `event` entre scripts d'un même objet ou d'un même
@@ -351,16 +367,41 @@ deux délégués différents, le `-=` ne retire rien. Au rechargement de la
 scène : `MissingReferenceException`. Correction : une méthode nommée
 (`ShowView`), abonnée et désabonnée par son nom.
 
+**Démonstration en direct, trente secondes, dans le companion.** Dans
+`CounterLabel`, remplacer `remainingChannel.Raised += Show;` par la lambda
+`remainingChannel.Raised += n => Show(n);` et faire de même dans `OnDisable`.
+Lancer, désactiver l'objet **HUD** dans la Hierarchy, ramasser une gemme :
+l'abonnement n'a pas été retiré, et la console sort une
+`MissingReferenceException`. Réactiver la méthode nommée, refaire le même
+geste : plus rien. C'est le critère « désactiver le HUD ne déclenche aucune
+erreur » de la fiche d'exercices.
+
 ---
 
 ## `event` ou pas `event`
 
-- sans `event`, un champ délégué public accepte `=` : un script **efface** tous les abonnés
-- sans `event`, n'importe qui peut **déclencher** l'annonce à la place du sujet
-- avec `event` : dehors, seuls `+=` et `-=` compilent
-- réflexe : `public event …`, jamais `public Action …`
+Un seul mot-clé change ce que le reste du projet a le droit de faire.
+
+```csharp
+public Action<int> Damaged;         // sans event
+public event Action<int> Damaged;   // avec event
+
+// depuis n'importe quelle autre classe :
+subject.Damaged += Show;     // les deux : d'accord
+subject.Damaged = Show;      // sans event : efface tous les abonnés
+subject.Damaged.Invoke(3);   // sans event : annonce à la place du sujet
+                             // avec event : ne compile pas
+```
+
+Réflexe : `public event …`, jamais `public Action …`.
 
 Note:
+`event` ne change ni le type ni le coût : il restreint les droits de
+l'extérieur. Dedans, la classe fait ce qu'elle veut ; dehors, seuls `+=` et
+`-=` compilent. Sans lui, un `=` posé ailleurs efface silencieusement tous
+les abonnés déjà en place, et n'importe qui peut déclencher l'annonce à la
+place du sujet — l'annonce ne veut alors plus rien dire.
+
 C'est la seule retouche faite au code de MallLife dans ce deck :
 l'original déclare `public UnityAction<T> OnEventRaised;`, sans `event`.
 Un `OnEventRaised = Foo;` ailleurs dans le projet détacherait
@@ -379,39 +420,6 @@ Note:
 Nystrom : le couplage devient dynamique, donc invisible à la lecture. La
 parade : des noms d'événements au passé (`Damaged`, `AlarmRaised`), un seul
 endroit qui les déclare, et un mode verbeux dans le canal.
-
----
-
-## Une valeur qui prévient quand elle change
-
-Variante générique : la valeur et son événement dans un même objet.
-
-```csharp
-[Serializable]
-public class Observable<T>
-{
-    [SerializeField] private T value;
-    public event Action<T> Changed;
-
-    public T Value
-    {
-        get => value;
-        set
-        {
-            if (Equals(this.value, value)) return;
-            this.value = value;
-            Changed?.Invoke(value);
-        }
-    }
-}
-```
-
-Note:
-Version simplifiée du `Observer<T>` d'Adam Myhre (gist cité en
-ressources), qui utilise un `UnityEvent<T>` pour être câblable dans
-l'Inspector. Usage : `public Observable<int> Gold;`, puis
-`Gold.Changed += UpdateLabel;`. Le test d'égalité évite de notifier pour
-rien.
 
 ---
 
