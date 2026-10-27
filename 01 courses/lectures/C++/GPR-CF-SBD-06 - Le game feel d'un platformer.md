@@ -14,7 +14,6 @@ estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-11-04
-url_test: http://localhost:3001/cpp/gpr-cf-sbd-06/
 review:
   - "[[GPR-CF-SBD-xx - SFML]]"
   - "[[01 courses/__reviews/GPR-CF-SBD-06 - Le game feel d'un platformer|Review SBD-06]]"

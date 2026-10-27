@@ -14,7 +14,6 @@ estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-29
-url_test: http://localhost:3001/cpp/gpr-cf-sbd-04/
 review:
   - "[[01 courses/__reviews/GPR-CF-SBD-04 - Le monde Box2D|Review SBD-04]]"
   - "[[GPR-CF-SBD-xx - SFML]]"

@@ -15,7 +15,6 @@ estimate: 1h
 tache: découper
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-21
-url_test: http://localhost:3001/theory/tc-ft-pcl-01/
 review:
   - "[[01 courses/__reviews/TC-FT-PCL-01 - Couplage et cohésion|Review PCL-01]]"
 ---

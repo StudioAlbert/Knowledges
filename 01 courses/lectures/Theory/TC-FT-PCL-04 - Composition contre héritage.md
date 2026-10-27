@@ -15,7 +15,6 @@ estimate: 1h
 tache: découper + écrire
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-21
-url_test: http://localhost:3001/theory/tc-ft-pcl-04/
 review:
   - "[[01 courses/__reviews/TC-FT-PCL-04 - Composition contre héritage|Review PCL-04]]"
 ---

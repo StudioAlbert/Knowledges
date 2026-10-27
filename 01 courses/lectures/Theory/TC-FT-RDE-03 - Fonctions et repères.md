@@ -11,7 +11,6 @@ classes:
   - GP-925
   - WEB-926
 date_scheduled: 2026-10-21
-url_test: http://localhost:3001/theory/tc-ft-rde-03/
 manual_order: 5
 estimate: 1h
 tache: découper

@@ -15,7 +15,6 @@ estimate: 1h
 tache: adapter + écrire
 source_gsda: https://github.com/EliasFarhan/GSDA_CodeTech_Vault
 date_scheduled: 2026-10-22
-url_test: http://localhost:3001/theory/tc-ft-pcl-03/
 review:
   - "[[01 courses/__reviews/TC-FT-PCL-03 - Taxonomie des patterns|Review PCL-03]]"
 ---
