@@ -138,11 +138,38 @@ cours de route. Le champ sérialisé a été recâblé après le renommage, et l
 revérifiées en play mode : cinq gemmes ramassées, panneau de fin, vrai clic sur *Recommencer*,
 zéro erreur console.
 
-> [!question] Reste de ton côté
-> Les noms qui restent en français hors de la scène : les deux canaux `GemmeRamassee` et
-> `GemmesRestantes` (cités tels quels dans la fiche, étape 4), les ids UXML `compteur` et
-> `recommencer`, et les sprites dérivés `Terre.png`, `Plateforme.png`, `Panneau.png`,
-> `Bouton.png`. Un mot et je les passe à l'anglais aussi — ça touche la fiche et le README.
+## Traité le 27.10 (4) — Plus un mot de français dans le companion
+
+Règle posée : **pas de français, sauf dans le cours**. Le companion passe entièrement en
+anglais, les deux branches ensemble.
+
+| | avant | après |
+|---|---|---|
+| Scène | `Collecte.unity` | `Collect.unity` |
+| Canaux | `GemmeRamassee` · `GemmesRestantes` | `GemCollected` · `GemsRemaining` |
+| Sprites | `Terre` · `Plateforme` · `Panneau` · `Bouton` | `Ground` · `Platform` · `Panel` · `Button` |
+| Interface | `Fin.uxml` · `Jeu.uss` | `End.uxml` · `Game.uss` |
+| Ids UXML | `barre` `cartouche` `compteur` `recommencer` `voile` `panneau` `titre` `sous-titre` | `bar` `counter-frame` `counter` `restart` `overlay` `panel` `title` `subtitle` |
+| Classe USS | `.cadre-bois` | `.wood-frame` |
+
+Y sont passés aussi les **commentaires de tous les scripts**, les libellés `[Header]` de
+l'Inspector, les deux `README` et **les textes affichés en jeu** : « Gemmes restantes : 5 »
+devient *Gems left: 5*, « Tout ramassé ! » *All collected!*, le bouton *Restart*, le panneau
+de fin *Treasure complete! / All five gems collected.* Les captures de `Documentation~` sont
+refaites.
+
+Les renommages passent par `AssetDatabase.RenameAsset`, donc les GUID sont conservés et
+aucune référence de scène n'est perdue. Les chemins en dur que l'AssetDatabase ne suit pas
+— `<Style src="…">` dans les UXML, `url("…")` dans l'USS — ont été corrigés à la main. Deux
+avertissements USS préexistants tombent au passage (`-unity-slice-scale` sans unité).
+
+Revérifié en play mode sur les deux branches, console à zéro.
+
+> [!question] Ce que j'ai gardé en français
+> **Le cours** : les slides, la fiche d'exercices, la note de séance et cette fiche review —
+> y compris les noms d'assets qu'ils citent, mis à jour mais toujours dans des phrases
+> françaises. Si tu voulais aussi la fiche d'exercices en anglais, dis-le : c'est un autre
+> chantier, et ça sort le document du reste du site.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 

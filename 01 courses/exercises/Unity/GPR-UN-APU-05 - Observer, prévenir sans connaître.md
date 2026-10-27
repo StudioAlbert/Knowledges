@@ -19,7 +19,7 @@ cd GPR-UN-APU-05---Observer
 git switch -c apu05-observer 01-depart
 ```
 
-Ouvrez `Assets/01 - Scenes/Collecte.unity` et jouez une fois avant de toucher au code.
+Ouvrez `Assets/01 - Scenes/Collect.unity` et jouez une fois avant de toucher au code.
 
 Repérez le bouton **Recommencer** du HUD : `ResetButton` appelle `ItemManager.ResetItems()`, directement, sans passer par rien. Il ne bougera pas de tout l'atelier — c'est le contre-exemple, gardez-le en tête.
 
@@ -44,10 +44,10 @@ Repérez le bouton **Recommencer** du HUD : `ResetButton` appelle `ItemManager.R
 
 C'est l'étape qui compte.
 
-1. Écrire `EventChannelSO<T>`, `IntEventChannelSO` et `VoidEventChannelSO` (voir le cours), puis créer les deux assets `GemmeRamassee` et `GemmesRestantes` par *Create › Observer › …*.
+1. Écrire `EventChannelSO<T>`, `IntEventChannelSO` et `VoidEventChannelSO` (voir le cours), puis créer les deux assets `GemCollected` et `GemsRemaining` par *Create › Observer › …*.
 2. `ItemManager` publie dessus : le ramassage sur l'un, le compte restant sur l'autre. Il ne touche plus ni à l'UI, ni au son.
-3. Écrire `CounterLabel` : il s'abonne à `GemmesRestantes` et écrit dans le `Label` du HUD.
-4. **Puis écrire `SoundManager` sans rouvrir un seul fichier existant** : il s'abonne à `GemmeRamassee` et joue `handleCoins.ogg`, posé sur un objet avec un `AudioSource`.
+3. Écrire `CounterLabel` : il s'abonne à `GemsRemaining` et écrit dans le `Label` du HUD.
+4. **Puis écrire `SoundManager` sans rouvrir un seul fichier existant** : il s'abonne à `GemCollected` et joue `handleCoins.ogg`, posé sur un objet avec un `AudioSource`.
 
 > [!warning] L'ordre compte
 > Le compte de départ se publie dans `Start`, pas dans `OnEnable` : à ce moment-là seulement, tout le monde s'est abonné.
