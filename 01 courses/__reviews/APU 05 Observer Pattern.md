@@ -214,8 +214,38 @@ rien. C'est exactement le critère « désactiver le HUD ne déclenche aucune er
 > Le **sujet** est bien au cours : slide *Qui a appelé qui ?*, deuxième puce (« un canal sans
 > trace devient indébogable : prévoir un `Debug.Log` activable ») et ses notes (« un mode
 > verbeux dans le canal »), plus la ligne *Retrouver les liens* du tableau *Laquelle
-> choisir ?* — celle que tu viens de faire surligner. Ce qui est tombé, c'est seulement la
-> **mise en pratique** : personne n'écrit le mode verbeux ni ne s'en sert pour déboguer.
+> choisir ?* — celle que tu viens de faire surligner. Ce qui était tombé, c'est seulement la
+> **mise en pratique** — et elle est revenue, voir la section suivante.
+
+## Traité le 27.10 (6) — La traçabilité revient, dans `main` et dans le deck
+
+Les deux canaux du companion portent une case **Verbose**. Cochée, chaque annonce s'écrit dans
+la console avec sa valeur **et la liste de ses abonnés** :
+
+```
+GemsRemaining = 5 -> 1 : HUD.Show
+GemCollected  -> 1 : SoundManager.PlayPickup
+GemsRemaining = 3 -> nobody        (HUD désactivé en cours de partie)
+```
+
+Trois lignes, trois fichiers : `EventChannelSO` et `VoidEventChannelSO` gagnent le booléen et
+l'appel, `ChannelLog` dit quoi imprimer. La liste vient de `Raised.GetInvocationList()` : un
+abonné détruit sans `-=` y figure encore, et sort en `<destroyed>` au lieu d'attendre pour
+planter. **L'abonné fantôme devient visible**, c'est tout l'intérêt de la piste n° 7. Décoché
+par défaut — un canal verbeux dans une boucle noie la console.
+
+Un écart assumé avec l'énoncé d'origine : il demandait de journaliser « l'émetteur et le
+nombre d'abonnés ». Le canal **ne connaît pas son émetteur** — c'est précisément le but — et
+l'ajouter demanderait un paramètre sur chaque `Raise`. Les abonnés nommés rendent le même
+service de débogage sans toucher au couplage ; le second argument de `Debug.Log` fait
+clignoter l'asset du canal dans le Project.
+
+Côté deck, une slide de code en complément de *Qui a appelé qui ?* : **24 · *Un canal qui se
+raconte***, avec la trace réelle en notes. La fiche d'exercices renvoie dessus en dernière
+ligne.
+
+Vérifié en play mode : la trace ci-dessus est sortie de la console du companion, et le
+parcours complet (cinq gemmes, panneau, clic sur *Restart*) repasse sans erreur.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 

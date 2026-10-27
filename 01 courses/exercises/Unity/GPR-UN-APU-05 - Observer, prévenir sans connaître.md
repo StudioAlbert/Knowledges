@@ -59,4 +59,4 @@ C'est l'étape qui compte.
 > - désactiver le HUD en jeu ne déclenche aucune erreur ;
 > - le bouton **Restart** marche toujours, et vous ne l'avez jamais touché.
 
-La branche `main` du companion est le corrigé.
+La branche `main` du companion est le corrigé — elle porte en plus la case **Verbose** de la slide *Un canal qui se raconte*, à cocher sur un canal pour voir qui l'écoute.

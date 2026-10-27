@@ -423,6 +423,44 @@ endroit qui les déclare, et un mode verbeux dans le canal.
 
 ---
 
+## Un canal qui se raconte
+
+Une case à cocher sur l'asset, et la console dit qui écoute vraiment.
+
+```csharp
+[SerializeField] private bool verbose;
+
+public void Raise(T value)
+{
+    if (verbose) Debug.Log($"{name} = {value} -> {Listeners(Raised)}", this);
+    Raised?.Invoke(value);
+}
+
+// Listeners() lit Raised.GetInvocationList() : le nom de chaque abonné,
+// et « <destroyed> » pour celui qui n'aurait pas fait son -=.
+```
+
+Note:
+C'est la réponse aux quatre points de la slide précédente, en une case à
+cocher. `GetInvocationList()` rend les délégués un par un ; `subscriber.Target`
+est l'objet abonné, `subscriber.Method.Name` la méthode. Un abonné détruit
+donne un `Target` à `null` côté Unity — l'abonné fantôme devient **visible**
+au lieu de planter trois minutes plus tard.
+
+Le deuxième argument de `Debug.Log`, `this`, fait clignoter l'asset du canal
+dans le Project quand on clique la ligne de console.
+
+Dans le companion, branche `main` : cocher *Verbose* sur `GemsRemaining`,
+jouer, ramasser une gemme.
+
+```
+GemsRemaining = 5 -> 1 : HUD.Show
+GemCollected  -> 1 : SoundManager.PlayPickup
+GemsRemaining = 3 -> nobody        (HUD désactivé en cours de partie)
+```
+
+---
+
 ## Atelier — 20 min
 
 Un platformer pirate où l'on ramasse cinq gemmes, branche `01-depart` : **tout y est couplé**. On démonte, dans l'ordre des trois mécanismes.
