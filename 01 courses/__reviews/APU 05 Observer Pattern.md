@@ -122,8 +122,8 @@ de forme.
 > Quatre pistes maison disparaissent avec la section : l'**abonné fantôme**, le **délégué sans
 > `event`**, le **canal traçable**, et le **canal dans un graphe `com.unity.behavior`**. Les
 > deux premières restent couvertes par le deck (slides *Pièges*), la dernière par les deux
-> slides du Behavior Graph. La **traçabilité** n'est plus nulle part — à décider si elle
-> revient en slide ou si elle tombe pour cette année.
+> slides du Behavior Graph. La **traçabilité** reste couverte en cours — slide *Qui a appelé
+> qui ?* et ligne *Retrouver les liens* du tableau — mais plus personne ne la pratique.
 
 > [!note] Le schéma avant / après
 > `tools/schemas/apu05_dependances.py` : **les mêmes cinq blocs des deux côtés**, seules les
@@ -204,9 +204,18 @@ La question ouverte sur la slide de l'**abonné fantôme** a sa réponse, en not
 une gemme — `MissingReferenceException`. Remettre la méthode nommée, refaire le geste : plus
 rien. C'est exactement le critère « désactiver le HUD ne déclenche aucune erreur » de la fiche.
 
-> [!question] Reste de ton côté
-> La **traçabilité** (ancienne piste maison n° 7) n'est toujours nulle part : à décider si elle
-> revient en slide ou si elle tombe pour cette année.
+> [!note] Correction — la traçabilité n'avait pas disparu
+> Je l'ai écrit trois fois, c'était faux. La piste maison n° 7, *Traçable*, demandait
+> d'**ajouter au canal générique un mode verbeux** activable dans l'Inspector, journalisant
+> chaque annonce avec son émetteur et son nombre d'abonnés, puis de provoquer deux pannes — un
+> abonné détruit qui écoute encore, une annonce qui en déclenche une autre en boucle — et de
+> montrer que le journal les trouve en moins d'une minute.
+>
+> Le **sujet** est bien au cours : slide *Qui a appelé qui ?*, deuxième puce (« un canal sans
+> trace devient indébogable : prévoir un `Debug.Log` activable ») et ses notes (« un mode
+> verbeux dans le canal »), plus la ligne *Retrouver les liens* du tableau *Laquelle
+> choisir ?* — celle que tu viens de faire surligner. Ce qui est tombé, c'est seulement la
+> **mise en pratique** : personne n'écrit le mode verbeux ni ne s'en sert pour déboguer.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 
