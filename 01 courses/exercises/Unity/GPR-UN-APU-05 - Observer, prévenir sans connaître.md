@@ -21,7 +21,7 @@ git switch -c apu05-observer 01-depart
 
 Ouvrez `Assets/01 - Scenes/Collect.unity` et jouez une fois avant de toucher au code.
 
-Repérez le bouton **Recommencer** du HUD : `ResetButton` appelle `ItemManager.ResetItems()`, directement, sans passer par rien. Il ne bougera pas de tout l'atelier — c'est le contre-exemple, gardez-le en tête.
+Repérez le bouton **Restart** du HUD : `ResetButton` appelle `ItemManager.ResetItems()`, directement, sans passer par rien. Il ne bougera pas de tout l'atelier — c'est le contre-exemple, gardez-le en tête.
 
 ### 2 — `Item` ne connaît plus personne
 
@@ -57,6 +57,6 @@ C'est l'étape qui compte.
 > - `ItemManager` ne cite ni l'UI, ni l'audio, ni le panneau ;
 > - vous avez ajouté le son **sans ouvrir** `Item.cs` ni `ItemManager.cs` ;
 > - désactiver le HUD en jeu ne déclenche aucune erreur ;
-> - le bouton **Recommencer** marche toujours, et vous ne l'avez jamais touché.
+> - le bouton **Restart** marche toujours, et vous ne l'avez jamais touché.
 
 La branche `main` du companion est le corrigé.

@@ -36,7 +36,7 @@ Le pattern Observer : sujet, observateurs, abonnement ; `event Action`, `UnityEv
 
 - **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]] — 23 slides, 2 schémas générés (`tools/schemas/apu05_*.py`). Les deux dernières ajoutées : les canaux d'événement du **Behavior Graph**.
 - **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|atelier]] — **quatre étapes en classe**, plus rien à la maison : la section *Pour aller plus loin* a été retirée, et le compteur sur canal est remonté dans l'atelier.
-- **Companion** : [[01 courses/companion projects/Unity/GPR-UN-APU-05---Observer/README|GPR-UN-APU-05 — Observer]], sous-module. `01-depart` est la version couplée, `main` le corrigé. Platformer pirate (Treasure Hunters), interface en **UI Toolkit**, bouton *Recommencer* laissé couplé en contre-exemple.
+- **Companion** : [[01 courses/companion projects/Unity/GPR-UN-APU-05---Observer/README|GPR-UN-APU-05 — Observer]], sous-module. `01-depart` est la version couplée, `main` le corrigé. Platformer pirate (Treasure Hunters), interface en **UI Toolkit**, bouton *Restart* laissé couplé en contre-exemple.
 - **Widget proposé, non fait** : `observer_bus_widget.html` — un sujet, un bus, quatre abonnés qui s'allument ; désabonner, détruire sans désabonner (abonné fantôme).
 - **Reste de ton côté** : le schéma Excalidraw avant / après, à produire depuis ton compte et à embarquer dans la fiche exercices.
 

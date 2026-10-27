@@ -96,7 +96,7 @@ de forme.
   `UIDocument`, le HUD et le panneau de fin. **Le panneau reste un GameObject à part** — c'est
   ce qui permet à `allCollected` de l'allumer par `SetActive`, donc sans une ligne de code. La
   démonstration de l'étape 3 tient toujours.
-- **Bouton *Recommencer*** : `ResetButton` appelle `ItemManager.ResetItems()`, directement. La
+- **Bouton *Restart*** : `ResetButton` appelle `ItemManager.ResetItems()`, directement. La
   méthode rend les gemmes, referme le panneau par un second `UnityEvent` (`reset`) et republie
   le compte sur le canal — le compteur se remet à jour sans qu'on lui ait parlé. **Les deux
   façons de faire sur le même objet**, à trois lignes l'une de l'autre : le bouton appelle, le
@@ -108,7 +108,7 @@ de forme.
   déjà ses onglets), le terrain de jeu passe en encart, le clone + lancement deviennent
   l'étape 1.
 - **Vérifié en play mode sur les deux branches** : les cinq gemmes se ramassent, le compteur
-  descend, le panneau s'allume à zéro, et un **vrai clic** sur *Recommencer* rend les gemmes
+  descend, le panneau s'allume à zéro, et un **vrai clic** sur *Restart* rend les gemmes
   et remet le compteur à cinq. Zéro erreur console.
 
 > [!warning] Ce que la suppression de *Pour aller plus loin* emporte
@@ -135,7 +135,7 @@ Sur `01-depart`, trois identifiants C# suivaient la même pente et changent auss
 `panneauFin` → `endPanel`, `ItemRamasse()` → `ItemCollected()`, `Afficher()` → `Show()`. La
 branche `main` était déjà en anglais, donc l'atelier ne fait plus changer la langue du code en
 cours de route. Le champ sérialisé a été recâblé après le renommage, et les deux branches sont
-revérifiées en play mode : cinq gemmes ramassées, panneau de fin, vrai clic sur *Recommencer*,
+revérifiées en play mode : cinq gemmes ramassées, panneau de fin, vrai clic sur *Restart*,
 zéro erreur console.
 
 ## Traité le 27.10 (4) — Plus un mot de français dans le companion

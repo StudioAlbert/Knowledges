@@ -431,7 +431,7 @@ Le critère de réussite est le **dernier** : une fois les canaux posés, ils
 seule chose qu'ils doivent retenir du TP, et elle ne se démontre qu'en la
 faisant.
 
-Le bouton **Recommencer** du HUD reste couplé exprès : il appelle
+Le bouton **Restart** du HUD reste couplé exprès : il appelle
 `ItemManager.ResetItems()` et personne n'y touche. Deux façons de faire sur
 le même écran — la question n'est pas « laquelle est bien », mais pourquoi
 pas la même partout.
