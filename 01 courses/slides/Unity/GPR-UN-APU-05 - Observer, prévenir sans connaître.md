@@ -425,30 +425,42 @@ endroit qui les déclare, et un mode verbeux dans le canal.
 
 ## Un canal qui se raconte
 
-Une case à cocher sur l'asset, et la console dit qui écoute vraiment.
+`ChannelLog`, partagé par les deux canaux : la liste d'abonnés se lit.
+
+```csharp
+public static string Listeners(Delegate handler)
+{
+    Delegate[] subscribers = handler?.GetInvocationList() ?? Array.Empty<Delegate>();
+    if (subscribers.Length == 0) return "nobody";
+    return subscribers.Length + " : " + string.Join(", ", subscribers.Select(Name));
+}
+
+private static string Name(Delegate subscriber)
+{
+    var owner = subscriber.Target as UnityEngine.Object;
+    return (owner == null ? "<destroyed>" : owner.name) + "." + subscriber.Method.Name;
+}
+```
+
+Note:
+`GetInvocationList()` rend les délégués un par un ; `subscriber.Target` est
+l'objet abonné, `subscriber.Method.Name` la méthode qu'il a branchée. Un
+abonné détruit donne un `Target` à `null` côté Unity — **l'abonné fantôme
+devient visible** au lieu de planter trois minutes plus tard.
+
+Côté canal, deux lignes suffisent pour s'en servir : un booléen sérialisé, et
+l'appel avant l'annonce. Le second argument de `Debug.Log` fait clignoter
+l'asset du canal dans le Project quand on clique la ligne de console.
 
 ```csharp
 [SerializeField] private bool verbose;
 
 public void Raise(T value)
 {
-    if (verbose) Debug.Log($"{name} = {value} -> {Listeners(Raised)}", this);
+    if (verbose) Debug.Log($"{name} = {value} -> {ChannelLog.Listeners(Raised)}", this);
     Raised?.Invoke(value);
 }
-
-// Listeners() lit Raised.GetInvocationList() : le nom de chaque abonné,
-// et « <destroyed> » pour celui qui n'aurait pas fait son -=.
 ```
-
-Note:
-C'est la réponse aux quatre points de la slide précédente, en une case à
-cocher. `GetInvocationList()` rend les délégués un par un ; `subscriber.Target`
-est l'objet abonné, `subscriber.Method.Name` la méthode. Un abonné détruit
-donne un `Target` à `null` côté Unity — l'abonné fantôme devient **visible**
-au lieu de planter trois minutes plus tard.
-
-Le deuxième argument de `Debug.Log`, `this`, fait clignoter l'asset du canal
-dans le Project quand on clique la ligne de console.
 
 Dans le companion, branche `main` : cocher *Verbose* sur `GemsRemaining`,
 jouer, ramasser une gemme.
