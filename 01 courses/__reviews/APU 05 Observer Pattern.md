@@ -6,11 +6,21 @@ slides:
 exercices:
   - "[[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|Exos APU-05]]"
 ---
+- [x] Edit the map to setup with the Treasure Hunters set
+- [x] Migrate UI to UI Toolkit using the Treasure Hunters UI assets
+- [x] Add a Button to Reset Gemms : 
+	- [x] Restore collected gemms (trough A public method on item manager)
+	- [x] Reset the counter (through an event Reset)
+- [x] Less platforms
+- [ ] Edit a diagram in my excalidraw account with the before / after dependencies — **pour toi** : c'est ton compte, je n'y touche pas. Dis-moi si tu préfères un SVG généré par `tools/schemas/` à la place.
+	- [ ] embed it in the exercice sheet
+- [x] Supprimer la section Pour aller plus loin
+
 - [x] Ajouter les events du Behaviour Graph dans les slides
 - [x] Proposer Atelier
 	- [x] Proposition
 		- [x] le jeu est un platformer
-		- [ ] Assets 2D : https://pixelfrog-assets.itch.io/treasure-hunters — **non récupéré** : vérification anti-bot Cloudflare sur itch.io, que je ne contourne pas. Monté avec [Kenney Pixel Platformer](https://kenney.nl/assets/pixel-platformer), CC0 lui aussi. L'échange tient en un remplacement de sprites sur `Gemme.prefab`, le joueur et les plateformes.
+		- [x] Assets 2D : https://pixelfrog-assets.itch.io/treasure-hunters — pack déposé par toi le 27.10, la scène et l'interface sont dessus.
 		- [x] Assets audio : https://kenney.nl/assets/rpg-audio
 		- [x] un personnage basique peut collecter des items
 		- [x] Une fois collecté l'ensemble des items, on affiche un panneau Finish
@@ -72,6 +82,46 @@ La troisième étape est le critère de réussite : c'est la seule qui ne se dé
 
 > [!question] À trancher
 > Le widget `observer_bus_widget.html` reste proposé et non fait. L'atelier le rend moins utile — ils voient désormais la chaîne tourner dans un vrai jeu.
+
+## Traité le 27.10 (2) — Treasure Hunters, UI Toolkit, un bouton à contre-courant
+
+Le pack de Pixel Frog est arrivé ; la scène et l'interface sont dessus, et l'atelier a changé
+de forme.
+
+- **Carte** : deux plateformes au lieu de quatre, terrain / capitaine / gemmes / décor en
+  Treasure Hunters à **32 px par unité**. Les deux sprites de terrain et les deux cadres d'UI
+  sont des **réassemblages 9-slice** du pack (`04 - Sprites`, `06 - UI`) : les tuiles de coin,
+  de bord et de centre remises en une image 3×3, pour pouvoir les étirer.
+- **Interface en UI Toolkit** : le Canvas uGUI et TextMeshPro laissent la place à deux
+  `UIDocument`, le HUD et le panneau de fin. **Le panneau reste un GameObject à part** — c'est
+  ce qui permet à `allCollected` de l'allumer par `SetActive`, donc sans une ligne de code. La
+  démonstration de l'étape 3 tient toujours.
+- **Bouton *Recommencer*** : `ResetButton` appelle `ItemManager.ResetItems()`, directement. La
+  méthode rend les gemmes, referme le panneau par un second `UnityEvent` (`reset`) et republie
+  le compte sur le canal — le compteur se remet à jour sans qu'on lui ait parlé. **Les deux
+  façons de faire sur le même objet**, à trois lignes l'une de l'autre : le bouton appelle, le
+  compteur écoute. C'est le meilleur support de discussion du TP.
+- **Atelier à quatre étapes** : prise en main, `event Action`, `UnityEvent`, puis les canaux.
+  Le compteur sur canal, qui était la piste maison n° 4, est remonté en classe — sans lui le
+  corrigé n'était plus atteignable depuis l'énoncé.
+- **Annotations de la fiche** traitées : la ligne « Cours associé » est retirée (le site a
+  déjà ses onglets), le terrain de jeu passe en encart, le clone + lancement deviennent
+  l'étape 1.
+- **Vérifié en play mode sur les deux branches** : les cinq gemmes se ramassent, le compteur
+  descend, le panneau s'allume à zéro, et un **vrai clic** sur *Recommencer* rend les gemmes
+  et remet le compteur à cinq. Zéro erreur console.
+
+> [!warning] Ce que la suppression de *Pour aller plus loin* emporte
+> Quatre pistes maison disparaissent avec la section : l'**abonné fantôme**, le **délégué sans
+> `event`**, le **canal traçable**, et le **canal dans un graphe `com.unity.behavior`**. Les
+> deux premières restent couvertes par le deck (slides *Pièges*), la dernière par les deux
+> slides du Behavior Graph. La **traçabilité** n'est plus nulle part — à décider si elle
+> revient en slide ou si elle tombe pour cette année.
+
+> [!question] Reste de ton côté
+> Le schéma Excalidraw avant / après : c'est ton compte, je n'y touche pas. Si tu préfères, je
+> le produis en SVG par un script de `tools/schemas/`, comme les deux autres figures de la
+> séance — dis-moi.
 
 ## Propositions du 06.10 — Observer dans un jeu de voiture
 

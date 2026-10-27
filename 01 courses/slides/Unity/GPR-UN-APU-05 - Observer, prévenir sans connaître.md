@@ -417,18 +417,24 @@ rien.
 
 ## Atelier — 20 min
 
-Un platformer où l'on ramasse cinq gemmes, branche `01-depart` : **tout y est couplé**. On démonte, dans l'ordre des trois mécanismes.
+Un platformer pirate où l'on ramasse cinq gemmes, branche `01-depart` : **tout y est couplé**. On démonte, dans l'ordre des trois mécanismes.
 
 <small>[[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|Énoncé]] · [GPR-UN-APU-05 — Observer](https://github.com/StudioAlbert/GPR-UN-APU-05---Observer)</small>
 
 Note:
-Les trois étapes : `Item` annonce au lieu d'appeler ; le panneau de fin
-passe en `UnityEvent` câblé dans l'Inspector ; le son arrive par un canal
-en SO.
+Trois démontages, après la prise en main : `Item` annonce au lieu
+d'appeler ; le panneau de fin passe en `UnityEvent` câblé dans
+l'Inspector ; le son et le compteur arrivent par deux canaux en SO.
 
-Le critère de réussite est la **troisième** étape : ils ajoutent un système
-entier sans rouvrir `Item.cs` ni `ItemManager.cs`. C'est la seule chose
-qu'ils doivent retenir du TP, et elle ne se démontre qu'en la faisant.
+Le critère de réussite est le **dernier** : une fois les canaux posés, ils
+écrivent `SoundManager` sans rouvrir un seul fichier existant. C'est la
+seule chose qu'ils doivent retenir du TP, et elle ne se démontre qu'en la
+faisant.
+
+Le bouton **Recommencer** du HUD reste couplé exprès : il appelle
+`ItemManager.ResetItems()` et personne n'y touche. Deux façons de faire sur
+le même écran — la question n'est pas « laquelle est bien », mais pourquoi
+pas la même partout.
 
 La branche `main` est le corrigé — ne la montrer qu'à la fin.
 

@@ -36,6 +36,7 @@ views:
       - __unmapped__
       - Post-mortem
       - Post-mortem-done
+      - Backlog
     cardSort: order
     laneGrouping: property
     collapsedLanes:

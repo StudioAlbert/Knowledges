@@ -5,7 +5,7 @@ code: GPR-UN-APU-05
 review:
   - "[[01 courses/__reviews/APU 05 Observer Pattern|Review APU-05]]"
 status: To check
-url_test: http://localhost:3000/unity/gpr-un-apu-05/
+url_test: http://localhost:3001/unity/gpr-un-apu-05/
 projet: Module 2 — 23 nov. 2026 → 12 févr. 2027
 subject: Unity
 bloc_gsda: Architecture et Patterns Unity
@@ -32,12 +32,13 @@ Le pattern Observer : sujet, observateurs, abonnement ; `event Action`, `UnityEv
 
 ## Ce qu'il y a à faire
 
-**Deck créé le 28.09**, **atelier monté le 27.10** sur son propre companion.
+**Deck créé le 28.09**, **atelier monté puis repris le 27.10** sur son propre companion.
 
 - **Deck** : [[01 courses/slides/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|GPR-UN-APU-05 - Observer, prévenir sans connaître]] — 23 slides, 2 schémas générés (`tools/schemas/apu05_*.py`). Les deux dernières ajoutées : les canaux d'événement du **Behavior Graph**.
-- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|atelier]] réécrit sur le companion — trois étapes en classe, cinq pistes à la maison.
-- **Companion** : [[01 courses/companion projects/Unity/GPR-UN-APU-05---Observer/README|GPR-UN-APU-05 — Observer]], sous-module. `01-depart` est la version couplée, `main` le corrigé.
+- **Exercices** : [[01 courses/exercises/Unity/GPR-UN-APU-05 - Observer, prévenir sans connaître|atelier]] — **quatre étapes en classe**, plus rien à la maison : la section *Pour aller plus loin* a été retirée, et le compteur sur canal est remonté dans l'atelier.
+- **Companion** : [[01 courses/companion projects/Unity/GPR-UN-APU-05---Observer/README|GPR-UN-APU-05 — Observer]], sous-module. `01-depart` est la version couplée, `main` le corrigé. Platformer pirate (Treasure Hunters), interface en **UI Toolkit**, bouton *Recommencer* laissé couplé en contre-exemple.
 - **Widget proposé, non fait** : `observer_bus_widget.html` — un sujet, un bus, quatre abonnés qui s'allument ; désabonner, détruire sans désabonner (abonné fantôme).
+- **Reste de ton côté** : le schéma Excalidraw avant / après, à produire depuis ton compte et à embarquer dans la fiche exercices.
 
 ## Matériel
 
